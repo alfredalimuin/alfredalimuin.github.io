@@ -1,0 +1,1508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alfred Alimuin — AI Automation Developer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #000000;
+      --bg2:       #0a0a0a;
+      --bg3:       #141414;
+      --text:      #f0f0f0;
+      --muted:     #777777;
+      --accent:    #22c55e;
+      --accent2:   #16a34a;
+      --border:    #1a2a1a;
+      --radius:    12px;
+      --grad:      linear-gradient(135deg, #22c55e, #4ade80);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* ── Nav ── */
+    body > *:not(#bg-canvas) { position: relative; z-index: 1; }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      background: rgba(0, 0, 0, 0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-weight: 700;
+      font-size: 1.1rem;
+      background: linear-gradient(135deg, #22c55e, #4ade80);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.5px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ── Sections ── */
+    section {
+      padding: 6rem 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+      letter-spacing: -0.5px;
+    }
+
+    /* ── Hero ── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: 5rem;
+    }
+
+    .hero-inner {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 3rem;
+    }
+
+    .hero-text { flex: 1; }
+
+    .hero-photo {
+      flex-shrink: 0;
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: top;
+      border: 3px solid var(--accent);
+      box-shadow: 0 0 40px rgba(34, 197, 94, 0.3);
+    }
+
+    @media (max-width: 640px) {
+      .hero-inner { flex-direction: column-reverse; align-items: flex-start; }
+      .hero-photo { width: 140px; height: 140px; }
+    }
+
+    .hero-tag {
+      display: inline-block;
+      background: rgba(34, 197, 94, 0.08);
+      color: var(--accent);
+      border: 1px solid rgba(34, 197, 94, 0.35);
+      border-radius: 999px;
+      padding: 0.3rem 1rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-name {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 700;
+      letter-spacing: -1px;
+      line-height: 1.1;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-name span {
+      background: linear-gradient(135deg, #22c55e, #4ade80);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-title {
+      font-size: 1.2rem;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-bio {
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 560px;
+      line-height: 1.8;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: linear-gradient(135deg, #22c55e, #4ade80);
+      color: #ffffff;
+      font-weight: 600;
+      font-size: 0.9rem;
+      padding: 0.75rem 1.75rem;
+      border-radius: var(--radius);
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.2s;
+      box-shadow: 0 0 20px rgba(34, 197, 94, 0.4);
+    }
+
+    .hero-cta:hover { opacity: 0.85; transform: translateY(-1px); }
+
+    /* ── About ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .about-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+    }
+
+    .about-card h3 {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 0.5rem;
+    }
+
+    .about-card p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    /* ── Skills ── */
+    .skills-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .skill-tag {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.5rem 1.25rem;
+      border-radius: 999px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .skill-tag:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* ── Projects ── */
+    .projects-grid {
+      display: grid;
+      gap: 1.25rem;
+    }
+
+    .project-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0;
+      overflow: hidden;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .project-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .project-screenshot {
+      width: 100%;
+      padding: 0.75rem;
+      border-bottom: 1px solid var(--border);
+      background: #0d0d0d;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .project-img {
+      width: 100%;
+      height: auto;
+      max-height: 280px;
+      object-fit: contain;
+      object-position: center;
+      opacity: 0.85;
+      border-radius: 6px;
+      transition: opacity 0.3s;
+      display: block;
+    }
+
+    .project-card:hover .project-img {
+      opacity: 1;
+    }
+
+    .project-img-placeholder {
+      color: var(--muted);
+      font-size: 0.75rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      opacity: 0.5;
+    }
+
+    .project-body {
+      padding: 1.75rem;
+    }
+
+    .project-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .project-name {
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .project-badge {
+      background: rgba(34, 197, 94, 0.08);
+      color: var(--accent);
+      border: 1px solid rgba(34, 197, 94, 0.35);
+      border-radius: 999px;
+      padding: 0.2rem 0.75rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .project-desc {
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .project-tag {
+      background: var(--bg3);
+      color: var(--muted);
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+    }
+
+    /* ── Contact ── */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .contact-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      text-decoration: none;
+      color: var(--text);
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .contact-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .contact-icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(34, 197, 94, 0.08);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .contact-label {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-bottom: 0.15rem;
+    }
+
+    .contact-value {
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      text-align: center;
+      padding: 2rem;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    /* ── Divider ── */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 0;
+    }
+
+    /* ── Demo ── */
+    .demo-meta {
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin-bottom: 1.75rem;
+      max-width: 680px;
+    }
+
+    .demo-tabs {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .demo-tab {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 0.55rem 1.2rem;
+      border-radius: var(--radius);
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .demo-tab.active {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(34, 197, 94, 0.08);
+    }
+
+    .demo-tab:hover:not(.active) {
+      border-color: var(--accent);
+      color: var(--text);
+    }
+
+    .flow-diagram {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem 1.5rem;
+      overflow-x: auto;
+    }
+
+    .flow-step {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.35rem;
+    }
+
+    .flow-node {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      border-radius: 8px;
+      padding: 0.35rem 0.8rem;
+      font-size: 0.775rem;
+      font-weight: 500;
+      white-space: nowrap;
+      border: 1px solid;
+    }
+
+    .fn-trigger  { border-color: #f59e0b; color: #fbbf24; background: rgba(245,158,11,0.08); }
+    .fn-webhook  { border-color: #22c55e; color: #86efac; background: rgba(34,197,94,0.1); }
+    .fn-code     { border-color: #818cf8; color: #a5b4fc; background: rgba(129,140,248,0.1); }
+    .fn-calendar { border-color: #4ade80; color: #bbf7d0; background: rgba(74,222,128,0.08); }
+    .fn-sheets   { border-color: #4ade80; color: #bbf7d0; background: rgba(74,222,128,0.08); }
+    .fn-gmail    { border-color: #f472b6; color: #fbcfe8; background: rgba(244,114,182,0.08); }
+    .fn-switch   { border-color: #fb923c; color: #fdba74; background: rgba(251,146,60,0.08); }
+    .fn-merge    { border-color: #06b6d4; color: #a5f3fc; background: rgba(6,182,212,0.08); }
+    .fn-set      { border-color: #64748b; color: #94a3b8; background: rgba(100,116,139,0.08); }
+    .fn-respond  { border-color: #22c55e; color: #86efac; background: rgba(34,197,94,0.1); }
+    .fn-if       { border-color: #fb923c; color: #fdba74; background: rgba(251,146,60,0.08); }
+
+    .flow-arrow {
+      color: #444444;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+
+    .flow-down {
+      text-align: center;
+      color: #444444;
+      font-size: 0.85rem;
+      line-height: 1;
+      margin: 0.15rem 0;
+    }
+
+    .flow-label {
+      font-size: 0.7rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      text-align: center;
+      margin: 0.9rem 0 0.4rem;
+    }
+
+    .flow-branch-row {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.35rem;
+    }
+
+    .flow-branch-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .flow-if-split {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      flex-wrap: wrap;
+      margin: 0.5rem 0;
+    }
+
+    .flow-if-path {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .flow-if-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 0.15rem 0.6rem;
+      border-radius: 999px;
+    }
+
+    .flow-if-label.yes { background: rgba(52,211,153,0.15); color: #6ee7b7; }
+    .flow-if-label.no  { background: rgba(244,114,182,0.15); color: #fbcfe8; }
+
+    .flow-stats {
+      display: flex;
+      gap: 2rem;
+      margin-top: 1.5rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+
+    .flow-stat-value {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .flow-stat-label {
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-top: 0.1rem;
+    }
+
+    .flow-badge-live {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #22c55e;
+      background: rgba(34,197,94,0.1);
+      border: 1px solid rgba(34,197,94,0.35);
+      border-radius: 999px;
+      padding: 0.25rem 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .flow-badge-live::before {
+      content: '';
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #22c55e;
+      animation: pulse-live 1.5s infinite;
+    }
+
+    @keyframes pulse-live {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.3; }
+    }
+
+    /* ── Live Call Demo ── */
+    .demo-call-wrap {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .demo-call-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .demo-call-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    .demo-call-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .demo-call-desc {
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.7;
+      margin-bottom: 1.1rem;
+    }
+
+    .demo-call-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+
+    .demo-call-features li {
+      color: var(--muted);
+      font-size: 0.84rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+
+    .demo-call-features li .feat-icon {
+      color: var(--accent);
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .demo-call-widget {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.85rem;
+      min-width: 130px;
+    }
+
+    /* Waveform bars */
+    .call-visualizer {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 5px;
+      height: 44px;
+    }
+
+    .call-bar {
+      width: 5px;
+      border-radius: 3px;
+      background: var(--accent);
+      height: 4px;
+      transition: height 0.08s ease;
+      opacity: 0.35;
+    }
+
+    .call-bar.speaking {
+      animation: bar-dance 0.7s ease-in-out infinite;
+      opacity: 1;
+    }
+
+    .call-bar:nth-child(1).speaking { animation-delay: 0.00s; }
+    .call-bar:nth-child(2).speaking { animation-delay: 0.10s; }
+    .call-bar:nth-child(3).speaking { animation-delay: 0.20s; }
+    .call-bar:nth-child(4).speaking { animation-delay: 0.10s; }
+    .call-bar:nth-child(5).speaking { animation-delay: 0.00s; }
+
+    @keyframes bar-dance {
+      0%, 100% { height: 5px; }
+      50%       { height: 36px; }
+    }
+
+    /* Call button */
+    .call-btn {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      border: 2px solid #22c55e;
+      background: rgba(34, 197, 94, 0.12);
+      color: #22c55e;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.25s;
+      font-family: inherit;
+      outline: none;
+      box-shadow: 0 0 20px rgba(34, 197, 94, 0.35);
+    }
+
+    .call-btn:hover {
+      background: rgba(34, 197, 94, 0.22);
+      box-shadow: 0 0 32px rgba(34, 197, 94, 0.55);
+      transform: scale(1.06);
+    }
+
+    .call-btn.state-connecting {
+      border-color: #f59e0b;
+      background: rgba(245, 158, 11, 0.1);
+      color: #fbbf24;
+      box-shadow: none;
+      animation: pulse-connecting 1.1s ease-in-out infinite;
+      cursor: default;
+    }
+
+    .call-btn.state-active {
+      border-color: #f472b6;
+      background: rgba(244, 114, 182, 0.12);
+      color: #f472b6;
+      box-shadow: 0 0 22px rgba(244, 114, 182, 0.4);
+    }
+
+    .call-btn.state-active:hover {
+      background: rgba(244, 114, 182, 0.22);
+      box-shadow: 0 0 32px rgba(244, 114, 182, 0.55);
+      transform: scale(1.06);
+    }
+
+    @keyframes pulse-connecting {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(245,158,11,0.45); }
+      50%       { box-shadow: 0 0 0 14px rgba(245,158,11,0); }
+    }
+
+    .call-status-text {
+      font-size: 0.78rem;
+      color: var(--muted);
+      text-align: center;
+      min-height: 1.1em;
+    }
+
+    .call-timer {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--accent);
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 0.5px;
+    }
+
+    .call-disclaimer {
+      font-size: 0.72rem;
+      color: var(--bg3);
+      text-align: center;
+      margin-top: 0.25rem;
+    }
+
+    @media (max-width: 640px) {
+      .demo-call-card {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .demo-call-features li {
+        justify-content: center;
+      }
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 640px) {
+      nav { padding: 1rem; }
+      .nav-links { gap: 1rem; }
+      .about-grid { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; }
+      section { padding: 4rem 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="bg-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
+
+  <!-- Nav -->
+  <nav>
+    <div class="nav-logo">Alfred's AI Automation World</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#demo">Demo</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero -->
+  <section id="hero">
+    <div class="hero-inner">
+      <div class="hero-text">
+      <div class="hero-tag">Available for work</div>
+      <h1 class="hero-name">Hi, I'm <span>Alfred</span><br />Alimuin.</h1>
+      <p class="hero-title">AI Automation Developer</p>
+      <p class="hero-bio">
+        I build intelligent automation systems that connect AI tools, APIs, and workflows
+        to solve real-world problems — faster, smarter, and at scale.
+      </p>
+      <a href="#contact" class="hero-cta">Get in touch →</a>
+      </div>
+      <img src="photo.jpg" alt="Alfred Alimuin" class="hero-photo" />
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- About -->
+  <section id="about">
+    <p class="section-label">Background</p>
+    <h2 class="section-title">About Me</h2>
+    <div class="about-grid">
+      <div class="about-card">
+        <h3>Experience</h3>
+        <p>
+          10+ years in IT across international schools and critical infrastructure — progressing
+          from helpdesk and systems support to full IT administration, managing 3,000+ devices,
+          Microsoft 365 environments, and network infrastructure across multi-site education groups
+          (Inspired Education Group, Riffa Views, King Fahd Causeway Authority).<br /><br />
+          Since 2025, focused on AI automation — building n8n, Zapier, and AI-powered workflows
+          that eliminated 30%+ of manual tasks, onboarded 500+ users, and reduced investigation
+          time by 20%.
+        </p>
+      </div>
+      <div class="about-card">
+        <h3>Education</h3>
+        <p>
+          BS in Informatics Engineering — AMA International University Bahrain (2014)<br /><br />
+          MBA in Project Management — Completed 2025
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- Skills -->
+  <section id="skills">
+    <p class="section-label">What I work with</p>
+    <h2 class="section-title">Skills</h2>
+    <div class="skills-grid">
+      <span class="skill-tag">Python</span>
+      <span class="skill-tag">n8n</span>
+      <span class="skill-tag">AI Tools & LLMs</span>
+      <span class="skill-tag">Zapier</span>
+      <span class="skill-tag">Go High Level</span>
+      <span class="skill-tag">Visual Studio Code</span>
+      <span class="skill-tag">Project Management</span>
+      <span class="skill-tag">API Integration</span>
+      <span class="skill-tag">Workflow Automation</span>
+      <span class="skill-tag">Google Administration</span>
+      <span class="skill-tag">Microsoft Azure</span>
+      <span class="skill-tag">Microsoft Applications</span>
+      <span class="skill-tag">Microsoft 365</span>
+      <span class="skill-tag">Active Directory</span>
+      <span class="skill-tag">Microsoft Servers</span>
+      <span class="skill-tag">Google Applications</span>
+      <span class="skill-tag">Cisco Networks</span>
+      <span class="skill-tag">Antivirus</span>
+      <span class="skill-tag">System Administration</span>
+      <span class="skill-tag">Helpdesk</span>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- Demo -->
+  <section id="demo">
+    <p class="section-label">Workflow Demo</p>
+    <h2 class="section-title">Live AI Voice Booking Assistant using VAPI</h2>
+    <p class="demo-meta">
+      A 31-node n8n automation that connects a VAPI AI phone agent to Google Calendar, Google Sheets,
+      and Gmail — handling both appointment booking and cancellations entirely through voice, in real time.
+    </p>
+    <div class="flow-badge-live">Live on n8n</div>
+
+    <div class="demo-tabs">
+      <button class="demo-tab active" onclick="showFlow('booking', this)">📅 Booking Flow</button>
+      <button class="demo-tab" onclick="showFlow('cancel', this)">✕ Cancellation Flow</button>
+    </div>
+
+    <!-- ── Booking Flow ── -->
+    <div id="flow-booking" class="flow-diagram">
+
+      <div class="flow-label">Trigger</div>
+      <div class="flow-step">
+        <span class="flow-node fn-trigger">🎙 VAPI Voice Call</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-node fn-webhook">⚡ Webhook: Book Appointment</span>
+      </div>
+
+      <div class="flow-down">↓</div>
+
+      <div class="flow-label">Data Processing</div>
+      <div class="flow-step">
+        <span class="flow-node fn-code">⟨/⟩ Extract Booking Data</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-node fn-calendar">📅 Create Calendar Event</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-node fn-set">⚙ Build VAPI Response</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-node fn-respond">↩ Respond to VAPI</span>
+      </div>
+
+      <div class="flow-down">↓</div>
+
+      <div class="flow-label">Route by Appointment Type</div>
+      <div class="flow-step">
+        <span class="flow-node fn-switch">⇌ Route by Appointment Type</span>
+      </div>
+
+      <div class="flow-down">↓</div>
+
+      <div class="flow-branch-row">
+        <div class="flow-branch-group">
+          <span class="flow-node fn-sheets">🗄 Save Aesthetic Surgery</span>
+        </div>
+        <div class="flow-branch-group">
+          <span class="flow-node fn-sheets">🗄 Save Dental Surgery</span>
+        </div>
+        <div class="flow-branch-group">
+          <span class="flow-node fn-sheets">🗄 Save Dental Checkup</span>
+        </div>
+      </div>
+
+      <div class="flow-down">↓</div>
+
+      <div class="flow-label">Finalize</div>
+      <div class="flow-step">
+        <span class="flow-node fn-merge">⊕ Merge Branches</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-node fn-gmail">✉ Send Confirmation Email</span>
+      </div>
+
+      <div class="flow-stats">
+        <div>
+          <div class="flow-stat-value">3</div>
+          <div class="flow-stat-label">Appointment types routed</div>
+        </div>
+        <div>
+          <div class="flow-stat-value">3</div>
+          <div class="flow-stat-label">Google Sheets tabs logged</div>
+        </div>
+        <div>
+          <div class="flow-stat-value">100%</div>
+          <div class="flow-stat-label">Voice-to-confirmation automated</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Cancellation Flow ── -->
+    <div id="flow-cancel" class="flow-diagram" style="display:none">
+
+      <div class="flow-label">Trigger</div>
+      <div class="flow-step">
+        <span class="flow-node fn-trigger">🎙 VAPI Voice Call</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-node fn-webhook">⚡ Webhook: Cancel Appointment</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-node fn-code">⟨/⟩ Extract Cancel Data</span>
+      </div>
+
+      <div class="flow-down">↓</div>
+
+      <div class="flow-label">Parallel Sheet Search</div>
+      <div class="flow-branch-row">
+        <div class="flow-branch-group">
+          <span class="flow-node fn-sheets">🗄 Read Aesthetic Sheet</span>
+          <div class="flow-down">↓</div>
+          <span class="flow-node fn-set">⚙ Tag Aesthetic Rows</span>
+        </div>
+        <div class="flow-branch-group">
+          <span class="flow-node fn-sheets">🗄 Read Dental Surgery Sheet</span>
+          <div class="flow-down">↓</div>
+          <span class="flow-node fn-set">⚙ Tag Dental Surgery Rows</span>
+        </div>
+        <div class="flow-branch-group">
+          <span class="flow-node fn-sheets">🗄 Read Dental Checkup Sheet</span>
+          <div class="flow-down">↓</div>
+          <span class="flow-node fn-set">⚙ Tag Dental Checkup Rows</span>
+        </div>
+      </div>
+
+      <div class="flow-down">↓</div>
+
+      <div class="flow-label">Match &amp; Decide</div>
+      <div class="flow-step">
+        <span class="flow-node fn-merge">⊕ Merge All Sheet Rows</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-node fn-code">⟨/⟩ Find Matching Appointment</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-node fn-if">? Appointment Found?</span>
+      </div>
+
+      <div class="flow-down">↓</div>
+
+      <div class="flow-if-split">
+        <div class="flow-if-path">
+          <span class="flow-if-label yes">✓ Yes</span>
+          <span class="flow-node fn-calendar">📅 Delete Calendar Event</span>
+          <div class="flow-down">↓</div>
+          <span class="flow-node fn-sheets">🗄 Update Row in Google Sheets</span>
+          <div class="flow-down">↓</div>
+          <span class="flow-node fn-set">⚙ Build Cancel Response</span>
+          <div class="flow-down">↓</div>
+          <span class="flow-node fn-respond">↩ Respond to VAPI</span>
+          <div class="flow-down">↓</div>
+          <span class="flow-node fn-gmail">✉ Send Cancellation Email</span>
+        </div>
+        <div class="flow-if-path">
+          <span class="flow-if-label no">✕ Not Found</span>
+          <span class="flow-node fn-set">⚙ Build Not Found Response</span>
+          <div class="flow-down">↓</div>
+          <span class="flow-node fn-respond">↩ Respond to VAPI</span>
+        </div>
+      </div>
+
+      <div class="flow-stats">
+        <div>
+          <div class="flow-stat-value">3</div>
+          <div class="flow-stat-label">Sheets searched in parallel</div>
+        </div>
+        <div>
+          <div class="flow-stat-value">2</div>
+          <div class="flow-stat-label">Outcome paths (found / not found)</div>
+        </div>
+        <div>
+          <div class="flow-stat-value">0</div>
+          <div class="flow-stat-label">Manual steps required</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Live Call Demo -->
+    <div class="demo-call-wrap">
+      <p class="demo-call-label">Try it live</p>
+      <div class="demo-call-card">
+        <div class="demo-call-left">
+          <div class="demo-call-title">Talk to the Booking Assistant</div>
+          <p class="demo-call-desc">
+            Book or cancel a dental appointment entirely by voice. The AI agent will
+            walk you through date, time, and appointment type — then confirm everything
+            automatically via Google Calendar and Gmail.
+          </p>
+          <ul class="demo-call-features">
+            <li><span class="feat-icon">✦</span> Schedule Dental Checkup, Dental Surgery, or Aesthetic Surgery</li>
+            <li><span class="feat-icon">✦</span> Cancel an existing appointment by patient name</li>
+            <li><span class="feat-icon">✦</span> Calendar event + confirmation email sent automatically</li>
+          </ul>
+        </div>
+        <div class="demo-call-widget">
+          <div class="call-visualizer">
+            <div class="call-bar" id="bar1"></div>
+            <div class="call-bar" id="bar2"></div>
+            <div class="call-bar" id="bar3"></div>
+            <div class="call-bar" id="bar4"></div>
+            <div class="call-bar" id="bar5"></div>
+          </div>
+          <button class="call-btn" id="call-btn" onclick="toggleVapiCall()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.99 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.92 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </button>
+          <div class="call-status-text" id="call-status">Click to start call</div>
+          <div class="call-timer" id="call-timer" style="display:none">00:00</div>
+          <div class="call-disclaimer">Microphone required</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    /* ── Flow tab switcher ── */
+    function showFlow(id, btn) {
+      document.getElementById('flow-booking').style.display = 'none';
+      document.getElementById('flow-cancel').style.display  = 'none';
+      document.getElementById('flow-' + id).style.display  = 'block';
+      document.querySelectorAll('.demo-tab').forEach(function(t) { t.classList.remove('active'); });
+      btn.classList.add('active');
+    }
+
+    /* ── VAPI Live Demo ── */
+    var _vapi       = null;
+    var _callState  = 'idle';
+    var _callSecs   = 0;
+    var _callClock  = null;
+
+    var VAPI_PUBLIC_KEY  = 'e32694fc-ea16-41e3-9b15-99d206e804d7';
+    var VAPI_ASSISTANT   = 'e710f898-76fb-40b8-8833-ec13719e5274';
+
+    function loadVapiSDK(cb) {
+      if (_vapi) { cb(); return; }
+      var s = document.createElement('script');
+      s.src = 'https://cdn.jsdelivr.net/gh/VapiAI/html-script-tag@latest/dist/assets/index.js';
+      s.defer = true;
+      s.onload = function () {
+        // vapiSDK.run() initialises the Vapi client and returns the instance.
+        // We push the floating button far off-screen and hide it via CSS.
+        _vapi = window.vapiSDK.run({
+          apiKey: VAPI_PUBLIC_KEY,
+          assistant: VAPI_ASSISTANT,
+          config: { position: 'bottom-right', offset: '-500px' }
+        });
+        // Inject CSS to hide VAPI's own floating button overlay
+        var hide = document.createElement('style');
+        hide.textContent = '[class*="vapi-btn"],[id*="vapi-support"],[class*="vapiButton"]{display:none!important;visibility:hidden!important;pointer-events:none!important}';
+        document.head.appendChild(hide);
+        _bindEvents();
+        cb();
+      };
+      s.onerror = function () {
+        setCallUI('idle');
+        var el = document.getElementById('call-status');
+        if (el) el.textContent = 'Could not load VAPI — check your connection';
+      };
+      document.head.appendChild(s);
+    }
+
+    function _bindEvents() {
+      if (!_vapi || _vapi._portfolioBound) return;
+      _vapi._portfolioBound = true;
+      _vapi.on('call-start',    onCallStart);
+      _vapi.on('call-end',      onCallEnd);
+      _vapi.on('speech-start',  onSpeechStart);
+      _vapi.on('speech-end',    onSpeechEnd);
+      _vapi.on('volume-level',  onVolume);
+      _vapi.on('error',         onCallError);
+    }
+
+    function toggleVapiCall() {
+      if (_callState === 'connecting') return;
+      if (_callState === 'active') { _vapi && _vapi.stop(); return; }
+      setCallUI('connecting');
+      loadVapiSDK(function () {
+        _vapi.start(VAPI_ASSISTANT).catch(function (e) {
+          setCallUI('idle');
+          setStatus('Mic access denied — please allow microphone', 'idle');
+        });
+      });
+    }
+
+    function onCallStart() {
+      setCallUI('active');
+      _callSecs = 0;
+      _callClock = setInterval(function () {
+        _callSecs++;
+        var m = String(Math.floor(_callSecs / 60)).padStart(2, '0');
+        var s = String(_callSecs % 60).padStart(2, '0');
+        var el = document.getElementById('call-timer');
+        if (el) el.textContent = m + ':' + s;
+      }, 1000);
+    }
+
+    function onCallEnd() {
+      clearInterval(_callClock);
+      setCallUI('idle');
+      setBars(false);
+    }
+
+    function onSpeechStart() {
+      setBars(true);
+      setStatus('Assistant speaking…', 'active');
+    }
+
+    function onSpeechEnd() {
+      setBars(false);
+      setStatus('Listening…', 'active');
+    }
+
+    function onVolume(level) {
+      var ids = ['bar1','bar2','bar3','bar4','bar5'];
+      ids.forEach(function (id, i) {
+        var el = document.getElementById(id);
+        if (!el) return;
+        var h = Math.max(4, Math.round(level * 38 * (0.4 + Math.sin(i + Date.now() / 200) * 0.3 + Math.random() * 0.3)));
+        el.style.height = h + 'px';
+      });
+    }
+
+    function onCallError(err) {
+      clearInterval(_callClock);
+      setCallUI('idle');
+      setBars(false);
+      setStatus((err && err.message) ? 'Error: ' + err.message : 'Call failed — please try again', 'idle');
+    }
+
+    function setCallUI(state) {
+      _callState = state;
+      var btn    = document.getElementById('call-btn');
+      var timer  = document.getElementById('call-timer');
+      if (!btn) return;
+
+      btn.className = 'call-btn' + (state !== 'idle' ? ' state-' + state : '');
+
+      var icons = {
+        idle: '<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.99 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.92 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>',
+        connecting: '<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/></svg>',
+        active: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>'
+      };
+      btn.innerHTML = icons[state] || icons.idle;
+
+      var statusMap = { idle: 'Click to start call', connecting: 'Connecting…', active: 'Listening…' };
+      setStatus(statusMap[state] || '', state);
+
+      if (timer) timer.style.display = (state === 'active') ? 'block' : 'none';
+      if (state !== 'active') { if (timer) timer.textContent = '00:00'; }
+    }
+
+    function setStatus(msg, state) {
+      var el = document.getElementById('call-status');
+      if (el) el.textContent = msg;
+    }
+
+    function setBars(on) {
+      ['bar1','bar2','bar3','bar4','bar5'].forEach(function (id) {
+        var el = document.getElementById(id);
+        if (!el) return;
+        if (on) { el.classList.add('speaking'); }
+        else    { el.classList.remove('speaking'); el.style.height = '4px'; }
+      });
+    }
+  </script>
+
+  <hr class="divider" />
+
+  <!-- Projects -->
+  <section id="projects">
+    <p class="section-label">What I've built</p>
+    <h2 class="section-title">Projects</h2>
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <div class="project-screenshot">
+          <img src="images/workflow-dental-booking.png" alt="VAPI Dental Clinic Voice Booking" class="project-img" onerror="this.parentElement.innerHTML='<span class=\'project-img-placeholder\'>Screenshot coming soon</span>'" />
+        </div>
+        <div class="project-body">
+          <div class="project-header">
+            <span class="project-name">VAPI Dental Clinic Voice Booking</span>
+            <span class="project-badge">n8n</span>
+          </div>
+          <p class="project-desc">
+            A voice-to-automation pipeline where patients book dental appointments through
+            a VAPI AI phone agent. The call data flows into n8n, which creates a Google
+            Calendar event, logs the booking to the correct Google Sheets tab by appointment
+            type, and sends an HTML confirmation email — all in real time.
+          </p>
+          <div class="project-tags">
+            <span class="project-tag">n8n</span>
+            <span class="project-tag">VAPI</span>
+            <span class="project-tag">Google Calendar</span>
+            <span class="project-tag">Google Sheets</span>
+            <span class="project-tag">Gmail</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-screenshot">
+          <img src="images/workflow-cancel.png" alt="Voice-Triggered Appointment Cancellation" class="project-img" onerror="this.parentElement.innerHTML='<span class=\'project-img-placeholder\'>Screenshot coming soon</span>'" />
+        </div>
+        <div class="project-body">
+          <div class="project-header">
+            <span class="project-name">Voice-Triggered Appointment Cancellation</span>
+            <span class="project-badge">n8n</span>
+          </div>
+          <p class="project-desc">
+            An automated cancellation flow extending the dental booking system. When a
+            patient requests cancellation via VAPI, n8n searches all appointment sheet tabs
+            in parallel, deletes the Google Calendar event, marks the record as Cancelled
+            with a timestamp, and sends a cancellation confirmation email to the patient.
+          </p>
+          <div class="project-tags">
+            <span class="project-tag">n8n</span>
+            <span class="project-tag">VAPI</span>
+            <span class="project-tag">Google Sheets</span>
+            <span class="project-tag">Google Calendar</span>
+            <span class="project-tag">Gmail</span>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="project-card">
+        <div class="project-screenshot">
+          <img src="images/workflow-fitness.png" alt="The AI Fitness Coach" class="project-img" onerror="this.parentElement.innerHTML='<span class=\'project-img-placeholder\'>Screenshot coming soon</span>'" />
+        </div>
+        <div class="project-body">
+          <div class="project-header">
+            <span class="project-name">The AI Fitness Coach: Strava Data Analyzer & Planner</span>
+            <span class="project-badge">n8n</span>
+          </div>
+          <p class="project-desc">
+            Triggered the moment a new activity is logged on Strava, the workflow reads the
+            athlete's training goals from Google Sheets, merges them with the incoming activity
+            data, calculates key performance metrics, and sends the results to Groq AI for
+            analysis. A personalized coaching email with feedback and next-session recommendations
+            is delivered automatically via Gmail.
+          </p>
+          <div class="project-tags">
+            <span class="project-tag">n8n</span>
+            <span class="project-tag">Strava</span>
+            <span class="project-tag">Groq AI</span>
+            <span class="project-tag">Google Sheets</span>
+            <span class="project-tag">Gmail</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-screenshot">
+          <img src="images/workflow-jotform.png" alt="JotForm Lead Capture" class="project-img" onerror="this.parentElement.innerHTML='<span class=\'project-img-placeholder\'>Screenshot coming soon</span>'" />
+        </div>
+        <div class="project-body">
+          <div class="project-header">
+            <span class="project-name">JotForm Lead Capture → Sheets + AI Summary → Gmail</span>
+            <span class="project-badge">n8n</span>
+          </div>
+          <p class="project-desc">
+            Captures every JotForm submission via webhook, extracts and classifies lead fields,
+            then routes the record into either the Corporate or Individual Google Sheets tab.
+            Each branch independently calls Groq AI to generate a tailored lead summary, which
+            is included in a formatted follow-up email sent automatically to the sales team via Gmail.
+          </p>
+          <div class="project-tags">
+            <span class="project-tag">n8n</span>
+            <span class="project-tag">JotForm</span>
+            <span class="project-tag">Groq AI</span>
+            <span class="project-tag">Google Sheets</span>
+            <span class="project-tag">Gmail</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-screenshot">
+          <img src="images/workflow-property.png" alt="Property Manager AI Agent" class="project-img" onerror="this.parentElement.innerHTML='<span class=\'project-img-placeholder\'>Screenshot coming soon</span>'" />
+        </div>
+        <div class="project-body">
+          <div class="project-header">
+            <span class="project-name">Property Manager AI Agent</span>
+            <span class="project-badge">n8n</span>
+          </div>
+          <p class="project-desc">
+            A WhatsApp-based AI property management assistant powered by a LangChain agent
+            with Groq and conversation memory. Tenants send requests via WhatsApp; the agent
+            holds a back-and-forth conversation until the request is fully understood, then
+            routes it to the correct team — Maintenance, Billing, Complaints, or General
+            Inquiries — via email, logs every case to Google Sheets, and sends the tenant a
+            WhatsApp confirmation automatically.
+          </p>
+          <div class="project-tags">
+            <span class="project-tag">n8n</span>
+            <span class="project-tag">WhatsApp</span>
+            <span class="project-tag">Twilio</span>
+            <span class="project-tag">AI Agent</span>
+            <span class="project-tag">Groq AI</span>
+            <span class="project-tag">Google Sheets</span>
+            <span class="project-tag">Gmail</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- Contact -->
+  <section id="contact">
+    <p class="section-label">Let's connect</p>
+    <h2 class="section-title">Contact</h2>
+    <div class="contact-grid">
+      <a class="contact-card" href="mailto:alfredalimuiin@gmail.com">
+        <div class="contact-icon">✉</div>
+        <div>
+          <div class="contact-label">Email</div>
+          <div class="contact-value">alfredalimuiin@gmail.com</div>
+        </div>
+      </a>
+      <a class="contact-card" href="tel:+97339311076">
+        <div class="contact-icon">📞</div>
+        <div>
+          <div class="contact-label">Phone</div>
+          <div class="contact-value">+973 39311076</div>
+        </div>
+      </a>
+      <div class="contact-card">
+        <div class="contact-icon">🎮</div>
+        <div>
+          <div class="contact-label">Discord</div>
+          <div class="contact-value">derftv — derf#8693</div>
+        </div>
+      </div>
+      <a class="contact-card" href="https://instagram.com/alfredalimuin" target="_blank" rel="noopener noreferrer">
+        <div class="contact-icon">📸</div>
+        <div>
+          <div class="contact-label">Instagram</div>
+          <div class="contact-value">@alfredalimuin</div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2026 Alfred Alimuin. Built with HTML & CSS.</p>
+  </footer>
+
+  <script>
+    /* ── Particle Background ── */
+    (function () {
+      var canvas = document.getElementById('bg-canvas');
+      var ctx    = canvas.getContext('2d');
+      var W, H, particles = [];
+      var COUNT = 70, DIST = 140;
+      var C = '34,197,94';   /* green rgb */
+
+      function resize() {
+        W = canvas.width  = window.innerWidth;
+        H = canvas.height = window.innerHeight;
+      }
+
+      function mkParticle() {
+        var angle = Math.random() * Math.PI * 2;
+        var speed = 0.25 + Math.random() * 0.4;
+        return {
+          x:  Math.random() * W,
+          y:  Math.random() * H,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed,
+          r:  Math.random() * 1.8 + 0.6,
+          o:  Math.random() * 0.45 + 0.15
+        };
+      }
+
+      function init() {
+        resize();
+        particles = [];
+        for (var i = 0; i < COUNT; i++) particles.push(mkParticle());
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, W, H);
+
+        for (var i = 0; i < particles.length; i++) {
+          var p = particles[i];
+          p.x += p.vx;
+          p.y += p.vy;
+          if (p.x < 0)  { p.x = 0;  p.vx *= -1; }
+          if (p.x > W)  { p.x = W;  p.vx *= -1; }
+          if (p.y < 0)  { p.y = 0;  p.vy *= -1; }
+          if (p.y > H)  { p.y = H;  p.vy *= -1; }
+
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(' + C + ',' + p.o + ')';
+          ctx.fill();
+
+          for (var j = i + 1; j < particles.length; j++) {
+            var q  = particles[j];
+            var dx = p.x - q.x, dy = p.y - q.y;
+            var d  = Math.sqrt(dx * dx + dy * dy);
+            if (d < DIST) {
+              ctx.beginPath();
+              ctx.moveTo(p.x, p.y);
+              ctx.lineTo(q.x, q.y);
+              ctx.strokeStyle = 'rgba(' + C + ',' + ((1 - d / DIST) * 0.18) + ')';
+              ctx.lineWidth   = 0.6;
+              ctx.stroke();
+            }
+          }
+        }
+        requestAnimationFrame(draw);
+      }
+
+      window.addEventListener('resize', init);
+      init();
+      draw();
+    })();
+  </script>
+
+</body>
+</html>
