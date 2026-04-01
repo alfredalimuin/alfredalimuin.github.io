@@ -240,106 +240,121 @@
     }
 
     /* ── Projects ── */
-    .projects-grid {
-      display: grid;
-      gap: 1.25rem;
-    }
-
-    .project-card {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 0;
-      overflow: hidden;
-      transition: border-color 0.2s, transform 0.2s;
-    }
-
-    .project-card:hover {
-      border-color: var(--accent);
-      transform: translateY(-2px);
-    }
-
-    .project-screenshot {
+    /* ── Bubble System ── */
+    .bubble-system {
+      position: relative;
       width: 100%;
-      padding: 0.75rem;
-      border-bottom: 1px solid var(--border);
-      background: #0d0d0d;
+      height: 560px;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
-    .project-img {
-      width: 100%;
-      height: auto;
-      max-height: 280px;
-      object-fit: contain;
-      object-position: center;
-      opacity: 0.85;
-      border-radius: 6px;
-      transition: opacity 0.3s;
-      display: block;
+    .main-bubble {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 164px; height: 164px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #1e4a2e, #0a150d);
+      border: 2px solid rgba(34, 197, 94, 0.5);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      cursor: pointer; z-index: 10;
+      transition: box-shadow 0.3s, border-color 0.3s;
+      animation: mainPulse 3s ease-in-out infinite;
+      user-select: none;
     }
 
-    .project-card:hover .project-img {
-      opacity: 1;
+    .main-bubble:hover { border-color: var(--accent); box-shadow: 0 0 45px rgba(34,197,94,0.55); }
+    .bubble-system.expanded .main-bubble { box-shadow: 0 0 55px rgba(34,197,94,0.65); border-color: var(--accent); animation: none; }
+
+    @keyframes mainPulse {
+      0%, 100% { box-shadow: 0 0 15px rgba(34,197,94,0.2); }
+      50%       { box-shadow: 0 0 38px rgba(34,197,94,0.5); }
     }
 
-    .project-img-placeholder {
-      color: var(--muted);
-      font-size: 0.75rem;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      opacity: 0.5;
+    .main-bubble-icon  { font-size: 1.6rem; display: block; margin-bottom: 0.25rem; }
+    .main-bubble-label { font-size: 0.95rem; font-weight: 700; color: var(--text); display: block; margin-bottom: 0.2rem; }
+    .main-bubble-hint  { font-size: 0.62rem; color: var(--muted); display: block; }
+    .main-bubble-close { font-size: 0.62rem; color: var(--accent); display: none; }
+
+    .bubble-system.expanded .main-bubble-hint  { display: none; }
+    .bubble-system.expanded .main-bubble-close { display: block; }
+
+    .project-bubble {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      opacity: 0; pointer-events: none;
+      width: 138px; height: 138px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #1a3a2a, #080f0a);
+      border: 2px solid rgba(34, 197, 94, 0.2);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; padding: 1rem;
+      cursor: pointer; z-index: 5;
+      transition: opacity 0.3s, transform 0.45s cubic-bezier(0.34,1.56,0.64,1), border-color 0.2s, box-shadow 0.2s;
+      user-select: none;
     }
 
-    .project-body {
-      padding: 1.75rem;
-    }
+    .project-bubble:hover { border-color: var(--accent); box-shadow: 0 0 25px rgba(34,197,94,0.35); }
 
-    .project-header {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 1rem;
-      margin-bottom: 0.75rem;
-    }
+    .bubble-system.expanded .project-bubble { opacity: 1; pointer-events: all; }
+    .bubble-system.expanded .project-bubble:nth-child(2) { transform: translate(calc(-50% + 0px),    calc(-50% - 215px)) scale(1); transition-delay: 0.04s; }
+    .bubble-system.expanded .project-bubble:nth-child(3) { transform: translate(calc(-50% + 205px),  calc(-50% - 66px))  scale(1); transition-delay: 0.09s; }
+    .bubble-system.expanded .project-bubble:nth-child(4) { transform: translate(calc(-50% + 126px),  calc(-50% + 175px)) scale(1); transition-delay: 0.14s; }
+    .bubble-system.expanded .project-bubble:nth-child(5) { transform: translate(calc(-50% - 126px),  calc(-50% + 175px)) scale(1); transition-delay: 0.19s; }
+    .bubble-system.expanded .project-bubble:nth-child(6) { transform: translate(calc(-50% - 205px),  calc(-50% - 66px))  scale(1); transition-delay: 0.24s; }
 
-    .project-name {
-      font-size: 1.1rem;
-      font-weight: 600;
-    }
+    .bubble-name  { font-size: 0.7rem; font-weight: 600; color: var(--text); line-height: 1.3; margin-bottom: 0.45rem; }
+    .bubble-badge { background: rgba(34,197,94,0.12); color: var(--accent); border: 1px solid rgba(34,197,94,0.35); border-radius: 999px; padding: 0.15rem 0.55rem; font-size: 0.62rem; font-weight: 600; }
 
-    .project-badge {
-      background: rgba(34, 197, 94, 0.08);
-      color: var(--accent);
-      border: 1px solid rgba(34, 197, 94, 0.35);
-      border-radius: 999px;
-      padding: 0.2rem 0.75rem;
-      font-size: 0.75rem;
-      font-weight: 500;
-      white-space: nowrap;
+    /* ── Modal ── */
+    .modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.88);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
+      display: flex; align-items: center; justify-content: center;
+      padding: 1.5rem;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.25s;
     }
+    .modal-overlay.active { opacity: 1; pointer-events: all; }
 
-    .project-desc {
-      color: var(--muted);
-      font-size: 0.95rem;
-      line-height: 1.7;
-      margin-bottom: 1rem;
+    .modal-box {
+      background: #0f0f0f;
+      border: 1px solid rgba(34,197,94,0.25);
+      border-radius: 16px;
+      max-width: 580px; width: 100%;
+      max-height: 88vh; overflow-y: auto;
+      transform: scale(0.88);
+      transition: transform 0.25s;
     }
+    .modal-overlay.active .modal-box { transform: scale(1); }
 
-    .project-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
+    .modal-img-wrap { padding: 1rem; background: #0d0d0d; border-bottom: 1px solid var(--border); }
+    .modal-img { width: 100%; max-height: 260px; object-fit: contain; border-radius: 8px; opacity: 0.9; display: block; }
+    .modal-body { padding: 1.75rem; }
+    .modal-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; margin-bottom: 0.6rem; }
+    .modal-title { font-size: 1.05rem; font-weight: 700; line-height: 1.4; }
+    .modal-close { background: none; border: 1px solid var(--border); color: var(--muted); border-radius: 8px; width: 32px; height: 32px; cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: border-color 0.2s, color 0.2s; }
+    .modal-close:hover { border-color: var(--accent); color: var(--accent); }
+    .modal-badge { display: inline-block; background: rgba(34,197,94,0.08); color: var(--accent); border: 1px solid rgba(34,197,94,0.35); border-radius: 999px; padding: 0.2rem 0.75rem; font-size: 0.75rem; font-weight: 500; margin-bottom: 1rem; }
+    .modal-desc { color: var(--muted); font-size: 0.92rem; line-height: 1.75; margin-bottom: 1.25rem; }
+    .modal-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .modal-tag { background: var(--bg3); color: var(--muted); padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.75rem; }
 
-    .project-tag {
-      background: var(--bg3);
-      color: var(--muted);
-      padding: 0.25rem 0.75rem;
-      border-radius: 999px;
-      font-size: 0.75rem;
+    @media (max-width: 700px) {
+      .bubble-system { height: 480px; }
+      .bubble-system.expanded .project-bubble:nth-child(2) { transform: translate(calc(-50% + 0px),   calc(-50% - 175px)) scale(1); }
+      .bubble-system.expanded .project-bubble:nth-child(3) { transform: translate(calc(-50% + 165px), calc(-50% - 54px))  scale(1); }
+      .bubble-system.expanded .project-bubble:nth-child(4) { transform: translate(calc(-50% + 102px), calc(-50% + 142px)) scale(1); }
+      .bubble-system.expanded .project-bubble:nth-child(5) { transform: translate(calc(-50% - 102px), calc(-50% + 142px)) scale(1); }
+      .bubble-system.expanded .project-bubble:nth-child(6) { transform: translate(calc(-50% - 165px), calc(-50% - 54px))  scale(1); }
     }
 
     /* ── Contact ── */
@@ -1252,139 +1267,101 @@
   <section id="projects">
     <p class="section-label">What I've built</p>
     <h2 class="section-title">Projects</h2>
-    <div class="projects-grid">
+    <div class="bubble-system" id="bubbleSystem">
 
-      <div class="project-card">
-        <div class="project-screenshot">
-          <img src="images/workflow-dental-booking.png" alt="VAPI Dental Clinic Voice Booking" class="project-img" onerror="this.parentElement.innerHTML='<span class=\'project-img-placeholder\'>Screenshot coming soon</span>'" />
-        </div>
-        <div class="project-body">
-          <div class="project-header">
-            <span class="project-name">VAPI Dental Clinic Voice Booking</span>
-            <span class="project-badge">n8n</span>
-          </div>
-          <p class="project-desc">
-            A voice-to-automation pipeline where patients book dental appointments through
-            a VAPI AI phone agent. The call data flows into n8n, which creates a Google
-            Calendar event, logs the booking to the correct Google Sheets tab by appointment
-            type, and sends an HTML confirmation email — all in real time.
-          </p>
-          <div class="project-tags">
-            <span class="project-tag">n8n</span>
-            <span class="project-tag">VAPI</span>
-            <span class="project-tag">Google Calendar</span>
-            <span class="project-tag">Google Sheets</span>
-            <span class="project-tag">Gmail</span>
-          </div>
-        </div>
+      <div class="main-bubble" onclick="toggleBubbles()">
+        <span class="main-bubble-icon">⚡</span>
+        <span class="main-bubble-label">Projects</span>
+        <span class="main-bubble-hint">tap to explore</span>
+        <span class="main-bubble-close">tap to close</span>
       </div>
 
-      <div class="project-card">
-        <div class="project-screenshot">
-          <img src="images/workflow-cancel.png" alt="Voice-Triggered Appointment Cancellation" class="project-img" onerror="this.parentElement.innerHTML='<span class=\'project-img-placeholder\'>Screenshot coming soon</span>'" />
-        </div>
-        <div class="project-body">
-          <div class="project-header">
-            <span class="project-name">Voice-Triggered Appointment Cancellation</span>
-            <span class="project-badge">n8n</span>
-          </div>
-          <p class="project-desc">
-            An automated cancellation flow extending the dental booking system. When a
-            patient requests cancellation via VAPI, n8n searches all appointment sheet tabs
-            in parallel, deletes the Google Calendar event, marks the record as Cancelled
-            with a timestamp, and sends a cancellation confirmation email to the patient.
-          </p>
-          <div class="project-tags">
-            <span class="project-tag">n8n</span>
-            <span class="project-tag">VAPI</span>
-            <span class="project-tag">Google Sheets</span>
-            <span class="project-tag">Google Calendar</span>
-            <span class="project-tag">Gmail</span>
-          </div>
-        </div>
+      <div class="project-bubble" onclick="openModal('modal-dental')">
+        <span class="bubble-name">VAPI Dental Clinic Voice Booking</span>
+        <span class="bubble-badge">n8n</span>
+      </div>
+      <div class="project-bubble" onclick="openModal('modal-cancel')">
+        <span class="bubble-name">Voice-Triggered Appointment Cancellation</span>
+        <span class="bubble-badge">n8n</span>
+      </div>
+      <div class="project-bubble" onclick="openModal('modal-fitness')">
+        <span class="bubble-name">AI Fitness Coach</span>
+        <span class="bubble-badge">n8n</span>
+      </div>
+      <div class="project-bubble" onclick="openModal('modal-jotform')">
+        <span class="bubble-name">JotForm Lead Capture &amp; AI Summary</span>
+        <span class="bubble-badge">n8n</span>
+      </div>
+      <div class="project-bubble" onclick="openModal('modal-property')">
+        <span class="bubble-name">Property Manager AI Agent</span>
+        <span class="bubble-badge">n8n</span>
       </div>
 
+    </div>
 
-      <div class="project-card">
-        <div class="project-screenshot">
-          <img src="images/workflow-fitness.png" alt="The AI Fitness Coach" class="project-img" onerror="this.parentElement.innerHTML='<span class=\'project-img-placeholder\'>Screenshot coming soon</span>'" />
-        </div>
-        <div class="project-body">
-          <div class="project-header">
-            <span class="project-name">The AI Fitness Coach: Strava Data Analyzer & Planner</span>
-            <span class="project-badge">n8n</span>
-          </div>
-          <p class="project-desc">
-            Triggered the moment a new activity is logged on Strava, the workflow reads the
-            athlete's training goals from Google Sheets, merges them with the incoming activity
-            data, calculates key performance metrics, and sends the results to Groq AI for
-            analysis. A personalized coaching email with feedback and next-session recommendations
-            is delivered automatically via Gmail.
-          </p>
-          <div class="project-tags">
-            <span class="project-tag">n8n</span>
-            <span class="project-tag">Strava</span>
-            <span class="project-tag">Groq AI</span>
-            <span class="project-tag">Google Sheets</span>
-            <span class="project-tag">Gmail</span>
-          </div>
+    <!-- Modal: Dental -->
+    <div class="modal-overlay" id="modal-dental">
+      <div class="modal-box">
+        <div class="modal-img-wrap"><img src="images/workflow-dental-booking.png" class="modal-img" alt="VAPI Dental Clinic Voice Booking" onerror="this.parentElement.style.display='none'" /></div>
+        <div class="modal-body">
+          <div class="modal-header"><span class="modal-title">VAPI Dental Clinic Voice Booking</span><button class="modal-close" onclick="closeModal('modal-dental')">✕</button></div>
+          <span class="modal-badge">n8n</span>
+          <p class="modal-desc">A voice-to-automation pipeline where patients book dental appointments through a VAPI AI phone agent. The call data flows into n8n, which creates a Google Calendar event, logs the booking to the correct Google Sheets tab by appointment type, and sends an HTML confirmation email — all in real time.</p>
+          <div class="modal-tags"><span class="modal-tag">n8n</span><span class="modal-tag">VAPI</span><span class="modal-tag">Google Calendar</span><span class="modal-tag">Google Sheets</span><span class="modal-tag">Gmail</span></div>
         </div>
       </div>
+    </div>
 
-      <div class="project-card">
-        <div class="project-screenshot">
-          <img src="images/workflow-jotform.png" alt="JotForm Lead Capture" class="project-img" onerror="this.parentElement.innerHTML='<span class=\'project-img-placeholder\'>Screenshot coming soon</span>'" />
-        </div>
-        <div class="project-body">
-          <div class="project-header">
-            <span class="project-name">JotForm Lead Capture → Sheets + AI Summary → Gmail</span>
-            <span class="project-badge">n8n</span>
-          </div>
-          <p class="project-desc">
-            Captures every JotForm submission via webhook, extracts and classifies lead fields,
-            then routes the record into either the Corporate or Individual Google Sheets tab.
-            Each branch independently calls Groq AI to generate a tailored lead summary, which
-            is included in a formatted follow-up email sent automatically to the sales team via Gmail.
-          </p>
-          <div class="project-tags">
-            <span class="project-tag">n8n</span>
-            <span class="project-tag">JotForm</span>
-            <span class="project-tag">Groq AI</span>
-            <span class="project-tag">Google Sheets</span>
-            <span class="project-tag">Gmail</span>
-          </div>
+    <!-- Modal: Cancellation -->
+    <div class="modal-overlay" id="modal-cancel">
+      <div class="modal-box">
+        <div class="modal-img-wrap"><img src="images/workflow-cancel.png" class="modal-img" alt="Voice-Triggered Appointment Cancellation" onerror="this.parentElement.style.display='none'" /></div>
+        <div class="modal-body">
+          <div class="modal-header"><span class="modal-title">Voice-Triggered Appointment Cancellation</span><button class="modal-close" onclick="closeModal('modal-cancel')">✕</button></div>
+          <span class="modal-badge">n8n</span>
+          <p class="modal-desc">An automated cancellation flow extending the dental booking system. When a patient requests cancellation via VAPI, n8n searches all appointment sheet tabs in parallel, deletes the Google Calendar event, marks the record as Cancelled with a timestamp, and sends a cancellation confirmation email to the patient.</p>
+          <div class="modal-tags"><span class="modal-tag">n8n</span><span class="modal-tag">VAPI</span><span class="modal-tag">Google Sheets</span><span class="modal-tag">Google Calendar</span><span class="modal-tag">Gmail</span></div>
         </div>
       </div>
+    </div>
 
-      <div class="project-card">
-        <div class="project-screenshot">
-          <img src="images/workflow-property.png" alt="Property Manager AI Agent" class="project-img" onerror="this.parentElement.innerHTML='<span class=\'project-img-placeholder\'>Screenshot coming soon</span>'" />
-        </div>
-        <div class="project-body">
-          <div class="project-header">
-            <span class="project-name">Property Manager AI Agent</span>
-            <span class="project-badge">n8n</span>
-          </div>
-          <p class="project-desc">
-            A WhatsApp-based AI property management assistant powered by a LangChain agent
-            with Groq and conversation memory. Tenants send requests via WhatsApp; the agent
-            holds a back-and-forth conversation until the request is fully understood, then
-            routes it to the correct team — Maintenance, Billing, Complaints, or General
-            Inquiries — via email, logs every case to Google Sheets, and sends the tenant a
-            WhatsApp confirmation automatically.
-          </p>
-          <div class="project-tags">
-            <span class="project-tag">n8n</span>
-            <span class="project-tag">WhatsApp</span>
-            <span class="project-tag">Twilio</span>
-            <span class="project-tag">AI Agent</span>
-            <span class="project-tag">Groq AI</span>
-            <span class="project-tag">Google Sheets</span>
-            <span class="project-tag">Gmail</span>
-          </div>
+    <!-- Modal: Fitness -->
+    <div class="modal-overlay" id="modal-fitness">
+      <div class="modal-box">
+        <div class="modal-img-wrap"><img src="images/workflow-fitness.png" class="modal-img" alt="AI Fitness Coach" onerror="this.parentElement.style.display='none'" /></div>
+        <div class="modal-body">
+          <div class="modal-header"><span class="modal-title">The AI Fitness Coach: Strava Data Analyzer &amp; Planner</span><button class="modal-close" onclick="closeModal('modal-fitness')">✕</button></div>
+          <span class="modal-badge">n8n</span>
+          <p class="modal-desc">Triggered the moment a new activity is logged on Strava, the workflow reads the athlete's training goals from Google Sheets, merges them with the incoming activity data, calculates key performance metrics, and sends the results to Groq AI for analysis. A personalized coaching email with feedback and next-session recommendations is delivered automatically via Gmail.</p>
+          <div class="modal-tags"><span class="modal-tag">n8n</span><span class="modal-tag">Strava</span><span class="modal-tag">Groq AI</span><span class="modal-tag">Google Sheets</span><span class="modal-tag">Gmail</span></div>
         </div>
       </div>
+    </div>
 
+    <!-- Modal: JotForm -->
+    <div class="modal-overlay" id="modal-jotform">
+      <div class="modal-box">
+        <div class="modal-img-wrap"><img src="images/workflow-jotform.png" class="modal-img" alt="JotForm Lead Capture" onerror="this.parentElement.style.display='none'" /></div>
+        <div class="modal-body">
+          <div class="modal-header"><span class="modal-title">JotForm Lead Capture → Sheets + AI Summary → Gmail</span><button class="modal-close" onclick="closeModal('modal-jotform')">✕</button></div>
+          <span class="modal-badge">n8n</span>
+          <p class="modal-desc">Captures every JotForm submission via webhook, extracts and classifies lead fields, then routes the record into either the Corporate or Individual Google Sheets tab. Each branch independently calls Groq AI to generate a tailored lead summary, which is included in a formatted follow-up email sent automatically to the sales team via Gmail.</p>
+          <div class="modal-tags"><span class="modal-tag">n8n</span><span class="modal-tag">JotForm</span><span class="modal-tag">Groq AI</span><span class="modal-tag">Google Sheets</span><span class="modal-tag">Gmail</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal: Property -->
+    <div class="modal-overlay" id="modal-property">
+      <div class="modal-box">
+        <div class="modal-img-wrap"><img src="images/workflow-property.png" class="modal-img" alt="Property Manager AI Agent" onerror="this.parentElement.style.display='none'" /></div>
+        <div class="modal-body">
+          <div class="modal-header"><span class="modal-title">Property Manager AI Agent</span><button class="modal-close" onclick="closeModal('modal-property')">✕</button></div>
+          <span class="modal-badge">n8n</span>
+          <p class="modal-desc">A WhatsApp-based AI property management assistant powered by a LangChain agent with Groq and conversation memory. Tenants send requests via WhatsApp; the agent holds a back-and-forth conversation until the request is fully understood, then routes it to the correct team — Maintenance, Billing, Complaints, or General Inquiries — via email, logs every case to Google Sheets, and sends the tenant a WhatsApp confirmation automatically.</p>
+          <div class="modal-tags"><span class="modal-tag">n8n</span><span class="modal-tag">WhatsApp</span><span class="modal-tag">Twilio</span><span class="modal-tag">AI Agent</span><span class="modal-tag">Groq AI</span><span class="modal-tag">Google Sheets</span><span class="modal-tag">Gmail</span></div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -1502,6 +1479,32 @@
       init();
       draw();
     })();
+
+    /* ── Bubble System ── */
+    function toggleBubbles() {
+      document.getElementById('bubbleSystem').classList.toggle('expanded');
+    }
+
+    /* ── Modals ── */
+    function openModal(id) {
+      document.getElementById(id).classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    document.querySelectorAll('.modal-overlay').forEach(function(o) {
+      o.addEventListener('click', function(e) {
+        if (e.target === o) { o.classList.remove('active'); document.body.style.overflow = ''; }
+      });
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.modal-overlay.active').forEach(function(m) { m.classList.remove('active'); });
+        document.body.style.overflow = '';
+      }
+    });
   </script>
 
 </body>
