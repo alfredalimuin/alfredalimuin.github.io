@@ -240,21 +240,32 @@
     }
 
     /* ── Projects ── */
-    /* ── Bubble System ── */
+    /* ── Tools Arena ── */
+    .tools-arena {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 4rem;
+      flex-wrap: wrap;
+      padding: 1rem 0 300px;
+    }
+
     .bubble-system {
       position: relative;
-      width: 100%;
-      height: 560px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      width: 164px;
+      height: 164px;
+      flex-shrink: 0;
+      transition: opacity 0.4s, transform 0.4s;
+    }
+
+    .tools-arena.has-expanded .bubble-system:not(.expanded) {
+      opacity: 0.3;
+      transform: scale(0.88);
     }
 
     .main-bubble {
       position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      width: 164px; height: 164px;
+      inset: 0;
       border-radius: 50%;
       background: radial-gradient(circle at 35% 35%, #1e4a2e, #0a150d);
       border: 2px solid rgba(34, 197, 94, 0.5);
@@ -268,49 +279,61 @@
     }
 
     .main-bubble:hover { border-color: var(--accent); box-shadow: 0 0 45px rgba(34,197,94,0.55); }
-    .bubble-system.expanded .main-bubble { box-shadow: 0 0 55px rgba(34,197,94,0.65); border-color: var(--accent); animation: none; }
+    .bubble-system.expanded .main-bubble { box-shadow: 0 0 55px rgba(34,197,94,0.65); border-color: var(--accent); animation: none; z-index: 20; }
 
     @keyframes mainPulse {
       0%, 100% { box-shadow: 0 0 15px rgba(34,197,94,0.2); }
       50%       { box-shadow: 0 0 38px rgba(34,197,94,0.5); }
     }
 
-    .main-bubble-icon  { font-size: 1.6rem; display: block; margin-bottom: 0.25rem; }
-    .main-bubble-label { font-size: 0.95rem; font-weight: 700; color: var(--text); display: block; margin-bottom: 0.2rem; }
-    .main-bubble-hint  { font-size: 0.62rem; color: var(--muted); display: block; }
-    .main-bubble-close { font-size: 0.62rem; color: var(--accent); display: none; }
+    .main-bubble-icon  { font-size: 1.5rem; display: block; margin-bottom: 0.2rem; }
+    .main-bubble-label { font-size: 0.85rem; font-weight: 700; color: var(--text); display: block; margin-bottom: 0.2rem; }
+    .main-bubble-hint  { font-size: 0.6rem; color: var(--muted); display: block; }
+    .main-bubble-close { font-size: 0.6rem; color: var(--accent); display: none; }
 
     .bubble-system.expanded .main-bubble-hint  { display: none; }
     .bubble-system.expanded .main-bubble-close { display: block; }
 
+    /* Project bubbles */
     .project-bubble {
       position: absolute;
       top: 50%; left: 50%;
       transform: translate(-50%, -50%) scale(0);
       opacity: 0; pointer-events: none;
-      width: 138px; height: 138px;
+      width: 130px; height: 130px;
       border-radius: 50%;
       background: radial-gradient(circle at 35% 35%, #1a3a2a, #080f0a);
       border: 2px solid rgba(34, 197, 94, 0.2);
       display: flex; flex-direction: column;
       align-items: center; justify-content: center;
-      text-align: center; padding: 1rem;
-      cursor: pointer; z-index: 5;
+      text-align: center; padding: 0.9rem;
+      cursor: pointer; z-index: 15;
       transition: opacity 0.3s, transform 0.45s cubic-bezier(0.34,1.56,0.64,1), border-color 0.2s, box-shadow 0.2s;
       user-select: none;
     }
 
     .project-bubble:hover { border-color: var(--accent); box-shadow: 0 0 25px rgba(34,197,94,0.35); }
+    .project-bubble.coming-soon { cursor: default; border-style: dashed; }
+    .project-bubble.coming-soon:hover { border-color: rgba(34,197,94,0.25); box-shadow: none; }
 
     .bubble-system.expanded .project-bubble { opacity: 1; pointer-events: all; }
-    .bubble-system.expanded .project-bubble:nth-child(2) { transform: translate(calc(-50% + 0px),    calc(-50% - 215px)) scale(1); transition-delay: 0.04s; }
-    .bubble-system.expanded .project-bubble:nth-child(3) { transform: translate(calc(-50% + 205px),  calc(-50% - 66px))  scale(1); transition-delay: 0.09s; }
-    .bubble-system.expanded .project-bubble:nth-child(4) { transform: translate(calc(-50% + 126px),  calc(-50% + 175px)) scale(1); transition-delay: 0.14s; }
-    .bubble-system.expanded .project-bubble:nth-child(5) { transform: translate(calc(-50% - 126px),  calc(-50% + 175px)) scale(1); transition-delay: 0.19s; }
-    .bubble-system.expanded .project-bubble:nth-child(6) { transform: translate(calc(-50% - 205px),  calc(-50% - 66px))  scale(1); transition-delay: 0.24s; }
 
-    .bubble-name  { font-size: 0.7rem; font-weight: 600; color: var(--text); line-height: 1.3; margin-bottom: 0.45rem; }
-    .bubble-badge { background: rgba(34,197,94,0.12); color: var(--accent); border: 1px solid rgba(34,197,94,0.35); border-radius: 999px; padding: 0.15rem 0.55rem; font-size: 0.62rem; font-weight: 600; }
+    /* Downward arc — 5 projects */
+    .bubble-system.expanded .project-bubble:nth-child(2) { transform: translate(calc(-50% - 145px), calc(-50% + 152px)) scale(1); transition-delay: 0.04s; }
+    .bubble-system.expanded .project-bubble:nth-child(3) { transform: translate(calc(-50% - 72px),  calc(-50% + 186px)) scale(1); transition-delay: 0.09s; }
+    .bubble-system.expanded .project-bubble:nth-child(4) { transform: translate(calc(-50% + 0px),   calc(-50% + 197px)) scale(1); transition-delay: 0.14s; }
+    .bubble-system.expanded .project-bubble:nth-child(5) { transform: translate(calc(-50% + 72px),  calc(-50% + 186px)) scale(1); transition-delay: 0.19s; }
+    .bubble-system.expanded .project-bubble:nth-child(6) { transform: translate(calc(-50% + 145px), calc(-50% + 152px)) scale(1); transition-delay: 0.24s; }
+
+    /* Single project — center below */
+    .bubble-system.single-project.expanded .project-bubble:nth-child(2) {
+      transform: translate(-50%, calc(-50% + 197px)) scale(1);
+      transition-delay: 0.05s;
+    }
+
+    .bubble-name  { font-size: 0.68rem; font-weight: 600; color: var(--text); line-height: 1.3; margin-bottom: 0.4rem; }
+    .bubble-badge { background: rgba(34,197,94,0.12); color: var(--accent); border: 1px solid rgba(34,197,94,0.35); border-radius: 999px; padding: 0.12rem 0.5rem; font-size: 0.6rem; font-weight: 600; }
+    .bubble-soon  { font-size: 0.6rem; color: var(--muted); font-style: italic; margin-top: 0.3rem; }
 
     /* ── Modal ── */
     .modal-overlay {
@@ -349,12 +372,13 @@
     .modal-tag { background: var(--bg3); color: var(--muted); padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.75rem; }
 
     @media (max-width: 700px) {
-      .bubble-system { height: 480px; }
-      .bubble-system.expanded .project-bubble:nth-child(2) { transform: translate(calc(-50% + 0px),   calc(-50% - 175px)) scale(1); }
-      .bubble-system.expanded .project-bubble:nth-child(3) { transform: translate(calc(-50% + 165px), calc(-50% - 54px))  scale(1); }
-      .bubble-system.expanded .project-bubble:nth-child(4) { transform: translate(calc(-50% + 102px), calc(-50% + 142px)) scale(1); }
-      .bubble-system.expanded .project-bubble:nth-child(5) { transform: translate(calc(-50% - 102px), calc(-50% + 142px)) scale(1); }
-      .bubble-system.expanded .project-bubble:nth-child(6) { transform: translate(calc(-50% - 165px), calc(-50% - 54px))  scale(1); }
+      .tools-arena { gap: 2rem; padding-bottom: 260px; }
+      .bubble-system.expanded .project-bubble:nth-child(2) { transform: translate(calc(-50% - 115px), calc(-50% + 130px)) scale(1); }
+      .bubble-system.expanded .project-bubble:nth-child(3) { transform: translate(calc(-50% - 58px),  calc(-50% + 160px)) scale(1); }
+      .bubble-system.expanded .project-bubble:nth-child(4) { transform: translate(calc(-50% + 0px),   calc(-50% + 170px)) scale(1); }
+      .bubble-system.expanded .project-bubble:nth-child(5) { transform: translate(calc(-50% + 58px),  calc(-50% + 160px)) scale(1); }
+      .bubble-system.expanded .project-bubble:nth-child(6) { transform: translate(calc(-50% + 115px), calc(-50% + 130px)) scale(1); }
+      .bubble-system.single-project.expanded .project-bubble:nth-child(2) { transform: translate(-50%, calc(-50% + 170px)) scale(1); }
     }
 
     /* ── Contact ── */
@@ -1267,34 +1291,64 @@
   <section id="projects">
     <p class="section-label">What I've built</p>
     <h2 class="section-title">Projects</h2>
-    <div class="bubble-system" id="bubbleSystem">
+    <div class="tools-arena" id="toolsArena">
 
-      <div class="main-bubble" onclick="toggleBubbles()">
-        <span class="main-bubble-icon">⚡</span>
-        <span class="main-bubble-label">Projects</span>
-        <span class="main-bubble-hint">tap to explore</span>
-        <span class="main-bubble-close">tap to close</span>
+      <!-- n8n -->
+      <div class="bubble-system" id="bs-n8n">
+        <div class="main-bubble" onclick="toggleBubbles('bs-n8n')">
+          <span class="main-bubble-icon">⚡</span>
+          <span class="main-bubble-label">n8n Projects</span>
+          <span class="main-bubble-hint">tap to explore</span>
+          <span class="main-bubble-close">tap to close</span>
+        </div>
+        <div class="project-bubble" onclick="openModal('modal-dental')">
+          <span class="bubble-name">VAPI Dental Clinic Voice Booking</span>
+          <span class="bubble-badge">n8n</span>
+        </div>
+        <div class="project-bubble" onclick="openModal('modal-cancel')">
+          <span class="bubble-name">Voice-Triggered Appointment Cancellation</span>
+          <span class="bubble-badge">n8n</span>
+        </div>
+        <div class="project-bubble" onclick="openModal('modal-fitness')">
+          <span class="bubble-name">AI Fitness Coach</span>
+          <span class="bubble-badge">n8n</span>
+        </div>
+        <div class="project-bubble" onclick="openModal('modal-jotform')">
+          <span class="bubble-name">JotForm Lead Capture &amp; AI Summary</span>
+          <span class="bubble-badge">n8n</span>
+        </div>
+        <div class="project-bubble" onclick="openModal('modal-property')">
+          <span class="bubble-name">Property Manager AI Agent</span>
+          <span class="bubble-badge">n8n</span>
+        </div>
       </div>
 
-      <div class="project-bubble" onclick="openModal('modal-dental')">
-        <span class="bubble-name">VAPI Dental Clinic Voice Booking</span>
-        <span class="bubble-badge">n8n</span>
+      <!-- GoHighLevel -->
+      <div class="bubble-system single-project" id="bs-ghl">
+        <div class="main-bubble" onclick="toggleBubbles('bs-ghl')">
+          <span class="main-bubble-icon">🚀</span>
+          <span class="main-bubble-label">GHL Projects</span>
+          <span class="main-bubble-hint">tap to explore</span>
+          <span class="main-bubble-close">tap to close</span>
+        </div>
+        <div class="project-bubble coming-soon">
+          <span class="bubble-name">Coming Soon</span>
+          <span class="bubble-soon">projects in progress</span>
+        </div>
       </div>
-      <div class="project-bubble" onclick="openModal('modal-cancel')">
-        <span class="bubble-name">Voice-Triggered Appointment Cancellation</span>
-        <span class="bubble-badge">n8n</span>
-      </div>
-      <div class="project-bubble" onclick="openModal('modal-fitness')">
-        <span class="bubble-name">AI Fitness Coach</span>
-        <span class="bubble-badge">n8n</span>
-      </div>
-      <div class="project-bubble" onclick="openModal('modal-jotform')">
-        <span class="bubble-name">JotForm Lead Capture &amp; AI Summary</span>
-        <span class="bubble-badge">n8n</span>
-      </div>
-      <div class="project-bubble" onclick="openModal('modal-property')">
-        <span class="bubble-name">Property Manager AI Agent</span>
-        <span class="bubble-badge">n8n</span>
+
+      <!-- Zapier -->
+      <div class="bubble-system single-project" id="bs-zapier">
+        <div class="main-bubble" onclick="toggleBubbles('bs-zapier')">
+          <span class="main-bubble-icon">🔗</span>
+          <span class="main-bubble-label">Zapier Projects</span>
+          <span class="main-bubble-hint">tap to explore</span>
+          <span class="main-bubble-close">tap to close</span>
+        </div>
+        <div class="project-bubble coming-soon">
+          <span class="bubble-name">Coming Soon</span>
+          <span class="bubble-soon">projects in progress</span>
+        </div>
       </div>
 
     </div>
@@ -1481,8 +1535,17 @@
     })();
 
     /* ── Bubble System ── */
-    function toggleBubbles() {
-      document.getElementById('bubbleSystem').classList.toggle('expanded');
+    function toggleBubbles(id) {
+      var system = document.getElementById(id);
+      var arena  = document.getElementById('toolsArena');
+      var isExpanding = !system.classList.contains('expanded');
+      document.querySelectorAll('.bubble-system').forEach(function(s) { s.classList.remove('expanded'); });
+      if (isExpanding) {
+        system.classList.add('expanded');
+        arena.classList.add('has-expanded');
+      } else {
+        arena.classList.remove('has-expanded');
+      }
     }
 
     /* ── Modals ── */
