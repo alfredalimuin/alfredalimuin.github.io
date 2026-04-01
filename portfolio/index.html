@@ -272,11 +272,38 @@
     }
 
     /* ── Skills ── */
-    .skills-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
+    .skills-marquee {
+      overflow: hidden;
+      position: relative;
+      padding: 0.25rem 0;
     }
+
+    .skills-marquee::before,
+    .skills-marquee::after {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0;
+      width: 100px;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .skills-marquee::before { left: 0;  background: linear-gradient(to right, var(--bg), transparent); }
+    .skills-marquee::after  { right: 0; background: linear-gradient(to left,  var(--bg), transparent); }
+
+    .marquee-row {
+      display: flex;
+      gap: 0.75rem;
+      width: max-content;
+      margin-bottom: 0.75rem;
+      animation: marqueeLeft 28s linear infinite;
+    }
+
+    .marquee-row.reverse { animation: marqueeRight 34s linear infinite; }
+    .marquee-row:hover,
+    .marquee-row.reverse:hover { animation-play-state: paused; }
+
+    @keyframes marqueeLeft  { 0% { transform: translateX(0); }    100% { transform: translateX(-50%); } }
+    @keyframes marqueeRight { 0% { transform: translateX(-50%); } 100% { transform: translateX(0); }    }
 
     .skill-tag {
       background: var(--bg2);
@@ -286,12 +313,15 @@
       border-radius: 999px;
       font-size: 0.875rem;
       font-weight: 500;
-      transition: border-color 0.2s, color 0.2s;
+      white-space: nowrap;
+      cursor: default;
+      transition: border-color 0.2s, color 0.2s, box-shadow 0.2s;
     }
 
     .skill-tag:hover {
       border-color: var(--accent);
       color: var(--accent);
+      box-shadow: 0 0 14px rgba(34,197,94,0.2);
     }
 
     /* ── Projects ── */
@@ -987,27 +1017,57 @@
   <section id="skills">
     <p class="section-label">What I work with</p>
     <h2 class="section-title">Skills</h2>
-    <div class="skills-grid">
-      <span class="skill-tag">Python</span>
-      <span class="skill-tag">n8n</span>
-      <span class="skill-tag">AI Tools & LLMs</span>
-      <span class="skill-tag">Zapier</span>
-      <span class="skill-tag">Go High Level</span>
-      <span class="skill-tag">Visual Studio Code</span>
-      <span class="skill-tag">Project Management</span>
-      <span class="skill-tag">API Integration</span>
-      <span class="skill-tag">Workflow Automation</span>
-      <span class="skill-tag">Google Administration</span>
-      <span class="skill-tag">Microsoft Azure</span>
-      <span class="skill-tag">Microsoft Applications</span>
-      <span class="skill-tag">Microsoft 365</span>
-      <span class="skill-tag">Active Directory</span>
-      <span class="skill-tag">Microsoft Servers</span>
-      <span class="skill-tag">Google Applications</span>
-      <span class="skill-tag">Cisco Networks</span>
-      <span class="skill-tag">Antivirus</span>
-      <span class="skill-tag">System Administration</span>
-      <span class="skill-tag">Helpdesk</span>
+    <div class="skills-marquee">
+
+      <!-- Row 1 — scrolls left (duplicated for seamless loop) -->
+      <div class="marquee-row">
+        <span class="skill-tag">Python</span>
+        <span class="skill-tag">n8n</span>
+        <span class="skill-tag">AI Tools &amp; LLMs</span>
+        <span class="skill-tag">Zapier</span>
+        <span class="skill-tag">Go High Level</span>
+        <span class="skill-tag">Visual Studio Code</span>
+        <span class="skill-tag">Project Management</span>
+        <span class="skill-tag">API Integration</span>
+        <span class="skill-tag">Workflow Automation</span>
+        <span class="skill-tag">Google Administration</span>
+        <!-- duplicate -->
+        <span class="skill-tag">Python</span>
+        <span class="skill-tag">n8n</span>
+        <span class="skill-tag">AI Tools &amp; LLMs</span>
+        <span class="skill-tag">Zapier</span>
+        <span class="skill-tag">Go High Level</span>
+        <span class="skill-tag">Visual Studio Code</span>
+        <span class="skill-tag">Project Management</span>
+        <span class="skill-tag">API Integration</span>
+        <span class="skill-tag">Workflow Automation</span>
+        <span class="skill-tag">Google Administration</span>
+      </div>
+
+      <!-- Row 2 — scrolls right (duplicated for seamless loop) -->
+      <div class="marquee-row reverse">
+        <span class="skill-tag">Microsoft Azure</span>
+        <span class="skill-tag">Microsoft Applications</span>
+        <span class="skill-tag">Microsoft 365</span>
+        <span class="skill-tag">Active Directory</span>
+        <span class="skill-tag">Microsoft Servers</span>
+        <span class="skill-tag">Google Applications</span>
+        <span class="skill-tag">Cisco Networks</span>
+        <span class="skill-tag">Antivirus</span>
+        <span class="skill-tag">System Administration</span>
+        <span class="skill-tag">Helpdesk</span>
+        <!-- duplicate -->
+        <span class="skill-tag">Microsoft Azure</span>
+        <span class="skill-tag">Microsoft Applications</span>
+        <span class="skill-tag">Microsoft 365</span>
+        <span class="skill-tag">Active Directory</span>
+        <span class="skill-tag">Microsoft Servers</span>
+        <span class="skill-tag">Google Applications</span>
+        <span class="skill-tag">Cisco Networks</span>
+        <span class="skill-tag">Antivirus</span>
+        <span class="skill-tag">System Administration</span>
+        <span class="skill-tag">Helpdesk</span>
+      </div>
     </div>
   </section>
 
