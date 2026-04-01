@@ -539,36 +539,96 @@
       max-width: 680px;
     }
 
-    .demo-tabs {
-      display: flex;
-      gap: 0.5rem;
-      margin-bottom: 1.5rem;
-      flex-wrap: wrap;
+    .demo-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
     }
 
-    .demo-tab {
+    .demo-card {
       background: var(--bg2);
       border: 1px solid var(--border);
-      color: var(--muted);
-      padding: 0.55rem 1.2rem;
       border-radius: var(--radius);
-      font-size: 0.85rem;
-      font-weight: 500;
+      padding: 2rem 1.5rem;
       cursor: pointer;
-      transition: all 0.2s;
-      font-family: 'Inter', sans-serif;
+      text-align: center;
+      transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
     }
 
-    .demo-tab.active {
+    .demo-card:hover {
       border-color: var(--accent);
-      color: var(--accent);
-      background: rgba(34, 197, 94, 0.08);
+      box-shadow: 0 0 28px rgba(34,197,94,0.15);
+      transform: translateY(-4px);
     }
 
-    .demo-tab:hover:not(.active) {
-      border-color: var(--accent);
-      color: var(--text);
+    .demo-card-icon { font-size: 2.5rem; display: block; margin-bottom: 0.75rem; }
+    .demo-card-name { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 0.5rem; }
+    .demo-card-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.6; margin-bottom: 1rem; }
+    .demo-card-cta  { font-size: 0.78rem; color: var(--accent); font-weight: 600; }
+
+    /* Flow modal */
+    .flow-modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.9);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
+      display: flex; align-items: center; justify-content: center;
+      padding: 1.5rem;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.25s;
     }
+    .flow-modal-overlay.active { opacity: 1; pointer-events: all; }
+
+    .flow-modal-box {
+      background: #0f0f0f;
+      border: 1px solid rgba(34,197,94,0.25);
+      border-radius: 16px;
+      max-width: 800px; width: 100%;
+      max-height: 88vh; overflow-y: auto;
+      transform: scale(0.9);
+      transition: transform 0.25s;
+      padding: 2rem;
+    }
+    .flow-modal-overlay.active .flow-modal-box { transform: scale(1); }
+
+    .flow-modal-header {
+      display: flex; align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+    }
+    .flow-modal-title { font-size: 1.05rem; font-weight: 700; }
+    .flow-modal-close {
+      background: none; border: 1px solid var(--border);
+      color: var(--muted); border-radius: 8px;
+      width: 32px; height: 32px; cursor: pointer;
+      font-size: 1rem; display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .flow-modal-close:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* Flow node entry animation */
+    .flow-diagram > * {
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    .flow-diagram.revealed > * { opacity: 1; transform: translateY(0); }
+    .flow-diagram.revealed > *:nth-child(1)  { transition-delay: 0.05s; }
+    .flow-diagram.revealed > *:nth-child(2)  { transition-delay: 0.12s; }
+    .flow-diagram.revealed > *:nth-child(3)  { transition-delay: 0.19s; }
+    .flow-diagram.revealed > *:nth-child(4)  { transition-delay: 0.26s; }
+    .flow-diagram.revealed > *:nth-child(5)  { transition-delay: 0.33s; }
+    .flow-diagram.revealed > *:nth-child(6)  { transition-delay: 0.40s; }
+    .flow-diagram.revealed > *:nth-child(7)  { transition-delay: 0.47s; }
+    .flow-diagram.revealed > *:nth-child(8)  { transition-delay: 0.54s; }
+    .flow-diagram.revealed > *:nth-child(9)  { transition-delay: 0.61s; }
+    .flow-diagram.revealed > *:nth-child(10) { transition-delay: 0.68s; }
+    .flow-diagram.revealed > *:nth-child(11) { transition-delay: 0.75s; }
+    .flow-diagram.revealed > *:nth-child(12) { transition-delay: 0.82s; }
+    .flow-diagram.revealed > *:nth-child(13) { transition-delay: 0.89s; }
+    .flow-diagram.revealed > *:nth-child(14) { transition-delay: 0.96s; }
 
     .flow-diagram {
       background: var(--bg2);
@@ -1083,13 +1143,31 @@
     </p>
     <div class="flow-badge-live">Live on n8n</div>
 
-    <div class="demo-tabs">
-      <button class="demo-tab active" onclick="showFlow('booking', this)">📅 Booking Flow</button>
-      <button class="demo-tab" onclick="showFlow('cancel', this)">✕ Cancellation Flow</button>
+    <!-- Demo teaser cards -->
+    <div class="demo-cards">
+      <div class="demo-card" onclick="openFlowModal('flow-modal-booking')">
+        <span class="demo-card-icon">📅</span>
+        <div class="demo-card-name">Booking Flow</div>
+        <div class="demo-card-desc">Voice → Calendar → Sheets → Gmail, all in real time via VAPI + n8n</div>
+        <div class="demo-card-cta">View flow diagram →</div>
+      </div>
+      <div class="demo-card" onclick="openFlowModal('flow-modal-cancel')">
+        <span class="demo-card-icon">✕</span>
+        <div class="demo-card-name">Cancellation Flow</div>
+        <div class="demo-card-desc">Parallel sheet search, smart routing, and auto confirmation</div>
+        <div class="demo-card-cta">View flow diagram →</div>
+      </div>
     </div>
 
-    <!-- ── Booking Flow ── -->
-    <div id="flow-booking" class="flow-diagram">
+    <!-- ── Booking Flow Modal ── -->
+    <div class="flow-modal-overlay" id="flow-modal-booking">
+      <div class="flow-modal-box">
+        <div class="flow-modal-header">
+          <span class="flow-modal-title">📅 Booking Flow</span>
+          <button class="flow-modal-close" onclick="closeFlowModal('flow-modal-booking')">✕</button>
+        </div>
+        <div class="flow-badge-live">Live on n8n</div>
+        <div id="flow-booking" class="flow-diagram">
 
       <div class="flow-label">Trigger</div>
       <div class="flow-step">
@@ -1155,10 +1233,19 @@
           <div class="flow-stat-label">Voice-to-confirmation automated</div>
         </div>
       </div>
-    </div>
+        </div><!-- end flow-diagram -->
+      </div><!-- end flow-modal-box -->
+    </div><!-- end flow-modal-overlay booking -->
 
-    <!-- ── Cancellation Flow ── -->
-    <div id="flow-cancel" class="flow-diagram" style="display:none">
+    <!-- ── Cancellation Flow Modal ── -->
+    <div class="flow-modal-overlay" id="flow-modal-cancel">
+      <div class="flow-modal-box">
+        <div class="flow-modal-header">
+          <span class="flow-modal-title">✕ Cancellation Flow</span>
+          <button class="flow-modal-close" onclick="closeFlowModal('flow-modal-cancel')">✕</button>
+        </div>
+        <div class="flow-badge-live">Live on n8n</div>
+        <div id="flow-cancel" class="flow-diagram">
 
       <div class="flow-label">Trigger</div>
       <div class="flow-step">
@@ -1238,7 +1325,9 @@
           <div class="flow-stat-label">Manual steps required</div>
         </div>
       </div>
-    </div>
+        </div><!-- end flow-diagram -->
+      </div><!-- end flow-modal-box -->
+    </div><!-- end flow-modal-overlay cancel -->
 
     <!-- Live Call Demo -->
     <div class="demo-call-wrap">
@@ -1277,14 +1366,39 @@
   </section>
 
   <script>
-    /* ── Flow tab switcher ── */
-    function showFlow(id, btn) {
-      document.getElementById('flow-booking').style.display = 'none';
-      document.getElementById('flow-cancel').style.display  = 'none';
-      document.getElementById('flow-' + id).style.display  = 'block';
-      document.querySelectorAll('.demo-tab').forEach(function(t) { t.classList.remove('active'); });
-      btn.classList.add('active');
+    /* ── Flow modals ── */
+    function openFlowModal(id) {
+      var overlay = document.getElementById(id);
+      overlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      setTimeout(function() {
+        overlay.querySelector('.flow-diagram').classList.add('revealed');
+      }, 150);
     }
+    function closeFlowModal(id) {
+      var overlay = document.getElementById(id);
+      overlay.classList.remove('active');
+      overlay.querySelector('.flow-diagram').classList.remove('revealed');
+      document.body.style.overflow = '';
+    }
+    document.querySelectorAll('.flow-modal-overlay').forEach(function(o) {
+      o.addEventListener('click', function(e) {
+        if (e.target === o) {
+          o.querySelector('.flow-diagram').classList.remove('revealed');
+          o.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+      });
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.flow-modal-overlay.active').forEach(function(o) {
+          o.querySelector('.flow-diagram').classList.remove('revealed');
+          o.classList.remove('active');
+        });
+        document.body.style.overflow = '';
+      }
+    });
 
     /* ── VAPI Live Demo ── */
     var _vapi       = null;
