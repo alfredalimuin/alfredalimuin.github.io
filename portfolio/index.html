@@ -610,6 +610,62 @@
     .demo-card-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.6; margin-bottom: 1rem; }
     .demo-card-cta  { font-size: 0.78rem; color: var(--accent); font-weight: 600; }
 
+    /* ── Services grid ── */
+    .services-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      margin-bottom: 2.5rem;
+    }
+
+    @media (max-width: 640px) { .services-grid { grid-template-columns: 1fr; } }
+
+    .service-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      transition: border-color 0.2s;
+    }
+
+    .service-card:hover { border-color: var(--accent); }
+    .service-icon { font-size: 1.6rem; display: block; margin-bottom: 0.6rem; }
+    .service-name { font-size: 0.95rem; font-weight: 700; color: var(--text); margin-bottom: 0.4rem; }
+    .service-desc { font-size: 0.83rem; color: var(--muted); line-height: 1.7; }
+
+    /* ── Featured Demo ── */
+    .featured-demo {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem 2rem;
+    }
+
+    @media (max-width: 640px) { .featured-demo { flex-direction: column; align-items: flex-start; } }
+
+    .featured-demo-left { flex: 1; }
+    .featured-demo-title { font-size: 1rem; font-weight: 700; color: var(--text); margin: 0.5rem 0 0.4rem; }
+    .featured-demo-desc { font-size: 0.83rem; color: var(--muted); line-height: 1.7; margin-bottom: 1rem; }
+    .featured-demo-links { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+
+    .featured-flow-btn {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--accent);
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 0.35rem 0.9rem;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: border-color 0.2s;
+      font-family: inherit;
+    }
+
+    .featured-flow-btn:hover { border-color: var(--accent); }
+
     /* Flow modal */
     .flow-modal-overlay {
       position: fixed; inset: 0;
@@ -1035,7 +1091,7 @@
     <ul class="nav-links">
       <li><a href="#about">About</a></li>
       <li><a href="#skills">Skills</a></li>
-      <li><a href="#demo">Demo</a></li>
+      <li><a href="#demo">Services</a></li>
       <li><a href="#projects">Projects and Designs</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
@@ -1188,29 +1244,59 @@
 
   <hr class="divider" />
 
-  <!-- Demo -->
+  <!-- What I Build -->
   <section id="demo">
-    <p class="section-label">Workflow Demo</p>
-    <h2 class="section-title">Live AI Voice Booking Assistant using VAPI</h2>
-    <p class="demo-meta">
-      A 31-node n8n automation that connects a VAPI AI phone agent to Google Calendar, Google Sheets,
-      and Gmail — handling both appointment booking and cancellations entirely through voice, in real time.
-    </p>
-    <div class="flow-badge-live">Live on n8n</div>
+    <p class="section-label">Services</p>
+    <h2 class="section-title">What I Build</h2>
 
-    <!-- Demo teaser cards -->
-    <div class="demo-cards">
-      <div class="demo-card" onclick="openFlowModal('flow-modal-booking')">
-        <span class="demo-card-icon">📅</span>
-        <div class="demo-card-name">Booking Flow</div>
-        <div class="demo-card-desc">Voice → Calendar → Sheets → Gmail, all in real time via VAPI + n8n</div>
-        <div class="demo-card-cta">View flow diagram →</div>
+    <div class="services-grid">
+      <div class="service-card">
+        <span class="service-icon">🚀</span>
+        <h3 class="service-name">GHL Funnels &amp; Design</h3>
+        <p class="service-desc">High-converting landing pages, opt-in forms, and thank-you pages built inside GoHighLevel — designed to capture leads and drive bookings.</p>
       </div>
-      <div class="demo-card" onclick="openFlowModal('flow-modal-cancel')">
-        <span class="demo-card-icon">✕</span>
-        <div class="demo-card-name">Cancellation Flow</div>
-        <div class="demo-card-desc">Parallel sheet search, smart routing, and auto confirmation</div>
-        <div class="demo-card-cta">View flow diagram →</div>
+      <div class="service-card">
+        <span class="service-icon">⚙️</span>
+        <h3 class="service-name">GHL Automations &amp; CRM</h3>
+        <p class="service-desc">Full CRM setup, pipeline management, lead follow-up sequences, appointment workflows, and stage automations — all inside GHL.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">⚡</span>
+        <h3 class="service-name">Workflow Automation</h3>
+        <p class="service-desc">Multi-step automations in n8n and Zapier that connect your tools, eliminate repetitive tasks, and run 24/7 without intervention.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">🤖</span>
+        <h3 class="service-name">AI Integration</h3>
+        <p class="service-desc">VAPI voice agents, AI chatbots, and LLM-powered workflows integrated into your business stack for intelligent, real-time automation.</p>
+      </div>
+    </div>
+
+    <!-- Featured Demo -->
+    <div class="featured-demo">
+      <div class="featured-demo-left">
+        <div class="flow-badge-live">Live on n8n</div>
+        <p class="featured-demo-title">AI Voice Booking Assistant — VAPI + n8n</p>
+        <p class="featured-demo-desc">A 31-node automation connecting a VAPI AI phone agent to Google Calendar, Sheets, and Gmail — book or cancel appointments entirely by voice.</p>
+        <div class="featured-demo-links">
+          <button class="featured-flow-btn" onclick="openFlowModal('flow-modal-booking')">Booking Flow →</button>
+          <button class="featured-flow-btn" onclick="openFlowModal('flow-modal-cancel')">Cancellation Flow →</button>
+        </div>
+      </div>
+      <div class="demo-call-widget">
+        <div class="call-visualizer">
+          <div class="call-bar" id="bar1"></div>
+          <div class="call-bar" id="bar2"></div>
+          <div class="call-bar" id="bar3"></div>
+          <div class="call-bar" id="bar4"></div>
+          <div class="call-bar" id="bar5"></div>
+        </div>
+        <button class="call-btn" id="call-btn" onclick="toggleVapiCall()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.99 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.92 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </button>
+        <div class="call-status-text" id="call-status">Click to start call</div>
+        <div class="call-timer" id="call-timer" style="display:none">00:00</div>
+        <div class="call-disclaimer">Microphone required</div>
       </div>
     </div>
 
@@ -1384,40 +1470,6 @@
       </div><!-- end flow-modal-box -->
     </div><!-- end flow-modal-overlay cancel -->
 
-    <!-- Live Call Demo -->
-    <div class="demo-call-wrap">
-      <p class="demo-call-label">Try it live</p>
-      <div class="demo-call-card">
-        <div class="demo-call-left">
-          <div class="demo-call-title">Talk to the Booking Assistant</div>
-          <p class="demo-call-desc">
-            Book or cancel a dental appointment entirely by voice. The AI agent will
-            walk you through date, time, and appointment type — then confirm everything
-            automatically via Google Calendar and Gmail.
-          </p>
-          <ul class="demo-call-features">
-            <li><span class="feat-icon">✦</span> Schedule Dental Checkup, Dental Surgery, or Aesthetic Surgery</li>
-            <li><span class="feat-icon">✦</span> Cancel an existing appointment by patient name</li>
-            <li><span class="feat-icon">✦</span> Calendar event + confirmation email sent automatically</li>
-          </ul>
-        </div>
-        <div class="demo-call-widget">
-          <div class="call-visualizer">
-            <div class="call-bar" id="bar1"></div>
-            <div class="call-bar" id="bar2"></div>
-            <div class="call-bar" id="bar3"></div>
-            <div class="call-bar" id="bar4"></div>
-            <div class="call-bar" id="bar5"></div>
-          </div>
-          <button class="call-btn" id="call-btn" onclick="toggleVapiCall()">
-            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.99 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.92 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-          </button>
-          <div class="call-status-text" id="call-status">Click to start call</div>
-          <div class="call-timer" id="call-timer" style="display:none">00:00</div>
-          <div class="call-disclaimer">Microphone required</div>
-        </div>
-      </div>
-    </div>
   </section>
 
   <script>
