@@ -1610,6 +1610,32 @@
         </div>
       </div>
 
+      <!-- GHL Automations -->
+      <div class="bubble-system" id="bs-ghl-auto">
+        <div class="main-bubble" onclick="toggleBubbles('bs-ghl-auto')">
+          <span class="main-bubble-icon">⚙️</span>
+          <span class="main-bubble-label">GHL Automations</span>
+          <span class="main-bubble-hint">tap to explore</span>
+          <span class="main-bubble-close">tap to close</span>
+        </div>
+        <div class="project-bubble" onclick="openModal('modal-ghl-newlead')">
+          <span class="bubble-name">New Lead Follow-Up</span>
+          <span class="bubble-badge">GHL</span>
+        </div>
+        <div class="project-bubble" onclick="openModal('modal-ghl-apptset')">
+          <span class="bubble-name">Appointment Set — Stage Move</span>
+          <span class="bubble-badge">GHL</span>
+        </div>
+        <div class="project-bubble" onclick="openModal('modal-ghl-reminder')">
+          <span class="bubble-name">Appointment Reminder - Email</span>
+          <span class="bubble-badge">GHL</span>
+        </div>
+        <div class="project-bubble" onclick="openModal('modal-ghl-jobcomplete')">
+          <span class="bubble-name">Job Complete</span>
+          <span class="bubble-badge">GHL</span>
+        </div>
+      </div>
+
       <!-- Zapier -->
       <div class="bubble-system single-project" id="bs-zapier">
         <div class="main-bubble" onclick="toggleBubbles('bs-zapier')">
@@ -1674,6 +1700,58 @@
           <span class="modal-badge">n8n</span>
           <p class="modal-desc">Captures every JotForm submission via webhook, extracts and classifies lead fields, then routes the record into either the Corporate or Individual Google Sheets tab. Each branch independently calls Groq AI to generate a tailored lead summary, which is included in a formatted follow-up email sent automatically to the sales team via Gmail.</p>
           <div class="modal-tags"><span class="modal-tag">n8n</span><span class="modal-tag">JotForm</span><span class="modal-tag">Groq AI</span><span class="modal-tag">Google Sheets</span><span class="modal-tag">Gmail</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal: GHL New Lead Follow-Up -->
+    <div class="modal-overlay" id="modal-ghl-newlead">
+      <div class="modal-box">
+        <div class="modal-img-wrap"><img src="images/ghl-new-lead-followup.png" class="modal-img" alt="New Lead Follow-Up" onerror="this.parentElement.style.display='none'" /></div>
+        <div class="modal-body">
+          <div class="modal-header"><span class="modal-title">New Lead Follow-Up (AlphaClean Pro)</span><button class="modal-close" onclick="closeModal('modal-ghl-newlead')">✕</button></div>
+          <span class="modal-badge">GHL</span>
+          <p class="modal-desc">An automated follow-up sequence triggered the moment a new lead enters the AlphaClean Pro pipeline. The workflow immediately reaches out to the prospect, ensuring no lead goes cold and every inquiry gets a timely, professional response.</p>
+          <div class="modal-tags"><span class="modal-tag">GHL</span><span class="modal-tag">Automation</span><span class="modal-tag">Lead Follow-Up</span><span class="modal-tag">AlphaClean Pro</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal: GHL Appointment Set -->
+    <div class="modal-overlay" id="modal-ghl-apptset">
+      <div class="modal-box">
+        <div class="modal-img-wrap"><img src="images/ghl-appointment-set.png" class="modal-img" alt="Appointment Set — Stage Move" onerror="this.parentElement.style.display='none'" /></div>
+        <div class="modal-body">
+          <div class="modal-header"><span class="modal-title">Appointment Set — Stage Move (AlphaClean Pro)</span><button class="modal-close" onclick="closeModal('modal-ghl-apptset')">✕</button></div>
+          <span class="modal-badge">GHL</span>
+          <p class="modal-desc">Once a client books an appointment, this automation fires a confirmation and automatically moves the contact to the correct pipeline stage. It keeps the CRM up to date in real time without any manual intervention.</p>
+          <div class="modal-tags"><span class="modal-tag">GHL</span><span class="modal-tag">Automation</span><span class="modal-tag">Pipeline</span><span class="modal-tag">AlphaClean Pro</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal: GHL Appointment Reminder -->
+    <div class="modal-overlay" id="modal-ghl-reminder">
+      <div class="modal-box">
+        <div class="modal-img-wrap"><img src="images/ghl-appointment-reminder.png" class="modal-img" alt="Appointment Reminder - Email" onerror="this.parentElement.style.display='none'" /></div>
+        <div class="modal-body">
+          <div class="modal-header"><span class="modal-title">Appointment Reminder - Email (AlphaClean Pro)</span><button class="modal-close" onclick="closeModal('modal-ghl-reminder')">✕</button></div>
+          <span class="modal-badge">GHL</span>
+          <p class="modal-desc">A scheduled email reminder sent to clients ahead of their upcoming appointment. Reduces no-shows by keeping clients informed and engaged before their scheduled cleaning service.</p>
+          <div class="modal-tags"><span class="modal-tag">GHL</span><span class="modal-tag">Automation</span><span class="modal-tag">Email</span><span class="modal-tag">AlphaClean Pro</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal: GHL Job Complete -->
+    <div class="modal-overlay" id="modal-ghl-jobcomplete">
+      <div class="modal-box">
+        <div class="modal-img-wrap"><img src="images/ghl-job-complete.png" class="modal-img" alt="Job Complete" onerror="this.parentElement.style.display='none'" /></div>
+        <div class="modal-body">
+          <div class="modal-header"><span class="modal-title">Job Complete (AlphaClean Pro)</span><button class="modal-close" onclick="closeModal('modal-ghl-jobcomplete')">✕</button></div>
+          <span class="modal-badge">GHL</span>
+          <p class="modal-desc">Triggered when a job is marked as complete, this automation sends a wrap-up message to the client, requests a review, and updates the pipeline stage — closing the loop on the customer journey automatically.</p>
+          <div class="modal-tags"><span class="modal-tag">GHL</span><span class="modal-tag">Automation</span><span class="modal-tag">Review Request</span><span class="modal-tag">AlphaClean Pro</span></div>
         </div>
       </div>
     </div>
