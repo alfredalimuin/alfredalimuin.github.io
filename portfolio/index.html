@@ -226,8 +226,16 @@
       position: relative;
       border-radius: 22px;
       padding: 2px;
-      overflow: hidden;
       box-shadow: 0 0 35px rgba(39,108,245,0.25), 0 20px 60px rgba(0,0,0,0.5);
+    }
+
+    /* clip only the spinner, not the badges */
+    .photo-neon-clip {
+      position: absolute;
+      inset: 0;
+      border-radius: 22px;
+      overflow: hidden;
+      pointer-events: none;
     }
 
     .photo-neon-spin {
@@ -236,6 +244,7 @@
       left: 50%;
       width: 220%;
       height: 220%;
+      transform: translate(-50%, -50%) rotate(0deg);
       background: conic-gradient(
         from 0deg,
         transparent 0deg,
@@ -253,9 +262,6 @@
     @keyframes neonSpin {
       to { transform: translate(-50%, -50%) rotate(360deg); }
     }
-
-    /* init transform so keyframe 'to' works correctly */
-    .photo-neon-spin { transform: translate(-50%, -50%) rotate(0deg); }
 
     .hero-photo {
       position: relative;
@@ -1445,7 +1451,9 @@
       </div>
       <div class="hero-photo-wrap">
         <div class="photo-neon-frame">
-          <div class="photo-neon-spin"></div>
+          <div class="photo-neon-clip">
+            <div class="photo-neon-spin"></div>
+          </div>
           <img src="photo.jpg" alt="Alfred Alimuin" class="hero-photo" />
         </div>
 
