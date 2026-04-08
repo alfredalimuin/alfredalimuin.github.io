@@ -215,20 +215,100 @@
 
     .hero-text { flex: 1; }
 
-    .hero-photo {
+    .hero-photo-wrap {
+      position: relative;
       flex-shrink: 0;
-      width: 260px;
-      height: 260px;
-      border-radius: 50%;
+      width: 300px;
+    }
+
+    .hero-photo {
+      width: 100%;
+      height: 380px;
+      border-radius: 20px;
       object-fit: cover;
       object-position: top;
-      border: 3px solid var(--accent);
-      box-shadow: 0 0 40px rgba(39, 108, 245, 0.3);
+      display: block;
+      border: 1px solid rgba(39,108,245,0.3);
+      box-shadow: 0 0 50px rgba(39,108,245,0.2), 0 20px 60px rgba(0,0,0,0.5);
+    }
+
+    /* Floating badge cards */
+    .photo-badge {
+      position: absolute;
+      background: rgba(10,10,20,0.75);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(39,108,245,0.25);
+      border-radius: 12px;
+      padding: 0.55rem 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      white-space: nowrap;
+      animation: badgeFloat 4s ease-in-out infinite;
+    }
+
+    .photo-badge-top {
+      top: 14%;
+      right: -18%;
+      animation-delay: 0s;
+    }
+
+    .photo-badge-bot {
+      bottom: 12%;
+      left: -14%;
+      animation-delay: 2s;
+    }
+
+    @keyframes badgeFloat {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(-6px); }
+    }
+
+    .badge-icon {
+      font-size: 1rem;
+      line-height: 1;
+    }
+
+    .badge-label {
+      font-size: 0.62rem;
+      color: var(--muted);
+      display: block;
+      line-height: 1.2;
+    }
+
+    .badge-value {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text);
+      display: block;
+      line-height: 1.3;
+    }
+
+    .badge-value .badge-accent { color: var(--accent); }
+
+    /* Sparkles */
+    .photo-sparkle {
+      position: absolute;
+      color: var(--accent);
+      font-size: 0.9rem;
+      animation: sparklePop 3s ease-in-out infinite;
+      opacity: 0.7;
+    }
+
+    .photo-sparkle-1 { top: 6%; left: 5%; animation-delay: 0s; }
+    .photo-sparkle-2 { bottom: 8%; right: 4%; animation-delay: 1.5s; }
+
+    @keyframes sparklePop {
+      0%,100% { opacity: 0.4; transform: scale(1) rotate(0deg); }
+      50%      { opacity: 1;   transform: scale(1.3) rotate(20deg); }
     }
 
     @media (max-width: 640px) {
       .hero-inner { flex-direction: column-reverse; align-items: flex-start; }
-      .hero-photo { width: 140px; height: 140px; }
+      .hero-photo-wrap { width: 200px; }
+      .hero-photo { height: 250px; }
+      .photo-badge-top { right: -10%; }
+      .photo-badge-bot { left: -8%; }
     }
 
     .hero-tag {
@@ -1325,7 +1405,31 @@
           <a href="#projects" class="hero-cta-secondary">View Projects</a>
         </div>
       </div>
-      <img src="photo.jpg" alt="Alfred Alimuin" class="hero-photo" />
+      <div class="hero-photo-wrap">
+        <img src="photo.jpg" alt="Alfred Alimuin" class="hero-photo" />
+
+        <!-- Top-right badge -->
+        <div class="photo-badge photo-badge-top">
+          <span class="badge-icon">⚡</span>
+          <div>
+            <span class="badge-label">Workflows Built</span>
+            <span class="badge-value"><span class="badge-accent">22+</span> Automations</span>
+          </div>
+        </div>
+
+        <!-- Bottom-left badge -->
+        <div class="photo-badge photo-badge-bot" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})" style="cursor:pointer">
+          <span class="badge-icon">📅</span>
+          <div>
+            <span class="badge-label">Book a Free Call</span>
+            <span class="badge-value">30-min Strategy</span>
+          </div>
+        </div>
+
+        <!-- Sparkles -->
+        <span class="photo-sparkle photo-sparkle-1">✦</span>
+        <span class="photo-sparkle photo-sparkle-2">✦</span>
+      </div>
     </div>
   </section>
 
