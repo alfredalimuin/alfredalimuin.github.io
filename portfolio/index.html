@@ -1904,7 +1904,7 @@
     <h2 class="section-title">Projects and Designs</h2>
     <!-- Filter tabs -->
     <div class="proj-filters">
-      <button class="proj-filter active" data-filter="n8n">n8n <span class="filter-count">5</span></button>
+      <button class="proj-filter" data-filter="n8n">n8n <span class="filter-count">5</span></button>
       <button class="proj-filter" data-filter="ghl-funnels">GHL Funnels <span class="filter-count">6</span></button>
       <button class="proj-filter" data-filter="ghl-auto">GHL Automations <span class="filter-count">4</span></button>
     </div>
@@ -1913,7 +1913,7 @@
     <div class="proj-grid">
 
       <!-- n8n cards -->
-      <div class="proj-card" data-category="n8n" onclick="openModal('modal-dental')">
+      <div class="proj-card hidden" data-category="n8n" onclick="openModal('modal-dental')">
         <div class="proj-card-img-wrap">
           <img src="images/workflow-dental-booking.png" alt="VAPI Dental Clinic Voice Booking" onerror="this.parentElement.innerHTML='<div class=\'proj-card-placeholder\'>📅</div>'" />
           <span class="proj-card-badge">N8N</span>
@@ -1934,7 +1934,7 @@
         </div>
       </div>
 
-      <div class="proj-card" data-category="n8n" onclick="openModal('modal-cancel')">
+      <div class="proj-card hidden" data-category="n8n" onclick="openModal('modal-cancel')">
         <div class="proj-card-img-wrap">
           <img src="images/workflow-cancel.png" alt="Voice-Triggered Appointment Cancellation" onerror="this.parentElement.innerHTML='<div class=\'proj-card-placeholder\'>✕</div>'" />
           <span class="proj-card-badge">N8N</span>
@@ -1955,7 +1955,7 @@
         </div>
       </div>
 
-      <div class="proj-card" data-category="n8n" onclick="openModal('modal-fitness')">
+      <div class="proj-card hidden" data-category="n8n" onclick="openModal('modal-fitness')">
         <div class="proj-card-img-wrap">
           <img src="images/workflow-fitness.png" alt="AI Fitness Coach" onerror="this.parentElement.innerHTML='<div class=\'proj-card-placeholder\'>🏃</div>'" />
           <span class="proj-card-badge">N8N</span>
@@ -1976,7 +1976,7 @@
         </div>
       </div>
 
-      <div class="proj-card" data-category="n8n" onclick="openModal('modal-jotform')">
+      <div class="proj-card hidden" data-category="n8n" onclick="openModal('modal-jotform')">
         <div class="proj-card-img-wrap">
           <img src="images/workflow-jotform.png" alt="JotForm Lead Capture" onerror="this.parentElement.innerHTML='<div class=\'proj-card-placeholder\'>📋</div>'" />
           <span class="proj-card-badge">N8N</span>
@@ -1997,7 +1997,7 @@
         </div>
       </div>
 
-      <div class="proj-card" data-category="n8n" onclick="openModal('modal-property')">
+      <div class="proj-card hidden" data-category="n8n" onclick="openModal('modal-property')">
         <div class="proj-card-img-wrap">
           <img src="images/workflow-property.png" alt="Property Manager AI Agent" onerror="this.parentElement.innerHTML='<div class=\'proj-card-placeholder\'>🏠</div>'" />
           <span class="proj-card-badge">N8N</span>
@@ -2567,19 +2567,23 @@
       if (saved === 'light') document.documentElement.setAttribute('data-theme', 'light');
     })();
 
-    /* ── Project Filters ── */
+    /* ── Project Filters (toggle) ── */
     document.querySelectorAll('.proj-filter').forEach(function(btn) {
       btn.addEventListener('click', function() {
-        document.querySelectorAll('.proj-filter').forEach(function(b) { b.classList.remove('active'); });
-        this.classList.add('active');
         var filter = this.dataset.filter;
-        document.querySelectorAll('.proj-card').forEach(function(card) {
-          if (card.dataset.category === filter) {
-            card.classList.remove('hidden');
-          } else {
-            card.classList.add('hidden');
-          }
-        });
+        var isActive = this.classList.contains('active');
+
+        /* deactivate all + hide all cards */
+        document.querySelectorAll('.proj-filter').forEach(function(b) { b.classList.remove('active'); });
+        document.querySelectorAll('.proj-card').forEach(function(c) { c.classList.add('hidden'); });
+
+        /* if it wasn't active, activate it and show its cards */
+        if (!isActive) {
+          this.classList.add('active');
+          document.querySelectorAll('.proj-card[data-category="' + filter + '"]').forEach(function(c) {
+            c.classList.remove('hidden');
+          });
+        }
       });
     });
 
