@@ -1,0 +1,568 @@
+<!-- ═══════════════════════════════════════════════════
+     AlphaClean Pro — Opt-In Page (GHL Custom Code Block)
+     Paste this entire block into GHL's Custom Code section.
+     Delete all other sections on the page first.
+════════════════════════════════════════════════════ -->
+
+<style>
+  /* Reset GHL defaults for this block */
+  #ac-wrap * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  #ac-wrap {
+    --blue:      #1a73e8;
+    --blue-dk:   #0d47a1;
+    --green:     #00c853;
+    --text:      #1a1a2e;
+    --muted:     #6b7280;
+    --border:    #e5e7eb;
+    --bg:        #f9fafb;
+    --white:     #ffffff;
+    --font:      'Segoe UI', system-ui, -apple-system, sans-serif;
+    font-family: var(--font);
+    color: var(--text);
+    width: 100%;
+  }
+
+  /* ── HERO ── */
+  #ac-hero {
+    background: linear-gradient(160deg, #f0f6ff 0%, #ffffff 60%);
+    padding: 72px 24px 56px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  #ac-hero::before {
+    content: '';
+    position: absolute;
+    top: -100px; right: -100px;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(26,115,232,0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .ac-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(26,115,232,0.08);
+    border: 1px solid rgba(26,115,232,0.2);
+    color: var(--blue);
+    font-size: 0.73rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 100px;
+    margin-bottom: 28px;
+  }
+
+  .ac-badge::before { content: '●'; font-size: 0.45rem; color: var(--green); }
+
+  #ac-hero h1 {
+    font-size: clamp(2rem, 5.5vw, 3.2rem);
+    font-weight: 800;
+    line-height: 1.12;
+    letter-spacing: -0.03em;
+    color: var(--text);
+    max-width: 640px;
+    margin: 0 auto 18px;
+  }
+
+  #ac-hero h1 em { font-style: normal; color: var(--blue); }
+
+  #ac-hero .ac-sub {
+    font-size: clamp(1rem, 2.5vw, 1.12rem);
+    color: var(--muted);
+    max-width: 440px;
+    margin: 0 auto 40px;
+    line-height: 1.65;
+  }
+
+  .ac-btn-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 17px 38px;
+    background: linear-gradient(135deg, var(--blue), var(--blue-dk));
+    color: var(--white) !important;
+    font-size: 1.05rem;
+    font-weight: 700;
+    font-family: var(--font);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 6px 22px rgba(26,115,232,0.34);
+    transition: transform 0.18s, box-shadow 0.18s;
+    text-decoration: none;
+    margin-bottom: 14px;
+  }
+
+  .ac-btn-cta:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(26,115,232,0.44);
+  }
+
+  .ac-no-spam {
+    display: block;
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin-bottom: 44px;
+  }
+
+  .ac-trust {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .ac-pill {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 8px 16px;
+    font-size: 0.83rem;
+    font-weight: 500;
+    color: var(--text);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+
+  /* ── STATS ── */
+  .ac-stats {
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 28px 24px;
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+
+  .ac-stat { text-align: center; }
+  .ac-stat-n { font-size: 1.7rem; font-weight: 800; color: var(--blue); line-height: 1; margin-bottom: 4px; }
+  .ac-stat-l { font-size: 0.79rem; color: var(--muted); font-weight: 500; }
+
+  /* ── TESTIMONIAL ── */
+  .ac-testi {
+    max-width: 520px;
+    margin: 52px auto;
+    padding: 0 24px;
+    text-align: center;
+  }
+
+  .ac-stars { color: #f59e0b; font-size: 1.1rem; letter-spacing: 3px; margin-bottom: 14px; }
+
+  .ac-quote {
+    font-size: 1.03rem;
+    line-height: 1.7;
+    color: var(--text);
+    font-style: italic;
+    margin-bottom: 20px;
+  }
+
+  .ac-author {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .ac-avatar {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--blue), #7c4dff);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--white); font-size: 0.88rem; font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .ac-author-name { font-size: 0.88rem; font-weight: 700; color: var(--text); }
+  .ac-author-meta { font-size: 0.8rem; color: var(--muted); }
+
+  /* ═══ MODAL ═══════════════════════════════════════ */
+  #ac-modal-bg {
+    position: fixed; inset: 0;
+    background: rgba(10, 15, 35, 0.58);
+    backdrop-filter: blur(7px);
+    -webkit-backdrop-filter: blur(7px);
+    z-index: 99999;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.24s ease;
+  }
+
+  #ac-modal-bg.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  #ac-modal {
+    background: var(--white);
+    border-radius: 24px 24px 0 0;
+    padding: 32px 26px 40px;
+    width: 100%;
+    max-width: 460px;
+    max-height: 93vh;
+    overflow-y: auto;
+    position: relative;
+    transform: translateY(60px);
+    transition: transform 0.32s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 -4px 40px rgba(0,0,0,0.16);
+  }
+
+  @media (min-width: 600px) {
+    #ac-modal-bg { align-items: center; padding: 24px; }
+    #ac-modal {
+      border-radius: 22px;
+      transform: translateY(24px) scale(0.97);
+      box-shadow: 0 24px 80px rgba(0,0,0,0.22);
+    }
+  }
+
+  #ac-modal-bg.open #ac-modal {
+    transform: translateY(0) scale(1);
+  }
+
+  .ac-handle {
+    width: 40px; height: 4px;
+    background: var(--border);
+    border-radius: 100px;
+    margin: 0 auto 26px;
+  }
+
+  @media (min-width: 600px) { .ac-handle { display: none; } }
+
+  .ac-close {
+    position: absolute;
+    top: 16px; right: 16px;
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--muted);
+    font-size: 1rem;
+    font-family: var(--font);
+    transition: background 0.15s;
+  }
+
+  .ac-close:hover { background: var(--border); }
+
+  .ac-modal-title {
+    font-size: 1.3rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+
+  .ac-modal-sub {
+    font-size: 0.88rem;
+    color: var(--muted);
+    margin-bottom: 26px;
+    line-height: 1.5;
+  }
+
+  /* ── FORM ── */
+  .ac-form { display: flex; flex-direction: column; gap: 14px; }
+
+  .ac-field { display: flex; flex-direction: column; gap: 5px; }
+
+  .ac-field label {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text);
+    font-family: var(--font);
+  }
+
+  .ac-field label .req { color: #ef4444; margin-left: 2px; }
+
+  .ac-field input,
+  .ac-field select {
+    width: 100%;
+    padding: 13px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    font-size: 0.97rem;
+    font-family: var(--font);
+    color: var(--text);
+    background: var(--white);
+    outline: none;
+    transition: border-color 0.18s, box-shadow 0.18s;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+
+  .ac-field input::placeholder { color: #c4c9d4; }
+
+  .ac-field input:focus,
+  .ac-field select:focus {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(26,115,232,0.12);
+  }
+
+  .ac-field input.err,
+  .ac-field select.err { border-color: #ef4444; box-shadow: 0 0 0 3px rgba(239,68,68,0.1); }
+
+  .ac-row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+  .ac-sel { position: relative; }
+  .ac-sel::after {
+    content: '';
+    position: absolute;
+    right: 14px; top: 50%;
+    transform: translateY(-50%);
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 6px solid var(--muted);
+    pointer-events: none;
+  }
+  .ac-sel select { padding-right: 38px; cursor: pointer; }
+
+  .ac-submit {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, var(--blue), var(--blue-dk));
+    color: var(--white);
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: var(--font);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(26,115,232,0.32);
+    transition: transform 0.15s, box-shadow 0.15s;
+    margin-top: 4px;
+  }
+
+  .ac-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(26,115,232,0.42); }
+  .ac-submit:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
+
+  .ac-note {
+    font-size: 0.75rem;
+    color: var(--muted);
+    text-align: center;
+    font-family: var(--font);
+  }
+
+  /* ── SUCCESS ── */
+  .ac-success {
+    display: none;
+    text-align: center;
+    padding: 12px 0 4px;
+  }
+
+  .ac-success.show { display: block; }
+
+  .ac-ok-icon {
+    width: 72px; height: 72px;
+    background: linear-gradient(135deg, #00c853, #00e676);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 2rem;
+    box-shadow: 0 8px 24px rgba(0,200,83,0.28);
+  }
+
+  .ac-success h3 {
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 10px;
+    letter-spacing: -0.02em;
+    font-family: var(--font);
+  }
+
+  .ac-success p {
+    font-size: 0.93rem;
+    color: var(--muted);
+    line-height: 1.65;
+    font-family: var(--font);
+  }
+</style>
+
+<!-- ── PAGE CONTENT ─────────────────────────────── -->
+<div id="ac-wrap">
+
+  <!-- Hero -->
+  <div id="ac-hero">
+    <div class="ac-badge">Available This Week</div>
+    <h1>A <em>Spotless Home</em><br>Without the Hassle</h1>
+    <p class="ac-sub">Professional, vetted cleaners. Get a free estimate and we'll call you back within minutes.</p>
+
+    <button class="ac-btn-cta" onclick="acOpenModal()">
+      🛡️ Get My Free Estimate
+    </button>
+    <span class="ac-no-spam">No commitment · We call you back in minutes</span>
+
+    <div class="ac-trust">
+      <div class="ac-pill">⭐ 4.9-Star Rated</div>
+      <div class="ac-pill">🔒 Fully Insured</div>
+      <div class="ac-pill">⚡ Same-Day Response</div>
+      <div class="ac-pill">✅ No Hidden Fees</div>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="ac-stats">
+    <div class="ac-stat"><div class="ac-stat-n">500+</div><div class="ac-stat-l">Happy Clients</div></div>
+    <div class="ac-stat"><div class="ac-stat-n">4.9★</div><div class="ac-stat-l">Avg. Rating</div></div>
+    <div class="ac-stat"><div class="ac-stat-n">3 min</div><div class="ac-stat-l">Avg. Response</div></div>
+    <div class="ac-stat"><div class="ac-stat-n">100%</div><div class="ac-stat-l">Satisfaction Guarantee</div></div>
+  </div>
+
+  <!-- Testimonial -->
+  <div class="ac-testi">
+    <div class="ac-stars">★★★★★</div>
+    <p class="ac-quote">"Booked online, got a call back in 2 minutes. The team showed up on time and my house has never looked better. Will 100% be using them again!"</p>
+    <div class="ac-author">
+      <div class="ac-avatar">SR</div>
+      <div>
+        <div class="ac-author-name">Sarah R.</div>
+        <div class="ac-author-meta">Verified Customer · San Diego, CA</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<!-- end ac-wrap -->
+
+
+<!-- ═══ MODAL ════════════════════════════════════════ -->
+<div id="ac-modal-bg" role="dialog" aria-modal="true">
+  <div id="ac-modal">
+    <div class="ac-handle"></div>
+    <button class="ac-close" onclick="acCloseModal()">✕</button>
+
+    <!-- Form -->
+    <div id="ac-form-wrap">
+      <p class="ac-modal-title">Get Your Free Estimate</p>
+      <p class="ac-modal-sub">Fill in your details — we'll call you back within minutes.</p>
+
+      <form class="ac-form" id="acForm" novalidate onsubmit="acSubmit(event)">
+        <div class="ac-row2">
+          <div class="ac-field">
+            <label for="acFirst">First Name <span class="req">*</span></label>
+            <input type="text" id="acFirst" placeholder="Jane" autocomplete="given-name" />
+          </div>
+          <div class="ac-field">
+            <label for="acLast">Last Name</label>
+            <input type="text" id="acLast" placeholder="Smith" autocomplete="family-name" />
+          </div>
+        </div>
+
+        <div class="ac-field">
+          <label for="acPhone">Phone <span class="req">*</span></label>
+          <input type="tel" id="acPhone" placeholder="(555) 000-0000" autocomplete="tel" inputmode="tel" />
+        </div>
+
+        <div class="ac-field">
+          <label for="acEmail">Email <span class="req">*</span></label>
+          <input type="email" id="acEmail" placeholder="jane@email.com" autocomplete="email" inputmode="email" />
+        </div>
+
+        <div class="ac-field">
+          <label for="acService">Service Needed <span class="req">*</span></label>
+          <div class="ac-sel">
+            <select id="acService">
+              <option value="" disabled selected>Select a service…</option>
+              <option>Standard Cleaning</option>
+              <option>Deep Cleaning</option>
+              <option>Move-In Cleaning</option>
+              <option>Move-Out Cleaning</option>
+              <option>Recurring / Weekly</option>
+              <option>Office / Commercial</option>
+              <option>Other — I'll explain</option>
+            </select>
+          </div>
+        </div>
+
+        <button type="submit" class="ac-submit" id="acBtn">Get My Free Estimate →</button>
+        <p class="ac-note">🔒 Your info is safe. No spam, ever.</p>
+      </form>
+    </div>
+
+    <!-- Success -->
+    <div class="ac-success" id="acSuccess">
+      <div class="ac-ok-icon">✅</div>
+      <h3>You're All Set!</h3>
+      <p>We got your request and will call you back within minutes to confirm your free estimate.</p>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  function acOpenModal() {
+    document.getElementById('ac-modal-bg').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    setTimeout(function(){ document.getElementById('acFirst').focus(); }, 320);
+  }
+
+  function acCloseModal() {
+    document.getElementById('ac-modal-bg').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('ac-modal-bg').addEventListener('click', function(e){
+    if (e.target === this) acCloseModal();
+  });
+
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape') acCloseModal();
+  });
+
+  function acSubmit(e) {
+    e.preventDefault();
+    var first   = document.getElementById('acFirst');
+    var phone   = document.getElementById('acPhone');
+    var email   = document.getElementById('acEmail');
+    var service = document.getElementById('acService');
+    var btn     = document.getElementById('acBtn');
+    var valid   = true;
+
+    [first, phone, email, service].forEach(function(el){ el.classList.remove('err'); });
+
+    if (!first.value.trim())        { first.classList.add('err');   valid = false; }
+    if (!phone.value.trim())        { phone.classList.add('err');   valid = false; }
+    if (!email.value.includes('@')) { email.classList.add('err');   valid = false; }
+    if (!service.value)             { service.classList.add('err'); valid = false; }
+
+    if (!valid) return;
+
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+
+    // ── POST to GHL webhook ──────────────────────────
+    // Replace YOUR_WEBHOOK_URL with your GHL inbound webhook
+    fetch('YOUR_WEBHOOK_URL', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        firstName: first.value.trim(),
+        lastName:  document.getElementById('acLast').value.trim(),
+        phone:     phone.value.trim(),
+        email:     email.value.trim(),
+        service:   service.value
+      })
+    }).catch(function(){});
+    // ────────────────────────────────────────────────
+
+    setTimeout(function(){
+      document.getElementById('ac-form-wrap').style.display = 'none';
+      document.getElementById('acSuccess').classList.add('show');
+      // Redirect to thank-you page after 2 seconds:
+      // setTimeout(function(){ window.top.location.href = '/thank-you-page'; }, 2000);
+    }, 800);
+  }
+</script>

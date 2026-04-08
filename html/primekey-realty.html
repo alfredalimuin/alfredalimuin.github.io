@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PrimeKey Realty</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ivory:   #FAF8F4;
+      --navy:    #1C1C2E;
+      --gold:    #C9A96E;
+      --blush:   #F3E8E2;
+      --sage:    #B8CCBE;
+      --charcoal:#4A4A5A;
+      --white:   #FFFFFF;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+
+    /* No breakout hack — GHL column handles width naturally */
+    #primekey-wrap {
+      width: 100%;
+    }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      background: var(--ivory);
+      color: var(--charcoal);
+    }
+
+    /* ─── HERO ─────────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      background:
+        linear-gradient(rgba(28,28,46,.65), rgba(28,28,46,.65)),
+        url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1600&q=80') center/cover no-repeat;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 24px;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      background: rgba(201,169,110,.15);
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      padding: 6px 20px;
+      border-radius: 20px;
+      margin-bottom: 28px;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 56px;
+      color: #fff;
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 18px;
+      max-width: 100%;
+      word-wrap: break-word;
+    }
+
+    .hero h1 span { color: var(--gold); }
+
+    .hero p {
+      font-size: 18px;
+      color: #D4C9BE;
+      max-width: 520px;
+      line-height: 1.75;
+      margin-bottom: 40px;
+      font-weight: 300;
+    }
+
+    /* ─── BUTTONS ───────────────────────────────────────── */
+    .btn-gold {
+      background: var(--gold);
+      color: var(--ivory);
+      border: none;
+      padding: 16px 44px;
+      font-size: 15px;
+      font-family: 'Lato', sans-serif;
+      font-weight: 700;
+      letter-spacing: 1px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background .25s, transform .25s, box-shadow .25s;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-gold:hover {
+      background: #b8925a;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(201,169,110,.35);
+    }
+
+    /* ─── TRUST BAR ─────────────────────────────────────── */
+    .trust-bar {
+      background: var(--white);
+      padding: 52px 24px;
+      border-bottom: 1px solid #EDE8E0;
+    }
+
+    .trust-bar .inner {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      gap: 64px;
+      flex-wrap: wrap;
+    }
+
+    .trust-item { text-align: center; }
+
+    .trust-item .t-icon {
+      font-size: 30px;
+      margin-bottom: 8px;
+    }
+
+    .trust-item strong {
+      display: block;
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      color: var(--navy);
+      margin-bottom: 4px;
+    }
+
+    .trust-item span {
+      font-size: 12px;
+      color: var(--charcoal);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    /* ─── SERVICES ──────────────────────────────────────── */
+    .services {
+      background: var(--blush);
+      padding: 96px 24px;
+    }
+
+    .section-eyebrow {
+      text-align: center;
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      text-align: center;
+      font-size: 36px;
+      color: var(--navy);
+      margin-bottom: 56px;
+    }
+
+    .cards {
+      display: flex;
+      gap: 28px;
+      max-width: 1100px;
+      margin: 0 auto;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .card {
+      background: var(--white);
+      border-radius: 12px;
+      padding: 40px 32px;
+      flex: 1;
+      min-width: 280px;
+      max-width: 340px;
+      box-shadow: 0 4px 24px rgba(28,28,46,.06);
+      transition: transform .3s, box-shadow .3s, border-top-color .3s;
+      border-top: 3px solid transparent;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px rgba(28,28,46,.12);
+      border-top-color: var(--gold);
+    }
+
+    .card-icon {
+      width: 52px;
+      height: 52px;
+      background: var(--blush);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      margin-bottom: 20px;
+    }
+
+    .card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      color: var(--navy);
+      margin-bottom: 12px;
+    }
+
+    .card p {
+      font-size: 15px;
+      color: var(--charcoal);
+      line-height: 1.75;
+      margin-bottom: 24px;
+    }
+
+    .card-link {
+      color: var(--gold);
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 1px;
+      text-decoration: none;
+      text-transform: uppercase;
+      cursor: pointer;
+      background: none;
+      border: none;
+      font-family: 'Lato', sans-serif;
+      padding: 0;
+    }
+
+    .card-link:hover { text-decoration: underline; }
+
+    /* ─── CTA STRIP ─────────────────────────────────────── */
+    .cta-strip {
+      background: var(--navy);
+      padding: 88px 24px;
+      text-align: center;
+    }
+
+    .cta-strip .eyebrow {
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-bottom: 12px;
+    }
+
+    .cta-strip h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 42px;
+      color: var(--white);
+      margin-bottom: 36px;
+    }
+
+    /* ─── FOOTER ─────────────────────────────────────────── */
+    footer {
+      background: #141420;
+      padding: 24px;
+      text-align: center;
+      color: #6B6B80;
+      font-size: 13px;
+    }
+
+    /* ─── MODAL OVERLAY ─────────────────────────────────── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(28,28,46,.75);
+      backdrop-filter: blur(5px);
+      z-index: 9999;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 40px 24px;
+      overflow-y: auto;
+    }
+
+    .modal-overlay.active { display: flex; }
+
+    .modal {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 32px 32px 24px;
+      max-width: 540px;
+      width: 100%;
+      position: relative;
+      animation: slideUp .3s ease;
+      margin: auto;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(24px); opacity: 0; }
+      to   { transform: translateY(0);    opacity: 1; }
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 14px; right: 18px;
+      background: none; border: none;
+      font-size: 24px; color: #aaa;
+      cursor: pointer; line-height: 1;
+      transition: color .2s;
+    }
+
+    .modal-close:hover { color: var(--navy); }
+
+    .modal-eyebrow {
+      display: inline-block;
+      background: var(--blush);
+      color: var(--gold);
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 4px 14px;
+      border-radius: 20px;
+      margin-bottom: 14px;
+    }
+
+    .modal h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+
+    .modal-sub {
+      font-size: 14px;
+      color: var(--charcoal);
+      line-height: 1.65;
+      margin-bottom: 28px;
+    }
+
+    /* GHL iframe form */
+    .ghl-form-wrap {
+      width: 100%;
+    }
+
+    .ghl-form-wrap iframe {
+      width: 100%;
+      height: 682px;
+      border: none;
+      border-radius: 3px;
+      display: block;
+    }
+
+    /* ─── RESPONSIVE ────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .hero h1       { font-size: 32px; }
+      .section-title { font-size: 26px; }
+      .cta-strip h2  { font-size: 28px; }
+      .hero p        { font-size: 16px; }
+      .hero          { padding: 80px 20px; }
+      .trust-bar .inner { gap: 36px; }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1       { font-size: 26px; }
+      .section-title { font-size: 22px; }
+      .cta-strip h2  { font-size: 24px; }
+      .modal { padding: 20px 16px; }
+      .modal-overlay { padding: 20px 12px; }
+      .ghl-form-wrap iframe { height: 750px; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="primekey-wrap">
+<!-- ═══ HERO ═══════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-tag">Premium Real Estate Services</div>
+  <h1>Find Your <span>Dream Home.</span><br>We'll Guide the Way.</h1>
+  <p>Trusted by 500+ families. Expert consultation, zero pressure. Your perfect property is closer than you think.</p>
+  <button class="btn-gold" onclick="openModal()">Get My Free Consultation &rarr;</button>
+</section>
+
+<!-- ═══ TRUST BAR ══════════════════════════════════════════ -->
+<section class="trust-bar">
+  <div class="inner">
+    <div class="trust-item">
+      <div class="t-icon">🏡</div>
+      <strong>500+</strong>
+      <span>Homes Sold</span>
+    </div>
+    <div class="trust-item">
+      <div class="t-icon">⭐</div>
+      <strong>5-Star</strong>
+      <span>Rated Service</span>
+    </div>
+    <div class="trust-item">
+      <div class="t-icon">📍</div>
+      <strong>Local</strong>
+      <span>Market Experts</span>
+    </div>
+    <div class="trust-item">
+      <div class="t-icon">🔑</div>
+      <strong>15+ Years</strong>
+      <span>Experience</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SERVICES ═══════════════════════════════════════════ -->
+<section class="services">
+  <p class="section-eyebrow">What We Offer</p>
+  <h2 class="section-title">Tailored Services for Every Need</h2>
+  <div class="cards">
+
+    <div class="card">
+      <div class="card-icon">🏠</div>
+      <h3>Buy a Home</h3>
+      <p>Find the perfect property matched to your budget and lifestyle with expert guidance every step of the way.</p>
+      <button class="card-link" onclick="openModal()">Get Started &rarr;</button>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">💰</div>
+      <h3>Sell Your Property</h3>
+      <p>Get top dollar for your home with our proven marketing strategy and network of qualified buyers.</p>
+      <button class="card-link" onclick="openModal()">Get Valuation &rarr;</button>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">📈</div>
+      <h3>Investment Properties</h3>
+      <p>Grow your portfolio with expert guidance on high-yield properties in the most sought-after locations.</p>
+      <button class="card-link" onclick="openModal()">Learn More &rarr;</button>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ CTA STRIP ══════════════════════════════════════════ -->
+<section class="cta-strip">
+  <p class="eyebrow">Take the First Step</p>
+  <h2>Ready for Your Next Chapter?</h2>
+  <button class="btn-gold" onclick="openModal()">Get My Free Consultation &rarr;</button>
+</section>
+
+<!-- ═══ FOOTER ═════════════════════════════════════════════ -->
+<footer>
+  <p>&copy; 2026 PrimeKey Realty. All rights reserved.</p>
+</footer>
+
+</div><!-- end #primekey-wrap -->
+
+<!-- ═══ MODAL (outside wrap so position:fixed works correctly) ══ -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeOnOverlay(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">&times;</button>
+
+    <!-- GHL NATIVE FORM -->
+    <div class="ghl-form-wrap">
+      <iframe
+        src="https://api.leadconnectorhq.com/widget/form/J07diCrETOQq0737ETtF"
+        id="inline-J07diCrETOQq0737ETtF"
+        data-layout="{'id':'INLINE'}"
+        data-trigger-type="alwaysShow"
+        data-trigger-value=""
+        data-activation-type="alwaysActivated"
+        data-activation-value=""
+        data-deactivation-type="neverDeactivate"
+        data-deactivation-value=""
+        data-form-name="PrimeKey Lead Capture"
+        data-height="682"
+        data-layout-iframe-id="inline-J07diCrETOQq0737ETtF"
+        data-form-id="J07diCrETOQq0737ETtF"
+        title="PrimeKey Lead Capture"
+      ></iframe>
+    </div>
+
+  </div>
+</div>
+
+<script src="https://link.msgsndr.com/js/form_embed.js"></script>
+<script>
+  function openModal() {
+    document.getElementById('modalOverlay').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    document.getElementById('modalOverlay').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  function closeOnOverlay(e) {
+    if (e.target === document.getElementById('modalOverlay') && e.offsetX > e.target.clientWidth) return;
+    if (e.target === document.getElementById('modalOverlay')) closeModal();
+  }
+
+</script>
+
+</body>
+</html>
