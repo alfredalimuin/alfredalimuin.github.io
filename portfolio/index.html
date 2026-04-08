@@ -368,100 +368,160 @@
     }
 
     /* ── Projects ── */
-    /* ── Tools Arena ── */
-    .tools-arena {
+    .proj-filters {
       display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      gap: 4rem;
+      gap: 0.5rem;
       flex-wrap: wrap;
-      padding: 1rem 0 300px;
+      margin-bottom: 2rem;
     }
 
-    .bubble-system {
+    .proj-filter {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      border-radius: 999px;
+      padding: 0.4rem 1rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+
+    .filter-count {
+      background: rgba(255,255,255,0.08);
+      border-radius: 999px;
+      padding: 0.05rem 0.45rem;
+      font-size: 0.72rem;
+    }
+
+    .proj-filter.active, .proj-filter:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    .proj-filter.active .filter-count { background: rgba(255,255,255,0.25); }
+
+    .proj-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+
+    @media (max-width: 768px) { .proj-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 480px) { .proj-grid { grid-template-columns: 1fr; } }
+
+    .proj-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      cursor: pointer;
+      transition: border-color 0.2s, transform 0.2s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .proj-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .proj-card.hidden { display: none; }
+
+    .proj-card-img-wrap {
       position: relative;
-      width: 164px;
-      height: 164px;
-      flex-shrink: 0;
-      transition: opacity 0.4s, transform 0.4s;
+      height: 155px;
+      overflow: hidden;
+      background: var(--bg3);
     }
 
-    .tools-arena.has-expanded .bubble-system:not(.expanded) {
-      opacity: 0.3;
-      transform: scale(0.88);
+    .proj-card-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
     }
 
-    .main-bubble {
+    .proj-card-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, rgba(34,197,94,0.08), rgba(34,197,94,0.03));
+      font-size: 2.75rem;
+    }
+
+    .proj-card-badge {
       position: absolute;
-      inset: 0;
-      border-radius: 50%;
-      background: radial-gradient(circle at 35% 35%, #1e4a2e, #0a150d);
-      border: 2px solid rgba(34, 197, 94, 0.5);
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      text-align: center;
-      cursor: pointer; z-index: 10;
-      transition: box-shadow 0.3s, border-color 0.3s;
-      animation: mainPulse 3s ease-in-out infinite;
-      user-select: none;
+      top: 0.6rem;
+      right: 0.6rem;
+      background: rgba(0,0,0,0.72);
+      color: #fff;
+      font-size: 0.62rem;
+      font-weight: 700;
+      padding: 0.18rem 0.55rem;
+      border-radius: 999px;
+      letter-spacing: 0.06em;
+      backdrop-filter: blur(4px);
     }
 
-    .main-bubble:hover { border-color: var(--accent); box-shadow: 0 0 45px rgba(34,197,94,0.55); }
-    .bubble-system.expanded .main-bubble { box-shadow: 0 0 55px rgba(34,197,94,0.65); border-color: var(--accent); animation: none; z-index: 20; }
-
-    @keyframes mainPulse {
-      0%, 100% { box-shadow: 0 0 15px rgba(34,197,94,0.2); }
-      50%       { box-shadow: 0 0 38px rgba(34,197,94,0.5); }
+    .proj-card-body {
+      padding: 1rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
     }
 
-    .main-bubble-icon  { font-size: 1.5rem; display: block; margin-bottom: 0.2rem; }
-    .main-bubble-label { font-size: 0.85rem; font-weight: 700; color: var(--text); display: block; margin-bottom: 0.2rem; }
-    .main-bubble-hint  { font-size: 0.6rem; color: var(--muted); display: block; }
-    .main-bubble-close { font-size: 0.6rem; color: var(--accent); display: none; }
-
-    .bubble-system.expanded .main-bubble-hint  { display: none; }
-    .bubble-system.expanded .main-bubble-close { display: block; }
-
-    /* Project bubbles */
-    .project-bubble {
-      position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%) scale(0);
-      opacity: 0; pointer-events: none;
-      width: 130px; height: 130px;
-      border-radius: 50%;
-      background: radial-gradient(circle at 35% 35%, #1a3a2a, #080f0a);
-      border: 2px solid rgba(34, 197, 94, 0.2);
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      text-align: center; padding: 0.9rem;
-      cursor: pointer; z-index: 15;
-      transition: opacity 0.3s, transform 0.45s cubic-bezier(0.34,1.56,0.64,1), border-color 0.2s, box-shadow 0.2s;
-      user-select: none;
+    .proj-card-title {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.35rem;
+      line-height: 1.4;
     }
 
-    .project-bubble:hover { border-color: var(--accent); box-shadow: 0 0 25px rgba(34,197,94,0.35); }
-    .project-bubble.coming-soon { cursor: default; border-style: dashed; }
-    .project-bubble.coming-soon:hover { border-color: rgba(34,197,94,0.25); box-shadow: none; }
-
-    .bubble-system.expanded .project-bubble { opacity: 1; pointer-events: all; }
-
-    /* Downward arc — 5 projects */
-    .bubble-system.expanded .project-bubble:nth-child(2) { transform: translate(calc(-50% - 145px), calc(-50% + 152px)) scale(1); transition-delay: 0.04s; }
-    .bubble-system.expanded .project-bubble:nth-child(3) { transform: translate(calc(-50% - 72px),  calc(-50% + 186px)) scale(1); transition-delay: 0.09s; }
-    .bubble-system.expanded .project-bubble:nth-child(4) { transform: translate(calc(-50% + 0px),   calc(-50% + 197px)) scale(1); transition-delay: 0.14s; }
-    .bubble-system.expanded .project-bubble:nth-child(5) { transform: translate(calc(-50% + 72px),  calc(-50% + 186px)) scale(1); transition-delay: 0.19s; }
-    .bubble-system.expanded .project-bubble:nth-child(6) { transform: translate(calc(-50% + 145px), calc(-50% + 152px)) scale(1); transition-delay: 0.24s; }
-
-    /* Single project — center below */
-    .bubble-system.single-project.expanded .project-bubble:nth-child(2) {
-      transform: translate(-50%, calc(-50% + 197px)) scale(1);
-      transition-delay: 0.05s;
+    .proj-card-desc {
+      font-size: 0.77rem;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 0.75rem;
+      flex: 1;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
 
-    .bubble-name  { font-size: 0.68rem; font-weight: 600; color: var(--text); line-height: 1.3; margin-bottom: 0.4rem; }
-    .bubble-badge { background: rgba(34,197,94,0.12); color: var(--accent); border: 1px solid rgba(34,197,94,0.35); border-radius: 999px; padding: 0.12rem 0.5rem; font-size: 0.6rem; font-weight: 600; }
-    .bubble-soon  { font-size: 0.6rem; color: var(--muted); font-style: italic; margin-top: 0.3rem; }
+    .proj-card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .proj-card-tag {
+      background: var(--bg3);
+      color: var(--muted);
+      font-size: 0.63rem;
+      font-weight: 600;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .proj-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--border);
+      padding-top: 0.6rem;
+    }
+
+    .proj-card-stat { font-size: 0.72rem; font-weight: 700; color: var(--accent); }
+    .proj-card-ext  { font-size: 0.85rem; color: var(--muted); }
 
     /* ── Modal ── */
     .modal-overlay {
@@ -1595,105 +1655,301 @@
   <section id="projects">
     <p class="section-label">What I've built</p>
     <h2 class="section-title">Projects and Designs</h2>
-    <div class="tools-arena" id="toolsArena">
+    <!-- Filter tabs -->
+    <div class="proj-filters">
+      <button class="proj-filter active" data-filter="n8n">n8n <span class="filter-count">5</span></button>
+      <button class="proj-filter" data-filter="ghl-funnels">GHL Funnels <span class="filter-count">5</span></button>
+      <button class="proj-filter" data-filter="ghl-auto">GHL Automations <span class="filter-count">4</span></button>
+    </div>
 
-      <!-- n8n -->
-      <div class="bubble-system" id="bs-n8n">
-        <div class="main-bubble" onclick="toggleBubbles('bs-n8n')">
-          <span class="main-bubble-icon">⚡</span>
-          <span class="main-bubble-label">n8n Projects</span>
-          <span class="main-bubble-hint">tap to explore</span>
-          <span class="main-bubble-close">tap to close</span>
+    <!-- Project cards -->
+    <div class="proj-grid">
+
+      <!-- n8n cards -->
+      <div class="proj-card" data-category="n8n" onclick="openModal('modal-dental')">
+        <div class="proj-card-img-wrap">
+          <img src="images/workflow-dental-booking.png" alt="VAPI Dental Clinic Voice Booking" onerror="this.parentElement.innerHTML='<div class=\'proj-card-placeholder\'>📅</div>'" />
+          <span class="proj-card-badge">N8N</span>
         </div>
-        <div class="project-bubble" onclick="openModal('modal-dental')">
-          <span class="bubble-name">VAPI Dental Clinic Voice Booking</span>
-          <span class="bubble-badge">n8n</span>
-        </div>
-        <div class="project-bubble" onclick="openModal('modal-cancel')">
-          <span class="bubble-name">Voice-Triggered Appointment Cancellation</span>
-          <span class="bubble-badge">n8n</span>
-        </div>
-        <div class="project-bubble" onclick="openModal('modal-fitness')">
-          <span class="bubble-name">AI Fitness Coach</span>
-          <span class="bubble-badge">n8n</span>
-        </div>
-        <div class="project-bubble" onclick="openModal('modal-jotform')">
-          <span class="bubble-name">JotForm Lead Capture &amp; AI Summary</span>
-          <span class="bubble-badge">n8n</span>
-        </div>
-        <div class="project-bubble" onclick="openModal('modal-property')">
-          <span class="bubble-name">Property Manager AI Agent</span>
-          <span class="bubble-badge">n8n</span>
+        <div class="proj-card-body">
+          <div class="proj-card-title">VAPI Dental Clinic Voice Booking</div>
+          <div class="proj-card-desc">A voice-to-automation pipeline where patients book dental appointments through a VAPI AI phone agent connected to Google Calendar, Sheets, and Gmail.</div>
+          <div class="proj-card-tags">
+            <span class="proj-card-tag">n8n</span>
+            <span class="proj-card-tag">VAPI</span>
+            <span class="proj-card-tag">Google Calendar</span>
+            <span class="proj-card-tag">+2</span>
+          </div>
+          <div class="proj-card-footer">
+            <span class="proj-card-stat">Real-time</span>
+            <span class="proj-card-ext">↗</span>
+          </div>
         </div>
       </div>
 
-      <!-- GoHighLevel -->
-      <div class="bubble-system" id="bs-ghl">
-        <div class="main-bubble" onclick="toggleBubbles('bs-ghl')">
-          <span class="main-bubble-icon">🚀</span>
-          <span class="main-bubble-label">GHL Funnels</span>
-          <span class="main-bubble-hint">tap to explore</span>
-          <span class="main-bubble-close">tap to close</span>
+      <div class="proj-card" data-category="n8n" onclick="openModal('modal-cancel')">
+        <div class="proj-card-img-wrap">
+          <img src="images/workflow-cancel.png" alt="Voice-Triggered Appointment Cancellation" onerror="this.parentElement.innerHTML='<div class=\'proj-card-placeholder\'>✕</div>'" />
+          <span class="proj-card-badge">N8N</span>
         </div>
-        <div class="project-bubble" onclick="window.open('https://alfredalimuin.github.io/html/funnel.html','_blank')">
-          <span class="bubble-name">AlphaClean Pro — Free Cleaning Estimate</span>
-          <span class="bubble-badge">GHL</span>
-        </div>
-        <div class="project-bubble" onclick="window.open('https://alfredalimuin.github.io/html/drlamya-dental.html','_blank')">
-          <span class="bubble-name">Dr. Lamya Dental Clinic</span>
-          <span class="bubble-badge">GHL</span>
-        </div>
-        <div class="project-bubble" onclick="window.open('https://alfredalimuin.github.io/html/primekey-booking.html','_blank')">
-          <span class="bubble-name">PrimeKey Booking</span>
-          <span class="bubble-badge">GHL</span>
-        </div>
-        <div class="project-bubble" onclick="window.open('https://alfredalimuin.github.io/html/primekey-realty.html','_blank')">
-          <span class="bubble-name">PrimeKey Realty</span>
-          <span class="bubble-badge">GHL</span>
-        </div>
-        <div class="project-bubble" onclick="window.open('https://alfredalimuin.github.io/html/hero-carwash.html','_blank')">
-          <span class="bubble-name">Hero Carwash</span>
-          <span class="bubble-badge">GHL</span>
+        <div class="proj-card-body">
+          <div class="proj-card-title">Voice-Triggered Appointment Cancellation</div>
+          <div class="proj-card-desc">Patients cancel via VAPI voice call — n8n searches all sheet tabs in parallel, deletes the calendar event, and sends a confirmation email automatically.</div>
+          <div class="proj-card-tags">
+            <span class="proj-card-tag">n8n</span>
+            <span class="proj-card-tag">VAPI</span>
+            <span class="proj-card-tag">Google Sheets</span>
+            <span class="proj-card-tag">+2</span>
+          </div>
+          <div class="proj-card-footer">
+            <span class="proj-card-stat">0 Manual Steps</span>
+            <span class="proj-card-ext">↗</span>
+          </div>
         </div>
       </div>
 
-      <!-- GHL Automations -->
-      <div class="bubble-system" id="bs-ghl-auto">
-        <div class="main-bubble" onclick="toggleBubbles('bs-ghl-auto')">
-          <span class="main-bubble-icon">⚙️</span>
-          <span class="main-bubble-label">GHL Automations</span>
-          <span class="main-bubble-hint">tap to explore</span>
-          <span class="main-bubble-close">tap to close</span>
+      <div class="proj-card" data-category="n8n" onclick="openModal('modal-fitness')">
+        <div class="proj-card-img-wrap">
+          <img src="images/workflow-fitness.png" alt="AI Fitness Coach" onerror="this.parentElement.innerHTML='<div class=\'proj-card-placeholder\'>🏃</div>'" />
+          <span class="proj-card-badge">N8N</span>
         </div>
-        <div class="project-bubble" onclick="openModal('modal-ghl-newlead')">
-          <span class="bubble-name">New Lead Follow-Up</span>
-          <span class="bubble-badge">GHL</span>
-        </div>
-        <div class="project-bubble" onclick="openModal('modal-ghl-apptset')">
-          <span class="bubble-name">Appointment Set — Stage Move</span>
-          <span class="bubble-badge">GHL</span>
-        </div>
-        <div class="project-bubble" onclick="openModal('modal-ghl-reminder')">
-          <span class="bubble-name">Appointment Reminder - Email</span>
-          <span class="bubble-badge">GHL</span>
-        </div>
-        <div class="project-bubble" onclick="openModal('modal-ghl-jobcomplete')">
-          <span class="bubble-name">Job Complete</span>
-          <span class="bubble-badge">GHL</span>
+        <div class="proj-card-body">
+          <div class="proj-card-title">AI Fitness Coach: Strava Analyzer &amp; Planner</div>
+          <div class="proj-card-desc">Triggered on every new Strava activity — reads training goals, calculates performance metrics, and sends a personalized coaching email via Groq AI.</div>
+          <div class="proj-card-tags">
+            <span class="proj-card-tag">n8n</span>
+            <span class="proj-card-tag">Strava</span>
+            <span class="proj-card-tag">Groq AI</span>
+            <span class="proj-card-tag">+2</span>
+          </div>
+          <div class="proj-card-footer">
+            <span class="proj-card-stat">Auto-triggered</span>
+            <span class="proj-card-ext">↗</span>
+          </div>
         </div>
       </div>
 
-      <!-- Zapier -->
-      <div class="bubble-system single-project" id="bs-zapier">
-        <div class="main-bubble" onclick="toggleBubbles('bs-zapier')">
-          <span class="main-bubble-icon">🔗</span>
-          <span class="main-bubble-label">Zapier Projects</span>
-          <span class="main-bubble-hint">tap to explore</span>
-          <span class="main-bubble-close">tap to close</span>
+      <div class="proj-card" data-category="n8n" onclick="openModal('modal-jotform')">
+        <div class="proj-card-img-wrap">
+          <img src="images/workflow-jotform.png" alt="JotForm Lead Capture" onerror="this.parentElement.innerHTML='<div class=\'proj-card-placeholder\'>📋</div>'" />
+          <span class="proj-card-badge">N8N</span>
         </div>
-        <div class="project-bubble coming-soon">
-          <span class="bubble-name">Coming Soon</span>
-          <span class="bubble-soon">projects in progress</span>
+        <div class="proj-card-body">
+          <div class="proj-card-title">JotForm Lead Capture → AI Summary → Gmail</div>
+          <div class="proj-card-desc">Captures JotForm submissions via webhook, classifies and routes leads to the correct Sheets tab, then generates an AI summary and emails the sales team.</div>
+          <div class="proj-card-tags">
+            <span class="proj-card-tag">n8n</span>
+            <span class="proj-card-tag">JotForm</span>
+            <span class="proj-card-tag">Groq AI</span>
+            <span class="proj-card-tag">+2</span>
+          </div>
+          <div class="proj-card-footer">
+            <span class="proj-card-stat">Webhook</span>
+            <span class="proj-card-ext">↗</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-card" data-category="n8n" onclick="openModal('modal-property')">
+        <div class="proj-card-img-wrap">
+          <img src="images/workflow-property.png" alt="Property Manager AI Agent" onerror="this.parentElement.innerHTML='<div class=\'proj-card-placeholder\'>🏠</div>'" />
+          <span class="proj-card-badge">N8N</span>
+        </div>
+        <div class="proj-card-body">
+          <div class="proj-card-title">Property Manager AI Agent</div>
+          <div class="proj-card-desc">WhatsApp-based AI assistant powered by LangChain and Groq. Handles tenant requests, routes to the right team, logs to Sheets, and sends confirmations.</div>
+          <div class="proj-card-tags">
+            <span class="proj-card-tag">n8n</span>
+            <span class="proj-card-tag">WhatsApp</span>
+            <span class="proj-card-tag">Groq AI</span>
+            <span class="proj-card-tag">+3</span>
+          </div>
+          <div class="proj-card-footer">
+            <span class="proj-card-stat">AI Agent</span>
+            <span class="proj-card-ext">↗</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- GHL Funnels cards -->
+      <div class="proj-card hidden" data-category="ghl-funnels" onclick="window.open('https://alfredalimuin.github.io/html/funnel.html','_blank')">
+        <div class="proj-card-img-wrap">
+          <div class="proj-card-placeholder">🧹</div>
+          <span class="proj-card-badge">GHL</span>
+        </div>
+        <div class="proj-card-body">
+          <div class="proj-card-title">AlphaClean Pro — Free Cleaning Estimate</div>
+          <div class="proj-card-desc">Lead capture funnel for a cleaning business. Visitors fill out a quick form to get a free estimate, feeding directly into the GHL CRM pipeline.</div>
+          <div class="proj-card-tags">
+            <span class="proj-card-tag">GHL</span>
+            <span class="proj-card-tag">Funnel</span>
+            <span class="proj-card-tag">Lead Capture</span>
+          </div>
+          <div class="proj-card-footer">
+            <span class="proj-card-stat">Live</span>
+            <span class="proj-card-ext">↗</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-card hidden" data-category="ghl-funnels" onclick="window.open('https://alfredalimuin.github.io/html/drlamya-dental.html','_blank')">
+        <div class="proj-card-img-wrap">
+          <div class="proj-card-placeholder">🦷</div>
+          <span class="proj-card-badge">GHL</span>
+        </div>
+        <div class="proj-card-body">
+          <div class="proj-card-title">Dr. Lamya Dental Clinic</div>
+          <div class="proj-card-desc">Professional dental clinic funnel designed to capture appointment bookings and patient inquiries with a clean, trustworthy layout.</div>
+          <div class="proj-card-tags">
+            <span class="proj-card-tag">GHL</span>
+            <span class="proj-card-tag">Funnel</span>
+            <span class="proj-card-tag">Dental</span>
+          </div>
+          <div class="proj-card-footer">
+            <span class="proj-card-stat">Live</span>
+            <span class="proj-card-ext">↗</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-card hidden" data-category="ghl-funnels" onclick="window.open('https://alfredalimuin.github.io/html/primekey-booking.html','_blank')">
+        <div class="proj-card-img-wrap">
+          <div class="proj-card-placeholder">🔑</div>
+          <span class="proj-card-badge">GHL</span>
+        </div>
+        <div class="proj-card-body">
+          <div class="proj-card-title">PrimeKey Booking</div>
+          <div class="proj-card-desc">Booking funnel for PrimeKey services — streamlined appointment scheduling with an integrated calendar and confirmation flow.</div>
+          <div class="proj-card-tags">
+            <span class="proj-card-tag">GHL</span>
+            <span class="proj-card-tag">Funnel</span>
+            <span class="proj-card-tag">Booking</span>
+          </div>
+          <div class="proj-card-footer">
+            <span class="proj-card-stat">Live</span>
+            <span class="proj-card-ext">↗</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-card hidden" data-category="ghl-funnels" onclick="window.open('https://alfredalimuin.github.io/html/primekey-realty.html','_blank')">
+        <div class="proj-card-img-wrap">
+          <div class="proj-card-placeholder">🏘️</div>
+          <span class="proj-card-badge">GHL</span>
+        </div>
+        <div class="proj-card-body">
+          <div class="proj-card-title">PrimeKey Realty</div>
+          <div class="proj-card-desc">Real estate landing funnel designed to capture property inquiries and connect potential buyers or renters with the PrimeKey team.</div>
+          <div class="proj-card-tags">
+            <span class="proj-card-tag">GHL</span>
+            <span class="proj-card-tag">Funnel</span>
+            <span class="proj-card-tag">Realty</span>
+          </div>
+          <div class="proj-card-footer">
+            <span class="proj-card-stat">Live</span>
+            <span class="proj-card-ext">↗</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-card hidden" data-category="ghl-funnels" onclick="window.open('https://alfredalimuin.github.io/html/hero-carwash.html','_blank')">
+        <div class="proj-card-img-wrap">
+          <div class="proj-card-placeholder">🚗</div>
+          <span class="proj-card-badge">GHL</span>
+        </div>
+        <div class="proj-card-body">
+          <div class="proj-card-title">Hero Carwash</div>
+          <div class="proj-card-desc">Carwash service funnel built to drive bookings and generate leads — with a bold hero section and a simple CTA form.</div>
+          <div class="proj-card-tags">
+            <span class="proj-card-tag">GHL</span>
+            <span class="proj-card-tag">Funnel</span>
+            <span class="proj-card-tag">Service</span>
+          </div>
+          <div class="proj-card-footer">
+            <span class="proj-card-stat">Live</span>
+            <span class="proj-card-ext">↗</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- GHL Automations cards -->
+      <div class="proj-card hidden" data-category="ghl-auto" onclick="openModal('modal-ghl-newlead')">
+        <div class="proj-card-img-wrap">
+          <img src="images/ghl-new-lead-followup.png" alt="New Lead Follow-Up" onerror="this.parentElement.innerHTML='<div class=\'proj-card-placeholder\'>📬</div>'" />
+          <span class="proj-card-badge">GHL</span>
+        </div>
+        <div class="proj-card-body">
+          <div class="proj-card-title">New Lead Follow-Up</div>
+          <div class="proj-card-desc">Automated follow-up sequence triggered the moment a new lead enters the AlphaClean Pro pipeline — ensuring no lead goes cold.</div>
+          <div class="proj-card-tags">
+            <span class="proj-card-tag">GHL</span>
+            <span class="proj-card-tag">Automation</span>
+            <span class="proj-card-tag">Lead Follow-Up</span>
+          </div>
+          <div class="proj-card-footer">
+            <span class="proj-card-stat">AlphaClean Pro</span>
+            <span class="proj-card-ext">↗</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-card hidden" data-category="ghl-auto" onclick="openModal('modal-ghl-apptset')">
+        <div class="proj-card-img-wrap">
+          <img src="images/ghl-appointment-set.png" alt="Appointment Set Stage Move" onerror="this.parentElement.innerHTML='<div class=\'proj-card-placeholder\'>📆</div>'" />
+          <span class="proj-card-badge">GHL</span>
+        </div>
+        <div class="proj-card-body">
+          <div class="proj-card-title">Appointment Set — Stage Move</div>
+          <div class="proj-card-desc">Fires a booking confirmation and automatically moves the contact to the correct pipeline stage the moment an appointment is set.</div>
+          <div class="proj-card-tags">
+            <span class="proj-card-tag">GHL</span>
+            <span class="proj-card-tag">Automation</span>
+            <span class="proj-card-tag">Pipeline</span>
+          </div>
+          <div class="proj-card-footer">
+            <span class="proj-card-stat">AlphaClean Pro</span>
+            <span class="proj-card-ext">↗</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-card hidden" data-category="ghl-auto" onclick="openModal('modal-ghl-reminder')">
+        <div class="proj-card-img-wrap">
+          <img src="images/ghl-appointment-reminder.png" alt="Appointment Reminder Email" onerror="this.parentElement.innerHTML='<div class=\'proj-card-placeholder\'>🔔</div>'" />
+          <span class="proj-card-badge">GHL</span>
+        </div>
+        <div class="proj-card-body">
+          <div class="proj-card-title">Appointment Reminder — Email</div>
+          <div class="proj-card-desc">Scheduled email reminder sent to clients before their upcoming appointment — reducing no-shows and keeping clients engaged.</div>
+          <div class="proj-card-tags">
+            <span class="proj-card-tag">GHL</span>
+            <span class="proj-card-tag">Automation</span>
+            <span class="proj-card-tag">Email</span>
+          </div>
+          <div class="proj-card-footer">
+            <span class="proj-card-stat">AlphaClean Pro</span>
+            <span class="proj-card-ext">↗</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-card hidden" data-category="ghl-auto" onclick="openModal('modal-ghl-jobcomplete')">
+        <div class="proj-card-img-wrap">
+          <img src="images/ghl-job-complete.png" alt="Job Complete" onerror="this.parentElement.innerHTML='<div class=\'proj-card-placeholder\'>✅</div>'" />
+          <span class="proj-card-badge">GHL</span>
+        </div>
+        <div class="proj-card-body">
+          <div class="proj-card-title">Job Complete</div>
+          <div class="proj-card-desc">Triggered when a job is marked complete — sends a wrap-up message, requests a review, and updates the pipeline stage automatically.</div>
+          <div class="proj-card-tags">
+            <span class="proj-card-tag">GHL</span>
+            <span class="proj-card-tag">Automation</span>
+            <span class="proj-card-tag">Review Request</span>
+          </div>
+          <div class="proj-card-footer">
+            <span class="proj-card-stat">AlphaClean Pro</span>
+            <span class="proj-card-ext">↗</span>
+          </div>
         </div>
       </div>
 
@@ -1992,19 +2248,21 @@
       draw();
     })();
 
-    /* ── Bubble System ── */
-    function toggleBubbles(id) {
-      var system = document.getElementById(id);
-      var arena  = document.getElementById('toolsArena');
-      var isExpanding = !system.classList.contains('expanded');
-      document.querySelectorAll('.bubble-system').forEach(function(s) { s.classList.remove('expanded'); });
-      if (isExpanding) {
-        system.classList.add('expanded');
-        arena.classList.add('has-expanded');
-      } else {
-        arena.classList.remove('has-expanded');
-      }
-    }
+    /* ── Project Filters ── */
+    document.querySelectorAll('.proj-filter').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.proj-filter').forEach(function(b) { b.classList.remove('active'); });
+        this.classList.add('active');
+        var filter = this.dataset.filter;
+        document.querySelectorAll('.proj-card').forEach(function(card) {
+          if (card.dataset.category === filter) {
+            card.classList.remove('hidden');
+          } else {
+            card.classList.add('hidden');
+          }
+        });
+      });
+    });
 
     /* ── Modals ── */
     function openModal(id) {
