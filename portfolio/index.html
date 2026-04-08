@@ -221,15 +221,51 @@
       width: 300px;
     }
 
+    /* Neon spinning border frame */
+    .photo-neon-frame {
+      position: relative;
+      border-radius: 22px;
+      padding: 2px;
+      overflow: hidden;
+      box-shadow: 0 0 35px rgba(39,108,245,0.25), 0 20px 60px rgba(0,0,0,0.5);
+    }
+
+    .photo-neon-spin {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 220%;
+      height: 220%;
+      background: conic-gradient(
+        from 0deg,
+        transparent 0deg,
+        transparent 220deg,
+        #56cffc    265deg,
+        #276CF5    285deg,
+        #ffffff    300deg,
+        #276CF5    315deg,
+        #56cffc    330deg,
+        transparent 360deg
+      );
+      animation: neonSpin 3.5s linear infinite;
+    }
+
+    @keyframes neonSpin {
+      to { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    /* init transform so keyframe 'to' works correctly */
+    .photo-neon-spin { transform: translate(-50%, -50%) rotate(0deg); }
+
     .hero-photo {
+      position: relative;
+      z-index: 1;
       width: 100%;
       height: 380px;
       border-radius: 20px;
       object-fit: cover;
       object-position: top;
       display: block;
-      border: 1px solid rgba(39,108,245,0.3);
-      box-shadow: 0 0 50px rgba(39,108,245,0.2), 0 20px 60px rgba(0,0,0,0.5);
     }
 
     /* Floating badge cards */
@@ -1406,7 +1442,10 @@
         </div>
       </div>
       <div class="hero-photo-wrap">
-        <img src="photo.jpg" alt="Alfred Alimuin" class="hero-photo" />
+        <div class="photo-neon-frame">
+          <div class="photo-neon-spin"></div>
+          <img src="photo.jpg" alt="Alfred Alimuin" class="hero-photo" />
+        </div>
 
         <!-- Top-right badge -->
         <div class="photo-badge photo-badge-top">
