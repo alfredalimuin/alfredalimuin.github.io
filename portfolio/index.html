@@ -19,6 +19,19 @@
       --border:    #1a2a1a;
       --radius:    12px;
       --grad:      linear-gradient(135deg, #22c55e, #4ade80);
+      --nav-bg:    rgba(0,0,0,0.92);
+    }
+
+    [data-theme="light"] {
+      --bg:        #f8faf8;
+      --bg2:       #ffffff;
+      --bg3:       #edf4ed;
+      --text:      #0f0f0f;
+      --muted:     #5a6a5a;
+      --accent:    #16a34a;
+      --accent2:   #15803d;
+      --border:    #cce3cc;
+      --nav-bg:    rgba(248,250,248,0.92);
     }
 
     html { scroll-behavior: smooth; }
@@ -41,7 +54,7 @@
       align-items: center;
       justify-content: space-between;
       padding: 1rem 2rem;
-      background: rgba(0, 0, 0, 0.92);
+      background: var(--nav-bg);
       backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--border);
     }
@@ -71,6 +84,27 @@
     }
 
     .nav-links a:hover { color: var(--accent); }
+
+    .theme-toggle {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      flex-shrink: 0;
+      color: var(--muted);
+    }
+
+    .theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+    .theme-toggle .icon-sun  { display: none; }
+    .theme-toggle .icon-moon { display: block; }
+    [data-theme="light"] .theme-toggle .icon-sun  { display: block; }
+    [data-theme="light"] .theme-toggle .icon-moon { display: none; }
 
     /* ── Sections ── */
     section {
@@ -1155,6 +1189,10 @@
       <li><a href="#skills">Skills</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+      <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    </button>
   </nav>
 
   <!-- Hero -->
@@ -2246,6 +2284,18 @@
       window.addEventListener('resize', init);
       init();
       draw();
+    })();
+
+    /* ── Theme Toggle ── */
+    function toggleTheme() {
+      var html = document.documentElement;
+      var isDark = html.getAttribute('data-theme') !== 'light';
+      html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+      localStorage.setItem('theme', isDark ? 'light' : 'dark');
+    }
+    (function() {
+      var saved = localStorage.getItem('theme');
+      if (saved === 'light') document.documentElement.setAttribute('data-theme', 'light');
     })();
 
     /* ── Project Filters ── */
