@@ -43,8 +43,74 @@
       line-height: 1.6;
     }
 
+    /* ── Aurora background ── */
+    #bg-aurora {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .aurora-blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(90px);
+      opacity: 0.9;
+    }
+
+    .aurora-blob-1 {
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(39,108,245,0.22) 0%, transparent 70%);
+      top: -20%; left: -15%;
+      animation: auroraA 16s ease-in-out infinite alternate;
+    }
+
+    .aurora-blob-2 {
+      width: 550px; height: 550px;
+      background: radial-gradient(circle, rgba(110,60,255,0.16) 0%, transparent 70%);
+      bottom: -15%; right: -10%;
+      animation: auroraB 20s ease-in-out infinite alternate;
+    }
+
+    .aurora-blob-3 {
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(56,189,248,0.1) 0%, transparent 70%);
+      top: 40%; left: 55%;
+      animation: auroraC 13s ease-in-out infinite alternate;
+    }
+
+    @keyframes auroraA {
+      0%   { transform: translate(0,0) scale(1); }
+      50%  { transform: translate(140px,90px) scale(1.25); }
+      100% { transform: translate(60px,200px) scale(0.9); }
+    }
+
+    @keyframes auroraB {
+      0%   { transform: translate(0,0) scale(1); }
+      50%  { transform: translate(-100px,-70px) scale(1.2); }
+      100% { transform: translate(-160px,60px) scale(1.35); }
+    }
+
+    @keyframes auroraC {
+      0%   { transform: translate(0,0) scale(1); }
+      50%  { transform: translate(-80px,60px) scale(1.15); }
+      100% { transform: translate(50px,-90px) scale(0.85); }
+    }
+
+    /* ── Noise/chrome texture ── */
+    #bg-noise {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      opacity: 0.045;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+    }
+
     /* ── Nav ── */
-    body > *:not(#bg-canvas) { position: relative; z-index: 1; }
+    body > *:not(#bg-canvas):not(#bg-aurora):not(#bg-noise) { position: relative; z-index: 3; }
 
     nav {
       position: fixed;
@@ -1210,7 +1276,13 @@
 </head>
 <body>
 
-  <canvas id="bg-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
+  <div id="bg-aurora">
+    <div class="aurora-blob aurora-blob-1"></div>
+    <div class="aurora-blob aurora-blob-2"></div>
+    <div class="aurora-blob aurora-blob-3"></div>
+  </div>
+  <div id="bg-noise"></div>
+  <canvas id="bg-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:2;pointer-events:none;"></canvas>
 
   <!-- Nav -->
   <nav>
@@ -2273,8 +2345,9 @@
       var canvas = document.getElementById('bg-canvas');
       var ctx    = canvas.getContext('2d');
       var W, H, particles = [];
-      var COUNT = 70, DIST = 140;
-      var C = '34,197,94';   /* green rgb */
+      var COUNT = 75, DIST = 140;
+      /* chromatic palette: blue, indigo, cyan */
+      var COLORS = ['39,108,245', '110,60,255', '56,189,248', '99,102,241'];
 
       function resize() {
         W = canvas.width  = window.innerWidth;
@@ -2283,14 +2356,18 @@
 
       function mkParticle() {
         var angle = Math.random() * Math.PI * 2;
-        var speed = 0.25 + Math.random() * 0.4;
+        var speed = 0.2 + Math.random() * 0.35;
         return {
-          x:  Math.random() * W,
-          y:  Math.random() * H,
-          vx: Math.cos(angle) * speed,
-          vy: Math.sin(angle) * speed,
-          r:  Math.random() * 1.8 + 0.6,
-          o:  Math.random() * 0.45 + 0.15
+          x:   Math.random() * W,
+          y:   Math.random() * H,
+          vx:  Math.cos(angle) * speed,
+          vy:  Math.sin(angle) * speed,
+          r:   Math.random() * 1.8 + 0.5,
+          o:   Math.random() * 0.5 + 0.15,
+          c:   COLORS[Math.floor(Math.random() * COLORS.length)],
+          /* slow hue drift */
+          t:   Math.random() * 1000,
+          ts:  0.003 + Math.random() * 0.004
         };
       }
 
@@ -2307,14 +2384,18 @@
           var p = particles[i];
           p.x += p.vx;
           p.y += p.vy;
+          p.t += p.ts;
+          /* bounce */
           if (p.x < 0)  { p.x = 0;  p.vx *= -1; }
           if (p.x > W)  { p.x = W;  p.vx *= -1; }
           if (p.y < 0)  { p.y = 0;  p.vy *= -1; }
           if (p.y > H)  { p.y = H;  p.vy *= -1; }
+          /* shimmer opacity */
+          var shimmer = p.o + Math.sin(p.t) * 0.12;
 
           ctx.beginPath();
           ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-          ctx.fillStyle = 'rgba(' + C + ',' + p.o + ')';
+          ctx.fillStyle = 'rgba(' + p.c + ',' + shimmer + ')';
           ctx.fill();
 
           for (var j = i + 1; j < particles.length; j++) {
@@ -2322,10 +2403,11 @@
             var dx = p.x - q.x, dy = p.y - q.y;
             var d  = Math.sqrt(dx * dx + dy * dy);
             if (d < DIST) {
+              var alpha = (1 - d / DIST) * 0.18;
               ctx.beginPath();
               ctx.moveTo(p.x, p.y);
               ctx.lineTo(q.x, q.y);
-              ctx.strokeStyle = 'rgba(' + C + ',' + ((1 - d / DIST) * 0.18) + ')';
+              ctx.strokeStyle = 'rgba(' + p.c + ',' + alpha + ')';
               ctx.lineWidth   = 0.6;
               ctx.stroke();
             }
