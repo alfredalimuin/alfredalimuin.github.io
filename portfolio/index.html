@@ -1956,6 +1956,7 @@
       <button class="proj-filter" data-filter="n8n">n8n <span class="filter-count">5</span></button>
       <button class="proj-filter" data-filter="ghl-funnels">GHL Funnels <span class="filter-count">6</span></button>
       <button class="proj-filter" data-filter="ghl-auto">GHL Automations <span class="filter-count">4</span></button>
+      <button class="proj-filter" data-filter="zapier">Zapier <span class="filter-count">3</span></button>
     </div>
 
     <!-- Project cards -->
@@ -2269,6 +2270,67 @@
         </div>
       </div>
 
+      <!-- Zapier cards -->
+      <div class="proj-card hidden" data-category="zapier" onclick="openModal('modal-zapier-crm')">
+        <div class="proj-card-img-wrap">
+          <img src="images/zapier-crm-followup.png" alt="AI-Powered CRM Follow-Up System" onerror="this.parentElement.innerHTML='<div class=\'proj-card-placeholder\'>🔗</div>'" />
+          <span class="proj-card-badge">ZAPIER</span>
+        </div>
+        <div class="proj-card-body">
+          <div class="proj-card-title">AI-Powered CRM Follow-Up System</div>
+          <div class="proj-card-desc">Automated CRM follow-up pipeline powered by AI — triggers personalised outreach sequences based on lead behaviour and status changes.</div>
+          <div class="proj-card-tags">
+            <span class="proj-card-tag">Zapier</span>
+            <span class="proj-card-tag">CRM</span>
+            <span class="proj-card-tag">AI</span>
+          </div>
+          <div class="proj-card-footer">
+            <span class="proj-card-stat">Automated</span>
+            <span class="proj-card-ext">↗</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-card hidden" data-category="zapier" onclick="openModal('modal-zapier-enrichment')">
+        <div class="proj-card-img-wrap">
+          <img src="images/zapier-data-enrichment.png" alt="Data Lead and Enrichment" onerror="this.parentElement.innerHTML='<div class=\'proj-card-placeholder\'>📊</div>'" />
+          <span class="proj-card-badge">ZAPIER</span>
+        </div>
+        <div class="proj-card-body">
+          <div class="proj-card-title">Data Lead and Enrichment</div>
+          <div class="proj-card-desc">Captures incoming leads and automatically enriches their data — pulling additional contact info and qualifying fields before routing to the CRM.</div>
+          <div class="proj-card-tags">
+            <span class="proj-card-tag">Zapier</span>
+            <span class="proj-card-tag">Lead Enrichment</span>
+            <span class="proj-card-tag">Data</span>
+          </div>
+          <div class="proj-card-footer">
+            <span class="proj-card-stat">Real-time</span>
+            <span class="proj-card-ext">↗</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-card hidden" data-category="zapier" onclick="openModal('modal-zapier-primekey')">
+        <div class="proj-card-img-wrap">
+          <img src="images/zapier-primekey-followup.png" alt="PrimeKey New Lead Follow-Up" onerror="this.parentElement.innerHTML='<div class=\'proj-card-placeholder\'>🔑</div>'" />
+          <span class="proj-card-badge">ZAPIER</span>
+        </div>
+        <div class="proj-card-body">
+          <div class="proj-card-title">PrimeKey — New Lead Follow-Up</div>
+          <div class="proj-card-desc">Automated lead follow-up workflow for PrimeKey — instantly responds to new enquiries with a personalised sequence to nurture and convert prospects.</div>
+          <div class="proj-card-tags">
+            <span class="proj-card-tag">Zapier</span>
+            <span class="proj-card-tag">Lead Follow-Up</span>
+            <span class="proj-card-tag">PrimeKey</span>
+          </div>
+          <div class="proj-card-footer">
+            <span class="proj-card-stat">PrimeKey</span>
+            <span class="proj-card-ext">↗</span>
+          </div>
+        </div>
+      </div>
+
     </div>
 
     <!-- Modal: Dental -->
@@ -2371,6 +2433,45 @@
           <span class="modal-badge">GHL</span>
           <p class="modal-desc">Triggered when a job is marked as complete, this automation sends a wrap-up message to the client, requests a review, and updates the pipeline stage — closing the loop on the customer journey automatically.</p>
           <div class="modal-tags"><span class="modal-tag">GHL</span><span class="modal-tag">Automation</span><span class="modal-tag">Review Request</span><span class="modal-tag">AlphaClean Pro</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal: Zapier CRM Follow-Up -->
+    <div class="modal-overlay" id="modal-zapier-crm">
+      <div class="modal-box">
+        <div class="modal-img-wrap"><img src="images/zapier-crm-followup.png" class="modal-img" alt="AI-Powered CRM Follow-Up System" onerror="this.parentElement.style.display='none'" /></div>
+        <div class="modal-body">
+          <div class="modal-header"><span class="modal-title">AI-Powered CRM Follow-Up System</span><button class="modal-close" onclick="closeModal('modal-zapier-crm')">✕</button></div>
+          <span class="modal-badge">Zapier</span>
+          <p class="modal-desc">Automated CRM follow-up pipeline powered by AI — triggers personalised outreach sequences based on lead behaviour and status changes, ensuring no lead goes cold.</p>
+          <div class="modal-tags"><span class="modal-tag">Zapier</span><span class="modal-tag">CRM</span><span class="modal-tag">AI</span><span class="modal-tag">Automation</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal: Zapier Data Enrichment -->
+    <div class="modal-overlay" id="modal-zapier-enrichment">
+      <div class="modal-box">
+        <div class="modal-img-wrap"><img src="images/zapier-data-enrichment.png" class="modal-img" alt="Data Lead and Enrichment" onerror="this.parentElement.style.display='none'" /></div>
+        <div class="modal-body">
+          <div class="modal-header"><span class="modal-title">Data Lead and Enrichment</span><button class="modal-close" onclick="closeModal('modal-zapier-enrichment')">✕</button></div>
+          <span class="modal-badge">Zapier</span>
+          <p class="modal-desc">Captures incoming leads and automatically enriches their data — pulling additional contact info and qualifying fields before routing them to the correct CRM pipeline.</p>
+          <div class="modal-tags"><span class="modal-tag">Zapier</span><span class="modal-tag">Lead Enrichment</span><span class="modal-tag">Data</span><span class="modal-tag">CRM</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal: Zapier PrimeKey Follow-Up -->
+    <div class="modal-overlay" id="modal-zapier-primekey">
+      <div class="modal-box">
+        <div class="modal-img-wrap"><img src="images/zapier-primekey-followup.png" class="modal-img" alt="PrimeKey New Lead Follow-Up" onerror="this.parentElement.style.display='none'" /></div>
+        <div class="modal-body">
+          <div class="modal-header"><span class="modal-title">PrimeKey — New Lead Follow-Up</span><button class="modal-close" onclick="closeModal('modal-zapier-primekey')">✕</button></div>
+          <span class="modal-badge">Zapier</span>
+          <p class="modal-desc">Automated lead follow-up workflow for PrimeKey — instantly responds to new enquiries with a personalised sequence to nurture and convert prospects into clients.</p>
+          <div class="modal-tags"><span class="modal-tag">Zapier</span><span class="modal-tag">Lead Follow-Up</span><span class="modal-tag">PrimeKey</span><span class="modal-tag">Automation</span></div>
         </div>
       </div>
     </div>
