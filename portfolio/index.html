@@ -159,7 +159,9 @@
     .hero-title {
       font-size: 1.2rem;
       color: var(--muted);
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.25rem;
+      font-weight: 500;
+      letter-spacing: 0.01em;
     }
 
     .hero-bio {
@@ -167,7 +169,31 @@
       color: var(--muted);
       max-width: 560px;
       line-height: 1.8;
-      margin-bottom: 2.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .hero-pill {
+      background: rgba(34,197,94,0.08);
+      color: var(--accent);
+      border: 1px solid rgba(34,197,94,0.3);
+      border-radius: 999px;
+      padding: 0.3rem 0.85rem;
+      font-size: 0.78rem;
+      font-weight: 500;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      align-items: center;
     }
 
     .hero-cta {
@@ -186,6 +212,23 @@
     }
 
     .hero-cta:hover { opacity: 0.85; transform: translateY(-1px); }
+
+    .hero-cta-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: transparent;
+      color: var(--text);
+      font-weight: 600;
+      font-size: 0.9rem;
+      padding: 0.75rem 1.75rem;
+      border-radius: var(--radius);
+      text-decoration: none;
+      border: 1px solid var(--border);
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .hero-cta-secondary:hover { border-color: var(--accent); color: var(--accent); }
 
     /* ── About ── */
     .about-grid {
@@ -1002,14 +1045,26 @@
   <section id="hero">
     <div class="hero-inner">
       <div class="hero-text">
-      <div class="hero-tag">Available</div>
-      <h1 class="hero-name">Greetings! I'm <span>Alfred</span></h1>
-      <p class="hero-title">AI Automation Developer</p>
-      <p class="hero-bio">
-        I build intelligent automation systems that connect AI tools, APIs, and workflows
-        to solve real-world problems — faster, smarter, and at scale.
-      </p>
-      <a href="#contact" class="hero-cta">Get in touch →</a>
+        <div class="hero-tag">Available for Projects</div>
+        <h1 class="hero-name">Hi, I'm <span>Alfred</span></h1>
+        <p class="hero-title">Automation Developer &amp; GHL Specialist</p>
+        <p class="hero-bio">
+          I help businesses grow by building GoHighLevel funnels, CRM automations, and
+          intelligent workflow systems using n8n, Zapier, and AI — turning manual processes
+          into hands-free, revenue-generating pipelines.
+        </p>
+        <div class="hero-pills">
+          <span class="hero-pill">🚀 GHL Funnels</span>
+          <span class="hero-pill">⚙️ GHL Automations</span>
+          <span class="hero-pill">⚡ n8n Workflows</span>
+          <span class="hero-pill">🔗 Zapier</span>
+          <span class="hero-pill">🤖 AI Integration</span>
+          <span class="hero-pill">📊 CRM Setup</span>
+        </div>
+        <div class="hero-actions">
+          <a href="#contact" class="hero-cta">Get in touch →</a>
+          <a href="#projects" class="hero-cta-secondary">View Projects</a>
+        </div>
       </div>
       <img src="photo.jpg" alt="Alfred Alimuin" class="hero-photo" />
     </div>
