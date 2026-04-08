@@ -198,14 +198,45 @@
       margin-bottom: 1.25rem;
       font-weight: 500;
       letter-spacing: 0.01em;
+      min-height: 1.8em;
+      display: flex;
+      align-items: center;
+      gap: 0;
+    }
+
+    .hero-title-text { }
+
+    .hero-cursor {
+      display: inline-block;
+      width: 2px;
+      height: 1.1em;
+      background: var(--accent);
+      margin-left: 3px;
+      vertical-align: middle;
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0; }
     }
 
     .hero-bio {
       font-size: 1rem;
       color: var(--muted);
       max-width: 560px;
-      line-height: 1.8;
+      line-height: 1.9;
       margin-bottom: 1.5rem;
+    }
+
+    .hero-bio .hl {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .hero-bio .hl-accent {
+      color: var(--accent);
+      font-weight: 600;
     }
 
     .hero-pills {
@@ -1203,11 +1234,11 @@
       <div class="hero-text">
         <div class="hero-tag">Available for Projects</div>
         <h1 class="hero-name">Hi, I'm <span>Alfred</span></h1>
-        <p class="hero-title">Automation Developer &amp; GHL Specialist</p>
+        <p class="hero-title"><span class="hero-title-text" id="heroTitle"></span><span class="hero-cursor"></span></p>
         <p class="hero-bio">
-          I help businesses grow by building GoHighLevel funnels, CRM automations, and
-          intelligent workflow systems using n8n, Zapier, and AI — turning manual processes
-          into hands-free, revenue-generating pipelines.
+          I help businesses grow by building <span class="hl-accent">GoHighLevel funnels</span>, <span class="hl-accent">CRM automations</span>, and
+          <span class="hl">intelligent workflow systems</span> using <span class="hl">n8n</span>, <span class="hl">Zapier</span>, and <span class="hl">AI</span> — turning manual processes
+          into <span class="hl-accent">hands-free, revenue-generating pipelines</span>.
         </p>
         <div class="hero-pills">
           <span class="hero-pill">🚀 GHL Funnels</span>
@@ -2306,6 +2337,36 @@
       window.addEventListener('resize', init);
       init();
       draw();
+    })();
+
+    /* ── Typewriter ── */
+    (function() {
+      var phrases = [
+        'Automation Developer & GHL Specialist',
+        'GHL Funnel Builder',
+        'CRM & Pipeline Architect',
+        'n8n & Zapier Workflow Expert',
+        'AI Integration Specialist'
+      ];
+      var el = document.getElementById('heroTitle');
+      if (!el) return;
+      var pi = 0, ci = 0, deleting = false, pause = 0;
+
+      function tick() {
+        var phrase = phrases[pi];
+        if (pause > 0) { pause--; setTimeout(tick, 80); return; }
+
+        if (!deleting) {
+          el.textContent = phrase.slice(0, ++ci);
+          if (ci === phrase.length) { deleting = true; pause = 22; }
+          setTimeout(tick, 65);
+        } else {
+          el.textContent = phrase.slice(0, --ci);
+          if (ci === 0) { deleting = false; pi = (pi + 1) % phrases.length; pause = 6; }
+          setTimeout(tick, 35);
+        }
+      }
+      tick();
     })();
 
     /* ── Theme Toggle ── */
