@@ -538,12 +538,37 @@
       line-height: 1.4;
     }
 
+    .about-card { cursor: pointer; }
+
     .about-card-desc {
       color: var(--muted);
       font-size: 0.82rem;
       line-height: 1.75;
       flex: 1;
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: max-height 0.4s ease, opacity 0.3s ease, margin-top 0.3s ease;
+      margin-top: 0;
     }
+
+    .about-card.open .about-card-desc {
+      max-height: 300px;
+      opacity: 1;
+      margin-top: 0.5rem;
+    }
+
+    .about-card-hint {
+      font-size: 0.65rem;
+      color: var(--accent);
+      letter-spacing: 0.5px;
+      margin-top: 0.35rem;
+      display: block;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    .about-card.open .about-card-hint { opacity: 0; height: 0; margin: 0; overflow: hidden; }
 
     .about-card-tag {
       display: inline-block;
@@ -1476,11 +1501,12 @@
     <div class="about-grid">
 
       <!-- Experience card -->
-      <div class="about-card">
+      <div class="about-card" onclick="this.classList.toggle('open')">
         <div class="about-card-img">💼</div>
         <div class="about-card-body">
           <span class="about-card-tag">Experience</span>
           <div class="about-card-title">10+ Years in IT &amp; Automation</div>
+          <span class="about-card-hint">tap to reveal ↓</span>
           <p class="about-card-desc">
             Progressed from helpdesk to full IT administration — managing 3,000+ devices, Microsoft 365,
             and network infrastructure across multi-site education groups (Inspired Education Group, Riffa Views,
@@ -1491,11 +1517,12 @@
       </div>
 
       <!-- Education card -->
-      <div class="about-card">
+      <div class="about-card" onclick="this.classList.toggle('open')">
         <div class="about-card-img">🎓</div>
         <div class="about-card-body">
           <span class="about-card-tag">Education</span>
           <div class="about-card-title">BS Informatics + MBA Project Management</div>
+          <span class="about-card-hint">tap to reveal ↓</span>
           <p class="about-card-desc">
             BS in Informatics Engineering — AMA International University Bahrain, 2014.<br /><br />
             MBA in Project Management — Singhania University, India, Completed 2025.
