@@ -27,10 +27,14 @@
       --head:    'Playfair Display', Georgia, serif;
     }
 
-    /* ── MAIN WRAPPER — same pattern as carwash-embedded ── */
+    /* ── MAIN WRAPPER — full-bleed breakout from GHL container ── */
     #barbariaPage {
-      width: 100%;
+      width: 100vw;
+      position: relative;
+      left: 50%;
+      transform: translateX(-50%);
       margin-top: -1px;
+      overflow-x: hidden;
     }
 
     /* ── NAV ─────────────────────────────────────────────── */

@@ -1,0 +1,9 @@
+# Credentials & tokens — never commit these
+.claude/skills/*/token.json
+.claude/skills/*/credentials.json
+.claude/skills/*/config.json
+.claude/skills/*/__pycache__/
+.claude/
+
+# Misc
+*.pyc
