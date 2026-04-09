@@ -6,14 +6,19 @@
   <title>Barberia — Premium Barbershop</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: hidden;
+    }
 
     body {
       background: #0a0a0a;
       color: #fff;
       font-family: 'Inter', system-ui, sans-serif;
       -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
     }
 
     :root {
@@ -27,14 +32,9 @@
       --head:    'Playfair Display', Georgia, serif;
     }
 
-    /* ── MAIN WRAPPER — full-bleed breakout from GHL container ── */
+    /* ── MAIN WRAPPER — width:100%, GHL column handles sizing ── */
     #barbariaPage {
-      width: 100vw;
-      position: relative;
-      left: 50%;
-      transform: translateX(-50%);
-      margin-top: -1px;
-      overflow-x: hidden;
+      width: 100%;
     }
 
     /* ── NAV ─────────────────────────────────────────────── */
@@ -56,7 +56,7 @@
     }
     #barbariaPage .logo {
       font-family: var(--head);
-      font-size: clamp(1rem, 2.5vw, 1.5rem);
+      font-size: 22px;
       font-weight: 900;
       color: var(--gold);
       letter-spacing: 0.1em;
@@ -69,7 +69,7 @@
       background: transparent;
       color: var(--gold);
       font-family: 'Inter', sans-serif;
-      font-size: clamp(0.7rem, 1.4vw, 0.82rem);
+      font-size: 13px;
       font-weight: 700;
       letter-spacing: 0.1em;
       text-transform: uppercase;
@@ -130,7 +130,7 @@
       display: inline-flex;
       align-items: center;
       gap: 12px;
-      font-size: clamp(0.58rem, 1.3vw, 0.7rem);
+      font-size: 11px;
       font-weight: 600;
       letter-spacing: 0.2em;
       text-transform: uppercase;
@@ -147,20 +147,21 @@
 
     #barbariaPage .hero h1 {
       font-family: var(--head);
-      font-size: clamp(2.4rem, 7vw, 5.5rem);
+      font-size: 58px;
       font-weight: 900;
       line-height: 1.06;
       letter-spacing: -0.02em;
       color: #fff;
       margin-bottom: 20px;
+      word-wrap: break-word;
     }
     #barbariaPage .hero h1 em { font-style: italic; color: var(--gold); }
 
     #barbariaPage .hero-sub {
-      font-size: clamp(0.9rem, 2vw, 1.1rem);
+      font-size: 18px;
       color: rgba(255,255,255,0.65);
       line-height: 1.72;
-      max-width: 46ch;
+      max-width: 520px;
       margin: 0 auto 40px;
     }
 
@@ -168,11 +169,11 @@
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      padding: clamp(12px,2vw,15px) clamp(26px,3.5vw,42px);
+      padding: 14px 38px;
       background: linear-gradient(135deg, var(--gold), var(--gold-dk));
       color: var(--black);
       font-family: 'Inter', sans-serif;
-      font-size: clamp(0.76rem, 1.6vw, 0.9rem);
+      font-size: 14px;
       font-weight: 700;
       letter-spacing: 0.08em;
       text-transform: uppercase;
@@ -230,14 +231,14 @@
     #barbariaPage .stat:last-child { border-right: none; }
     #barbariaPage .stat-n {
       font-family: var(--head);
-      font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+      font-size: 34px;
       font-weight: 700;
       color: var(--gold);
       line-height: 1;
       margin-bottom: 6px;
     }
     #barbariaPage .stat-l {
-      font-size: clamp(0.6rem, 1.2vw, 0.74rem);
+      font-size: 12px;
       color: var(--muted);
       letter-spacing: 0.12em;
       text-transform: uppercase;
@@ -247,7 +248,7 @@
     #barbariaPage .inner {
       max-width: 1080px;
       margin: 0 auto;
-      padding: clamp(52px,7vw,96px) clamp(20px,5vw,56px);
+      padding: 80px 48px;
     }
 
     #barbariaPage .sec-head { text-align: center; margin-bottom: 52px; }
@@ -266,10 +267,11 @@
     #barbariaPage .sec-tag::after { content:''; width:26px; height:1px; background:var(--gold); }
     #barbariaPage .sec-h2 {
       font-family: var(--head);
-      font-size: clamp(1.8rem, 4vw, 2.9rem);
+      font-size: 46px;
       font-weight: 900;
       line-height: 1.16;
       color: #fff;
+      word-wrap: break-word;
     }
     #barbariaPage .sec-h2 em { font-style: italic; color: var(--gold); }
 
@@ -300,13 +302,13 @@
     #barbariaPage .svc-icon { font-size: 1.8rem; display: block; margin-bottom: 14px; }
     #barbariaPage .svc h3 {
       font-family: var(--head);
-      font-size: clamp(0.95rem, 2vw, 1.15rem);
+      font-size: 18px;
       font-weight: 700;
       color: #fff;
       margin-bottom: 8px;
     }
     #barbariaPage .svc p {
-      font-size: clamp(0.78rem, 1.5vw, 0.86rem);
+      font-size: 14px;
       color: var(--muted);
       line-height: 1.65;
       margin-bottom: 18px;
@@ -333,7 +335,7 @@
     }
     #barbariaPage .stars { color: var(--gold); letter-spacing: 2px; margin-bottom: 14px; font-size: 0.9rem; }
     #barbariaPage .rev blockquote {
-      font-size: clamp(0.8rem, 1.6vw, 0.9rem);
+      font-size: 14px;
       color: rgba(255,255,255,0.8);
       line-height: 1.76;
       font-style: italic;
@@ -363,16 +365,17 @@
     }
     #barbariaPage .cta-inner h2 {
       font-family: var(--head);
-      font-size: clamp(1.8rem, 4.5vw, 3rem);
+      font-size: 48px;
       font-weight: 900;
       color: #fff;
       line-height: 1.2;
       margin-bottom: 14px;
+      word-wrap: break-word;
     }
     #barbariaPage .cta-inner h2 em { font-style: italic; color: var(--gold); }
     #barbariaPage .cta-inner p {
       color: var(--muted);
-      font-size: clamp(0.88rem, 1.8vw, 1rem);
+      font-size: 16px;
       margin-bottom: 36px;
     }
 
@@ -439,7 +442,7 @@
     }
     #barbariaModal .m-close:hover { border-color:var(--gold); color:var(--gold); }
     #barbariaModal .m-eye  { font-size:0.67rem; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold); margin-bottom:6px; }
-    #barbariaModal .m-h2   { font-family:var(--head); font-size:clamp(1.3rem,3.5vw,1.7rem); font-weight:900; color:#fff; margin-bottom:6px; line-height:1.2; }
+    #barbariaModal .m-h2   { font-family:var(--head); font-size:26px; font-weight:900; color:#fff; margin-bottom:6px; line-height:1.2; }
     #barbariaModal .m-sub  { font-size:0.85rem; color:var(--muted); line-height:1.55; margin-bottom:26px; }
 
     #barbariaModal .form  { display:flex; flex-direction:column; gap:14px; }
@@ -482,24 +485,48 @@
     #barbariaModal .done h3 { font-family:var(--head); font-size:1.5rem; font-weight:900; color:#fff; margin-bottom:10px; }
     #barbariaModal .done p { font-size:0.9rem; color:var(--muted); line-height:1.65; }
 
-    /* ── MOBILE ──────────────────────────────────────────── */
+    /* ── TABLET ──────────────────────────────────────────── */
     @media (max-width: 768px) {
-      #barbariaPage nav { padding: 16px 20px; }
-      #barbariaPage .stats { grid-template-columns: repeat(2,1fr); }
+      #barbariaPage nav        { padding: 16px 20px; }
+      #barbariaPage .inner     { padding: 56px 24px; }
+      #barbariaPage .hero h1   { font-size: 38px; }
+      #barbariaPage .hero-sub  { font-size: 16px; }
+      #barbariaPage .sec-h2    { font-size: 30px; }
+      #barbariaPage .cta-inner h2 { font-size: 30px; }
+      #barbariaPage .stat-n    { font-size: 26px; }
+      #barbariaPage .stats     { grid-template-columns: repeat(2,1fr); }
       #barbariaPage .stat:nth-child(1) { border-right:1px solid var(--border); border-bottom:1px solid var(--border); }
       #barbariaPage .stat:nth-child(2) { border-right:none; border-bottom:1px solid var(--border); }
-      #barbariaPage .stat:nth-child(3) { border-right:1px solid var(--border); }
+      #barbariaPage .stat:nth-child(3) { border-right:1px solid var(--border); border-bottom:none; }
       #barbariaPage .stat:nth-child(4) { border-right:none; }
       #barbariaPage .svc-grid  { grid-template-columns: 1fr; }
       #barbariaPage .rev-grid  { grid-template-columns: 1fr; }
-      #barbariaModal .row2 { grid-template-columns: 1fr; }
+      #barbariaModal .row2     { grid-template-columns: 1fr; }
     }
+
+    /* ── MOBILE ──────────────────────────────────────────── */
     @media (max-width: 480px) {
-      #barbariaPage .hero h1 { font-size: 2.2rem; }
-      #barbariaPage .hero-sub { font-size: 0.9rem; }
-      #barbariaPage .btn-gold { font-size: 0.76rem; padding: 12px 22px; }
-      #barbariaPage .svc { padding: 24px 18px; }
-      #barbariaPage .stat { padding: 24px 12px; }
+      #barbariaPage nav        { padding: 14px 16px; }
+      #barbariaPage .logo      { font-size: 18px; }
+      #barbariaPage .nav-btn   { padding: 8px 16px; font-size: 11px; }
+      #barbariaPage .inner     { padding: 40px 16px; }
+      #barbariaPage .sec-head  { margin-bottom: 32px; }
+      #barbariaPage .hero-content { padding: 0 16px; }
+      #barbariaPage .hero h1   { font-size: 30px; line-height: 1.12; margin-bottom: 14px; }
+      #barbariaPage .hero-sub  { font-size: 15px; max-width: 100%; margin-bottom: 28px; }
+      #barbariaPage .btn-gold  { font-size: 13px; padding: 13px 22px; }
+      #barbariaPage .stat      { padding: 18px 10px; }
+      #barbariaPage .stat-n    { font-size: 22px; }
+      #barbariaPage .stat-l    { font-size: 10px; }
+      #barbariaPage .sec-h2    { font-size: 26px; line-height: 1.18; }
+      #barbariaPage .cta-inner h2 { font-size: 26px; line-height: 1.18; }
+      #barbariaPage .cta-inner p  { font-size: 14px; margin-bottom: 24px; }
+      #barbariaPage .svc       { padding: 20px 14px; }
+      #barbariaPage .svc h3    { font-size: 16px; }
+      #barbariaPage .svc p     { font-size: 13px; }
+      #barbariaPage .rev       { padding: 18px 14px; }
+      #barbariaPage .rev blockquote { font-size: 13px; }
+      #barbariaPage footer     { padding: 24px 16px; }
     }
   </style>
 </head>

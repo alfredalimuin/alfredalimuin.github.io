@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brand Card — Toni & Guy Bahrain</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #111; color: #f1f2f2; font-family: 'Roboto', sans-serif; padding: 40px; min-height: 100vh; }
+  .card { max-width: 900px; margin: 0 auto; background: #1a1a1a; border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.08); }
+  .card-header { background: #000; padding: 40px 48px; display: flex; align-items: center; gap: 24px; border-bottom: 1px solid rgba(204,167,118,0.3); }
+  .card-header img { height: 60px; filter: brightness(0) invert(1); }
+  .brand-name { font-family: 'Cormorant Garamond', serif; font-size: 36px; font-style: italic; font-weight: 400; }
+  .brand-name span { display: block; font-family: 'Roboto', sans-serif; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #cca776; font-style: normal; font-weight: 300; margin-top: 4px; }
+  .card-body { padding: 40px 48px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+  .section-label { font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: #cca776; margin-bottom: 16px; }
+  
+  /* Colors */
+  .color-row { display: flex; gap: 10px; flex-wrap: wrap; }
+  .swatch { width: 60px; text-align: center; }
+  .swatch-block { height: 60px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 8px; }
+  .swatch span { font-size: 10px; color: #888; font-family: monospace; }
+
+  /* Fonts */
+  .font-preview-heading { font-family: 'Cormorant Garamond', serif; font-size: 48px; font-style: italic; font-weight: 400; line-height: 1; color: #f1f2f2; margin-bottom: 12px; }
+  .font-preview-body { font-family: 'Roboto', sans-serif; font-size: 16px; color: #888; font-weight: 300; }
+  .font-label { font-size: 10px; color: #555; letter-spacing: 0.1em; margin-bottom: 4px; }
+
+  /* Copy */
+  .headline { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-style: italic; color: #f1f2f2; margin-bottom: 8px; }
+  .tagline { font-size: 13px; color: #cca776; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 20px; }
+  .services-list { list-style: none; }
+  .services-list li { font-size: 14px; color: #888; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+  .services-list li::before { content: '—  '; color: #cca776; }
+
+  /* Tone */
+  .tone-badge { display: inline-block; padding: 8px 20px; border: 1px solid #cca776; color: #cca776; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; border-radius: 100px; }
+
+  .full-width { grid-column: 1 / -1; }
+  hr { border: none; border-top: 1px solid rgba(255,255,255,0.05); margin: 8px 0 24px; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="card-header">
+    <img src="http://toniandguybh.com/wp-content/uploads/2018/11/Toni_Guy_logo_main2.png" alt="Toni & Guy" onerror="this.style.display='none'">
+    <div class="brand-name">
+      Toni &amp; Guy Bahrain
+      <span>Luxury Hair Salon · Bahrain</span>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <!-- Colors -->
+    <div>
+      <div class="section-label">Brand Colors</div>
+      <div class="color-row">
+        <div class="swatch">
+          <div class="swatch-block" style="background:#000000"></div>
+          <span>#000000</span>
+        </div>
+        <div class="swatch">
+          <div class="swatch-block" style="background:#ffffff"></div>
+          <span>#ffffff</span>
+        </div>
+        <div class="swatch">
+          <div class="swatch-block" style="background:#cca776"></div>
+          <span>#cca776</span>
+        </div>
+        <div class="swatch">
+          <div class="swatch-block" style="background:#0a0a0a"></div>
+          <span>#0a0a0a</span>
+        </div>
+        <div class="swatch">
+          <div class="swatch-block" style="background:#f1f2f2; border-color: rgba(255,255,255,0.3)"></div>
+          <span>#f1f2f2</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tone -->
+    <div>
+      <div class="section-label">Tone</div>
+      <div class="tone-badge">Elegant</div>
+      <p style="font-size:13px; color:#555; margin-top:16px; line-height:1.6;">
+        Luxury salon brand. Black, gold, and white palette. Sophisticated and editorial.
+      </p>
+    </div>
+
+    <!-- Fonts -->
+    <div>
+      <div class="section-label">Typography</div>
+      <div class="font-label">HEADING — Cormorant Garamond</div>
+      <div class="font-preview-heading">Art &amp; Elegance</div>
+      <div class="font-label">BODY — Roboto</div>
+      <div class="font-preview-body">Premium haircare services in the heart of Bahrain.</div>
+    </div>
+
+    <!-- Copy -->
+    <div>
+      <div class="section-label">Copy &amp; Services</div>
+      <div class="headline">Where Hair Becomes Art</div>
+      <div class="tagline">One of a kind</div>
+      <ul class="services-list">
+        <li>Balayage</li>
+        <li>Root Stretch &amp; Lumi Ombrage</li>
+        <li>Ultimate Blonde</li>
+        <li>KeraStraight</li>
+        <li>Global Colour</li>
+        <li>Men's Grooming</li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>

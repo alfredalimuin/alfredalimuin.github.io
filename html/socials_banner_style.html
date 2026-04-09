@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <title>DERF Socials - Banner Style</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: transparent;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      font-family: 'Arial Black', 'Arial Bold', sans-serif;
+    }
+
+    .socials {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      align-items: flex-start;
+    }
+
+    .social-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      color: #ffffff;
+      font-size: 22px;
+      font-weight: bold;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-shadow:
+        2px 2px 0px rgba(0,0,0,0.8),
+        0 0 12px rgba(255,255,255,0.4);
+    }
+
+    .social-icon {
+      width: 48px;
+      height: 48px;
+      border: 2.5px solid rgba(255,255,255,0.9);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      font-weight: 900;
+      color: #ffffff;
+      background: rgba(255,255,255,0.08);
+      box-shadow:
+        0 0 12px rgba(255,255,255,0.5),
+        inset 0 0 10px rgba(255,255,255,0.05);
+      flex-shrink: 0;
+    }
+
+    /* Divider between items */
+    .sep {
+      width: 200px;
+      height: 1px;
+      background: linear-gradient(to right, rgba(255,255,255,0.4), transparent);
+      margin-left: 62px;
+    }
+  </style>
+</head>
+<body>
+  <div class="socials">
+
+    <!-- Facebook -->
+    <div class="social-item">
+      <div class="social-icon">f</div>
+      @DERFTV
+    </div>
+
+    <div class="sep"></div>
+
+    <!-- YouTube -->
+    <div class="social-item">
+      <div class="social-icon">▶</div>
+      @DERFTV
+    </div>
+
+  </div>
+</body>
+</html>
