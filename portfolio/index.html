@@ -9,20 +9,6 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:        #000000;
-      --bg2:       #0a0a0a;
-      --bg3:       #141414;
-      --text:      #f0f0f0;
-      --muted:     #777777;
-      --accent:    #276CF5;
-      --accent2:   #1a56c4;
-      --border:    #0d1a3d;
-      --radius:    12px;
-      --grad:      linear-gradient(135deg, #276CF5, #5b8ef7);
-      --nav-bg:    rgba(0,0,0,0.92);
-    }
-
-    [data-theme="light"] {
       --bg:        #f5f8ff;
       --bg2:       #ffffff;
       --bg3:       #edf2fe;
@@ -31,8 +17,26 @@
       --accent:    #1a56c4;
       --accent2:   #1546a8;
       --border:    #c5d5f9;
+      --radius:    12px;
+      --grad:      linear-gradient(135deg, #1a56c4, #5b8ef7);
       --nav-bg:    rgba(245,248,255,0.92);
     }
+
+    [data-theme="dark"] {
+      --bg:        #000000;
+      --bg2:       #0a0a0a;
+      --bg3:       #141414;
+      --text:      #f0f0f0;
+      --muted:     #777777;
+      --accent:    #276CF5;
+      --accent2:   #1a56c4;
+      --border:    #0d1a3d;
+      --nav-bg:    rgba(0,0,0,0.92);
+    }
+
+    /* Badge text always light — badge bg is dark in both modes */
+    .photo-badge .badge-label { color: #b0bcd4 !important; }
+    .photo-badge .badge-value { color: #f0f0f0 !important; }
 
     html { scroll-behavior: smooth; }
 
@@ -169,10 +173,10 @@
     }
 
     .theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
-    .theme-toggle .icon-sun  { display: none; }
-    .theme-toggle .icon-moon { display: block; }
-    [data-theme="light"] .theme-toggle .icon-sun  { display: block; }
-    [data-theme="light"] .theme-toggle .icon-moon { display: none; }
+    .theme-toggle .icon-sun  { display: block; }
+    .theme-toggle .icon-moon { display: none; }
+    [data-theme="dark"] .theme-toggle .icon-sun  { display: none; }
+    [data-theme="dark"] .theme-toggle .icon-moon { display: block; }
 
     /* ── Sections ── */
     section {
@@ -491,84 +495,66 @@
     .about-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 2rem;
+      gap: 1.5rem;
     }
 
     .about-card {
-      perspective: 1000px;
-      height: 260px;
-      cursor: pointer;
-    }
-
-    .about-card-inner {
-      position: relative;
-      width: 100%; height: 100%;
-      transform-style: preserve-3d;
-      transition: transform 0.65s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .about-card.flipped .about-card-inner { transform: rotateY(180deg); }
-
-    .about-card-front,
-    .about-card-back {
-      position: absolute;
-      inset: 0;
-      backface-visibility: hidden;
-      -webkit-backface-visibility: hidden;
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
       background: var(--bg2);
-      transition: border-color 0.2s, box-shadow 0.2s;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
     }
 
-    .about-card-front {
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      text-align: center; padding: 2rem;
-    }
-
-    .about-card:hover .about-card-front {
+    .about-card:hover {
       border-color: var(--accent);
-      box-shadow: 0 0 24px rgba(39,108,245,0.15);
+      transform: translateY(-2px);
+      box-shadow: 0 0 24px rgba(39,108,245,0.12);
     }
 
-    .about-card-back {
-      transform: rotateY(180deg);
-      padding: 1.5rem;
-      overflow-y: auto;
+    .about-card-img {
+      height: 130px;
+      background: var(--bg3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3.2rem;
     }
 
-    .about-card.flipped .about-card-back {
-      border-color: var(--accent);
-      box-shadow: 0 0 24px rgba(39,108,245,0.15);
+    .about-card-body {
+      padding: 1rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
     }
 
-    .about-card-icon  { font-size: 2.8rem; display: block; margin-bottom: 0.9rem; }
-    .about-card-title { font-size: 1.05rem; font-weight: 700; color: var(--text); display: block; margin-bottom: 0.4rem; }
-    .about-card-hint  { font-size: 0.65rem; color: var(--muted); letter-spacing: 0.5px; }
-
-    .about-card-back h3 {
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--accent);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 0.75rem;
-    }
-
-    .about-card-back p {
-      color: var(--muted);
+    .about-card-title {
       font-size: 0.88rem;
-      line-height: 1.75;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+      line-height: 1.4;
     }
 
-    .about-card-close {
-      display: block;
-      margin-top: 1rem;
-      font-size: 0.65rem;
+    .about-card-desc {
+      color: var(--muted);
+      font-size: 0.82rem;
+      line-height: 1.75;
+      flex: 1;
+    }
+
+    .about-card-tag {
+      display: inline-block;
+      background: rgba(39,108,245,0.08);
       color: var(--accent);
-      text-align: right;
-      opacity: 0.7;
+      border: 1px solid rgba(39,108,245,0.25);
+      border-radius: 999px;
+      padding: 0.15rem 0.65rem;
+      font-size: 0.68rem;
+      font-weight: 600;
+      margin-bottom: 0.6rem;
     }
 
     /* ── Skills ── */
@@ -1392,7 +1378,6 @@
       nav { padding: 1rem; }
       .nav-links { gap: 1rem; }
       .about-grid { grid-template-columns: 1fr; }
-      .about-card { height: 280px; }
       .contact-grid { grid-template-columns: 1fr; }
       section { padding: 4rem 1.25rem; }
     }
@@ -1491,47 +1476,30 @@
     <div class="about-grid">
 
       <!-- Experience card -->
-      <div class="about-card" onclick="this.classList.toggle('flipped')">
-        <div class="about-card-inner">
-          <div class="about-card-front">
-            <span class="about-card-icon">💼</span>
-            <span class="about-card-title">Experience</span>
-            <span class="about-card-hint">tap to reveal</span>
-          </div>
-          <div class="about-card-back">
-            <h3>Experience</h3>
-            <p>
-              10+ years in IT across international schools and critical infrastructure — progressing
-              from helpdesk and systems support to full IT administration, managing 3,000+ devices,
-              Microsoft 365 environments, and network infrastructure across multi-site education groups
-              (Inspired Education Group, Riffa Views, King Fahd Causeway Authority).<br /><br />
-              Since 2025, focused on AI automation — building n8n, Zapier, and AI-powered workflows
-              that eliminated 30%+ of manual tasks, onboarded 500+ users, and reduced investigation
-              time by 20%.
-            </p>
-            <span class="about-card-close">tap to close ↩</span>
-          </div>
+      <div class="about-card">
+        <div class="about-card-img">💼</div>
+        <div class="about-card-body">
+          <span class="about-card-tag">Experience</span>
+          <div class="about-card-title">10+ Years in IT &amp; Automation</div>
+          <p class="about-card-desc">
+            Progressed from helpdesk to full IT administration — managing 3,000+ devices, Microsoft 365,
+            and network infrastructure across multi-site education groups (Inspired Education Group, Riffa Views,
+            King Fahd Causeway Authority). Since 2025, focused on AI automation: n8n, Zapier, and AI-powered
+            workflows that eliminated 30%+ of manual tasks and onboarded 500+ users.
+          </p>
         </div>
       </div>
 
       <!-- Education card -->
-      <div class="about-card" onclick="this.classList.toggle('flipped')">
-        <div class="about-card-inner">
-          <div class="about-card-front">
-            <span class="about-card-icon">🎓</span>
-            <span class="about-card-title">Education</span>
-            <span class="about-card-hint">tap to reveal</span>
-          </div>
-          <div class="about-card-back">
-            <h3>Education</h3>
-            <p>
-              BS in Informatics Engineering<br />
-              AMA International University Bahrain — 2014<br /><br />
-              MBA in Project Management<br />
-              Singhania University, India — Completed 2025
-            </p>
-            <span class="about-card-close">tap to close ↩</span>
-          </div>
+      <div class="about-card">
+        <div class="about-card-img">🎓</div>
+        <div class="about-card-body">
+          <span class="about-card-tag">Education</span>
+          <div class="about-card-title">BS Informatics + MBA Project Management</div>
+          <p class="about-card-desc">
+            BS in Informatics Engineering — AMA International University Bahrain, 2014.<br /><br />
+            MBA in Project Management — Singhania University, India, Completed 2025.
+          </p>
         </div>
       </div>
 
@@ -2708,13 +2676,13 @@
     /* ── Theme Toggle ── */
     function toggleTheme() {
       var html = document.documentElement;
-      var isDark = html.getAttribute('data-theme') !== 'light';
+      var isDark = html.getAttribute('data-theme') === 'dark';
       html.setAttribute('data-theme', isDark ? 'light' : 'dark');
       localStorage.setItem('theme', isDark ? 'light' : 'dark');
     }
     (function() {
       var saved = localStorage.getItem('theme');
-      if (saved === 'light') document.documentElement.setAttribute('data-theme', 'light');
+      if (saved === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
     })();
 
     /* ── Project Filters (toggle) ── */
