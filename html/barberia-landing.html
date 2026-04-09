@@ -10,92 +10,81 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --gold:       #c9a84c;
-      --gold-light: #e8c96a;
-      --gold-dark:  #9a7a2e;
-      --black:      #0a0a0a;
-      --dark2:      #1a1a1a;
-      --dark3:      #222222;
-      --white:      #ffffff;
-      --muted:      #888888;
-      --border:     rgba(201,168,76,0.2);
-      --font-head:  'Playfair Display', Georgia, serif;
-      --font-body:  'Inter', system-ui, sans-serif;
-      --r:          8px;
+      --gold:      #c9a84c;
+      --gold-dark: #9a7a2e;
+      --black:     #0a0a0a;
+      --dark2:     #1a1a1a;
+      --dark3:     #222222;
+      --white:     #ffffff;
+      --muted:     #888888;
+      --border:    rgba(201,168,76,0.2);
+      --head:      'Playfair Display', Georgia, serif;
+      --body:      'Inter', system-ui, sans-serif;
     }
 
-    html {
-      scroll-behavior: smooth;
-      overflow-x: hidden;
-    }
-
-    body {
-      font-family: var(--font-body);
-      background: var(--black);
-      color: var(--white);
-      overflow-x: hidden;
+    html, body {
+      width: 100%;
       margin: 0;
       padding: 0;
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--body);
+      scroll-behavior: smooth;
     }
 
-    /* ── NAV ──────────────────────────────────────────── */
+    /* ─── NAV ─────────────────────────────────────────── */
     nav {
       position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 50;
+      inset: 0 0 auto 0;
+      z-index: 99;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 20px 40px;
-      background: linear-gradient(to bottom, rgba(0,0,0,0.85) 0%, transparent 100%);
+      padding: 18px 40px;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.88), transparent);
     }
 
-    .nav-logo {
-      font-family: var(--font-head);
-      font-size: clamp(1.2rem, 3vw, 1.6rem);
+    .logo {
+      font-family: var(--head);
+      font-size: clamp(1.1rem, 3vw, 1.6rem);
       font-weight: 900;
       color: var(--gold);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-    }
-
-    .nav-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 22px;
-      border: 1.5px solid var(--gold);
-      color: var(--gold);
-      font-family: var(--font-body);
-      font-size: 0.82rem;
-      font-weight: 600;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      border-radius: var(--r);
-      cursor: pointer;
-      background: transparent;
-      transition: background 0.2s, color 0.2s;
-      white-space: nowrap;
     }
 
-    .nav-cta:hover { background: var(--gold); color: var(--black); }
+    .nav-btn {
+      padding: 9px 20px;
+      border: 1.5px solid var(--gold);
+      border-radius: 6px;
+      background: transparent;
+      color: var(--gold);
+      font-family: var(--body);
+      font-size: clamp(0.72rem, 1.5vw, 0.82rem);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background .2s, color .2s;
+      white-space: nowrap;
+    }
+    .nav-btn:hover { background: var(--gold); color: var(--black); }
 
-    /* ── HERO ─────────────────────────────────────────── */
+    /* ─── HERO ────────────────────────────────────────── */
     .hero {
       position: relative;
       width: 100%;
       min-height: 100vh;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
       overflow: hidden;
     }
 
-    .hero-video {
+    .hero video {
       position: absolute;
-      top: 0; left: 0;
+      inset: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -105,215 +94,186 @@
 
     .hero-overlay {
       position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: linear-gradient(
-        to bottom,
-        rgba(0,0,0,0.35) 0%,
-        rgba(0,0,0,0.5)  50%,
-        rgba(0,0,0,0.82) 100%
-      );
+      inset: 0;
       z-index: 1;
+      background: linear-gradient(to bottom,
+        rgba(0,0,0,.35) 0%,
+        rgba(0,0,0,.52) 50%,
+        rgba(0,0,0,.82) 100%);
     }
 
-    .hero-content {
+    .hero-body {
       position: relative;
       z-index: 2;
-      padding: 120px 20px 80px;
       width: 100%;
-      max-width: 720px;
+      max-width: 700px;
+      padding: 120px 24px 80px;
       margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
-    .hero-badge {
+    .badge {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 7px 18px;
+      padding: 6px 18px;
       border: 1px solid var(--gold);
       border-radius: 100px;
+      background: rgba(201,168,76,.1);
       color: var(--gold);
-      font-size: clamp(0.62rem, 1.5vw, 0.72rem);
-      font-weight: 600;
-      letter-spacing: 0.18em;
+      font-size: clamp(.65rem, 1.5vw, .72rem);
+      font-weight: 700;
+      letter-spacing: .18em;
       text-transform: uppercase;
       margin-bottom: 28px;
-      background: rgba(201,168,76,0.08);
     }
-
-    .hero-badge::before {
+    .badge::before {
       content: '';
       width: 6px; height: 6px;
       border-radius: 50%;
       background: var(--gold);
-      animation: pulse 2s infinite;
+      animation: blink 2s infinite;
       flex-shrink: 0;
     }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50%       { opacity: 0.3; }
-    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
 
     .hero h1 {
-      font-family: var(--font-head);
-      font-size: clamp(2.4rem, 8vw, 5rem);
+      font-family: var(--head);
+      font-size: clamp(2.2rem, 7vw, 5rem);
       font-weight: 900;
       line-height: 1.1;
-      letter-spacing: -0.01em;
       color: var(--white);
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
+    .hero h1 em { font-style: italic; color: var(--gold); }
 
-    .hero h1 em {
-      font-style: italic;
-      color: var(--gold);
-    }
-
-    .hero-sub {
-      font-size: clamp(0.95rem, 2.5vw, 1.15rem);
-      color: rgba(255,255,255,0.7);
+    .hero p {
+      font-size: clamp(.9rem, 2.2vw, 1.1rem);
+      color: rgba(255,255,255,.7);
       line-height: 1.7;
-      max-width: 460px;
-      margin: 0 auto 44px;
-      padding: 0 8px;
+      max-width: 440px;
+      margin: 0 auto 40px;
     }
 
-    .btn-book {
+    .cta-btn {
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      padding: clamp(14px, 3vw, 18px) clamp(28px, 5vw, 44px);
+      padding: clamp(14px,2.5vw,18px) clamp(26px,4vw,44px);
       background: linear-gradient(135deg, var(--gold), var(--gold-dark));
       color: var(--black);
-      font-family: var(--font-body);
-      font-size: clamp(0.82rem, 2vw, 0.95rem);
+      font-family: var(--body);
+      font-size: clamp(.8rem, 1.8vw, .95rem);
       font-weight: 700;
-      letter-spacing: 0.06em;
+      letter-spacing: .07em;
       text-transform: uppercase;
       border: none;
-      border-radius: var(--r);
+      border-radius: 7px;
       cursor: pointer;
-      box-shadow: 0 8px 32px rgba(201,168,76,0.4);
-      transition: transform 0.2s, box-shadow 0.2s;
-      white-space: nowrap;
+      box-shadow: 0 8px 30px rgba(201,168,76,.4);
+      transition: transform .2s, box-shadow .2s;
     }
-
-    .btn-book:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 14px 40px rgba(201,168,76,0.55);
-    }
-
-    .btn-book svg { flex-shrink: 0; }
+    .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 14px 40px rgba(201,168,76,.55); }
 
     .hero-note {
-      margin-top: 16px;
-      font-size: clamp(0.72rem, 1.8vw, 0.78rem);
-      color: rgba(255,255,255,0.45);
-      letter-spacing: 0.04em;
+      margin-top: 14px;
+      font-size: clamp(.7rem, 1.5vw, .78rem);
+      color: rgba(255,255,255,.4);
     }
 
-    .scroll-hint {
+    .scroll-bar {
       position: absolute;
-      bottom: 36px;
+      bottom: 32px;
       left: 50%;
       transform: translateX(-50%);
       z-index: 2;
-    }
-
-    .scroll-line {
       width: 1px;
-      height: 48px;
+      height: 50px;
       background: linear-gradient(to bottom, var(--gold), transparent);
-      animation: scrollLine 2s ease-in-out infinite;
+      animation: grow 2s ease-in-out infinite;
+    }
+    @keyframes grow {
+      0%   { transform: translateX(-50%) scaleY(0); transform-origin: top; }
+      50%  { transform: translateX(-50%) scaleY(1); transform-origin: top; }
+      51%  { transform: translateX(-50%) scaleY(1); transform-origin: bottom; }
+      100% { transform: translateX(-50%) scaleY(0); transform-origin: bottom; }
     }
 
-    @keyframes scrollLine {
-      0%   { transform: scaleY(0); transform-origin: top; }
-      50%  { transform: scaleY(1); transform-origin: top; }
-      51%  { transform: scaleY(1); transform-origin: bottom; }
-      100% { transform: scaleY(0); transform-origin: bottom; }
-    }
-
-    /* ── STATS ────────────────────────────────────────── */
+    /* ─── STATS ───────────────────────────────────────── */
     .stats {
+      width: 100%;
       background: var(--dark2);
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
-      padding: 40px 24px;
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 0;
-      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      text-align: center;
     }
 
     .stat {
-      text-align: center;
-      padding: 16px 40px;
+      padding: 36px 16px;
       border-right: 1px solid var(--border);
-      flex: 1 1 120px;
-      max-width: 200px;
     }
-
     .stat:last-child { border-right: none; }
 
-    .stat-num {
-      font-family: var(--font-head);
+    .stat-n {
+      font-family: var(--head);
       font-size: clamp(1.6rem, 4vw, 2.2rem);
       font-weight: 700;
       color: var(--gold);
       line-height: 1;
       margin-bottom: 6px;
     }
-
-    .stat-label {
-      font-size: clamp(0.68rem, 1.5vw, 0.78rem);
+    .stat-l {
+      font-size: clamp(.65rem, 1.4vw, .78rem);
       color: var(--muted);
-      letter-spacing: 0.1em;
+      letter-spacing: .1em;
       text-transform: uppercase;
     }
 
-    /* ── SERVICES ─────────────────────────────────────── */
-    .section {
-      padding: clamp(60px, 8vw, 96px) clamp(16px, 4vw, 40px);
+    /* ─── SHARED SECTION WRAPPER ──────────────────────── */
+    .wrap {
+      width: 100%;
       max-width: 1100px;
       margin: 0 auto;
-      width: 100%;
+      padding: clamp(56px,8vw,96px) clamp(16px,4vw,48px);
     }
 
-    .section-head {
+    .sec-head {
       text-align: center;
-      margin-bottom: 56px;
+      margin-bottom: 52px;
     }
 
-    .section-tag {
+    .sec-tag {
       display: inline-flex;
       align-items: center;
       gap: 10px;
       color: var(--gold);
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.2em;
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .22em;
       text-transform: uppercase;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
-
-    .section-tag::before,
-    .section-tag::after {
+    .sec-tag::before,.sec-tag::after {
       content: '';
-      display: block;
-      width: 28px; height: 1px;
+      width: 26px; height: 1px;
       background: var(--gold);
     }
 
-    .section-title {
-      font-family: var(--font-head);
-      font-size: clamp(1.8rem, 5vw, 3rem);
+    .sec-title {
+      font-family: var(--head);
+      font-size: clamp(1.8rem, 4.5vw, 3rem);
       font-weight: 900;
       line-height: 1.15;
       color: var(--white);
     }
+    .sec-title em { font-style: italic; color: var(--gold); }
+
+    /* ─── SERVICES ────────────────────────────────────── */
+    .services-bg { width: 100%; background: var(--black); }
 
     .services-grid {
       display: grid;
@@ -321,371 +281,269 @@
       gap: 20px;
     }
 
-    .service-card {
+    .svc {
       background: var(--dark2);
       border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 36px 28px;
-      transition: border-color 0.2s, transform 0.2s;
+      padding: 32px 24px;
       position: relative;
       overflow: hidden;
+      transition: transform .2s, border-color .2s;
     }
-
-    .service-card::before {
+    .svc::after {
       content: '';
       position: absolute;
       top: 0; left: 0; right: 0;
       height: 2px;
       background: linear-gradient(90deg, transparent, var(--gold), transparent);
       opacity: 0;
-      transition: opacity 0.3s;
+      transition: opacity .3s;
     }
+    .svc:hover { transform: translateY(-4px); border-color: rgba(201,168,76,.5); }
+    .svc:hover::after { opacity: 1; }
 
-    .service-card:hover { border-color: rgba(201,168,76,0.5); transform: translateY(-4px); }
-    .service-card:hover::before { opacity: 1; }
-
-    .service-icon { font-size: 1.8rem; margin-bottom: 18px; display: block; }
-
-    .service-name {
-      font-family: var(--font-head);
-      font-size: clamp(1rem, 2.5vw, 1.2rem);
+    .svc-icon { font-size: 1.8rem; display: block; margin-bottom: 16px; }
+    .svc-name {
+      font-family: var(--head);
+      font-size: clamp(.95rem, 2vw, 1.15rem);
       font-weight: 700;
       color: var(--white);
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
-
-    .service-desc {
-      font-size: clamp(0.82rem, 1.8vw, 0.88rem);
+    .svc-desc {
+      font-size: clamp(.8rem, 1.6vw, .88rem);
       color: var(--muted);
       line-height: 1.65;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
+    .svc-price { font-size: 1.05rem; font-weight: 700; color: var(--gold); }
 
-    .service-price {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: var(--gold);
-    }
-
-    /* ── TESTIMONIALS ─────────────────────────────────── */
-    .testimonials-bg {
+    /* ─── TESTIMONIALS ────────────────────────────────── */
+    .reviews-bg {
+      width: 100%;
       background: var(--dark2);
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
-      width: 100%;
     }
 
-    .testimonials-grid {
+    .reviews-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 24px;
+      gap: 22px;
     }
 
-    .t-card {
+    .review {
       background: var(--dark3);
       border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 28px;
+      padding: 26px 24px;
     }
-
-    .t-stars { color: var(--gold); font-size: 0.9rem; letter-spacing: 2px; margin-bottom: 16px; }
-
-    .t-quote {
-      font-size: clamp(0.85rem, 2vw, 0.93rem);
-      color: rgba(255,255,255,0.8);
+    .stars { color: var(--gold); letter-spacing: 2px; margin-bottom: 14px; font-size: .9rem; }
+    .quote {
+      font-size: clamp(.82rem, 1.8vw, .92rem);
+      color: rgba(255,255,255,.8);
       line-height: 1.75;
       font-style: italic;
-      margin-bottom: 22px;
+      margin-bottom: 20px;
     }
-
-    .t-author { display: flex; align-items: center; gap: 12px; }
-
-    .t-avatar {
+    .reviewer { display: flex; align-items: center; gap: 12px; }
+    .avatar {
       width: 40px; height: 40px;
       border-radius: 50%;
       background: linear-gradient(135deg, var(--gold-dark), var(--gold));
       display: flex; align-items: center; justify-content: center;
-      font-weight: 700;
-      font-size: 0.85rem;
-      color: var(--black);
+      font-weight: 700; font-size: .82rem; color: var(--black);
       flex-shrink: 0;
     }
+    .rname { font-size: .88rem; font-weight: 700; color: var(--white); }
+    .rmeta { font-size: .76rem; color: var(--muted); margin-top: 2px; }
 
-    .t-name { font-size: 0.88rem; font-weight: 700; color: var(--white); }
-    .t-meta { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
-
-    /* ── CTA BANNER ───────────────────────────────────── */
-    .cta-banner {
-      padding: clamp(60px, 8vw, 96px) 24px;
-      text-align: center;
-      background: radial-gradient(ellipse at center, rgba(201,168,76,0.08) 0%, transparent 70%);
-      border-top: 1px solid var(--border);
+    /* ─── BOTTOM CTA ──────────────────────────────────── */
+    .cta-bg {
       width: 100%;
+      background: radial-gradient(ellipse at center, rgba(201,168,76,.08) 0%, transparent 70%);
+      border-top: 1px solid var(--border);
+      text-align: center;
     }
 
-    .cta-banner h2 {
-      font-family: var(--font-head);
+    .cta-bg h2 {
+      font-family: var(--head);
       font-size: clamp(1.8rem, 5vw, 3.2rem);
       font-weight: 900;
       color: var(--white);
-      margin-bottom: 16px;
       line-height: 1.2;
+      margin-bottom: 14px;
     }
+    .cta-bg h2 em { font-style: italic; color: var(--gold); }
+    .cta-bg p { color: var(--muted); font-size: clamp(.88rem, 2vw, 1rem); margin-bottom: 36px; }
 
-    .cta-banner h2 em { color: var(--gold); font-style: italic; }
-
-    .cta-banner p {
-      color: var(--muted);
-      font-size: clamp(0.9rem, 2vw, 1rem);
-      margin-bottom: 40px;
-    }
-
-    /* ── FOOTER ───────────────────────────────────────── */
+    /* ─── FOOTER ──────────────────────────────────────── */
     footer {
+      width: 100%;
       background: var(--dark2);
       border-top: 1px solid var(--border);
-      padding: 32px 24px;
+      padding: 30px 24px;
       text-align: center;
-      width: 100%;
     }
-
-    .footer-logo {
-      font-family: var(--font-head);
-      font-size: 1.4rem;
+    .foot-logo {
+      font-family: var(--head);
+      font-size: 1.3rem;
       font-weight: 900;
       color: var(--gold);
-      letter-spacing: 0.08em;
+      letter-spacing: .08em;
       text-transform: uppercase;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
+    footer p { font-size: .78rem; color: var(--muted); }
 
-    footer p { font-size: 0.8rem; color: var(--muted); }
-
-    /* ── MODAL ────────────────────────────────────────── */
-    .modal-backdrop {
+    /* ─── MODAL ───────────────────────────────────────── */
+    .m-back {
       position: fixed; inset: 0;
-      background: rgba(0,0,0,0.85);
+      background: rgba(0,0,0,.88);
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
-      z-index: 100;
+      z-index: 200;
       display: flex;
       align-items: flex-end;
       justify-content: center;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.25s ease;
+      transition: opacity .25s;
     }
+    @media(min-width:600px){ .m-back { align-items: center; padding: 24px; } }
+    .m-back.open { opacity: 1; pointer-events: all; }
 
-    @media (min-width: 600px) {
-      .modal-backdrop { align-items: center; padding: 24px; }
-    }
-
-    .modal-backdrop.open { opacity: 1; pointer-events: all; }
-
-    .modal {
+    .m-box {
       background: var(--dark2);
       border: 1px solid var(--border);
       border-radius: 20px 20px 0 0;
-      padding: 40px 24px 44px;
+      padding: 36px 22px 42px;
       width: 100%;
-      max-width: 500px;
+      max-width: 480px;
       max-height: 92vh;
       overflow-y: auto;
       position: relative;
       transform: translateY(60px);
-      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-      box-shadow: 0 -4px 60px rgba(0,0,0,0.6);
+      transition: transform .3s cubic-bezier(.34,1.56,.64,1);
     }
-
-    @media (min-width: 600px) {
-      .modal { border-radius: 20px; transform: translateY(30px) scale(0.97); padding: 40px 32px 44px; }
+    @media(min-width:600px){
+      .m-box { border-radius: 20px; transform: translateY(30px) scale(.97); padding: 40px 32px 44px; }
     }
+    .m-back.open .m-box { transform: translateY(0) scale(1); }
 
-    .modal-backdrop.open .modal { transform: translateY(0) scale(1); }
-
-    .modal-handle {
+    .m-handle {
       width: 40px; height: 3px;
-      background: rgba(255,255,255,0.15);
+      background: rgba(255,255,255,.15);
       border-radius: 100px;
-      margin: 0 auto 32px;
+      margin: 0 auto 28px;
     }
+    @media(min-width:600px){ .m-handle { display: none; } }
 
-    @media (min-width: 600px) { .modal-handle { display: none; } }
-
-    .modal-close {
-      position: absolute;
-      top: 20px; right: 20px;
-      width: 34px; height: 34px;
+    .m-close {
+      position: absolute; top: 18px; right: 18px;
+      width: 32px; height: 32px;
       border-radius: 50%;
       background: var(--dark3);
       border: 1px solid var(--border);
+      color: var(--muted);
+      font-size: .9rem;
       cursor: pointer;
       display: flex; align-items: center; justify-content: center;
-      color: var(--muted);
-      font-size: 0.95rem;
-      transition: border-color 0.15s, color 0.15s;
+      transition: border-color .15s, color .15s;
     }
+    .m-close:hover { border-color: var(--gold); color: var(--gold); }
 
-    .modal-close:hover { border-color: var(--gold); color: var(--gold); }
+    .m-eye { font-size: .68rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+    .m-title { font-family: var(--head); font-size: clamp(1.3rem,3.5vw,1.7rem); font-weight: 900; color: var(--white); margin-bottom: 6px; line-height: 1.2; }
+    .m-sub { font-size: .86rem; color: var(--muted); line-height: 1.55; margin-bottom: 28px; }
 
-    .modal-eyebrow {
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 8px;
-    }
+    .form { display: flex; flex-direction: column; gap: 14px; }
+    .field { display: flex; flex-direction: column; gap: 5px; }
+    .field label { font-size: .75rem; font-weight: 700; color: rgba(255,255,255,.65); letter-spacing: .06em; text-transform: uppercase; }
+    .field label .req { color: var(--gold); }
 
-    .modal-title {
-      font-family: var(--font-head);
-      font-size: clamp(1.4rem, 4vw, 1.7rem);
-      font-weight: 900;
-      color: var(--white);
-      line-height: 1.2;
-      margin-bottom: 6px;
-    }
-
-    .modal-sub {
-      font-size: 0.88rem;
-      color: var(--muted);
-      line-height: 1.55;
-      margin-bottom: 32px;
-    }
-
-    .form { display: flex; flex-direction: column; gap: 16px; }
-    .field { display: flex; flex-direction: column; gap: 6px; }
-
-    .field label {
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: rgba(255,255,255,0.7);
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-    }
-
-    .field label .req { color: var(--gold); margin-left: 2px; }
-
-    .field input,
-    .field select {
+    .field input, .field select {
       width: 100%;
-      padding: 13px 16px;
+      padding: 12px 14px;
       background: var(--dark3);
-      border: 1.5px solid rgba(255,255,255,0.1);
-      border-radius: var(--r);
-      font-size: 0.95rem;
-      font-family: var(--font-body);
+      border: 1.5px solid rgba(255,255,255,.1);
+      border-radius: 7px;
+      font-size: .92rem;
+      font-family: var(--body);
       color: var(--white);
       outline: none;
-      transition: border-color 0.18s, box-shadow 0.18s;
       appearance: none;
       -webkit-appearance: none;
+      transition: border-color .18s, box-shadow .18s;
     }
+    .field input::placeholder { color: rgba(255,255,255,.22); }
+    .field input:focus, .field select:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(201,168,76,.15); }
+    .field input.err, .field select.err { border-color: #ef4444; }
 
-    .field input::placeholder { color: rgba(255,255,255,0.25); }
+    .sel-wrap { position: relative; }
+    .sel-wrap::after { content:''; position:absolute; right:13px; top:50%; transform:translateY(-50%); border:5px solid transparent; border-top-color: var(--muted); pointer-events:none; }
+    .sel-wrap select { padding-right: 36px; cursor: pointer; }
+    .field select option { background: var(--dark3); }
 
-    .field input:focus,
-    .field select:focus {
-      border-color: var(--gold);
-      box-shadow: 0 0 0 3px rgba(201,168,76,0.15);
-    }
+    .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 
-    .field input.err,
-    .field select.err { border-color: #ef4444; }
-
-    .select-wrap { position: relative; }
-
-    .select-wrap::after {
-      content: '';
-      position: absolute;
-      right: 14px; top: 50%;
-      transform: translateY(-50%);
-      width: 0; height: 0;
-      border-left: 5px solid transparent;
-      border-right: 5px solid transparent;
-      border-top: 6px solid var(--muted);
-      pointer-events: none;
-    }
-
-    .select-wrap select { padding-right: 38px; cursor: pointer; }
-    .field select option { background: var(--dark3); color: var(--white); }
-
-    .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-
-    .btn-submit {
+    .sub-btn {
       width: 100%;
-      padding: 16px;
+      padding: 15px;
       background: linear-gradient(135deg, var(--gold), var(--gold-dark));
       color: var(--black);
-      font-size: 0.95rem;
+      font-family: var(--body);
+      font-size: .92rem;
       font-weight: 700;
-      font-family: var(--font-body);
-      letter-spacing: 0.06em;
+      letter-spacing: .07em;
       text-transform: uppercase;
       border: none;
-      border-radius: var(--r);
+      border-radius: 7px;
       cursor: pointer;
-      box-shadow: 0 6px 24px rgba(201,168,76,0.35);
-      transition: transform 0.15s, box-shadow 0.15s;
+      box-shadow: 0 6px 22px rgba(201,168,76,.35);
+      transition: transform .15s, box-shadow .15s;
       margin-top: 4px;
     }
+    .sub-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(201,168,76,.5); }
+    .sub-btn:disabled { opacity: .5; cursor: not-allowed; transform: none; }
 
-    .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(201,168,76,0.5); }
-    .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .form-note { font-size: .73rem; color: var(--muted); text-align: center; line-height: 1.5; }
 
-    .form-note { font-size: 0.75rem; color: var(--muted); text-align: center; line-height: 1.5; }
-
-    .success { display: none; text-align: center; padding: 20px 0 12px; }
-    .success.show { display: block; }
-
-    .success-icon {
-      width: 76px; height: 76px;
+    .done { display: none; text-align: center; padding: 16px 0 8px; }
+    .done.show { display: block; }
+    .done-icon {
+      width: 72px; height: 72px;
       border-radius: 50%;
       background: linear-gradient(135deg, var(--gold-dark), var(--gold));
       display: flex; align-items: center; justify-content: center;
-      margin: 0 auto 24px;
-      font-size: 2rem;
-      box-shadow: 0 8px 32px rgba(201,168,76,0.4);
+      margin: 0 auto 22px;
+      font-size: 1.9rem;
+      box-shadow: 0 8px 28px rgba(201,168,76,.4);
     }
+    .done h3 { font-family: var(--head); font-size: 1.5rem; font-weight: 900; color: var(--white); margin-bottom: 10px; }
+    .done p { font-size: .9rem; color: var(--muted); line-height: 1.65; }
 
-    .success h3 {
-      font-family: var(--font-head);
-      font-size: 1.6rem;
-      font-weight: 900;
-      color: var(--white);
-      margin-bottom: 12px;
-    }
-
-    .success p { font-size: 0.92rem; color: var(--muted); line-height: 1.65; }
-
-    /* ── MOBILE ───────────────────────────────────────── */
-    @media (max-width: 600px) {
+    /* ─── RESPONSIVE ──────────────────────────────────── */
+    @media (max-width: 768px) {
       nav { padding: 16px 20px; }
+      .hero-body { padding: 100px 20px 70px; }
 
-      .hero-content { padding: 100px 16px 70px; }
-
-      .stats { flex-direction: column; align-items: stretch; }
-      .stat {
-        border-right: none;
-        border-bottom: 1px solid var(--border);
-        padding: 20px;
-        max-width: 100%;
-        flex: none;
-      }
-      .stat:last-child { border-bottom: none; }
-
-      .row-2 { grid-template-columns: 1fr; }
+      .stats { grid-template-columns: repeat(2, 1fr); }
+      .stat { border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+      .stat:nth-child(2) { border-right: none; }
+      .stat:nth-child(3) { border-bottom: none; }
+      .stat:nth-child(4) { border-right: none; border-bottom: none; }
 
       .services-grid { grid-template-columns: 1fr; }
-      .testimonials-grid { grid-template-columns: 1fr; }
+      .reviews-grid  { grid-template-columns: 1fr; }
 
-      .service-card { padding: 28px 20px; }
-      .t-card { padding: 22px 18px; }
+      .row2 { grid-template-columns: 1fr; }
     }
 
-    @media (max-width: 380px) {
-      .btn-book { padding: 14px 20px; font-size: 0.78rem; }
+    @media (max-width: 400px) {
       .hero h1 { font-size: 2rem; }
+      .cta-btn  { font-size: .75rem; padding: 13px 20px; }
+      .badge    { font-size: .6rem; padding: 5px 13px; }
     }
   </style>
 </head>
@@ -693,194 +551,134 @@
 
   <!-- NAV -->
   <nav>
-    <div class="nav-logo">Barberia</div>
-    <button class="nav-cta" onclick="openModal()">Book Now</button>
+    <div class="logo">Barberia</div>
+    <button class="nav-btn" onclick="openModal()">Book Now</button>
   </nav>
 
   <!-- HERO -->
   <section class="hero">
-    <video class="hero-video" autoplay muted loop playsinline>
+    <video autoplay muted loop playsinline>
       <source src="https://assets.cdn.filesafe.space/0HZzu2ObqxENhFG8qwcG/media/69d76f45d82c9d050437b709.mp4" type="video/mp4" />
     </video>
     <div class="hero-overlay"></div>
 
-    <div class="hero-content">
-      <div class="hero-badge">Now Accepting Bookings</div>
-
+    <div class="hero-body">
+      <div class="badge">Now Accepting Bookings</div>
       <h1>Your Best Cut<br><em>Starts Here</em></h1>
-
-      <p class="hero-sub">
-        Premium barbershop experience with precision cuts, clean fades, and a style that speaks for itself.
-      </p>
-
-      <button class="btn-book" onclick="openModal()">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      <p>Premium barbershop experience with precision cuts, clean fades, and a style that speaks for itself.</p>
+      <button class="cta-btn" onclick="openModal()">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
         Book Your Appointment
       </button>
       <p class="hero-note">No deposit required · Instant confirmation</p>
     </div>
 
-    <div class="scroll-hint">
-      <div class="scroll-line"></div>
-    </div>
+    <div class="scroll-bar"></div>
   </section>
 
   <!-- STATS -->
   <div class="stats">
-    <div class="stat">
-      <div class="stat-num">500+</div>
-      <div class="stat-label">Happy Clients</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num">5★</div>
-      <div class="stat-label">Avg. Rating</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num">8 yrs</div>
-      <div class="stat-label">Experience</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num">100%</div>
-      <div class="stat-label">Satisfaction</div>
-    </div>
+    <div class="stat"><div class="stat-n">500+</div><div class="stat-l">Happy Clients</div></div>
+    <div class="stat"><div class="stat-n">5★</div><div class="stat-l">Avg. Rating</div></div>
+    <div class="stat"><div class="stat-n">8 yrs</div><div class="stat-l">Experience</div></div>
+    <div class="stat"><div class="stat-n">100%</div><div class="stat-l">Satisfaction</div></div>
   </div>
 
   <!-- SERVICES -->
-  <div style="background: var(--black); width: 100%;">
-    <div class="section">
-      <div class="section-head">
-        <div class="section-tag">What We Offer</div>
-        <h2 class="section-title">Premium Services,<br>Unmatched Craft</h2>
+  <div class="services-bg">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="sec-tag">What We Offer</div>
+        <h2 class="sec-title">Premium Services,<br>Unmatched Craft</h2>
       </div>
-
       <div class="services-grid">
-        <div class="service-card">
-          <span class="service-icon">✂️</span>
-          <div class="service-name">Classic Haircut</div>
-          <p class="service-desc">Precision cut tailored to your face shape and personal style. Includes wash and style.</p>
-          <div class="service-price">From $35</div>
+        <div class="svc"><span class="svc-icon">✂️</span><div class="svc-name">Classic Haircut</div><p class="svc-desc">Precision cut tailored to your face shape and personal style. Includes wash and style.</p><div class="svc-price">From $35</div></div>
+        <div class="svc"><span class="svc-icon">💈</span><div class="svc-name">Skin Fade</div><p class="svc-desc">Sharp, clean fade blended to perfection. The signature look of a premium barbershop.</p><div class="svc-price">From $45</div></div>
+        <div class="svc"><span class="svc-icon">🪒</span><div class="svc-name">Beard Trim & Shape</div><p class="svc-desc">Expert beard sculpting with hot towel treatment and premium grooming products.</p><div class="svc-price">From $25</div></div>
+        <div class="svc"><span class="svc-icon">👑</span><div class="svc-name">The Full Experience</div><p class="svc-desc">Haircut + beard + hot towel shave + scalp massage. The ultimate grooming session.</p><div class="svc-price">From $75</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REVIEWS -->
+  <div class="reviews-bg">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="sec-tag">Client Reviews</div>
+        <h2 class="sec-title">They Come Back<br><em>Every Time</em></h2>
+      </div>
+      <div class="reviews-grid">
+        <div class="review">
+          <div class="stars">★★★★★</div>
+          <p class="quote">"Best fade I've ever had. The attention to detail is unreal — walked out feeling like a different person. This is my barbershop for life."</p>
+          <div class="reviewer"><div class="avatar">MR</div><div><div class="rname">Marcus R.</div><div class="rmeta">Verified Client</div></div></div>
         </div>
-        <div class="service-card">
-          <span class="service-icon">💈</span>
-          <div class="service-name">Skin Fade</div>
-          <p class="service-desc">Sharp, clean fade blended to perfection. The signature look of a premium barbershop.</p>
-          <div class="service-price">From $45</div>
+        <div class="review">
+          <div class="stars">★★★★★</div>
+          <p class="quote">"Booked online in 30 seconds. The full experience package is worth every cent — hot towel, beard shape, the works. Absolutely elite."</p>
+          <div class="reviewer"><div class="avatar">JD</div><div><div class="rname">James D.</div><div class="rmeta">Verified Client</div></div></div>
         </div>
-        <div class="service-card">
-          <span class="service-icon">🪒</span>
-          <div class="service-name">Beard Trim & Shape</div>
-          <p class="service-desc">Expert beard sculpting with hot towel treatment and premium grooming products.</p>
-          <div class="service-price">From $25</div>
-        </div>
-        <div class="service-card">
-          <span class="service-icon">👑</span>
-          <div class="service-name">The Full Experience</div>
-          <p class="service-desc">Haircut + beard + hot towel shave + scalp massage. The ultimate grooming session.</p>
-          <div class="service-price">From $75</div>
+        <div class="review">
+          <div class="stars">★★★★★</div>
+          <p class="quote">"The vibe, the cut, the service — everything is on point. I bring all my friends here now. Barberia is the real deal."</p>
+          <div class="reviewer"><div class="avatar">AL</div><div><div class="rname">Andre L.</div><div class="rmeta">Verified Client</div></div></div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- TESTIMONIALS -->
-  <div class="testimonials-bg">
-    <div class="section">
-      <div class="section-head">
-        <div class="section-tag">Client Reviews</div>
-        <h2 class="section-title">They Come Back<br><em style="color:var(--gold);font-style:italic;">Every Time</em></h2>
-      </div>
-
-      <div class="testimonials-grid">
-        <div class="t-card">
-          <div class="t-stars">★★★★★</div>
-          <p class="t-quote">"Best fade I've ever had. The attention to detail is unreal — walked out feeling like a different person. This is my barbershop for life."</p>
-          <div class="t-author">
-            <div class="t-avatar">MR</div>
-            <div>
-              <div class="t-name">Marcus R.</div>
-              <div class="t-meta">Verified Client</div>
-            </div>
-          </div>
-        </div>
-        <div class="t-card">
-          <div class="t-stars">★★★★★</div>
-          <p class="t-quote">"Booked online in 30 seconds. The full experience package is worth every cent — hot towel, beard shape, the works. Absolutely elite."</p>
-          <div class="t-author">
-            <div class="t-avatar">JD</div>
-            <div>
-              <div class="t-name">James D.</div>
-              <div class="t-meta">Verified Client</div>
-            </div>
-          </div>
-        </div>
-        <div class="t-card">
-          <div class="t-stars">★★★★★</div>
-          <p class="t-quote">"The vibe, the cut, the service — everything is on point. I bring all my friends here now. Barberia is the real deal."</p>
-          <div class="t-author">
-            <div class="t-avatar">AL</div>
-            <div>
-              <div class="t-name">Andre L.</div>
-              <div class="t-meta">Verified Client</div>
-            </div>
-          </div>
-        </div>
-      </div>
+  <!-- BOTTOM CTA -->
+  <div class="cta-bg">
+    <div class="wrap" style="display:flex;flex-direction:column;align-items:center;">
+      <h2>Ready for Your<br><em>Best Look Yet?</em></h2>
+      <p>Book your seat in under 60 seconds. No waiting, no hassle.</p>
+      <button class="cta-btn" onclick="openModal()">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        Book Your Appointment
+      </button>
     </div>
-  </div>
-
-  <!-- CTA BANNER -->
-  <div class="cta-banner">
-    <h2>Ready for Your<br><em>Best Look Yet?</em></h2>
-    <p>Book your seat in under 60 seconds. No waiting, no hassle.</p>
-    <button class="btn-book" onclick="openModal()">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-      Book Your Appointment
-    </button>
   </div>
 
   <!-- FOOTER -->
   <footer>
-    <div class="footer-logo">Barberia</div>
+    <div class="foot-logo">Barberia</div>
     <p>© 2026 Barberia Premium Barbershop · All rights reserved</p>
   </footer>
 
   <!-- BOOKING MODAL -->
-  <div class="modal-backdrop" id="modal" role="dialog" aria-modal="true" aria-label="Book your appointment">
-    <div class="modal">
-      <div class="modal-handle"></div>
-      <button class="modal-close" onclick="closeModal()" aria-label="Close">✕</button>
+  <div class="m-back" id="modal">
+    <div class="m-box">
+      <div class="m-handle"></div>
+      <button class="m-close" onclick="closeModal()">✕</button>
 
-      <div id="formState">
-        <div class="modal-eyebrow">Barberia</div>
-        <h2 class="modal-title">Book Your Appointment</h2>
-        <p class="modal-sub">Fill in your details and we'll confirm your slot right away.</p>
+      <div id="fState">
+        <div class="m-eye">Barberia</div>
+        <h2 class="m-title">Book Your Appointment</h2>
+        <p class="m-sub">Fill in your details and we'll confirm your slot right away.</p>
 
-        <form class="form" id="bookingForm" novalidate onsubmit="handleSubmit(event)">
-          <div class="row-2">
+        <form class="form" novalidate onsubmit="handleSubmit(event)">
+          <div class="row2">
             <div class="field">
-              <label for="firstName">First Name <span class="req">*</span></label>
-              <input type="text" id="firstName" placeholder="John" autocomplete="given-name" />
+              <label>First Name <span class="req">*</span></label>
+              <input type="text" id="fn" placeholder="John" autocomplete="given-name" />
             </div>
             <div class="field">
-              <label for="lastName">Last Name</label>
-              <input type="text" id="lastName" placeholder="Smith" autocomplete="family-name" />
+              <label>Last Name</label>
+              <input type="text" id="ln" placeholder="Smith" autocomplete="family-name" />
             </div>
           </div>
-
           <div class="field">
-            <label for="phone">Phone <span class="req">*</span></label>
-            <input type="tel" id="phone" placeholder="(555) 000-0000" autocomplete="tel" inputmode="tel" />
+            <label>Phone <span class="req">*</span></label>
+            <input type="tel" id="ph" placeholder="(555) 000-0000" inputmode="tel" />
           </div>
-
           <div class="field">
-            <label for="email">Email <span class="req">*</span></label>
-            <input type="email" id="email" placeholder="john@email.com" autocomplete="email" inputmode="email" />
+            <label>Email <span class="req">*</span></label>
+            <input type="email" id="em" placeholder="john@email.com" inputmode="email" />
           </div>
-
           <div class="field">
-            <label for="service">Service <span class="req">*</span></label>
-            <div class="select-wrap">
-              <select id="service">
+            <label>Service <span class="req">*</span></label>
+            <div class="sel-wrap">
+              <select id="sv">
                 <option value="" disabled selected>Choose a service…</option>
                 <option>Classic Haircut — $35</option>
                 <option>Skin Fade — $45</option>
@@ -890,24 +688,19 @@
               </select>
             </div>
           </div>
-
           <div class="field">
-            <label for="notes">Notes (optional)</label>
-            <input type="text" id="notes" placeholder="Any special requests…" />
+            <label>Notes (optional)</label>
+            <input type="text" id="nt" placeholder="Any special requests…" />
           </div>
-
-          <button type="submit" class="btn-submit" id="submitBtn">
-            Confirm My Booking →
-          </button>
-
+          <button type="submit" class="sub-btn" id="subBtn">Confirm My Booking →</button>
           <p class="form-note">🔒 Your info is private. No spam, ever.</p>
         </form>
       </div>
 
-      <div class="success" id="successState">
-        <div class="success-icon">✓</div>
+      <div class="done" id="dState">
+        <div class="done-icon">✓</div>
         <h3>You're Booked!</h3>
-        <p>We've received your appointment request. You'll get a confirmation shortly — see you at the chair.</p>
+        <p>We've received your request. You'll get a confirmation shortly — see you at the chair.</p>
       </div>
     </div>
   </div>
@@ -918,7 +711,7 @@
     function openModal() {
       modal.classList.add('open');
       document.body.style.overflow = 'hidden';
-      setTimeout(() => document.getElementById('firstName').focus(), 300);
+      setTimeout(() => document.getElementById('fn').focus(), 300);
     }
 
     function closeModal() {
@@ -931,45 +724,35 @@
 
     function handleSubmit(e) {
       e.preventDefault();
-      const firstName = document.getElementById('firstName');
-      const phone     = document.getElementById('phone');
-      const email     = document.getElementById('email');
-      const service   = document.getElementById('service');
-      const btn       = document.getElementById('submitBtn');
+      const fn  = document.getElementById('fn');
+      const ph  = document.getElementById('ph');
+      const em  = document.getElementById('em');
+      const sv  = document.getElementById('sv');
+      const btn = document.getElementById('subBtn');
 
-      let valid = true;
-      [firstName, phone, email, service].forEach(el => el.classList.remove('err'));
-
-      if (!firstName.value.trim())    { firstName.classList.add('err'); valid = false; }
-      if (!phone.value.trim())        { phone.classList.add('err');     valid = false; }
-      if (!email.value.includes('@')) { email.classList.add('err');     valid = false; }
-      if (!service.value)             { service.classList.add('err');   valid = false; }
-
-      if (!valid) return;
+      let ok = true;
+      [fn, ph, em, sv].forEach(el => el.classList.remove('err'));
+      if (!fn.value.trim())         { fn.classList.add('err');  ok = false; }
+      if (!ph.value.trim())         { ph.classList.add('err');  ok = false; }
+      if (!em.value.includes('@'))  { em.classList.add('err');  ok = false; }
+      if (!sv.value)                { sv.classList.add('err');  ok = false; }
+      if (!ok) return;
 
       btn.disabled = true;
       btn.textContent = 'Confirming…';
 
-      // ── REPLACE WITH YOUR GHL WEBHOOK URL ──
+      // ── Paste your GHL webhook URL below ──
       // fetch('YOUR_GHL_WEBHOOK_URL', {
       //   method: 'POST',
       //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify({
-      //     firstName: firstName.value.trim(),
-      //     lastName:  document.getElementById('lastName').value.trim(),
-      //     phone:     phone.value.trim(),
-      //     email:     email.value.trim(),
-      //     service:   service.value,
-      //     notes:     document.getElementById('notes').value.trim(),
-      //   })
+      //   body: JSON.stringify({ firstName: fn.value, lastName: document.getElementById('ln').value, phone: ph.value, email: em.value, service: sv.value, notes: document.getElementById('nt').value })
       // });
 
       setTimeout(() => {
-        document.getElementById('formState').style.display = 'none';
-        document.getElementById('successState').classList.add('show');
+        document.getElementById('fState').style.display = 'none';
+        document.getElementById('dState').classList.add('show');
       }, 800);
     }
   </script>
-
 </body>
 </html>
