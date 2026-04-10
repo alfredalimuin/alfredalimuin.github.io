@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" width="300" height="300">
+
+  <!-- Background -->
+  <rect width="300" height="300" rx="32" fill="#0F2167"/>
+
+  <!-- Connecting lines (behind nodes) -->
+  <line x1="150" y1="98" x2="108" y2="148" stroke="#3B82F6" stroke-width="3" stroke-linecap="round"/>
+  <line x1="150" y1="98" x2="192" y2="148" stroke="#3B82F6" stroke-width="3" stroke-linecap="round"/>
+  <line x1="120" y1="162" x2="180" y2="162" stroke="#3B82F6" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="5 4"/>
+
+  <!-- Flow dots on lines -->
+  <circle cx="129" cy="123" r="4.5" fill="#60A5FA"/>
+  <circle cx="171" cy="123" r="4.5" fill="#60A5FA"/>
+
+  <!-- Top node -->
+  <circle cx="150" cy="86" r="18" fill="#1a3499"/>
+  <circle cx="150" cy="86" r="9" fill="#3B82F6"/>
+
+  <!-- Bottom left node -->
+  <circle cx="108" cy="162" r="18" fill="#1a3499"/>
+  <circle cx="108" cy="162" r="9" fill="#3B82F6"/>
+
+  <!-- Bottom right node -->
+  <circle cx="192" cy="162" r="18" fill="#1a3499"/>
+  <circle cx="192" cy="162" r="9" fill="#3B82F6"/>
+
+  <!-- Wordmark -->
+  <text
+    x="150"
+    y="218"
+    text-anchor="middle"
+    font-family="'Helvetica Neue', Helvetica, Arial, sans-serif"
+    font-weight="800"
+    font-size="38"
+    fill="#FFFFFF"
+    letter-spacing="-1">Leverage<tspan fill="#3B82F6">PH</tspan></text>
+
+  <!-- Tagline -->
+  <text
+    x="150"
+    y="242"
+    text-anchor="middle"
+    font-family="'Helvetica Neue', Helvetica, Arial, sans-serif"
+    font-weight="500"
+    font-size="9.5"
+    fill="#93C5FD"
+    letter-spacing="3.5">AUTOMATIONS &amp; CRM</text>
+
+</svg>

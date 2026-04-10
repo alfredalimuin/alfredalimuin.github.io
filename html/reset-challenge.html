@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reset Challenge — 30 Days to Transform</title>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html, body {
+            width: 100%;
+            max-width: 100%;
+            overflow-x: hidden;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background: #090E1A;
+            color: #ffffff;
+        }
+
+        /* ── HERO ── */
+        .hero {
+            width: 100%;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #090E1A 0%, #0F1E3D 50%, #090E1A 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 80px 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, rgba(245,158,11,0.12) 0%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(245,158,11,0.12);
+            border: 1px solid rgba(245,158,11,0.35);
+            color: #F59E0B;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            padding: 8px 20px;
+            border-radius: 100px;
+            margin-bottom: 32px;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            font-size: 76px;
+            font-weight: 900;
+            line-height: 1.05;
+            margin-bottom: 24px;
+            max-width: 820px;
+        }
+
+        .hero h1 span { color: #F59E0B; }
+
+        .hero p {
+            font-size: 20px;
+            color: #94A3B8;
+            max-width: 540px;
+            line-height: 1.75;
+            margin-bottom: 40px;
+        }
+
+        .price-tag {
+            font-size: 16px;
+            color: #64748B;
+            margin-bottom: 20px;
+        }
+
+        .price-tag strong {
+            color: #F59E0B;
+            font-size: 34px;
+            font-weight: 900;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #F59E0B 0%, #EF4444 100%);
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: 700;
+            padding: 20px 48px;
+            border-radius: 100px;
+            border: none;
+            cursor: pointer;
+            letter-spacing: 0.3px;
+            box-shadow: 0 8px 32px rgba(245,158,11,0.3);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 14px 40px rgba(245,158,11,0.4);
+        }
+
+        /* ── STATS ── */
+        .stats {
+            width: 100%;
+            background: #0C1120;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding: 56px 40px;
+            display: flex;
+            justify-content: center;
+            gap: 96px;
+        }
+
+        .stat { text-align: center; }
+
+        .stat-number {
+            font-size: 52px;
+            font-weight: 900;
+            color: #F59E0B;
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: #64748B;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        /* ── FEATURES ── */
+        .features-wrap {
+            width: 100%;
+            background: #090E1A;
+            padding: 96px 40px;
+        }
+
+        .features-inner {
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            color: #F59E0B;
+            text-transform: uppercase;
+            margin-bottom: 14px;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 44px;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 64px;
+            line-height: 1.2;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .feature-card {
+            background: #0F1626;
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 16px;
+            padding: 32px 26px;
+            transition: border-color 0.2s ease;
+        }
+
+        .feature-card:hover { border-color: rgba(245,158,11,0.3); }
+
+        .feature-icon { font-size: 30px; margin-bottom: 16px; }
+
+        .feature-title {
+            font-size: 17px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .feature-desc {
+            font-size: 14px;
+            color: #64748B;
+            line-height: 1.65;
+        }
+
+        /* ── BOTTOM CTA ── */
+        .bottom-cta {
+            width: 100%;
+            background: linear-gradient(135deg, #0F1E3D 0%, #090E1A 100%);
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding: 100px 40px;
+            text-align: center;
+        }
+
+        .bottom-cta h2 {
+            font-size: 50px;
+            font-weight: 900;
+            margin-bottom: 16px;
+            line-height: 1.15;
+        }
+
+        .bottom-cta p {
+            font-size: 18px;
+            color: #94A3B8;
+            margin-bottom: 40px;
+        }
+
+        /* ── MODAL ── */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.82);
+            backdrop-filter: blur(6px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-overlay.active { display: flex; }
+
+        .modal {
+            background: #0F1626;
+            border: 1px solid rgba(245,158,11,0.2);
+            border-radius: 24px;
+            padding: 48px 40px 40px;
+            width: 100%;
+            max-width: 520px;
+            position: relative;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.7);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 18px;
+            right: 22px;
+            background: none;
+            border: none;
+            color: #64748B;
+            font-size: 22px;
+            cursor: pointer;
+            line-height: 1;
+            transition: color 0.15s;
+        }
+
+        .modal-close:hover { color: #ffffff; }
+
+        .modal-badge {
+            display: inline-block;
+            background: rgba(245,158,11,0.12);
+            border: 1px solid rgba(245,158,11,0.3);
+            color: #F59E0B;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            padding: 6px 14px;
+            border-radius: 100px;
+            margin-bottom: 18px;
+            text-transform: uppercase;
+        }
+
+        .modal h2 {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            line-height: 1.25;
+        }
+
+        .modal-sub {
+            font-size: 14px;
+            color: #64748B;
+            margin-bottom: 28px;
+            line-height: 1.6;
+        }
+
+        .modal-form-wrapper {
+            width: 100%;
+            height: 340px;
+        }
+
+        /* ── MEDIA QUERIES ── */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 42px; }
+            .hero p { font-size: 16px; }
+            .stats { gap: 40px; flex-wrap: wrap; padding: 48px 24px; }
+            .stat-number { font-size: 40px; }
+            .features-grid { grid-template-columns: 1fr 1fr; }
+            .section-title { font-size: 30px; }
+            .bottom-cta h2 { font-size: 34px; }
+        }
+
+        @media (max-width: 480px) {
+            .hero { padding: 60px 24px; }
+            .hero h1 { font-size: 34px; }
+            .cta-btn { font-size: 16px; padding: 16px 28px; }
+            .features-wrap { padding: 60px 24px; }
+            .features-grid { grid-template-columns: 1fr; }
+            .bottom-cta { padding: 60px 24px; }
+            .bottom-cta h2 { font-size: 28px; }
+            .modal { padding: 36px 22px 28px; }
+            .modal h2 { font-size: 22px; }
+            .modal-form-wrapper { height: 360px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="badge">30-Day Transformation Program</div>
+    <h1>The <span>Reset</span><br>Challenge</h1>
+    <p>Transform your habits, mindset, and life in 30 days. Join a community of people committed to becoming their best selves.</p>
+    <div class="price-tag">One-time investment of only <strong>$30</strong></div>
+    <button class="cta-btn" onclick="openModal()">Ready to be a Member? Subscribe!</button>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+    <div class="stat">
+        <div class="stat-number">30</div>
+        <div class="stat-label">Day Program</div>
+    </div>
+    <div class="stat">
+        <div class="stat-number">500+</div>
+        <div class="stat-label">Members</div>
+    </div>
+    <div class="stat">
+        <div class="stat-number">$30</div>
+        <div class="stat-label">One-Time Fee</div>
+    </div>
+</div>
+
+<!-- FEATURES -->
+<div class="features-wrap">
+    <div class="features-inner">
+        <div class="section-label">What You Get</div>
+        <h2 class="section-title">Everything you need to<br>reset and thrive</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🔥</div>
+                <div class="feature-title">Daily Challenges</div>
+                <div class="feature-desc">Structured daily tasks designed to build momentum and break old patterns.</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🧠</div>
+                <div class="feature-title">Mindset Training</div>
+                <div class="feature-desc">Guided exercises to rewire how you think and approach your goals.</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📋</div>
+                <div class="feature-title">Action Playbook</div>
+                <div class="feature-desc">A proven 30-day roadmap to follow — no guesswork, just results.</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">👥</div>
+                <div class="feature-title">Community Access</div>
+                <div class="feature-desc">Join a group of driven people all working toward the same reset.</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📧</div>
+                <div class="feature-title">Weekly Check-ins</div>
+                <div class="feature-desc">Email support and progress check-ins to keep you accountable.</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <div class="feature-title">Instant Access</div>
+                <div class="feature-desc">Get started immediately after payment. No waiting, no delays.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- BOTTOM CTA -->
+<div class="bottom-cta">
+    <h2>Ready to <span style="color:#F59E0B;">Reset?</span></h2>
+    <p>Join today for just $30 and start your 30-day transformation.</p>
+    <button class="cta-btn" onclick="openModal()">Ready to be a Member? Subscribe!</button>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+    <div class="modal" id="modal">
+        <button class="modal-close" onclick="closeModal()">✕</button>
+        <div class="modal-badge">Join Now — $30</div>
+        <h2>Start Your Reset<br>Challenge Today</h2>
+        <p class="modal-sub">Enter your details below and proceed to secure checkout.</p>
+        <div class="modal-form-wrapper">
+            <iframe
+                src="https://api.leadconnectorhq.com/widget/form/tqfuErRcAy50KMWRiPbu"
+                style="width:100%;height:100%;border:none;border-radius:3px"
+                id="inline-tqfuErRcAy50KMWRiPbu"
+                data-layout="{'id':'INLINE'}"
+                data-trigger-type="alwaysShow"
+                data-trigger-value=""
+                data-activation-type="alwaysActivated"
+                data-activation-value=""
+                data-deactivation-type="neverDeactivate"
+                data-deactivation-value=""
+                data-form-name="Reset Challenge Form"
+                data-height="432"
+                data-layout-iframe-id="inline-tqfuErRcAy50KMWRiPbu"
+                data-form-id="tqfuErRcAy50KMWRiPbu"
+                title="Reset Challenge Form">
+            </iframe>
+        </div>
+    </div>
+</div>
+
+<script src="https://link.msgsndr.com/js/form_embed.js"></script>
+<script>
+    function openModal() {
+        document.getElementById('modalOverlay').classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+        document.getElementById('modalOverlay').classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    function closeModalOutside(e) {
+        if (e.target === document.getElementById('modalOverlay')) {
+            closeModal();
+        }
+    }
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeModal();
+    });
+</script>
+
+</body>
+</html>
