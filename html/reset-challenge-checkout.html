@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join the Reset Challenge — $30 One-Time</title>
+    <script src="https://js.stripe.com/v3/"></script>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html, body {
+            width: 100%;
+            max-width: 100%;
+            overflow-x: hidden;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background: #090E1A;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 24px;
+        }
+
+        /* ── Video background ── */
+        .bg-video {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            opacity: 0.18;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* ── Dark overlay ── */
+        .bg-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(9,14,26,0.75) 0%, rgba(15,30,61,0.65) 50%, rgba(9,14,26,0.75) 100%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .wrapper {
+            width: 100%;
+            max-width: 520px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ── Badge ── */
+        .badge {
+            display: inline-block;
+            background: rgba(245,158,11,0.12);
+            border: 1px solid rgba(245,158,11,0.35);
+            color: #F59E0B;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            padding: 8px 16px;
+            border-radius: 100px;
+            margin-bottom: 24px;
+            text-transform: uppercase;
+        }
+
+        /* ── Headline ── */
+        h1 {
+            font-size: 36px;
+            font-weight: 900;
+            line-height: 1.15;
+            margin-bottom: 12px;
+        }
+        h1 span { color: #F59E0B; }
+
+        .sub {
+            font-size: 16px;
+            color: #94A3B8;
+            line-height: 1.7;
+            margin-bottom: 36px;
+        }
+
+        /* ── Card ── */
+        .card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 20px;
+            padding: 40px;
+        }
+
+        .price-row {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            margin-bottom: 28px;
+        }
+        .price-amount {
+            font-size: 48px;
+            font-weight: 900;
+            color: #F59E0B;
+        }
+        .price-label {
+            font-size: 14px;
+            color: #64748B;
+        }
+
+        /* ── What's included ── */
+        .includes {
+            list-style: none;
+            margin-bottom: 32px;
+        }
+        .includes li {
+            font-size: 14px;
+            color: #94A3B8;
+            padding: 6px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .includes li::before {
+            content: '✓';
+            color: #F59E0B;
+            font-weight: 700;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        /* ── Form ── */
+        .form-group {
+            margin-bottom: 16px;
+        }
+        label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: #64748B;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+        input[type="text"],
+        input[type="email"] {
+            width: 100%;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 12px;
+            padding: 14px 18px;
+            font-size: 16px;
+            color: #ffffff;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        input[type="text"]:focus,
+        input[type="email"]:focus {
+            border-color: rgba(245,158,11,0.5);
+        }
+        input::placeholder { color: #475569; }
+
+        /* ── Submit button ── */
+        .pay-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #F59E0B 0%, #EF4444 100%);
+            color: #ffffff;
+            font-size: 17px;
+            font-weight: 700;
+            padding: 18px 36px;
+            border-radius: 100px;
+            border: none;
+            cursor: pointer;
+            letter-spacing: 0.3px;
+            box-shadow: 0 8px 32px rgba(245,158,11,0.3);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s;
+            margin-top: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .pay-btn:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 14px 40px rgba(245,158,11,0.4);
+        }
+        .pay-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* ── Spinner ── */
+        .spinner {
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+            display: none;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* ── Error message ── */
+        .error-msg {
+            background: rgba(239,68,68,0.1);
+            border: 1px solid rgba(239,68,68,0.3);
+            color: #FCA5A5;
+            border-radius: 10px;
+            padding: 12px 16px;
+            font-size: 14px;
+            margin-top: 16px;
+            display: none;
+        }
+
+        /* ── Security note ── */
+        .secure-note {
+            text-align: center;
+            font-size: 12px;
+            color: #475569;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+        .secure-note svg {
+            width: 13px;
+            height: 13px;
+            fill: #475569;
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 480px) {
+            h1 { font-size: 28px; }
+            .card { padding: 28px 20px; }
+            .price-amount { font-size: 40px; }
+        }
+    </style>
+</head>
+<body>
+
+<video class="bg-video" autoplay muted loop playsinline>
+    <source src="https://assets.cdn.filesafe.space/0HZzu2ObqxENhFG8qwcG/media/69d9560c982fd67a3532ac3e.mp4" type="video/mp4">
+</video>
+<div class="bg-overlay"></div>
+
+<div class="wrapper">
+
+    <div class="badge">30-Day Challenge</div>
+
+    <h1>Join the <span>Reset Challenge</span><br>Today</h1>
+    <p class="sub">Transform your body and mind in 30 days. One payment. Lifetime access.</p>
+
+    <div class="card">
+        <div class="price-row">
+            <span class="price-amount">$30</span>
+            <span class="price-label">one-time &nbsp;·&nbsp; no subscriptions</span>
+        </div>
+
+        <ul class="includes">
+            <li>30-Day structured program</li>
+            <li>Daily workout + nutrition guides</li>
+            <li>Private community access</li>
+            <li>Welcome kit delivered to your inbox</li>
+        </ul>
+
+        <form id="checkoutForm">
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" placeholder="Enter your full name" required autocomplete="name">
+            </div>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required autocomplete="email">
+            </div>
+
+            <button type="submit" class="pay-btn" id="payBtn">
+                <span id="btnText">Secure My Spot — $30</span>
+                <span class="spinner" id="spinner"></span>
+            </button>
+
+            <div class="error-msg" id="errorMsg"></div>
+        </form>
+
+        <div class="secure-note">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 4a3 3 0 110 6 3 3 0 010-6zm0 14c-2.67 0-5.03-1.37-6.44-3.44.34-1.52 3.2-2.56 6.44-2.56s6.1 1.04 6.44 2.56C17.03 17.63 14.67 19 12 19z"/>
+            </svg>
+            Payments secured by Stripe · SSL encrypted
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // ── CONFIG ──────────────────────────────────────────────────────────────
+    // Replace this with your n8n webhook URL after setting up Workflow 1
+    const N8N_CHECKOUT_WEBHOOK = 'https://n8n.srv1512353.hstgr.cloud/webhook/reset-challenge-checkout';
+    // ────────────────────────────────────────────────────────────────────────
+
+    const form = document.getElementById('checkoutForm');
+    const payBtn = document.getElementById('payBtn');
+    const btnText = document.getElementById('btnText');
+    const spinner = document.getElementById('spinner');
+    const errorMsg = document.getElementById('errorMsg');
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+
+        if (!name || !email) return;
+
+        // Loading state
+        payBtn.disabled = true;
+        btnText.textContent = 'Redirecting to checkout...';
+        spinner.style.display = 'block';
+        errorMsg.style.display = 'none';
+
+        try {
+            const res = await fetch(N8N_CHECKOUT_WEBHOOK, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, email })
+            });
+
+            if (!res.ok) throw new Error('Server error — please try again.');
+
+            const data = await res.json();
+
+            if (!data.url) throw new Error('Could not create checkout session.');
+
+            // Redirect to Stripe Checkout
+            window.location.href = data.url;
+
+        } catch (err) {
+            errorMsg.textContent = err.message || 'Something went wrong. Please try again.';
+            errorMsg.style.display = 'block';
+            payBtn.disabled = false;
+            btnText.textContent = 'Secure My Spot — $30';
+            spinner.style.display = 'none';
+        }
+    });
+</script>
+</body>
+</html>

@@ -20,7 +20,7 @@
         .hero {
             width: 100%;
             min-height: 100vh;
-            background: linear-gradient(135deg, #090E1A 0%, #0F1E3D 50%, #090E1A 100%);
+            background: #090E1A;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -29,6 +29,28 @@
             padding: 80px 40px;
             position: relative;
             overflow: hidden;
+        }
+
+        .hero-video {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            opacity: 0.18;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(9,14,26,0.7) 0%, rgba(15,30,61,0.6) 50%, rgba(9,14,26,0.7) 100%);
+            z-index: 1;
+            pointer-events: none;
         }
 
         .hero::before {
@@ -41,6 +63,7 @@
             left: 50%;
             transform: translate(-50%, -50%);
             pointer-events: none;
+            z-index: 2;
         }
 
         .badge {
@@ -48,31 +71,38 @@
             background: rgba(245,158,11,0.12);
             border: 1px solid rgba(245,158,11,0.35);
             color: #F59E0B;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 600;
-            letter-spacing: 3px;
-            padding: 8px 20px;
+            letter-spacing: 2px;
+            padding: 8px 16px;
             border-radius: 100px;
             margin-bottom: 32px;
             text-transform: uppercase;
+            max-width: 100%;
+            word-wrap: break-word;
         }
 
         .hero h1 {
-            font-size: 76px;
+            font-size: 48px;
             font-weight: 900;
-            line-height: 1.05;
+            line-height: 1.1;
             margin-bottom: 24px;
-            max-width: 820px;
+            width: 100%;
+            max-width: 100%;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
 
         .hero h1 span { color: #F59E0B; }
 
         .hero p {
-            font-size: 20px;
+            font-size: 18px;
             color: #94A3B8;
+            width: 100%;
             max-width: 540px;
             line-height: 1.75;
             margin-bottom: 40px;
+            word-wrap: break-word;
         }
 
         .price-tag {
@@ -91,15 +121,18 @@
             display: inline-block;
             background: linear-gradient(135deg, #F59E0B 0%, #EF4444 100%);
             color: #ffffff;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 700;
-            padding: 20px 48px;
+            padding: 18px 36px;
             border-radius: 100px;
             border: none;
             cursor: pointer;
             letter-spacing: 0.3px;
             box-shadow: 0 8px 32px rgba(245,158,11,0.3);
             transition: transform 0.2s ease, box-shadow 0.2s ease;
+            max-width: 100%;
+            white-space: normal;
+            word-wrap: break-word;
         }
 
         .cta-btn:hover {
@@ -219,81 +252,6 @@
             margin-bottom: 40px;
         }
 
-        /* ── MODAL ── */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.82);
-            backdrop-filter: blur(6px);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-
-        .modal-overlay.active { display: flex; }
-
-        .modal {
-            background: #0F1626;
-            border: 1px solid rgba(245,158,11,0.2);
-            border-radius: 24px;
-            padding: 48px 40px 40px;
-            width: 100%;
-            max-width: 520px;
-            position: relative;
-            box-shadow: 0 40px 100px rgba(0,0,0,0.7);
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 18px;
-            right: 22px;
-            background: none;
-            border: none;
-            color: #64748B;
-            font-size: 22px;
-            cursor: pointer;
-            line-height: 1;
-            transition: color 0.15s;
-        }
-
-        .modal-close:hover { color: #ffffff; }
-
-        .modal-badge {
-            display: inline-block;
-            background: rgba(245,158,11,0.12);
-            border: 1px solid rgba(245,158,11,0.3);
-            color: #F59E0B;
-            font-size: 11px;
-            font-weight: 600;
-            letter-spacing: 2px;
-            padding: 6px 14px;
-            border-radius: 100px;
-            margin-bottom: 18px;
-            text-transform: uppercase;
-        }
-
-        .modal h2 {
-            font-size: 28px;
-            font-weight: 800;
-            margin-bottom: 8px;
-            line-height: 1.25;
-        }
-
-        .modal-sub {
-            font-size: 14px;
-            color: #64748B;
-            margin-bottom: 28px;
-            line-height: 1.6;
-        }
-
-        .modal-form-wrapper {
-            width: 100%;
-            height: 340px;
-        }
 
         /* ── MEDIA QUERIES ── */
         @media (max-width: 768px) {
@@ -314,9 +272,6 @@
             .features-grid { grid-template-columns: 1fr; }
             .bottom-cta { padding: 60px 24px; }
             .bottom-cta h2 { font-size: 28px; }
-            .modal { padding: 36px 22px 28px; }
-            .modal h2 { font-size: 22px; }
-            .modal-form-wrapper { height: 360px; }
         }
     </style>
 </head>
@@ -324,11 +279,17 @@
 
 <!-- HERO -->
 <section class="hero">
-    <div class="badge">30-Day Transformation Program</div>
-    <h1>The <span>Reset</span><br>Challenge</h1>
-    <p>Transform your habits, mindset, and life in 30 days. Join a community of people committed to becoming their best selves.</p>
-    <div class="price-tag">One-time investment of only <strong>$30</strong></div>
-    <button class="cta-btn" onclick="openModal()">Ready to be a Member? Subscribe!</button>
+    <video class="hero-video" autoplay muted loop playsinline>
+        <source src="https://assets.cdn.filesafe.space/0HZzu2ObqxENhFG8qwcG/media/69d9560c982fd67a3532ac3e.mp4" type="video/mp4">
+    </video>
+    <div class="hero-overlay"></div>
+    <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;width:100%;max-width:100%;padding:0 20px;box-sizing:border-box;">
+        <div class="badge">30-Day Transformation Program</div>
+        <h1>The <span>Reset</span> Challenge</h1>
+        <p>Transform your habits, mindset, and life in 30 days. Join a community of people committed to becoming their best selves.</p>
+        <div class="price-tag">One-time investment of only <strong>$30</strong></div>
+        <a class="cta-btn" href="https://leverageph.site/checkout-page">Ready to be a Member? Subscribe!</a>
+    </div>
 </section>
 
 <!-- STATS -->
@@ -391,60 +352,8 @@
 <div class="bottom-cta">
     <h2>Ready to <span style="color:#F59E0B;">Reset?</span></h2>
     <p>Join today for just $30 and start your 30-day transformation.</p>
-    <button class="cta-btn" onclick="openModal()">Ready to be a Member? Subscribe!</button>
+    <a class="cta-btn" href="https://leverageph.site/checkout-page">Ready to be a Member? Subscribe!</a>
 </div>
-
-<!-- MODAL -->
-<div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
-    <div class="modal" id="modal">
-        <button class="modal-close" onclick="closeModal()">✕</button>
-        <div class="modal-badge">Join Now — $30</div>
-        <h2>Start Your Reset<br>Challenge Today</h2>
-        <p class="modal-sub">Enter your details below and proceed to secure checkout.</p>
-        <div class="modal-form-wrapper">
-            <iframe
-                src="https://api.leadconnectorhq.com/widget/form/tqfuErRcAy50KMWRiPbu"
-                style="width:100%;height:100%;border:none;border-radius:3px"
-                id="inline-tqfuErRcAy50KMWRiPbu"
-                data-layout="{'id':'INLINE'}"
-                data-trigger-type="alwaysShow"
-                data-trigger-value=""
-                data-activation-type="alwaysActivated"
-                data-activation-value=""
-                data-deactivation-type="neverDeactivate"
-                data-deactivation-value=""
-                data-form-name="Reset Challenge Form"
-                data-height="432"
-                data-layout-iframe-id="inline-tqfuErRcAy50KMWRiPbu"
-                data-form-id="tqfuErRcAy50KMWRiPbu"
-                title="Reset Challenge Form">
-            </iframe>
-        </div>
-    </div>
-</div>
-
-<script src="https://link.msgsndr.com/js/form_embed.js"></script>
-<script>
-    function openModal() {
-        document.getElementById('modalOverlay').classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
-
-    function closeModal() {
-        document.getElementById('modalOverlay').classList.remove('active');
-        document.body.style.overflow = '';
-    }
-
-    function closeModalOutside(e) {
-        if (e.target === document.getElementById('modalOverlay')) {
-            closeModal();
-        }
-    }
-
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') closeModal();
-    });
-</script>
 
 </body>
 </html>

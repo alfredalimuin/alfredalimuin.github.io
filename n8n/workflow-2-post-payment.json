@@ -1,0 +1,182 @@
+{
+  "name": "Reset Challenge — Post-Payment Handler",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "stripe-payment",
+        "responseMode": "immediateResponse",
+        "options": {}
+      },
+      "id": "d4e5f6a7-b8c9-0123-def0-234567890014",
+      "name": "Stripe Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 300],
+      "webhookId": "stripe-payment"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "cond-001",
+              "leftValue": "={{ $json.body.type }}",
+              "rightValue": "checkout.session.completed",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "e5f6a7b8-c9d0-1234-ef01-345678901015",
+      "name": "Is Payment Complete?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [480, 300]
+    },
+    {
+      "parameters": {
+        "mode": "manual",
+        "duplicateItem": false,
+        "assignments": {
+          "assignments": [
+            {
+              "id": "field-001",
+              "name": "customerName",
+              "value": "={{ $json.body.data.object.metadata.name }}",
+              "type": "string"
+            },
+            {
+              "id": "field-002",
+              "name": "customerEmail",
+              "value": "={{ $json.body.data.object.customer_details.email }}",
+              "type": "string"
+            },
+            {
+              "id": "field-003",
+              "name": "amountPaid",
+              "value": "={{ $json.body.data.object.amount_total / 100 }}",
+              "type": "number"
+            },
+            {
+              "id": "field-004",
+              "name": "paymentDate",
+              "value": "={{ new Date().toLocaleDateString('en-US') }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "f6a7b8c9-d0e1-2345-f012-456789012016",
+      "name": "Extract Customer Data",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [720, 220]
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.customerEmail }}",
+        "subject": "You're in! Welcome to the Reset Challenge 🔥",
+        "emailType": "html",
+        "message": "<div style=\"font-family: Helvetica, Arial, sans-serif; max-width: 520px; margin: 0 auto; background: #090E1A; color: #ffffff; padding: 40px 32px; border-radius: 16px;\">\n  <div style=\"text-align: center; margin-bottom: 32px;\">\n    <div style=\"display: inline-block; background: rgba(245,158,11,0.12); border: 1px solid rgba(245,158,11,0.35); color: #F59E0B; font-size: 11px; font-weight: 600; letter-spacing: 2px; padding: 8px 16px; border-radius: 100px; text-transform: uppercase; margin-bottom: 20px;\">Payment Confirmed</div>\n    <h1 style=\"font-size: 28px; font-weight: 900; margin: 0;\">Welcome, {{ $json.customerName }}! 🔥</h1>\n  </div>\n  <p style=\"font-size: 16px; color: #94A3B8; line-height: 1.75; margin-bottom: 24px;\">You're officially part of the <strong style=\"color: #F59E0B;\">Reset Challenge</strong> — 30 days to transform your body and mind. Your journey starts now.</p>\n  <div style=\"background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 24px; margin-bottom: 28px;\">\n    <p style=\"font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #475569; margin-bottom: 16px;\">What happens next</p>\n    <p style=\"font-size: 14px; color: #CBD5E1; line-height: 1.7; margin: 0;\">1. Join the private community using the link below<br>2. Download your Day 1 workout guide<br>3. Show up every single day for 30 days</p>\n  </div>\n  <div style=\"text-align: center; margin-bottom: 28px;\">\n    <a href=\"#\" style=\"display: inline-block; background: linear-gradient(135deg, #F59E0B 0%, #EF4444 100%); color: #ffffff; font-size: 16px; font-weight: 700; padding: 16px 36px; border-radius: 100px; text-decoration: none;\">Access the Program</a>\n  </div>\n  <p style=\"font-size: 13px; color: #475569; text-align: center;\">Questions? Reply to this email and we'll help you out.<br><strong style=\"color: #64748B;\">Payment: ${{ $json.amountPaid }} · {{ $json.paymentDate }}</strong></p>\n</div>",
+        "options": {}
+      },
+      "id": "a7b8c9d0-e1f2-3456-0123-567890123017",
+      "name": "Send Welcome Email",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [960, 220],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "CONNECT_YOUR_GMAIL",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "YOUR_GOOGLE_SHEET_ID",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Sheet1",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Full Name": "={{ $json.customerName }}",
+            "Email": "={{ $json.customerEmail }}",
+            "Amount Paid": "={{ $json.amountPaid }}",
+            "Date": "={{ $json.paymentDate }}",
+            "Status": "Paid"
+          },
+          "matchingColumns": [],
+          "schema": []
+        },
+        "options": {}
+      },
+      "id": "b8c9d0e1-f2a3-4567-1234-678901234018",
+      "name": "Save to Google Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [1200, 220],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "CONNECT_YOUR_GOOGLE",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "id": "c9d0e1f2-a3b4-5678-2345-789012345019",
+      "name": "Ignore Other Events",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [720, 420]
+    }
+  ],
+  "connections": {
+    "Stripe Webhook": {
+      "main": [
+        [{ "node": "Is Payment Complete?", "type": "main", "index": 0 }]
+      ]
+    },
+    "Is Payment Complete?": {
+      "main": [
+        [{ "node": "Extract Customer Data", "type": "main", "index": 0 }],
+        [{ "node": "Ignore Other Events", "type": "main", "index": 0 }]
+      ]
+    },
+    "Extract Customer Data": {
+      "main": [
+        [{ "node": "Send Welcome Email", "type": "main", "index": 0 }]
+      ]
+    },
+    "Send Welcome Email": {
+      "main": [
+        [{ "node": "Save to Google Sheets", "type": "main", "index": 0 }]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  }
+}
