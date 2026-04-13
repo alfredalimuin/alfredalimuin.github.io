@@ -2873,6 +2873,32 @@
   </script>
 
   <script>
+    /* ── Cursor flashlight ── */
+    (function() {
+      var spotlight = document.createElement('div');
+      spotlight.id = 'cursor-spotlight';
+      spotlight.style.cssText = [
+        'position:fixed',
+        'inset:0',
+        'z-index:9999',
+        'pointer-events:none',
+        'transition:opacity 0.4s ease',
+        'opacity:0',
+        'background:radial-gradient(circle 220px at -999px -999px, rgba(39,108,245,0.13) 0%, transparent 70%)'
+      ].join(';');
+      document.body.appendChild(spotlight);
+
+      document.addEventListener('mousemove', function(e) {
+        spotlight.style.opacity = '1';
+        spotlight.style.background =
+          'radial-gradient(circle 220px at ' + e.clientX + 'px ' + e.clientY + 'px, rgba(39,108,245,0.13) 0%, transparent 70%)';
+      });
+
+      document.addEventListener('mouseleave', function() {
+        spotlight.style.opacity = '0';
+      });
+    })();
+
     /* ── Scroll reveal observer ── */
     var revealObserver = new IntersectionObserver(function(entries) {
       entries.forEach(function(entry) {
