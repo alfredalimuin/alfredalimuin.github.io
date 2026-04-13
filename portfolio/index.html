@@ -1005,6 +1005,17 @@
       line-height: 1.7;
     }
 
+    /* ── Scroll reveal ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     /* ── Featured Demo ── */
     .featured-demo {
       display: flex;
@@ -1586,31 +1597,31 @@
     <p style="color: var(--muted); font-size: 0.92rem; margin-top: -1.2rem; margin-bottom: 0.5rem;">A clear, repeatable process that takes you from chaos to automated clarity — without the guesswork.</p>
 
     <div class="process-grid">
-      <div class="process-card">
+      <div class="process-card reveal" style="transition-delay:0ms">
         <div class="process-num">01</div>
         <span class="process-icon">📞</span>
         <div class="process-title">Discovery Call</div>
         <p class="process-desc">We start with a free 30-minute strategy call to understand your business, current workflows, and automation goals.</p>
       </div>
-      <div class="process-card">
+      <div class="process-card reveal" style="transition-delay:80ms">
         <div class="process-num">02</div>
         <span class="process-icon">💡</span>
         <div class="process-title">Strategy Design</div>
         <p class="process-desc">I map out a custom automation blueprint tailored to your business needs, tools, and growth objectives.</p>
       </div>
-      <div class="process-card">
+      <div class="process-card reveal" style="transition-delay:160ms">
         <div class="process-num">03</div>
         <span class="process-icon">🔧</span>
         <div class="process-title">Build &amp; Test</div>
         <p class="process-desc">I build and rigorously test every automation, ensuring reliability and accuracy before anything goes live.</p>
       </div>
-      <div class="process-card">
+      <div class="process-card reveal" style="transition-delay:240ms">
         <div class="process-num">04</div>
         <span class="process-icon">🚀</span>
         <div class="process-title">Launch &amp; Train</div>
         <p class="process-desc">We launch the system together and I train you or your team so everyone knows how to use it confidently.</p>
       </div>
-      <div class="process-card">
+      <div class="process-card reveal" style="transition-delay:320ms">
         <div class="process-num">05</div>
         <span class="process-icon">🤝</span>
         <div class="process-title">Ongoing Support</div>
@@ -2858,6 +2869,22 @@
         document.querySelectorAll('.modal-overlay.active').forEach(function(m) { m.classList.remove('active'); });
         document.body.style.overflow = '';
       }
+    });
+  </script>
+
+  <script>
+    /* ── Scroll reveal observer ── */
+    var revealObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.reveal').forEach(function(el) {
+      revealObserver.observe(el);
     });
   </script>
 
