@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ManPowerAI — AI-Powered Career Matching</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue:       #1a73e8;
+      --blue-dark:  #0d47a1;
+      --blue-light: #e8f0fe;
+      --green:      #00c853;
+      --purple:     #7c4dff;
+      --text:       #1a1a2e;
+      --muted:      #6b7280;
+      --border:     #e5e7eb;
+      --bg:         #f9fafb;
+      --white:      #ffffff;
+      --r-sm:       10px;
+      --r-md:       18px;
+      --r-lg:       28px;
+      --font:       'Segoe UI', system-ui, -apple-system, sans-serif;
+      --shadow-sm:  0 2px 8px rgba(0,0,0,0.07);
+      --shadow-md:  0 8px 32px rgba(26,115,232,0.14);
+      --shadow-lg:  0 24px 72px rgba(26,115,232,0.2);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      background: var(--white);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* ══ NAV ═════════════════════════════════════════════ */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(10, 20, 50, 0.72);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding: 0 32px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      animation: slideDown 0.6s ease both;
+    }
+
+    @keyframes slideDown {
+      from { transform: translateY(-100%); opacity: 0; }
+      to   { transform: translateY(0);    opacity: 1; }
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -0.03em;
+      text-decoration: none;
+    }
+
+    .nav-logo-icon {
+      width: 34px; height: 34px;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      border-radius: 9px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      box-shadow: 0 4px 14px rgba(124,77,255,0.45);
+    }
+
+    .nav-logo span { color: #7ecfff; }
+
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 9px 22px;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      color: var(--white);
+      font-size: 0.88rem;
+      font-weight: 700;
+      border: none;
+      border-radius: var(--r-sm);
+      cursor: pointer;
+      box-shadow: 0 4px 18px rgba(26,115,232,0.4);
+      transition: transform 0.15s, box-shadow 0.15s;
+      animation: slideDown 0.6s 0.2s ease both;
+    }
+
+    .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(26,115,232,0.55); }
+
+    /* ══ HERO ════════════════════════════════════════════ */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 140px 24px 100px;
+      overflow: hidden;
+    }
+
+    /* Background image */
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url('../images/ManPowerAI.png') center center / cover no-repeat;
+      transform: scale(1.08);
+      animation: slowZoom 20s ease-in-out infinite alternate;
+    }
+
+    @keyframes slowZoom {
+      from { transform: scale(1.08); }
+      to   { transform: scale(1.16); }
+    }
+
+    /* Dark gradient overlay */
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg,
+          rgba(5, 12, 40, 0.78) 0%,
+          rgba(10, 25, 70, 0.72) 50%,
+          rgba(5, 12, 40, 0.88) 100%);
+    }
+
+    /* Animated color glow orbs */
+    .hero-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+    }
+
+    .hero-orb-1 {
+      width: 500px; height: 500px;
+      background: rgba(26, 115, 232, 0.22);
+      top: -100px; left: -150px;
+      animation: orbDrift1 12s ease-in-out infinite alternate;
+    }
+
+    .hero-orb-2 {
+      width: 400px; height: 400px;
+      background: rgba(124, 77, 255, 0.18);
+      bottom: -80px; right: -100px;
+      animation: orbDrift2 14s ease-in-out infinite alternate;
+    }
+
+    .hero-orb-3 {
+      width: 300px; height: 300px;
+      background: rgba(0, 200, 83, 0.1);
+      top: 40%; left: 55%;
+      animation: orbDrift3 10s ease-in-out infinite alternate;
+    }
+
+    @keyframes orbDrift1 {
+      from { transform: translate(0, 0) scale(1); }
+      to   { transform: translate(60px, 40px) scale(1.15); }
+    }
+
+    @keyframes orbDrift2 {
+      from { transform: translate(0, 0) scale(1); }
+      to   { transform: translate(-50px, -60px) scale(1.1); }
+    }
+
+    @keyframes orbDrift3 {
+      from { transform: translate(0, 0); }
+      to   { transform: translate(-40px, 50px); }
+    }
+
+    /* Particles canvas */
+    #particles {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Floating info cards */
+    .float-card {
+      position: absolute;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.2);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 14px;
+      padding: 12px 18px;
+      color: var(--white);
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 3;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+      white-space: nowrap;
+    }
+
+    .float-card .fc-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: pulse 2s infinite;
+    }
+
+    .fc-1 {
+      top: 22%;  left: 6%;
+      animation: bob 6s ease-in-out infinite;
+    }
+
+    .fc-2 {
+      top: 30%; right: 6%;
+      animation: bob 7s 1s ease-in-out infinite;
+    }
+
+    .fc-3 {
+      bottom: 22%; left: 8%;
+      animation: bob 5s 0.5s ease-in-out infinite;
+    }
+
+    .fc-4 {
+      bottom: 18%; right: 7%;
+      animation: bob 8s 1.5s ease-in-out infinite;
+    }
+
+    @keyframes bob {
+      0%, 100% { transform: translateY(0px); }
+      50%       { transform: translateY(-12px); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.4; transform: scale(1.4); }
+    }
+
+    /* Hero content */
+    .hero-content {
+      position: relative;
+      z-index: 4;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(26,115,232,0.25);
+      border: 1px solid rgba(26,115,232,0.5);
+      color: #90caff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      padding: 7px 18px;
+      border-radius: 100px;
+      margin-bottom: 30px;
+      animation: fadeUp 0.8s 0.3s ease both;
+    }
+
+    .hero-badge::before {
+      content: '';
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: pulse 2s infinite;
+    }
+
+    h1 {
+      font-size: clamp(2.4rem, 6.5vw, 4.2rem);
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      color: var(--white);
+      max-width: 780px;
+      margin: 0 auto 22px;
+      animation: fadeUp 0.8s 0.5s ease both;
+    }
+
+    h1 em {
+      font-style: normal;
+      background: linear-gradient(135deg, #7ecfff, #a78bfa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      font-size: clamp(1rem, 2.5vw, 1.18rem);
+      color: rgba(255,255,255,0.72);
+      max-width: 520px;
+      margin: 0 auto 44px;
+      line-height: 1.75;
+      animation: fadeUp 0.8s 0.7s ease both;
+    }
+
+    .hero-btns {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+      animation: fadeUp 0.8s 0.9s ease both;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 17px 40px;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      color: var(--white);
+      font-size: 1.02rem;
+      font-weight: 700;
+      font-family: var(--font);
+      border: none;
+      border-radius: var(--r-sm);
+      cursor: pointer;
+      box-shadow: 0 6px 28px rgba(124,77,255,0.45);
+      transition: transform 0.18s, box-shadow 0.18s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-primary::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.12));
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 14px 36px rgba(124,77,255,0.55); }
+    .btn-primary:hover::after { opacity: 1; }
+
+    .no-spam {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 52px;
+      animation: fadeUp 0.8s 1.0s ease both;
+    }
+
+    .trust-row {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      animation: fadeUp 0.8s 1.1s ease both;
+    }
+
+    .trust-pill {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 100px;
+      padding: 8px 16px;
+      font-size: 0.83rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.85);
+      backdrop-filter: blur(6px);
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .trust-pill:hover { background: rgba(255,255,255,0.18); transform: translateY(-2px); }
+
+    /* ══ STATS STRIP ════════════════════════════════════ */
+    .stats-strip {
+      background: linear-gradient(135deg, #0d1b4b 0%, #1a2a6c 100%);
+      padding: 40px 24px;
+      display: flex;
+      justify-content: center;
+      gap: 64px;
+      flex-wrap: wrap;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .stat-item {
+      text-align: center;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .stat-item.visible { opacity: 1; transform: translateY(0); }
+
+    .stat-num {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 6px;
+      letter-spacing: -0.03em;
+    }
+
+    .stat-num span { color: #7ecfff; }
+
+    .stat-label {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.55);
+      font-weight: 500;
+    }
+
+    /* ══ SECTION BASE ═══════════════════════════════════ */
+    .section {
+      padding: 96px 24px;
+    }
+
+    .section-inner {
+      max-width: 1060px;
+      margin: 0 auto;
+    }
+
+    .section-tag {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .section-title {
+      font-size: clamp(1.7rem, 3.5vw, 2.5rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.13;
+      margin-bottom: 14px;
+    }
+
+    .section-sub {
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 500px;
+      line-height: 1.75;
+      margin-bottom: 56px;
+    }
+
+    /* scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(36px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ══ HOW IT WORKS ═══════════════════════════════════ */
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+
+    .step-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      padding: 36px 28px;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+      opacity: 0;
+      transform: translateY(40px);
+    }
+
+    .step-card.visible { opacity: 1; transform: translateY(0); }
+    .step-card:hover   { transform: translateY(-6px); box-shadow: var(--shadow-md); border-color: rgba(26,115,232,0.2); }
+
+    .step-num {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: var(--blue-light);
+      color: var(--blue);
+      font-size: 1rem;
+      font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .step-icon {
+      font-size: 2.2rem;
+      margin-bottom: 14px;
+      display: block;
+    }
+
+    .step-card h3 { font-size: 1.06rem; font-weight: 700; margin-bottom: 10px; letter-spacing: -0.01em; }
+    .step-card p  { font-size: 0.9rem; color: var(--muted); line-height: 1.65; }
+
+    .step-connector {
+      position: absolute;
+      top: 54px; right: -18px;
+      width: 36px; height: 2px;
+      background: linear-gradient(90deg, var(--border), transparent);
+      z-index: 1;
+    }
+
+    /* ══ WHY SECTION ════════════════════════════════════ */
+    .why-section {
+      padding: 96px 24px;
+      background: linear-gradient(150deg, #050c28 0%, #0d2060 50%, #091540 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* animated mesh gradient bg */
+    .why-section::before {
+      content: '';
+      position: absolute;
+      width: 700px; height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(26,115,232,0.15) 0%, transparent 65%);
+      top: -200px; right: -200px;
+      animation: orbDrift1 14s ease-in-out infinite alternate;
+      pointer-events: none;
+    }
+
+    .why-section::after {
+      content: '';
+      position: absolute;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(124,77,255,0.12) 0%, transparent 65%);
+      bottom: -150px; left: -150px;
+      animation: orbDrift2 16s ease-in-out infinite alternate;
+      pointer-events: none;
+    }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      max-width: 1060px;
+      margin: 0 auto;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .why-content .section-tag { color: #a5d6a7; }
+    .why-content .section-title { color: var(--white); }
+    .why-content .section-sub   { color: rgba(255,255,255,0.65); margin-bottom: 0; }
+
+    .why-list { list-style: none; display: flex; flex-direction: column; gap: 20px; margin-top: 36px; }
+
+    .why-item { display: flex; align-items: flex-start; gap: 14px; }
+
+    .why-check {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: rgba(0,200,83,0.2);
+      border: 1px solid rgba(0,200,83,0.4);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.8rem; color: var(--green);
+      flex-shrink: 0; margin-top: 2px;
+    }
+
+    .why-item-text strong { display: block; font-size: 0.97rem; font-weight: 700; color: var(--white); margin-bottom: 3px; }
+    .why-item-text span   { font-size: 0.88rem; color: rgba(255,255,255,0.6); line-height: 1.55; }
+
+    .why-cta-card {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: var(--r-lg);
+      padding: 44px 36px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .why-cta-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(26,115,232,0.1) 0%, rgba(124,77,255,0.08) 100%);
+      pointer-events: none;
+    }
+
+    .why-cta-card .icon { font-size: 3.2rem; margin-bottom: 22px; display: block; animation: bob 5s ease-in-out infinite; }
+    .why-cta-card h3 { font-size: 1.45rem; font-weight: 800; color: var(--white); margin-bottom: 10px; letter-spacing: -0.02em; }
+    .why-cta-card p  { font-size: 0.92rem; color: rgba(255,255,255,0.65); line-height: 1.65; margin-bottom: 30px; }
+
+    .btn-white {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 15px 32px;
+      background: var(--white);
+      color: var(--blue-dark);
+      font-size: 0.97rem;
+      font-weight: 700;
+      font-family: var(--font);
+      border: none;
+      border-radius: var(--r-sm);
+      cursor: pointer;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.25);
+      transition: transform 0.15s, box-shadow 0.15s;
+      width: 100%;
+      justify-content: center;
+    }
+
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(0,0,0,0.32); }
+
+    /* ══ TESTIMONIALS ═══════════════════════════════════ */
+    .testimonials-section {
+      padding: 96px 24px;
+      background: var(--bg);
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      max-width: 1060px;
+      margin: 0 auto;
+    }
+
+    .testimonial-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      padding: 28px;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.25s, box-shadow 0.25s;
+      opacity: 0;
+      transform: translateY(32px);
+    }
+
+    .testimonial-card.visible { opacity: 1; transform: translateY(0); }
+    .testimonial-card:hover   { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+
+    .t-stars { color: #f59e0b; font-size: 1rem; letter-spacing: 3px; margin-bottom: 14px; }
+
+    .t-quote {
+      font-size: 0.95rem;
+      line-height: 1.72;
+      color: var(--text);
+      font-style: italic;
+      margin-bottom: 20px;
+    }
+
+    .t-author { display: flex; align-items: center; gap: 10px; }
+
+    .t-avatar {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--white);
+      font-size: 0.88rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .t-name { font-size: 0.88rem; font-weight: 700; color: var(--text); }
+    .t-role { font-size: 0.8rem;  color: var(--muted); }
+
+    /* ══ BOTTOM CTA ═════════════════════════════════════ */
+    .bottom-cta {
+      padding: 96px 24px;
+      text-align: center;
+      background: linear-gradient(160deg, #f0f6ff 0%, var(--white) 60%);
+    }
+
+    .bottom-cta h2 {
+      font-size: clamp(1.8rem, 4vw, 2.9rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 14px;
+    }
+
+    .bottom-cta p {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 460px;
+      margin: 0 auto 36px;
+      line-height: 1.7;
+    }
+
+    /* ══ FOOTER ═════════════════════════════════════════ */
+    footer {
+      text-align: center;
+      padding: 24px;
+      font-size: 0.82rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      background: var(--bg);
+    }
+
+    footer a { color: var(--blue); text-decoration: none; }
+
+    /* ══ MODAL ══════════════════════════════════════════ */
+    .modal-backdrop {
+      position: fixed; inset: 0;
+      background: rgba(5, 12, 40, 0.72);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      z-index: 200;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.28s ease;
+    }
+
+    @media (min-width: 600px) { .modal-backdrop { align-items: center; padding: 24px; } }
+
+    .modal-backdrop.open { opacity: 1; pointer-events: all; }
+
+    .modal {
+      background: var(--white);
+      border-radius: var(--r-lg) var(--r-lg) 0 0;
+      padding: 36px 28px 44px;
+      width: 100%;
+      max-width: 500px;
+      max-height: 94vh;
+      overflow-y: auto;
+      position: relative;
+      transform: translateY(60px);
+      transition: transform 0.32s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 0 -4px 40px rgba(0,0,0,0.2);
+    }
+
+    @media (min-width: 600px) {
+      .modal { border-radius: var(--r-lg); transform: translateY(40px) scale(0.96); box-shadow: 0 32px 80px rgba(0,0,0,0.22); }
+    }
+
+    .modal-backdrop.open .modal { transform: translateY(0) scale(1); }
+
+    .modal-handle { width: 40px; height: 4px; background: var(--border); border-radius: 100px; margin: 0 auto 28px; }
+    @media (min-width: 600px) { .modal-handle { display: none; } }
+
+    .modal-close {
+      position: absolute; top: 18px; right: 18px;
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted); font-size: 1rem;
+      transition: background 0.15s;
+    }
+
+    .modal-close:hover { background: var(--border); }
+
+    .modal-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--blue-light);
+      color: var(--blue);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: 100px;
+      margin-bottom: 14px;
+    }
+
+    .modal-title { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 6px; color: var(--text); }
+    .modal-sub   { font-size: 0.9rem; color: var(--muted); margin-bottom: 28px; line-height: 1.55; }
+
+    /* Form fields */
+    .form   { display: flex; flex-direction: column; gap: 16px; }
+    .field  { display: flex; flex-direction: column; gap: 5px; }
+
+    .field label { font-size: 0.82rem; font-weight: 600; color: var(--text); }
+    .field label .req { color: #ef4444; margin-left: 2px; }
+
+    .field input {
+      width: 100%;
+      padding: 13px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--r-sm);
+      font-size: 0.97rem;
+      font-family: var(--font);
+      color: var(--text);
+      background: var(--white);
+      outline: none;
+      transition: border-color 0.18s, box-shadow 0.18s;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+
+    .field input::placeholder { color: #c4c9d4; }
+    .field input:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(26,115,232,0.11); }
+    .field input.err  { border-color: #ef4444; }
+
+    .field input[type="file"] { padding: 10px 12px; cursor: pointer; font-size: 0.9rem; color: var(--muted); }
+    .file-hint { font-size: 0.75rem; color: var(--muted); margin-top: 3px; }
+
+    .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+    .btn-submit {
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      color: var(--white);
+      font-size: 1rem;
+      font-weight: 700;
+      font-family: var(--font);
+      border: none;
+      border-radius: var(--r-sm);
+      cursor: pointer;
+      box-shadow: 0 4px 18px rgba(124,77,255,0.35);
+      transition: transform 0.15s, box-shadow 0.15s;
+      margin-top: 4px;
+    }
+
+    .btn-submit:hover    { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(124,77,255,0.5); }
+    .btn-submit:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
+
+    .form-note { font-size: 0.76rem; color: var(--muted); text-align: center; line-height: 1.5; }
+
+    /* Success state */
+    .success-state { display: none; text-align: center; padding: 24px 0 12px; }
+    .success-state.show { display: block; }
+
+    .success-icon {
+      width: 76px; height: 76px;
+      background: linear-gradient(135deg, var(--green), #00e676);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 22px;
+      font-size: 2.2rem;
+      box-shadow: 0 10px 28px rgba(0,200,83,0.3);
+      animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    }
+
+    @keyframes popIn {
+      from { transform: scale(0.4); opacity: 0; }
+      to   { transform: scale(1);   opacity: 1; }
+    }
+
+    .success-state h3 { font-size: 1.5rem; font-weight: 800; margin-bottom: 10px; letter-spacing: -0.02em; }
+    .success-state p  { font-size: 0.95rem; color: var(--muted); line-height: 1.65; }
+
+    /* Shared keyframes */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ══ RESPONSIVE ════════════════════════════════════ */
+    @media (max-width: 860px) {
+      .steps-grid       { grid-template-columns: 1fr; }
+      .step-connector   { display: none; }
+      .why-grid         { grid-template-columns: 1fr; gap: 40px; }
+      .testimonials-grid{ grid-template-columns: 1fr; }
+      .float-card       { display: none; }
+    }
+
+    @media (max-width: 600px) {
+      nav          { padding: 0 20px; }
+      .hero        { padding: 110px 20px 80px; min-height: auto; }
+      .section     { padding: 64px 20px; }
+      .why-section { padding: 64px 20px; }
+      .testimonials-section { padding: 64px 20px; }
+      .bottom-cta  { padding: 64px 20px; }
+      .stats-strip { gap: 36px; }
+      .row-2       { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══ NAV ══════════════════════════════════════════════ -->
+  <nav>
+    <a class="nav-logo" href="#">
+      <div class="nav-logo-icon">⚡</div>
+      Manpower<span>AI</span>
+    </a>
+    <button class="nav-cta" onclick="openModal()">Apply Now →</button>
+  </nav>
+
+
+  <!-- ══ HERO ══════════════════════════════════════════════ -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-orb hero-orb-1"></div>
+    <div class="hero-orb hero-orb-2"></div>
+    <div class="hero-orb hero-orb-3"></div>
+    <canvas id="particles"></canvas>
+
+    <!-- Floating info cards -->
+    <div class="float-card fc-1"><div class="fc-dot"></div> AI Screening Active</div>
+    <div class="float-card fc-2">🎯 94% Placement Rate</div>
+    <div class="float-card fc-3">⚡ 24h Recruiter Review</div>
+    <div class="float-card fc-4">🌍 180+ Partner Companies</div>
+
+    <div class="hero-content">
+      <div class="hero-badge">AI-Powered Recruitment Platform</div>
+
+      <h1>Your Next Career Move,<br><em>Matched by AI</em></h1>
+
+      <p class="hero-sub">Submit your application once. Our AI screens your CV, matches you with top employers, and gets you in front of the right hiring manager — fast.</p>
+
+      <div class="hero-btns">
+        <button class="btn-primary" onclick="openModal()">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          Upload My CV &amp; Apply
+        </button>
+      </div>
+      <p class="no-spam">Free to apply · AI screening in minutes · No commitment</p>
+
+      <div class="trust-row">
+        <div class="trust-pill">🤖 AI-Screened Applications</div>
+        <div class="trust-pill">⚡ 24hr Recruiter Review</div>
+        <div class="trust-pill">🔒 100% Confidential</div>
+        <div class="trust-pill">🌍 Remote &amp; On-site Roles</div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══ STATS ══════════════════════════════════════════════ -->
+  <div class="stats-strip">
+    <div class="stat-item">
+      <div class="stat-num"><span class="count" data-target="2400">0</span>+</div>
+      <div class="stat-label">Applications Reviewed</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num"><span class="count" data-target="180">0</span>+</div>
+      <div class="stat-label">Partner Companies</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">&lt;<span class="count" data-target="24">0</span>h</div>
+      <div class="stat-label">Average Response Time</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num"><span class="count" data-target="94">0</span>%</div>
+      <div class="stat-label">Placement Rate</div>
+    </div>
+  </div>
+
+
+  <!-- ══ HOW IT WORKS ══════════════════════════════════════ -->
+  <section class="section">
+    <div class="section-inner">
+      <span class="section-tag reveal">How It Works</span>
+      <h2 class="section-title reveal">From Application to Interview<br>in 3 Simple Steps</h2>
+      <p class="section-sub reveal">No long forms, no waiting weeks. Our AI does the heavy lifting so recruiters see only your best.</p>
+
+      <div class="steps-grid">
+        <div class="step-card" style="transition-delay:0.05s">
+          <div class="step-connector"></div>
+          <div class="step-num">1</div>
+          <span class="step-icon">📄</span>
+          <h3>Submit Your Application</h3>
+          <p>Fill out the short form and upload your CV or resume. PDF, DOC, and DOCX all supported.</p>
+        </div>
+        <div class="step-card" style="transition-delay:0.18s">
+          <div class="step-connector"></div>
+          <div class="step-num">2</div>
+          <span class="step-icon">🤖</span>
+          <h3>AI Screens Your Profile</h3>
+          <p>Our AI reads your CV, scores your profile 1–10, identifies your strengths, and flags the best-fit roles.</p>
+        </div>
+        <div class="step-card" style="transition-delay:0.32s">
+          <div class="step-num">3</div>
+          <span class="step-icon">🎯</span>
+          <h3>Recruiter Reaches Out</h3>
+          <p>A human recruiter reviews the AI report and contacts you within 24 hours if there's a match.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══ WHY MANPOWERAI ════════════════════════════════════ -->
+  <section class="why-section">
+    <div class="why-grid">
+      <div class="why-content reveal">
+        <span class="section-tag">Why ManPowerAI</span>
+        <h2 class="section-title">We Don't Just Post Jobs.<br>We Match Careers.</h2>
+        <p class="section-sub">Traditional job boards leave you competing with hundreds. We use AI to surface your profile to the right employer at the right time.</p>
+
+        <ul class="why-list">
+          <li class="why-item">
+            <div class="why-check">✓</div>
+            <div class="why-item-text">
+              <strong>AI-Powered CV Screening</strong>
+              <span>Your CV is analyzed instantly — no waiting for a recruiter to manually read through hundreds of applications.</span>
+            </div>
+          </li>
+          <li class="why-item">
+            <div class="why-check">✓</div>
+            <div class="why-item-text">
+              <strong>Direct Employer Access</strong>
+              <span>Your profile goes straight into our partner employer pipeline — no middlemen, no black holes.</span>
+            </div>
+          </li>
+          <li class="why-item">
+            <div class="why-check">✓</div>
+            <div class="why-item-text">
+              <strong>Transparent Feedback</strong>
+              <span>You get a confirmation email within minutes. Our recruiters follow up with honest feedback regardless of outcome.</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="why-cta-card reveal" style="transition-delay:0.2s">
+        <span class="icon">🚀</span>
+        <h3>Ready to Get Matched?</h3>
+        <p>It takes less than 2 minutes. Upload your CV and let our AI do the rest.</p>
+        <button class="btn-white" onclick="openModal()">Apply Now — It's Free →</button>
+        <p style="margin-top:14px;font-size:0.78rem;color:rgba(255,255,255,0.45)">No account needed · No spam · Cancel anytime</p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══ TESTIMONIALS ══════════════════════════════════════ -->
+  <section class="testimonials-section">
+    <div class="section-inner">
+      <span class="section-tag reveal">Success Stories</span>
+      <h2 class="section-title reveal" style="margin-bottom:14px">Candidates Who Got Placed</h2>
+      <p class="section-sub reveal">Real people. Real roles. Real results.</p>
+
+      <div class="testimonials-grid">
+        <div class="testimonial-card" style="transition-delay:0.05s">
+          <div class="t-stars">★★★★★</div>
+          <p class="t-quote">"I uploaded my CV on a Tuesday morning. By Wednesday afternoon I had two interview invites. The AI screening summary was genuinely helpful for my own self-review."</p>
+          <div class="t-author">
+            <div class="t-avatar" style="background:linear-gradient(135deg,#1a73e8,#7c4dff)">MR</div>
+            <div><div class="t-name">Marco R.</div><div class="t-role">Sales Manager · Placed in 4 days</div></div>
+          </div>
+        </div>
+        <div class="testimonial-card" style="transition-delay:0.18s">
+          <div class="t-stars">★★★★★</div>
+          <p class="t-quote">"As someone switching careers, I was nervous. ManPowerAI's recruiter reached out with a role I hadn't even considered — and it was perfect."</p>
+          <div class="t-author">
+            <div class="t-avatar" style="background:linear-gradient(135deg,#00c853,#1a73e8)">JL</div>
+            <div><div class="t-name">Jessica L.</div><div class="t-role">Operations Lead · Career Changer</div></div>
+          </div>
+        </div>
+        <div class="testimonial-card" style="transition-delay:0.32s">
+          <div class="t-stars">★★★★★</div>
+          <p class="t-quote">"No ghosting, no vague replies. I got real feedback and landed a remote role that doubled my previous salary."</p>
+          <div class="t-author">
+            <div class="t-avatar" style="background:linear-gradient(135deg,#f59e0b,#ef4444)">DK</div>
+            <div><div class="t-name">Daniel K.</div><div class="t-role">Software Engineer · Remote Role</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══ BOTTOM CTA ════════════════════════════════════════ -->
+  <section class="bottom-cta">
+    <span class="section-tag reveal">Get Started Today</span>
+    <h2 class="reveal">Your Next Opportunity<br>is One Upload Away</h2>
+    <p class="reveal">Join 2,400+ professionals who've already let ManPowerAI match them with the right employer.</p>
+    <div class="reveal">
+      <button class="btn-primary" onclick="openModal()">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        Upload My CV &amp; Apply Free
+      </button>
+    </div>
+  </section>
+
+
+  <!-- ══ FOOTER ════════════════════════════════════════════ -->
+  <footer>
+    © 2026 ManPowerAI · <a href="#">Privacy Policy</a> · <a href="#">Terms of Service</a>
+  </footer>
+
+
+  <!-- ══ MODAL ═════════════════════════════════════════════ -->
+  <div class="modal-backdrop" id="modal" role="dialog" aria-modal="true" aria-label="Apply Now">
+    <div class="modal">
+      <div class="modal-handle"></div>
+      <button class="modal-close" onclick="closeModal()" aria-label="Close">✕</button>
+
+      <div id="formState">
+        <div class="modal-badge">⚡ AI-Powered Screening</div>
+        <h2 class="modal-title">Apply in 2 Minutes</h2>
+        <p class="modal-sub">Upload your CV and our AI will screen your profile and match you with the right opportunity.</p>
+
+        <form class="form" id="applyForm" novalidate>
+          <div class="row-2">
+            <div class="field">
+              <label for="full_name">Full Name <span class="req">*</span></label>
+              <input type="text" id="full_name" name="full_name" placeholder="Jane Smith" autocomplete="name" />
+            </div>
+            <div class="field">
+              <label for="years_experience">Years of Exp. <span class="req">*</span></label>
+              <input type="number" id="years_experience" name="years_experience" placeholder="5" min="0" max="50" />
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="email">Email Address <span class="req">*</span></label>
+            <input type="email" id="email" name="email" placeholder="jane@example.com" autocomplete="email" inputmode="email" />
+          </div>
+
+          <div class="field">
+            <label for="phone">Phone Number <span class="req">*</span></label>
+            <input type="tel" id="phone" name="phone" placeholder="+1 555 000 0000" autocomplete="tel" inputmode="tel" />
+          </div>
+
+          <div class="field">
+            <label for="linkedin_url">LinkedIn URL</label>
+            <input type="url" id="linkedin_url" name="linkedin_url" placeholder="https://linkedin.com/in/yourname" />
+          </div>
+
+          <div class="field">
+            <label for="cv">CV / Resume <span class="req">*</span></label>
+            <input type="file" id="cv" name="cv" accept=".pdf,.doc,.docx" />
+            <span class="file-hint">PDF, DOC or DOCX · Max 10 MB</span>
+          </div>
+
+          <button type="submit" class="btn-submit" id="submitBtn">Submit My Application →</button>
+          <p class="form-note">🔒 Your details are confidential and never shared without consent.</p>
+        </form>
+      </div>
+
+      <div class="success-state" id="successState">
+        <div class="success-icon">✅</div>
+        <h3>Application Received!</h3>
+        <p>Our AI is screening your CV right now. A recruiter will reach out within <strong>24 hours</strong> if there's a match. Check your inbox for a confirmation email.</p>
+      </div>
+    </div>
+  </div>
+
+
+  <script>
+    /* ── Webhook URL ── */
+    const WEBHOOK_URL = 'https://n8n.srv1512353.hstgr.cloud/webhook/recruitment-apply';
+
+    /* ══ PARTICLES ══════════════════════════════════════ */
+    (function () {
+      const canvas = document.getElementById('particles');
+      const ctx    = canvas.getContext('2d');
+      let W, H, dots = [];
+
+      function resize() {
+        W = canvas.width  = canvas.offsetWidth;
+        H = canvas.height = canvas.offsetHeight;
+      }
+
+      function mkDot() {
+        return {
+          x:    Math.random() * W,
+          y:    Math.random() * H,
+          r:    Math.random() * 1.8 + 0.4,
+          vx:   (Math.random() - 0.5) * 0.35,
+          vy:   -Math.random() * 0.5 - 0.15,
+          alpha: Math.random() * 0.5 + 0.15
+        };
+      }
+
+      function init() {
+        resize();
+        dots = Array.from({ length: 80 }, mkDot);
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, W, H);
+        dots.forEach(d => {
+          ctx.beginPath();
+          ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(160, 210, 255, ${d.alpha})`;
+          ctx.fill();
+
+          d.x += d.vx;
+          d.y += d.vy;
+
+          if (d.y < -4 || d.x < -4 || d.x > W + 4) { Object.assign(d, mkDot()); d.y = H + 4; }
+        });
+        requestAnimationFrame(draw);
+      }
+
+      window.addEventListener('resize', () => { resize(); });
+      init();
+      draw();
+    })();
+
+    /* ══ SCROLL REVEAL ══════════════════════════════════ */
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal, .step-card, .testimonial-card, .stat-item').forEach(el => io.observe(el));
+
+    /* ══ COUNT-UP ═══════════════════════════════════════ */
+    const countIO = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        const el     = e.target;
+        const target = +el.dataset.target;
+        const dur    = 1600;
+        const start  = performance.now();
+        function tick(now) {
+          const p = Math.min((now - start) / dur, 1);
+          const ease = 1 - Math.pow(1 - p, 3);
+          el.textContent = Math.round(ease * target).toLocaleString();
+          if (p < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+        countIO.unobserve(el);
+      });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('.count').forEach(el => countIO.observe(el));
+
+    /* ══ MODAL ══════════════════════════════════════════ */
+    const modal = document.getElementById('modal');
+
+    function openModal() {
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      setTimeout(() => document.getElementById('full_name').focus(), 320);
+    }
+
+    function closeModal() {
+      modal.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+    /* ══ FORM SUBMIT ════════════════════════════════════ */
+    document.getElementById('applyForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      const f = {
+        full_name:        document.getElementById('full_name'),
+        years_experience: document.getElementById('years_experience'),
+        email:            document.getElementById('email'),
+        phone:            document.getElementById('phone'),
+        cv:               document.getElementById('cv'),
+      };
+
+      const btn = document.getElementById('submitBtn');
+      Object.values(f).forEach(el => el.classList.remove('err'));
+
+      let ok = true;
+      if (!f.full_name.value.trim())             { f.full_name.classList.add('err');        ok = false; }
+      if (!f.years_experience.value)             { f.years_experience.classList.add('err'); ok = false; }
+      if (!f.email.value.includes('@'))          { f.email.classList.add('err');            ok = false; }
+      if (!f.phone.value.trim())                 { f.phone.classList.add('err');            ok = false; }
+      if (!f.cv.files || !f.cv.files[0])        { f.cv.classList.add('err');               ok = false; }
+      if (!ok) return;
+
+      btn.disabled    = true;
+      btn.textContent = 'Submitting…';
+
+      try {
+        const res  = await fetch(WEBHOOK_URL, { method: 'POST', body: new FormData(this) });
+        const data = await res.json();
+        if (res.ok && data.success) {
+          document.getElementById('formState').style.display = 'none';
+          document.getElementById('successState').classList.add('show');
+        } else { throw new Error(); }
+      } catch {
+        alert('Something went wrong. Please try again or email us directly.');
+      } finally {
+        btn.disabled    = false;
+        btn.textContent = 'Submit My Application →';
+      }
+    });
+  </script>
+</body>
+</html>
