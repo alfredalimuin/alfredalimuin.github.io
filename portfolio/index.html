@@ -2045,7 +2045,7 @@
     <h2 class="section-title">Projects and Designs</h2>
     <!-- Filter tabs -->
     <div class="proj-filters">
-      <button class="proj-filter" data-filter="n8n">n8n <span class="filter-count">5</span></button>
+      <button class="proj-filter" data-filter="n8n">n8n <span class="filter-count">6</span></button>
       <button class="proj-filter" data-filter="ghl-funnels">GHL Funnels <span class="filter-count">10</span></button>
       <button class="proj-filter" data-filter="ghl-auto">GHL Automations <span class="filter-count">5</span></button>
       <button class="proj-filter" data-filter="zapier">Zapier <span class="filter-count">2</span></button>
@@ -2155,6 +2155,27 @@
           </div>
           <div class="proj-card-footer">
             <span class="proj-card-stat">AI Agent</span>
+            <span class="proj-card-ext">↗</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-card hidden" data-category="n8n" onclick="openModal('modal-recruitment')">
+        <div class="proj-card-img-wrap">
+          <img src="images/workflow-recruitment.png" alt="Recruitment Lead Capture & CV Screener" onerror="this.parentElement.innerHTML='<div class=\'proj-card-placeholder\'>🤝</div>'" />
+          <span class="proj-card-badge">N8N</span>
+        </div>
+        <div class="proj-card-body">
+          <div class="proj-card-title">Recruitment Lead Capture &amp; CV Screener</div>
+          <div class="proj-card-desc">Candidates apply via the ManPowerAI funnel — n8n captures the form, extracts CV text, scores the candidate with Groq AI, notifies the recruiter, creates a GHL contact, and sends a confirmation email automatically.</div>
+          <div class="proj-card-tags">
+            <span class="proj-card-tag">n8n</span>
+            <span class="proj-card-tag">Groq AI</span>
+            <span class="proj-card-tag">GHL</span>
+            <span class="proj-card-tag">+3</span>
+          </div>
+          <div class="proj-card-footer">
+            <span class="proj-card-stat">AI Screener</span>
             <span class="proj-card-ext">↗</span>
           </div>
         </div>
@@ -2646,6 +2667,19 @@
           <span class="modal-badge">GHL</span>
           <p class="modal-desc">Automated lead follow-up workflow for PrimeKey — instantly responds to new enquiries with a personalised sequence to nurture and convert prospects into clients.</p>
           <div class="modal-tags"><span class="modal-tag">GHL</span><span class="modal-tag">Lead Follow-Up</span><span class="modal-tag">PrimeKey</span><span class="modal-tag">Automation</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal: Recruitment -->
+    <div class="modal-overlay" id="modal-recruitment">
+      <div class="modal-box">
+        <div class="modal-img-wrap"><img src="images/workflow-recruitment.png" class="modal-img" alt="Recruitment Lead Capture & CV Screener" onerror="this.parentElement.style.display='none'" /></div>
+        <div class="modal-body">
+          <div class="modal-header"><span class="modal-title">Recruitment Lead Capture &amp; CV Screener</span><button class="modal-close" onclick="closeModal('modal-recruitment')">✕</button></div>
+          <span class="modal-badge">n8n</span>
+          <p class="modal-desc">End-to-end AI recruitment pipeline built for the ManPowerAI platform. When a candidate submits their application and CV via the funnel form, n8n captures the multipart data, extracts all text from the PDF/DOC file, and passes it to Groq llama-3.3-70b which scores the candidate 1–10 and outputs strengths, concerns, and a recommendation. The recruiter is instantly notified via Gmail and Slack, a GHL contact is created with the AI summary added as a note, and the candidate receives an automated confirmation email — zero manual steps required.</p>
+          <div class="modal-tags"><span class="modal-tag">n8n</span><span class="modal-tag">Groq AI</span><span class="modal-tag">GoHighLevel</span><span class="modal-tag">Gmail</span><span class="modal-tag">Slack</span><span class="modal-tag">PDF Extract</span><span class="modal-tag">Webhook</span></div>
         </div>
       </div>
     </div>
