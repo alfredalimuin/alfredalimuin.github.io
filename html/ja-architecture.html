@@ -1,0 +1,1477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>J&A Architecture and Design — Spaces Designed to Inspire</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+
+    #page-wrapper { width: 100%; }
+
+    :root {
+      --gold:        #C9A84C;
+      --gold-light:  #E2C47A;
+      --gold-dark:   #9C7A2E;
+      --charcoal:    #0E0D0A;
+      --stone:       #1E1A14;
+      --stone-light: #2A2418;
+      --cream:       #F5F0E8;
+      --muted:       rgba(245,240,232,0.55);
+      --border:      rgba(201,168,76,0.22);
+      --white:       #FFFFFF;
+      --font-serif:  'Playfair Display', Georgia, serif;
+      --font-sans:   'Inter', system-ui, -apple-system, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--charcoal);
+      color: var(--cream);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── NAVBAR ─────────────────────────────────────────── */
+    .navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 48px;
+      background: linear-gradient(to bottom, rgba(10,8,5,0.85) 0%, transparent 100%);
+      transition: background 0.3s;
+    }
+
+    .nav-logo {
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--cream);
+      letter-spacing: 0.02em;
+    }
+
+    .nav-logo span {
+      color: var(--gold);
+    }
+
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 24px;
+      background: transparent;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-family: var(--font-sans);
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .nav-cta:hover {
+      background: var(--gold);
+      color: var(--charcoal);
+    }
+
+    /* ── HERO ───────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 24px 80px;
+      overflow: hidden;
+    }
+
+    .hero-video {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        160deg,
+        rgba(10,8,5,0.78) 0%,
+        rgba(18,13,5,0.62) 50%,
+        rgba(10,8,5,0.72) 100%
+      );
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 780px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(201,168,76,0.1);
+      border: 1px solid rgba(201,168,76,0.35);
+      color: var(--gold-light);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 8px 20px;
+      border-radius: 2px;
+      margin-bottom: 36px;
+    }
+
+    .hero-badge::before {
+      content: '◆';
+      font-size: 0.45rem;
+      color: var(--gold);
+    }
+
+    .hero h1 {
+      font-family: var(--font-serif);
+      font-size: 56px;
+      font-weight: 700;
+      line-height: 1.08;
+      letter-spacing: -0.01em;
+      color: var(--cream);
+      margin-bottom: 12px;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--gold-light);
+    }
+
+    .hero-divider {
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 28px auto;
+    }
+
+    .hero-subtitle {
+      font-size: 17px;
+      font-weight: 300;
+      color: var(--muted);
+      max-width: 540px;
+      margin: 0 auto 48px;
+      line-height: 1.75;
+      letter-spacing: 0.01em;
+    }
+
+    .btn-cta-hero {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 18px 44px;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+      color: var(--charcoal);
+      font-family: var(--font-sans);
+      font-size: 0.88rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border: none;
+      border-radius: 2px;
+      cursor: pointer;
+      box-shadow: 0 8px 32px rgba(201,168,76,0.28);
+      transition: transform 0.2s, box-shadow 0.2s;
+      margin-bottom: 16px;
+    }
+
+    .btn-cta-hero:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 42px rgba(201,168,76,0.40);
+    }
+
+    .btn-cta-hero svg {
+      flex-shrink: 0;
+      transition: transform 0.2s;
+    }
+
+    .btn-cta-hero:hover svg {
+      transform: translateX(3px);
+    }
+
+    .hero-note {
+      font-size: 0.75rem;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+      margin-bottom: 60px;
+    }
+
+    .trust-row {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .trust-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(245,240,232,0.06);
+      border: 1px solid rgba(245,240,232,0.12);
+      border-radius: 2px;
+      padding: 9px 18px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--cream);
+      letter-spacing: 0.04em;
+    }
+
+    .trust-pill-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--gold);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* ── SCROLL INDICATOR ───────────────────────────────── */
+    .scroll-hint {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      animation: bounce 2.4s ease-in-out infinite;
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(6px); }
+    }
+
+    /* ── SECTION BASE ───────────────────────────────────── */
+    section {
+      padding: 96px 24px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1140px;
+      margin: 0 auto;
+    }
+
+    .section-eyebrow {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 14px;
+    }
+
+    .section-title {
+      font-family: var(--font-serif);
+      font-size: 42px;
+      font-weight: 700;
+      line-height: 1.15;
+      color: var(--cream);
+      margin-bottom: 20px;
+      overflow-wrap: break-word;
+      word-break: break-word;
+    }
+
+    .section-title em {
+      font-style: italic;
+      color: var(--gold-light);
+    }
+
+    .section-sub {
+      font-size: 0.98rem;
+      color: var(--muted);
+      line-height: 1.75;
+      max-width: 520px;
+      overflow-wrap: break-word;
+      word-break: break-word;
+    }
+
+    .gold-rule {
+      width: 48px;
+      height: 2px;
+      background: var(--gold);
+      margin: 24px 0;
+    }
+
+    /* ── SERVICES ───────────────────────────────────────── */
+    .services-section {
+      background: var(--stone);
+    }
+
+    .services-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+
+    .services-header .section-sub {
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    .services-header .gold-rule {
+      margin: 24px auto;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 28px;
+    }
+
+    .services-grid > * { min-width: 0; }
+
+    .service-card {
+      background: var(--stone-light);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 40px 32px;
+      transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px;
+      height: 0;
+      background: var(--gold);
+      transition: height 0.35s;
+    }
+
+    .service-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 24px 64px rgba(0,0,0,0.35);
+      border-color: rgba(201,168,76,0.45);
+    }
+
+    .service-card:hover::before {
+      height: 100%;
+    }
+
+    .service-icon {
+      width: 52px;
+      height: 52px;
+      background: rgba(201,168,76,0.1);
+      border: 1px solid rgba(201,168,76,0.25);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+      font-size: 1.4rem;
+    }
+
+    .service-title {
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--cream);
+      margin-bottom: 12px;
+    }
+
+    .service-desc {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    /* ── ABOUT ──────────────────────────────────────────── */
+    .about-section {
+      background: var(--charcoal);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 56px;
+      align-items: center;
+    }
+
+    .about-grid > * { min-width: 0; }
+
+    .about-visual {
+      position: relative;
+      height: 440px;
+    }
+
+    .about-geo-1 {
+      position: absolute;
+      top: 0; right: 0;
+      width: 280px;
+      height: 280px;
+      border: 1px solid rgba(201,168,76,0.3);
+      border-radius: 4px;
+    }
+
+    .about-geo-2 {
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 220px;
+      height: 220px;
+      background: rgba(201,168,76,0.06);
+      border: 1px solid rgba(201,168,76,0.18);
+      border-radius: 4px;
+    }
+
+    .about-geo-3 {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 160px;
+      height: 160px;
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 50%;
+    }
+
+    .about-geo-dot {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 12px;
+      height: 12px;
+      background: var(--gold);
+      border-radius: 50%;
+    }
+
+    .about-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+      gap: 12px;
+      margin-top: 40px;
+    }
+
+    .about-stats > * { min-width: 0; }
+
+    .stat-box {
+      background: var(--stone);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 20px 16px;
+      min-width: 0;
+      overflow: hidden;
+    }
+
+    .stat-number {
+      font-family: var(--font-serif);
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .stat-label {
+      font-size: 0.72rem;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      overflow-wrap: break-word;
+      word-break: break-word;
+    }
+
+    /* ── TESTIMONIALS ───────────────────────────────────── */
+    .testimonials-section {
+      background: var(--stone);
+    }
+
+    .testimonials-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+
+    .testimonials-header .gold-rule {
+      margin: 24px auto;
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 28px;
+    }
+
+    .testimonials-grid > * { min-width: 0; }
+
+    .testimonial-card {
+      background: var(--stone-light);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 40px 36px;
+      position: relative;
+    }
+
+    .testimonial-card::before {
+      content: '\201C';
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-family: var(--font-serif);
+      font-size: 6rem;
+      color: rgba(201,168,76,0.12);
+      line-height: 1;
+    }
+
+    .testimonial-stars {
+      color: var(--gold);
+      font-size: 0.9rem;
+      letter-spacing: 3px;
+      margin-bottom: 20px;
+    }
+
+    .testimonial-text {
+      font-size: 0.98rem;
+      color: var(--cream);
+      line-height: 1.8;
+      margin-bottom: 28px;
+      font-style: italic;
+      font-family: var(--font-serif);
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .author-avatar {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--charcoal);
+      flex-shrink: 0;
+    }
+
+    .author-name {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--cream);
+    }
+
+    .author-role {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    /* ── BOTTOM CTA BANNER ──────────────────────────────── */
+    .cta-banner {
+      background: linear-gradient(135deg, var(--stone-light) 0%, #191308 100%);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 80px 24px;
+      text-align: center;
+    }
+
+    .cta-banner h2 {
+      font-family: var(--font-serif);
+      font-size: 40px;
+      font-weight: 700;
+      color: var(--cream);
+      margin-bottom: 16px;
+    }
+
+    .cta-banner p {
+      font-size: 1rem;
+      color: var(--muted);
+      margin-bottom: 40px;
+    }
+
+    /* ── FOOTER ─────────────────────────────────────────── */
+    footer {
+      background: var(--charcoal);
+      padding: 48px 24px;
+      text-align: center;
+      border-top: 1px solid rgba(245,240,232,0.06);
+    }
+
+    .footer-logo {
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--cream);
+      margin-bottom: 10px;
+    }
+
+    .footer-logo span { color: var(--gold); }
+
+    .footer-tagline {
+      font-size: 0.8rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+    }
+
+    .footer-copy {
+      font-size: 0.75rem;
+      color: rgba(245,240,232,0.3);
+    }
+
+    /* ── MODAL ──────────────────────────────────────────── */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(10,8,5,0.72);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.28s ease;
+    }
+
+    .modal-backdrop.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .modal {
+      background: var(--stone);
+      border: 1px solid rgba(201,168,76,0.28);
+      border-radius: 6px;
+      padding: 44px 40px;
+      width: 100%;
+      max-width: 520px;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      transform: translateY(32px) scale(0.97);
+      transition: transform 0.32s cubic-bezier(0.34, 1.42, 0.64, 1);
+      scrollbar-width: thin;
+      scrollbar-color: var(--gold-dark) transparent;
+    }
+
+    .modal-backdrop.open .modal {
+      transform: translateY(0) scale(1);
+    }
+
+    .modal-handle {
+      display: none;
+      width: 36px;
+      height: 3px;
+      background: rgba(245,240,232,0.2);
+      border-radius: 2px;
+      margin: 0 auto 24px;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 34px;
+      height: 34px;
+      background: rgba(245,240,232,0.07);
+      border: 1px solid rgba(245,240,232,0.1);
+      border-radius: 50%;
+      color: var(--muted);
+      font-size: 0.95rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .modal-close:hover {
+      background: rgba(201,168,76,0.15);
+      color: var(--gold);
+      border-color: rgba(201,168,76,0.3);
+    }
+
+    .modal-eyebrow {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+
+    .modal-title {
+      font-family: var(--font-serif);
+      font-size: 1.65rem;
+      font-weight: 700;
+      color: var(--cream);
+      margin-bottom: 6px;
+    }
+
+    .modal-subtitle {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 32px;
+      line-height: 1.6;
+    }
+
+    .modal-rule {
+      width: 40px;
+      height: 1px;
+      background: var(--gold);
+      margin-bottom: 32px;
+    }
+
+    /* Form */
+    .form { display: flex; flex-direction: column; gap: 0; }
+
+    .row-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 18px;
+    }
+
+    .field label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,0.7);
+    }
+
+    .req { color: var(--gold); }
+
+    .field input,
+    .field select,
+    .field textarea {
+      width: 100%;
+      padding: 12px 16px;
+      background: rgba(245,240,232,0.05);
+      border: 1px solid rgba(245,240,232,0.12);
+      border-radius: 3px;
+      color: var(--cream);
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+
+    .field input::placeholder,
+    .field textarea::placeholder {
+      color: rgba(245,240,232,0.3);
+    }
+
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      border-color: rgba(201,168,76,0.6);
+      box-shadow: 0 0 0 3px rgba(201,168,76,0.1);
+      background: rgba(201,168,76,0.04);
+    }
+
+    .field input.error,
+    .field select.error,
+    .field textarea.error {
+      border-color: #c0392b;
+      box-shadow: 0 0 0 3px rgba(192,57,43,0.1);
+    }
+
+    /* select wrapper — custom arrow */
+    .select-wrap {
+      position: relative;
+    }
+
+    .select-wrap::after {
+      content: '';
+      position: absolute;
+      right: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 0; height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 6px solid rgba(245,240,232,0.45);
+      pointer-events: none;
+    }
+
+    .select-wrap select {
+      cursor: pointer;
+    }
+
+    .select-wrap select option {
+      background: var(--stone-light);
+      color: var(--cream);
+    }
+
+    .field textarea {
+      resize: vertical;
+      min-height: 88px;
+    }
+
+    /* date input color fix */
+    .field input[type="date"]::-webkit-calendar-picker-indicator {
+      filter: invert(0.6) sepia(0.3) hue-rotate(5deg);
+      cursor: pointer;
+    }
+
+    .btn-submit {
+      width: 100%;
+      padding: 16px 24px;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+      color: var(--charcoal);
+      font-family: var(--font-sans);
+      font-size: 0.88rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      box-shadow: 0 6px 24px rgba(201,168,76,0.28);
+      transition: transform 0.18s, box-shadow 0.18s, opacity 0.18s;
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .btn-submit:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 32px rgba(201,168,76,0.40);
+    }
+
+    .btn-submit:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+    }
+
+    .form-note {
+      font-size: 0.72rem;
+      color: rgba(245,240,232,0.35);
+      text-align: center;
+      margin-top: 14px;
+      letter-spacing: 0.04em;
+    }
+
+    /* ── SUCCESS STATE ──────────────────────────────────── */
+    .success-state {
+      display: none;
+      text-align: center;
+      padding: 24px 0;
+    }
+
+    .success-state.show {
+      display: block;
+    }
+
+    .success-icon {
+      width: 72px;
+      height: 72px;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      box-shadow: 0 8px 32px rgba(201,168,76,0.35);
+    }
+
+    .success-icon svg {
+      width: 32px;
+      height: 32px;
+      stroke: var(--charcoal);
+      stroke-width: 2.5;
+      fill: none;
+    }
+
+    .success-title {
+      font-family: var(--font-serif);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--cream);
+      margin-bottom: 14px;
+    }
+
+    .success-body {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 28px;
+    }
+
+    .success-body strong {
+      color: var(--gold);
+    }
+
+    .btn-close-success {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 32px;
+      background: transparent;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-family: var(--font-sans);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .btn-close-success:hover {
+      background: var(--gold);
+      color: var(--charcoal);
+    }
+
+    /* ── TABLET (768px) — font & spacing overrides only ── */
+    @media (max-width: 768px) {
+      .navbar          { padding: 16px 20px; }
+      section          { padding: 64px 20px; }
+      .hero h1         { font-size: 40px; }
+      .hero-subtitle   { font-size: 15px; }
+      .section-title   { font-size: 30px; }
+      .cta-banner h2   { font-size: 30px; }
+      .about-visual    { height: 260px; }
+      .about-grid      { gap: 32px; }
+      .modal           { padding: 32px 24px; }
+    }
+
+    /* ── MOBILE (480px) — font & spacing overrides only ── */
+    @media (max-width: 480px) {
+      .navbar          { padding: 14px 16px; }
+      .nav-logo        { font-size: 16px; }
+      .nav-cta         { display: none; }
+      .hero            { padding: 100px 16px 64px; }
+      .hero h1         { font-size: 32px; line-height: 1.12; }
+      .hero-subtitle   { font-size: 14px; }
+      .hero-badge      { font-size: 10px; padding: 6px 14px; }
+      .btn-cta-hero    { font-size: 13px; padding: 15px 24px; }
+      section          { padding: 52px 16px; }
+      .section-title   { font-size: 24px; }
+      .cta-banner h2   { font-size: 24px; }
+      .stat-number     { font-size: 26px; }
+      .stat-label      { font-size: 10px; letter-spacing: 0.02em; }
+      .trust-row       { gap: 8px; }
+      .trust-pill      { font-size: 11px; padding: 7px 12px; }
+      .service-card    { padding: 24px 16px; }
+      .testimonial-card { padding: 24px 16px; }
+      .about-grid      { gap: 24px; }
+      .about-visual    { display: none; }
+      .about-stats     { gap: 10px; }
+
+      /* Modal bottom-sheet on mobile */
+      .modal-backdrop  { align-items: flex-end; padding: 0; }
+      .modal           {
+        border-radius: 12px 12px 0 0;
+        max-height: 88vh;
+        transform: translateY(100%);
+        border-left: none;
+        border-right: none;
+        border-bottom: none;
+        padding: 28px 16px;
+      }
+      .modal-backdrop.open .modal { transform: translateY(0); }
+      .modal-handle    { display: block; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="page-wrapper">
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="nav-logo">J<span>&</span>A <span style="color:var(--cream);font-weight:400;font-size:1rem;margin-left:2px;">Architecture</span></div>
+    <button class="nav-cta" onclick="openModal()">Book Consultation</button>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <video class="hero-video" autoplay muted loop playsinline>
+      <source src="https://assets.cdn.filesafe.space/0HZzu2ObqxENhFG8qwcG/media/69df9b9afcac588c6b133e2e.mp4" type="video/mp4" />
+    </video>
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+      <div class="hero-badge">Architecture &amp; Design</div>
+
+      <h1>Spaces Designed<br>to <em>Inspire</em></h1>
+
+      <div class="hero-divider"></div>
+
+      <p class="hero-subtitle">
+        J&amp;A Architecture crafts timeless residential and commercial spaces
+        where precision meets artistry. From concept to completion — built to endure.
+      </p>
+
+      <button class="btn-cta-hero" onclick="openModal()">
+        Schedule a Free Consultation
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </button>
+
+      <p class="hero-note">No commitment required &nbsp;·&nbsp; Response within 24 hours</p>
+
+      <div class="trust-row">
+        <div class="trust-pill"><span class="trust-pill-dot"></span> 20+ Years Experience</div>
+        <div class="trust-pill"><span class="trust-pill-dot"></span> Award-Winning Design</div>
+        <div class="trust-pill"><span class="trust-pill-dot"></span> 100+ Projects Delivered</div>
+      </div>
+    </div>
+
+    <div class="scroll-hint">
+      <div class="scroll-line"></div>
+      Scroll
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services-section">
+    <div class="container">
+      <div class="services-header">
+        <p class="section-eyebrow">What We Do</p>
+        <h2 class="section-title">Our <em>Expertise</em></h2>
+        <div class="gold-rule"></div>
+        <p class="section-sub">From bespoke residences to landmark commercial projects, every design begins with listening to your vision.</p>
+      </div>
+
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon">🏛️</div>
+          <h3 class="service-title">Residential Architecture</h3>
+          <p class="service-desc">Custom homes designed around your lifestyle — blending structural integrity with aesthetic excellence and enduring character.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🏢</div>
+          <h3 class="service-title">Commercial Design</h3>
+          <p class="service-desc">Workplace environments, retail spaces, and hospitality venues crafted to elevate brand identity and human experience.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">✦</div>
+          <h3 class="service-title">Interior &amp; Renovation</h3>
+          <p class="service-desc">Thoughtful transformations of existing spaces — balancing original character with contemporary comfort and refined detail.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about-section">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-text">
+          <p class="section-eyebrow">About the Firm</p>
+          <h2 class="section-title">Architecture as a<br><em>Living Art</em></h2>
+          <div class="gold-rule"></div>
+          <p class="section-sub">
+            Founded on the belief that great architecture enriches lives, J&A has spent over two decades crafting spaces that are as functional as they are beautiful. We collaborate closely with every client, guiding them from the first sketch to final walk-through.
+          </p>
+          <div class="about-stats">
+            <div class="stat-box">
+              <div class="stat-number">100+</div>
+              <div class="stat-label">Projects Completed</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-number">20+</div>
+              <div class="stat-label">Years of Practice</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-number">14</div>
+              <div class="stat-label">Design Awards</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-number">98%</div>
+              <div class="stat-label">Client Satisfaction</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="about-visual" aria-hidden="true">
+          <div class="about-geo-1"></div>
+          <div class="about-geo-2"></div>
+          <div class="about-geo-3">
+            <div class="about-geo-dot"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials-section">
+    <div class="container">
+      <div class="testimonials-header">
+        <p class="section-eyebrow">Client Stories</p>
+        <h2 class="section-title"><em>What Our Clients</em> Say</h2>
+        <div class="gold-rule"></div>
+      </div>
+
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">"J&A transformed our vision into something far beyond what we imagined. Every detail was considered. The home feels like it has always belonged on that hillside."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">MR</div>
+            <div>
+              <div class="author-name">Marcus &amp; Rachel T.</div>
+              <div class="author-role">Residential Client — Custom Hilltop Residence</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">"Our new office is not just a building — it's become a statement of who we are as a brand. The design team listened, adapted, and delivered on time without compromise."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">SL</div>
+            <div>
+              <div class="author-name">Sandra L.</div>
+              <div class="author-role">CEO — Lumiera Group Commercial HQ</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOTTOM CTA BANNER -->
+  <div class="cta-banner">
+    <p class="section-eyebrow" style="margin-bottom:16px;">Take the First Step</p>
+    <h2>Your Dream Space <em style="font-style:italic;color:var(--gold-light);">Starts Here</em></h2>
+    <p>Schedule a complimentary consultation and let's begin designing your future.</p>
+    <button class="btn-cta-hero" onclick="openModal()" style="margin-bottom:0;">
+      Book Your Free Consultation
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M5 12h14M12 5l7 7-7 7"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">J<span>&amp;</span>A Architecture <span style="color:var(--gold);">&amp;</span> Design</div>
+    <div class="footer-tagline">Crafting Spaces That Endure</div>
+    <div class="footer-copy">&copy; 2024 J&amp;A Architecture and Design. All rights reserved.</div>
+  </footer>
+
+
+  <!-- MODAL -->
+  <div class="modal-backdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal" id="modal">
+      <div class="modal-handle"></div>
+      <button class="modal-close" onclick="closeModal()" aria-label="Close">✕</button>
+
+      <!-- FORM STATE -->
+      <div id="formState">
+        <p class="modal-eyebrow">Free Consultation</p>
+        <h2 class="modal-title" id="modalTitle">Request Your Session</h2>
+        <p class="modal-subtitle">Tell us about your project and choose a time that works for you. No obligation.</p>
+        <div class="modal-rule"></div>
+
+        <form class="form" id="consultForm" novalidate onsubmit="handleSubmit(event)">
+
+          <div class="row-2">
+            <div class="field">
+              <label for="firstName">First Name <span class="req">*</span></label>
+              <input type="text" id="firstName" placeholder="Jane" autocomplete="given-name" />
+            </div>
+            <div class="field">
+              <label for="lastName">Last Name <span class="req">*</span></label>
+              <input type="text" id="lastName" placeholder="Smith" autocomplete="family-name" />
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="email">Email Address <span class="req">*</span></label>
+            <input type="email" id="email" placeholder="jane@example.com" autocomplete="email" />
+          </div>
+
+          <div class="field">
+            <label for="phone">Phone Number <span class="req">*</span></label>
+            <input type="tel" id="phone" placeholder="+1 (555) 000-0000" autocomplete="tel" inputmode="tel" />
+          </div>
+
+          <div class="field">
+            <label for="projectType">Project Type <span class="req">*</span></label>
+            <div class="select-wrap">
+              <select id="projectType">
+                <option value="" disabled selected>Select a category…</option>
+                <option value="Residential Architecture">Residential Architecture</option>
+                <option value="Commercial Design">Commercial Design</option>
+                <option value="Interior Design">Interior Design</option>
+                <option value="Renovation">Renovation / Remodel</option>
+                <option value="Landscape Architecture">Landscape Architecture</option>
+                <option value="Other">Other / Not Sure Yet</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="budget">Estimated Budget <span class="req">*</span></label>
+            <div class="select-wrap">
+              <select id="budget">
+                <option value="" disabled selected>Select a range…</option>
+                <option value="Under $50K">Under $50,000</option>
+                <option value="$50K–$150K">$50,000 – $150,000</option>
+                <option value="$150K–$500K">$150,000 – $500,000</option>
+                <option value="$500K+">$500,000+</option>
+                <option value="To Be Discussed">Prefer to discuss</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row-2">
+            <div class="field">
+              <label for="prefDate">Preferred Date <span class="req">*</span></label>
+              <input type="date" id="prefDate" />
+            </div>
+            <div class="field">
+              <label for="prefTime">Preferred Time <span class="req">*</span></label>
+              <div class="select-wrap">
+                <select id="prefTime">
+                  <option value="" disabled selected>Select…</option>
+                  <option value="Morning (9am – 12pm)">Morning (9am – 12pm)</option>
+                  <option value="Afternoon (1pm – 5pm)">Afternoon (1pm – 5pm)</option>
+                  <option value="Evening (5pm – 7pm)">Evening (5pm – 7pm)</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="message">Project Notes <span style="color:var(--muted);font-weight:400;text-transform:none;letter-spacing:0">(optional)</span></label>
+            <textarea id="message" rows="3" placeholder="Share any details about your project, location, or timeline…"></textarea>
+          </div>
+
+          <button type="submit" class="btn-submit" id="submitBtn">
+            Request My Consultation
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </button>
+          <p class="form-note">🔒 Your information is private and never shared.</p>
+        </form>
+      </div>
+
+      <!-- SUCCESS STATE -->
+      <div class="success-state" id="successState">
+        <div class="success-icon">
+          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        </div>
+        <h3 class="success-title">Consultation Requested!</h3>
+        <p class="success-body" id="successBody">
+          Thank you! We'll confirm your appointment within 24 hours and reach out via email to finalize the details.
+        </p>
+        <button class="btn-close-success" onclick="closeModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+
+  <script>
+    // ── n8n webhook (fill in URL to enable submission) ──────────
+    const WEBHOOK_URL = ''; // e.g. 'https://n8n.srv.../webhook/ja-architecture'
+
+    const backdrop = document.getElementById('modalBackdrop');
+
+    function openModal() {
+      backdrop.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      // Set min date on date picker to today
+      const today = new Date().toISOString().split('T')[0];
+      document.getElementById('prefDate').setAttribute('min', today);
+      setTimeout(() => document.getElementById('firstName').focus(), 320);
+    }
+
+    function closeModal() {
+      backdrop.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    // Close on backdrop click
+    backdrop.addEventListener('click', e => {
+      if (e.target === backdrop) closeModal();
+    });
+
+    // Close on Escape
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && backdrop.classList.contains('open')) closeModal();
+    });
+
+    // ── Form submission ─────────────────────────────────────────
+    async function handleSubmit(e) {
+      e.preventDefault();
+
+      const fields = {
+        firstName: document.getElementById('firstName'),
+        lastName:  document.getElementById('lastName'),
+        email:     document.getElementById('email'),
+        phone:     document.getElementById('phone'),
+        projectType: document.getElementById('projectType'),
+        budget:    document.getElementById('budget'),
+        prefDate:  document.getElementById('prefDate'),
+        prefTime:  document.getElementById('prefTime'),
+      };
+
+      // Clear previous errors
+      Object.values(fields).forEach(el => el.classList.remove('error'));
+
+      let valid = true;
+
+      if (!fields.firstName.value.trim())          { fields.firstName.classList.add('error'); valid = false; }
+      if (!fields.lastName.value.trim())           { fields.lastName.classList.add('error');  valid = false; }
+      if (!fields.email.value.includes('@'))        { fields.email.classList.add('error');     valid = false; }
+      if (!fields.phone.value.trim())              { fields.phone.classList.add('error');      valid = false; }
+      if (!fields.projectType.value)               { fields.projectType.classList.add('error'); valid = false; }
+      if (!fields.budget.value)                    { fields.budget.classList.add('error');     valid = false; }
+      if (!fields.prefDate.value)                  { fields.prefDate.classList.add('error');   valid = false; }
+      if (!fields.prefTime.value)                  { fields.prefTime.classList.add('error');   valid = false; }
+
+      if (!valid) {
+        // Scroll to first error
+        const firstErr = document.querySelector('.error');
+        if (firstErr) firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+
+      const btn = document.getElementById('submitBtn');
+      btn.disabled = true;
+      btn.innerHTML = 'Sending&hellip;';
+
+      const payload = {
+        firstName:   fields.firstName.value.trim(),
+        lastName:    fields.lastName.value.trim(),
+        email:       fields.email.value.trim(),
+        phone:       fields.phone.value.trim(),
+        projectType: fields.projectType.value,
+        budget:      fields.budget.value,
+        prefDate:    fields.prefDate.value,
+        prefTime:    fields.prefTime.value,
+        message:     document.getElementById('message').value.trim(),
+        submittedAt: new Date().toISOString(),
+      };
+
+      // Send to webhook if configured
+      if (WEBHOOK_URL) {
+        try {
+          await fetch(WEBHOOK_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+          });
+        } catch (err) {
+          console.warn('Webhook error:', err);
+        }
+      }
+
+      // Simulate processing delay
+      await new Promise(r => setTimeout(r, 900));
+
+      // Format date for display
+      const dateFormatted = new Date(fields.prefDate.value + 'T12:00:00').toLocaleDateString('en-US', {
+        weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+      });
+
+      document.getElementById('successBody').innerHTML =
+        `We've received your request for <strong>${dateFormatted}</strong> in the <strong>${fields.prefTime.value}</strong>.<br><br>
+         Our team will confirm your slot within 24 hours at <strong>${payload.email}</strong>. We look forward to speaking with you!`;
+
+      document.getElementById('formState').style.display = 'none';
+      document.getElementById('successState').classList.add('show');
+    }
+  </script>
+
+  </div><!-- #page-wrapper -->
+
+<script>
+(function () {
+    var selectors = '.hero, .services-section, .about-section, .testimonials-section, .cta-banner';
+
+    function fullBleed() {
+        document.querySelectorAll(selectors).forEach(function (el) {
+            el.style.width = '';
+            el.style.marginLeft = '';
+
+            var rect = el.getBoundingClientRect();
+            var vw = window.innerWidth;
+
+            if (rect.left > 2 || rect.width < vw - 4) {
+                el.style.marginLeft = (-rect.left) + 'px';
+                el.style.width = vw + 'px';
+            }
+        });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', fullBleed);
+    } else {
+        fullBleed();
+    }
+    window.addEventListener('resize', fullBleed);
+})();
+</script>
+
+</body>
+</html>

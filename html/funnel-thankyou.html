@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>You're In! — AlphaClean Pro</title>
+  <link rel="stylesheet" href="funnel.css" />
+  <style>
+    /* ── Thank You Page Extras ── */
+    .ty-wrapper {
+      max-width: 680px;
+      margin: -48px auto 60px;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── Confirmation Card ── */
+    .ty-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 48px 40px;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid rgba(26,115,232,0.08);
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .ty-icon {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, var(--brand-accent), #00e676);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      font-size: 2.2rem;
+      box-shadow: 0 8px 24px rgba(0,200,83,0.3);
+    }
+
+    .ty-card h2 {
+      font-size: clamp(1.5rem, 4vw, 2rem);
+      font-weight: 800;
+      color: var(--text-dark);
+      margin-bottom: 10px;
+      letter-spacing: -0.02em;
+    }
+
+    .ty-card > p {
+      font-size: 1rem;
+      color: var(--text-muted);
+      max-width: 480px;
+      margin: 0 auto 32px;
+      line-height: 1.7;
+    }
+
+    /* ── What Happens Next Steps ── */
+    .next-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-bottom: 32px;
+      text-align: left;
+    }
+
+    .step {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+    }
+
+    .step:last-child {
+      border-bottom: none;
+    }
+
+    .step-number {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, var(--brand-primary), var(--brand-dark));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-size: 0.85rem;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+
+    .step-content strong {
+      display: block;
+      font-size: 0.97rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 3px;
+    }
+
+    .step-content span {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .step-eta {
+      margin-left: auto;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--brand-primary);
+      background: rgba(26,115,232,0.08);
+      padding: 4px 10px;
+      border-radius: 100px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      align-self: center;
+    }
+
+    /* ── Book Now CTA ── */
+    .book-cta {
+      background: linear-gradient(135deg, #f8f9ff 0%, #e8f0fe 100%);
+      border: 1.5px solid rgba(26,115,232,0.15);
+      border-radius: var(--radius-md);
+      padding: 28px 24px;
+      margin-bottom: 24px;
+    }
+
+    .book-cta h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: var(--text-dark);
+    }
+
+    .book-cta p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 18px;
+    }
+
+    .btn-book {
+      display: inline-block;
+      padding: 14px 32px;
+      background: linear-gradient(135deg, var(--brand-primary), var(--brand-dark));
+      color: var(--white);
+      font-size: 0.97rem;
+      font-weight: 700;
+      font-family: var(--font-main);
+      border: none;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.15s, box-shadow 0.15s;
+      box-shadow: 0 4px 16px rgba(26,115,232,0.3);
+    }
+
+    .btn-book:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(26,115,232,0.4);
+    }
+
+    /* ── Share / Social ── */
+    .share-card {
+      background: var(--white);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .share-card p {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+
+    .share-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn-share {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 10px 18px;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      font-weight: 600;
+      font-family: var(--font-main);
+      cursor: pointer;
+      border: 1.5px solid var(--border);
+      background: var(--white);
+      color: var(--text-dark);
+      text-decoration: none;
+      transition: background 0.15s, border-color 0.15s;
+    }
+
+    .btn-share:hover {
+      background: var(--bg-light);
+      border-color: var(--brand-primary);
+    }
+
+    /* ── Mobile ── */
+    @media (max-width: 600px) {
+      .ty-card {
+        padding: 32px 20px;
+      }
+
+      .step-eta {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page-wrapper">
+
+  <!-- ===== HERO (minimal) ===== -->
+  <section class="hero" style="padding: 48px 24px 72px;">
+    <div class="hero-badge">Request Received</div>
+    <h1>You're All Set!</h1>
+    <p>We got your estimate request. Here's what happens next.</p>
+  </section>
+
+  <!-- ===== THANK YOU CONTENT ===== -->
+  <div class="ty-wrapper">
+
+    <!-- Confirmation Card -->
+    <div class="ty-card">
+      <div class="ty-icon">✅</div>
+      <h2>Estimate Request Confirmed!</h2>
+      <p>
+        Your request has been received. Our team will reach out to you
+        shortly to confirm your free estimate and answer any questions.
+      </p>
+
+      <!-- What Happens Next -->
+      <div class="next-steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <strong>Check Your Phone</strong>
+            <span>You'll receive an SMS confirmation within the next few minutes.</span>
+          </div>
+          <div class="step-eta">~2 min</div>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <strong>We Call You</strong>
+            <span>A team member will call to confirm your details and schedule your visit.</span>
+          </div>
+          <div class="step-eta">~15 min</div>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <strong>Get Your Estimate</strong>
+            <span>We'll walk through your space and provide a clear, no-obligation quote.</span>
+          </div>
+          <div class="step-eta">Your schedule</div>
+        </div>
+      </div>
+
+      <!-- Optional: Book a time slot directly -->
+      <div class="book-cta">
+        <h3>Want to skip the wait?</h3>
+        <p>Pick a time that works for you and we'll confirm it instantly.</p>
+        <!-- Replace href with your GHL Calendar booking link -->
+        <a href="https://api.leadconnectorhq.com/widget/booking/Ts9VKLrLLF24c1q7WvaT" target="_blank" class="btn-book">📅 Book a Time Slot Now</a>
+      </div>
+
+    </div>
+    <!-- end ty-card -->
+
+    <!-- Share Card -->
+    <div class="share-card">
+      <p>Know someone who needs a cleaner? Share AlphaClean Pro.</p>
+      <div class="share-buttons">
+        <a href="sms:?body=Hey! I just booked a free cleaning estimate with AlphaClean Pro — you should check them out!" class="btn-share">
+          💬 Text a Friend
+        </a>
+        <a href="https://facebook.com/sharer/sharer.php?u=YOUR-URL" target="_blank" class="btn-share">
+          📘 Share on Facebook
+        </a>
+      </div>
+    </div>
+
+  </div>
+  <!-- end ty-wrapper -->
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    © 2026 AlphaClean Pro · <a href="#">Privacy Policy</a> · <a href="#">Terms of Service</a>
+  </footer>
+
+</div>
+
+</body>
+</html>

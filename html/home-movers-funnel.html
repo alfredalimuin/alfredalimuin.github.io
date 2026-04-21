@@ -1,0 +1,1039 @@
+<!-- HERO + LEAD CAPTURE (MODAL) — Home Movers | Paste into GHL Custom Code Block -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home Movers — Move Smarter. Settle Faster.</title>
+<style>
+/* ── FOUNDATION ── */
+html, body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+html { -webkit-text-size-adjust: 100%; }
+
+#pf-wrap *, #pf-wrap *::before, #pf-wrap *::after { box-sizing: border-box; }
+
+#pf-wrap {
+  width: 100%;
+  font-family: var(--font);
+  color: var(--text);
+  background: var(--bg);
+
+  /* ── Design tokens — matched to video palette ── */
+  --bg:        #F8F5EE;
+  --surface:   #FFFFFF;
+  --text:      #1A1A1A;
+  --muted:     #6B7280;
+  --border:    #E5E1D8;
+  --accent:    #D4920A;    /* golden amber from moving truck */
+  --accent-hl: #5BC8E8;    /* sky blue from video background */
+  --error:     #EF4444;
+
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 24px rgba(0,0,0,0.08);
+  --shadow-lg: 0 12px 48px rgba(0,0,0,0.12);
+
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 20px;
+
+  --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+#pf-wrap img { max-width: 100%; height: auto; display: block; }
+
+/* ══════════════════════════════════════════
+   HERO
+══════════════════════════════════════════ */
+#pf-wrap .pf-hero {
+  width: 100%;
+  position: relative;
+  min-height: 700px;
+  display: flex;
+  align-items: center;
+}
+
+#pf-wrap .pf-video-bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+}
+#pf-wrap .pf-video-bg video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+#pf-wrap .pf-video-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 18, 35, 0.54);
+  z-index: 1;
+}
+
+#pf-wrap .pf-hero .pf-inner {
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: 130px 48px;
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  text-align: center;
+}
+
+#pf-wrap .pf-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(212, 146, 10, 0.18);
+  border: 1px solid rgba(212, 146, 10, 0.45);
+  border-radius: 100px;
+  padding: 6px 18px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #F5C842;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 28px;
+}
+
+#pf-wrap .pf-hero h1 {
+  font-size: 64px;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.08;
+  margin: 0 0 22px;
+  letter-spacing: -0.02em;
+}
+
+#pf-wrap .pf-hero .pf-hero-sub {
+  font-size: 20px;
+  color: rgba(255, 255, 255, 0.82);
+  line-height: 1.65;
+  max-width: 580px;
+  margin: 0 auto 36px;
+}
+
+#pf-wrap .pf-trust {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 40px;
+}
+#pf-wrap .pf-pill {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.30);
+  border-radius: 100px;
+  padding: 8px 18px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #ffffff;
+}
+
+@media (max-width: 768px) {
+  #pf-wrap .pf-hero { min-height: 560px; }
+  #pf-wrap .pf-hero .pf-inner { padding: 88px 24px; }
+  #pf-wrap .pf-hero h1 { font-size: 42px; }
+  #pf-wrap .pf-hero .pf-hero-sub { font-size: 17px; }
+}
+@media (max-width: 480px) {
+  #pf-wrap .pf-hero { min-height: 460px; }
+  #pf-wrap .pf-hero .pf-inner { padding: 64px 16px; }
+  #pf-wrap .pf-hero h1 { font-size: 30px; }
+  #pf-wrap .pf-hero .pf-hero-sub { font-size: 15px; }
+}
+
+/* ── CTA Button ── */
+#pf-wrap .pf-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--r-sm);
+  padding: 18px 44px;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  letter-spacing: 0.01em;
+}
+#pf-wrap .pf-cta-btn::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 60%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
+  transition: left 0.4s ease;
+  pointer-events: none;
+}
+#pf-wrap .pf-cta-btn:hover::after { left: 140%; }
+#pf-wrap .pf-cta-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 36px rgba(212, 146, 10, 0.50);
+}
+#pf-wrap .pf-cta-btn:active {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(212, 146, 10, 0.30);
+}
+
+@media (max-width: 480px) {
+  #pf-wrap .pf-cta-btn { padding: 16px 28px; font-size: 16px; width: 100%; justify-content: center; }
+}
+
+/* ══════════════════════════════════════════
+   BENEFITS
+══════════════════════════════════════════ */
+#pf-wrap .pf-benefits {
+  width: 100%;
+  background: var(--bg);
+  padding: 96px 0;
+  container-type: inline-size;
+  container-name: pf-benefits;
+}
+#pf-wrap .pf-benefits .pf-inner {
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: 0 48px;
+}
+
+#pf-wrap .pf-sec-heading {
+  text-align: center;
+  margin-bottom: 56px;
+}
+#pf-wrap .pf-sec-heading h2 {
+  font-size: 40px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.2;
+  margin: 0 0 12px;
+}
+#pf-wrap .pf-sec-heading p {
+  font-size: 17px;
+  color: var(--muted);
+  margin: 0;
+  line-height: 1.65;
+}
+
+#pf-wrap .pf-benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+#pf-wrap .pf-bcard {
+  background: var(--surface);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-md);
+  padding: 36px 28px;
+  min-width: 0;
+  border: 1px solid var(--border);
+}
+#pf-wrap .pf-bcard-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--r-md);
+  background: linear-gradient(135deg, var(--accent), #F5C842);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  margin-bottom: 20px;
+}
+#pf-wrap .pf-bcard h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0 0 10px;
+  line-height: 1.3;
+}
+#pf-wrap .pf-bcard p {
+  font-size: 15px;
+  color: var(--muted);
+  margin: 0;
+  line-height: 1.65;
+}
+
+#pf-wrap .pf-sec-cta {
+  text-align: center;
+  margin-top: 56px;
+}
+
+@container pf-benefits (max-width: 700px) {
+  #pf-wrap .pf-benefits-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  #pf-wrap .pf-benefits .pf-inner { padding: 0 24px; }
+  #pf-wrap .pf-sec-heading h2 { font-size: 28px; }
+  #pf-wrap .pf-sec-heading p { font-size: 15px; }
+}
+@container pf-benefits (max-width: 480px) {
+  #pf-wrap .pf-benefits .pf-inner { padding: 0 16px; }
+  #pf-wrap .pf-bcard { padding: 28px 20px; }
+}
+
+@media (max-width: 768px) {
+  #pf-wrap .pf-benefits { padding: 72px 0; }
+  #pf-wrap .pf-sec-heading { margin-bottom: 40px; }
+}
+@media (max-width: 480px) {
+  #pf-wrap .pf-benefits { padding: 52px 0; }
+}
+
+/* ══════════════════════════════════════════
+   PROOF / SOCIAL
+══════════════════════════════════════════ */
+#pf-wrap .pf-proof {
+  width: 100%;
+  background: var(--surface);
+  padding: 96px 0;
+  container-type: inline-size;
+  container-name: pf-proof;
+}
+#pf-wrap .pf-proof .pf-inner {
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: 0 48px;
+}
+
+/* Stats */
+#pf-wrap .pf-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-bottom: 72px;
+  text-align: center;
+}
+#pf-wrap .pf-stat { min-width: 0; }
+#pf-wrap .pf-stat-num {
+  font-size: 52px;
+  font-weight: 800;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+#pf-wrap .pf-stat-label {
+  font-size: 15px;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+/* Testimonials */
+#pf-wrap .pf-proof .pf-sec-heading { margin-bottom: 40px; }
+#pf-wrap .pf-proof .pf-sec-heading h2 { font-size: 38px; }
+
+#pf-wrap .pf-tcards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-bottom: 56px;
+}
+#pf-wrap .pf-tcard {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 32px 28px;
+  min-width: 0;
+}
+#pf-wrap .pf-stars {
+  color: #F59E0B;
+  font-size: 16px;
+  letter-spacing: 3px;
+  margin-bottom: 14px;
+}
+#pf-wrap .pf-quote {
+  font-size: 15px;
+  color: var(--text);
+  line-height: 1.7;
+  margin: 0 0 22px;
+  font-style: italic;
+}
+#pf-wrap .pf-author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+#pf-wrap .pf-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), #F5C842);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+#pf-wrap .pf-author-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+}
+#pf-wrap .pf-author-meta {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+#pf-wrap .pf-proof .pf-sec-cta { margin-top: 0; }
+
+@container pf-proof (max-width: 700px) {
+  #pf-wrap .pf-stats {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    margin-bottom: 52px;
+  }
+  #pf-wrap .pf-tcards {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  #pf-wrap .pf-proof .pf-inner { padding: 0 24px; }
+  #pf-wrap .pf-proof .pf-sec-heading h2 { font-size: 26px; }
+}
+@container pf-proof (max-width: 480px) {
+  #pf-wrap .pf-proof .pf-inner { padding: 0 16px; }
+  #pf-wrap .pf-tcard { padding: 24px 20px; }
+}
+
+@media (max-width: 768px) {
+  #pf-wrap .pf-proof { padding: 72px 0; }
+  #pf-wrap .pf-stat-num { font-size: 40px; }
+}
+@media (max-width: 480px) {
+  #pf-wrap .pf-proof { padding: 52px 0; }
+}
+
+/* ══════════════════════════════════════════
+   FOOTER
+══════════════════════════════════════════ */
+#pf-wrap .pf-footer {
+  width: 100%;
+  background: #0D1220;
+  padding: 36px 0;
+}
+#pf-wrap .pf-footer .pf-inner {
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: 0 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+#pf-wrap .pf-footer-brand {
+  font-size: 17px;
+  font-weight: 700;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+#pf-wrap .pf-footer-links { font-size: 13px; }
+#pf-wrap .pf-footer-links a {
+  color: rgba(255, 255, 255, 0.45);
+  text-decoration: none;
+  margin-left: 20px;
+  transition: color 0.15s;
+}
+#pf-wrap .pf-footer-links a:hover { color: rgba(255, 255, 255, 0.8); }
+
+@media (max-width: 768px) {
+  #pf-wrap .pf-footer .pf-inner { padding: 0 24px; }
+}
+@media (max-width: 480px) {
+  #pf-wrap .pf-footer .pf-inner {
+    padding: 0 16px;
+    flex-direction: column;
+    text-align: center;
+  }
+  #pf-wrap .pf-footer-links a:first-child { margin-left: 0; }
+}
+
+/* ══════════════════════════════════════════
+   MODAL OVERLAY
+   NOTE: stays INSIDE #pf-wrap so var() tokens resolve.
+   position:fixed works — #pf-wrap has no transform/filter.
+══════════════════════════════════════════ */
+#pf-wrap #pf-modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 18, 35, 0.72);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 99999;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+#pf-wrap #pf-modal-overlay.pf-modal--open {
+  display: flex;
+}
+
+#pf-wrap #pf-modal {
+  background: var(--surface);
+  border-radius: var(--r-lg);
+  padding: 44px 40px 36px;
+  width: 100%;
+  max-width: 520px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.45);
+  transform: translateY(22px);
+  transition: transform 0.28s ease;
+}
+#pf-wrap #pf-modal-overlay.pf-modal--open #pf-modal {
+  transform: translateY(0);
+}
+
+#pf-wrap #pf-modal-close {
+  position: absolute;
+  top: 14px; right: 16px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: var(--muted);
+  cursor: pointer;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: var(--r-sm);
+  transition: color 0.15s, background 0.15s;
+}
+#pf-wrap #pf-modal-close:hover {
+  color: var(--text);
+  background: var(--bg);
+}
+
+/* Step badge */
+#pf-wrap .pf-modal-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(212, 146, 10, 0.10);
+  border: 1px solid rgba(212, 146, 10, 0.28);
+  border-radius: 100px;
+  padding: 5px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+
+#pf-wrap #pf-modal h3 {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--text);
+  margin: 0 0 8px;
+  line-height: 1.2;
+}
+#pf-wrap #pf-modal .pf-modal-sub {
+  font-size: 14px;
+  color: var(--muted);
+  margin: 0 0 28px;
+  line-height: 1.55;
+}
+
+/* Name row — 2 columns on wide, 1 on narrow (modal is fixed → use @media) */
+#pf-wrap #pf-modal .pf-name-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+/* Form fields */
+#pf-wrap #pf-modal .pf-field { margin-bottom: 16px; }
+#pf-wrap #pf-modal .pf-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+#pf-wrap #pf-modal .pf-req { color: var(--error); margin-left: 2px; }
+#pf-wrap #pf-modal .pf-input {
+  width: 100%;
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: 14px 16px;
+  font-size: 16px;
+  font-family: inherit;
+  color: var(--text);
+  background: var(--surface);
+  transition: border-color 0.15s, box-shadow 0.15s;
+  outline: none;
+}
+#pf-wrap #pf-modal .pf-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(212, 146, 10, 0.14);
+}
+#pf-wrap #pf-modal .pf-input.pf-err { border-color: var(--error); }
+#pf-wrap #pf-modal .pf-err-msg {
+  font-size: 12px;
+  color: var(--error);
+  margin-top: 4px;
+  display: none;
+}
+#pf-wrap #pf-modal .pf-input.pf-err + .pf-err-msg { display: block; }
+
+/* Submit button — all interactive states */
+#pf-wrap #pf-modal .pf-btn {
+  width: 100%;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--r-sm);
+  padding: 16px 36px;
+  font-size: 17px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  margin-top: 8px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+#pf-wrap #pf-modal .pf-btn::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 60%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
+  transition: left 0.4s ease;
+  pointer-events: none;
+}
+#pf-wrap #pf-modal .pf-btn:hover::after,
+#pf-wrap #pf-modal .pf-btn.pf-btn--active::after { left: 140%; }
+#pf-wrap #pf-modal .pf-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(212, 146, 10, 0.45);
+}
+#pf-wrap #pf-modal .pf-btn:active {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(212, 146, 10, 0.25);
+}
+#pf-wrap #pf-modal .pf-btn.pf-btn--active {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(212, 146, 10, 0.38);
+  animation: pfBtnPulse 2s ease-in-out infinite;
+}
+@keyframes pfBtnPulse {
+  0%, 100% { box-shadow: 0 6px 24px rgba(212, 146, 10, 0.38); }
+  50%       { box-shadow: 0 6px 32px rgba(212, 146, 10, 0.58), 0 0 0 5px rgba(212, 146, 10, 0.12); }
+}
+#pf-wrap #pf-modal .pf-btn:disabled {
+  opacity: 0.72;
+  cursor: not-allowed;
+  transform: none;
+  animation: none;
+}
+
+/* Back button */
+#pf-wrap #pf-modal .pf-back-btn {
+  background: none;
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: 9px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--muted);
+  cursor: pointer;
+  font-family: inherit;
+  margin-bottom: 20px;
+  transition: border-color 0.15s, color 0.15s;
+}
+#pf-wrap #pf-modal .pf-back-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+#pf-wrap #pf-modal .pf-disclaimer {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: center;
+  margin-top: 14px;
+  line-height: 1.5;
+}
+
+/* Calendar step */
+#pf-wrap #pf-step2 { display: none; }
+#pf-wrap #pf-step2 iframe {
+  width: 100%;
+  min-width: 0;
+  border: none;
+  display: block;
+  border-radius: var(--r-md);
+}
+
+/* Modal — @media is allowed here (position:fixed, no container ancestor) */
+@media (max-width: 768px) {
+  #pf-wrap #pf-modal { padding: 38px 28px 30px; }
+  #pf-wrap #pf-modal h3 { font-size: 22px; }
+}
+@media (max-width: 480px) {
+  #pf-wrap #pf-modal {
+    padding: 32px 18px 24px;
+    border-radius: var(--r-md);
+    max-height: 95vh;
+  }
+  #pf-wrap #pf-modal h3 { font-size: 19px; }
+  #pf-wrap #pf-modal .pf-name-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  #pf-wrap #pf-step2 iframe { height: 560px; }
+}
+</style>
+</head>
+<body>
+
+<div id="pf-wrap">
+
+  <!-- ── HERO ── -->
+  <section class="pf-hero">
+    <div class="pf-video-bg">
+      <video autoplay muted loop playsinline>
+        <source src="https://assets.cdn.filesafe.space/0HZzu2ObqxENhFG8qwcG/media/69dfec6d27c94c7e4e720f65.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="pf-video-overlay"></div>
+
+    <div class="pf-inner">
+      <div class="pf-hero-badge">⭐ Trusted Home Moving Specialists</div>
+      <h1>Move Smarter.<br>Settle Faster.</h1>
+      <p class="pf-hero-sub">Professional home moving — handled with care, delivered on time. Get your free quote and lock in your slot in under 60 seconds.</p>
+      <div class="pf-trust">
+        <span class="pf-pill">✓ Licensed &amp; Insured</span>
+        <span class="pf-pill">✓ Same-Day Quotes</span>
+        <span class="pf-pill">✓ 5-Star Rated</span>
+      </div>
+      <button class="pf-cta-btn" onclick="pfOpenModal()">Book My Move →</button>
+    </div>
+  </section>
+
+  <!-- ── BENEFITS ── -->
+  <section class="pf-benefits">
+    <div class="pf-inner">
+      <div class="pf-sec-heading">
+        <h2>Why Homeowners Choose Us</h2>
+        <p>We take the stress out of moving — so you can focus on your fresh start.</p>
+      </div>
+      <div class="pf-benefits-grid">
+
+        <div class="pf-bcard">
+          <div class="pf-bcard-icon">⚡</div>
+          <h3>Fast &amp; Efficient</h3>
+          <p>Our trained crews move quickly without cutting corners. Most local moves wrap up in a single day — start to finish.</p>
+        </div>
+
+        <div class="pf-bcard">
+          <div class="pf-bcard-icon">🛡️</div>
+          <h3>Careful Handling</h3>
+          <p>Every item is wrapped, padded, and secured before it leaves your door. We treat your home like it's our own.</p>
+        </div>
+
+        <div class="pf-bcard">
+          <div class="pf-bcard-icon">💬</div>
+          <h3>Transparent Pricing</h3>
+          <p>Clear upfront quotes. No surprise fees. What we quote is what you pay — guaranteed.</p>
+        </div>
+
+      </div>
+      <div class="pf-sec-cta">
+        <button class="pf-cta-btn" onclick="pfOpenModal()">Get a Free Quote →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PROOF ── -->
+  <section class="pf-proof">
+    <div class="pf-inner">
+
+      <div class="pf-stats">
+        <div class="pf-stat">
+          <div class="pf-stat-num">500+</div>
+          <div class="pf-stat-label">Homes Moved</div>
+        </div>
+        <div class="pf-stat">
+          <div class="pf-stat-num">98%</div>
+          <div class="pf-stat-label">On-Time Delivery</div>
+        </div>
+        <div class="pf-stat">
+          <div class="pf-stat-num">5★</div>
+          <div class="pf-stat-label">Average Rating</div>
+        </div>
+      </div>
+
+      <div class="pf-sec-heading">
+        <h2>What Our Clients Say</h2>
+      </div>
+
+      <div class="pf-tcards">
+        <div class="pf-tcard">
+          <div class="pf-stars">★★★★★</div>
+          <p class="pf-quote">"The crew arrived right on time, packed everything carefully, and had us fully settled the same day. Completely stress-free from start to finish!"</p>
+          <div class="pf-author">
+            <div class="pf-avatar">SL</div>
+            <div>
+              <div class="pf-author-name">Sarah L.</div>
+              <div class="pf-author-meta">Verified Client</div>
+            </div>
+          </div>
+        </div>
+        <div class="pf-tcard">
+          <div class="pf-stars">★★★★★</div>
+          <p class="pf-quote">"I was quoted clearly upfront and the final bill matched exactly. The team was professional, fast, and even reassembled all our furniture. Highly recommend."</p>
+          <div class="pf-author">
+            <div class="pf-avatar">MR</div>
+            <div>
+              <div class="pf-author-name">Marcus R.</div>
+              <div class="pf-author-meta">Verified Client</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pf-sec-cta">
+        <button class="pf-cta-btn" onclick="pfOpenModal()">Book My Move Today →</button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer class="pf-footer">
+    <div class="pf-inner">
+      <div class="pf-footer-brand">🚚 Home Movers</div>
+      <div class="pf-footer-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ── MODAL OVERLAY (inside #pf-wrap so var() tokens resolve) ── -->
+  <div id="pf-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="pf-modal-title">
+    <div id="pf-modal">
+
+      <button id="pf-modal-close" onclick="pfCloseModal()" aria-label="Close">✕</button>
+
+      <!-- STEP 1: Lead Capture -->
+      <div id="pf-step1">
+        <div class="pf-modal-badge">Step 1 of 2 — Your Details</div>
+        <h3 id="pf-modal-title">Get Your Free Moving Quote</h3>
+        <p class="pf-modal-sub">Fill in your details and we'll connect you with the perfect slot. Takes 60 seconds.</p>
+
+        <form id="pf-form" novalidate onsubmit="pfSubmit(event)">
+          <div class="pf-name-row">
+            <div class="pf-field">
+              <label class="pf-label" for="pf-first">First Name <span class="pf-req" aria-hidden="true">*</span></label>
+              <input type="text" id="pf-first" class="pf-input" placeholder="John" autocomplete="given-name">
+              <div class="pf-err-msg">Please enter your first name.</div>
+            </div>
+            <div class="pf-field">
+              <label class="pf-label" for="pf-last">Last Name <span class="pf-req" aria-hidden="true">*</span></label>
+              <input type="text" id="pf-last" class="pf-input" placeholder="Doe" autocomplete="family-name">
+              <div class="pf-err-msg">Please enter your last name.</div>
+            </div>
+          </div>
+          <div class="pf-field">
+            <label class="pf-label" for="pf-phone">Phone <span class="pf-req" aria-hidden="true">*</span></label>
+            <input type="tel" id="pf-phone" class="pf-input" placeholder="+1 (555) 000-0000" inputmode="tel" autocomplete="tel">
+            <div class="pf-err-msg">Please enter your phone number.</div>
+          </div>
+          <div class="pf-field">
+            <label class="pf-label" for="pf-email">Email <span class="pf-req" aria-hidden="true">*</span></label>
+            <input type="email" id="pf-email" class="pf-input" placeholder="john@email.com" inputmode="email" autocomplete="email">
+            <div class="pf-err-msg">Please enter a valid email address.</div>
+          </div>
+          <button type="submit" class="pf-btn" id="pf-btn">Next: Book Your Slot →</button>
+        </form>
+
+        <p class="pf-disclaimer">🔒 Your info is 100% private. No spam, ever.</p>
+      </div>
+
+      <!-- STEP 2: GHL Calendar -->
+      <div id="pf-step2">
+        <button class="pf-back-btn" onclick="pfBackToStep1()">← Back</button>
+        <div class="pf-modal-badge">Step 2 of 2 — Choose a Time</div>
+        <h3>Pick a Date &amp; Time</h3>
+        <p class="pf-modal-sub">Select the slot that works best. All times shown in your local timezone.</p>
+        <iframe
+          src="https://api.leadconnectorhq.com/widget/booking/Ts9VKLrLLF24c1q7WvaT"
+          style="height:640px;"
+          scrolling="no"
+          id="msgsndr-calendar">
+        </iframe>
+      </div>
+
+    </div>
+  </div><!-- end #pf-modal-overlay -->
+
+</div><!-- end #pf-wrap -->
+
+<!-- GHL calendar embed script (required for booking widget) -->
+<script src="https://link.msgsndr.com/js/form_embed.js"></script>
+
+<script>
+/* ── MODAL OPEN / CLOSE ── */
+function pfOpenModal() {
+  document.getElementById('pf-modal-overlay').classList.add('pf-modal--open');
+  document.body.style.overflow = 'hidden';
+  setTimeout(function () {
+    var f = document.getElementById('pf-first');
+    if (f) f.focus();
+  }, 280);
+}
+function pfCloseModal() {
+  document.getElementById('pf-modal-overlay').classList.remove('pf-modal--open');
+  document.body.style.overflow = '';
+}
+
+/* Close on backdrop click */
+document.getElementById('pf-modal-overlay').addEventListener('click', function (e) {
+  if (e.target === this) pfCloseModal();
+});
+/* Close on Escape */
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'Escape') pfCloseModal();
+});
+
+/* ── STEP NAVIGATION ── */
+function pfGoToCalendar() {
+  document.getElementById('pf-step1').style.display = 'none';
+  document.getElementById('pf-step2').style.display = 'block';
+  document.getElementById('pf-modal').scrollTop = 0;
+}
+function pfBackToStep1() {
+  document.getElementById('pf-step2').style.display = 'none';
+  document.getElementById('pf-step1').style.display = 'block';
+}
+
+/* ── FORM SUBMIT ── */
+function pfSubmit(e) {
+  e.preventDefault();
+  var WEBHOOK = 'WEBHOOK_URL_HERE'; /* Replace with your GHL inbound webhook URL */
+
+  var first = document.getElementById('pf-first');
+  var last  = document.getElementById('pf-last');
+  var phone = document.getElementById('pf-phone');
+  var email = document.getElementById('pf-email');
+  var btn   = document.getElementById('pf-btn');
+
+  /* Clear previous errors */
+  [first, last, phone, email].forEach(function (f) { f.classList.remove('pf-err'); });
+
+  /* Validate */
+  var valid = true;
+  if (!first.value.trim()) { first.classList.add('pf-err'); valid = false; }
+  if (!last.value.trim())  { last.classList.add('pf-err');  valid = false; }
+  if (!phone.value.trim()) { phone.classList.add('pf-err'); valid = false; }
+  if (!email.value.trim() || !email.value.includes('@')) {
+    email.classList.add('pf-err'); valid = false;
+  }
+  if (!valid) return;
+
+  /* Submitting state */
+  btn.textContent = 'Sending…';
+  btn.disabled = true;
+  btn.classList.remove('pf-btn--active');
+
+  /* POST to GHL webhook */
+  fetch(WEBHOOK, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      firstName: first.value.trim(),
+      lastName:  last.value.trim(),
+      phone:     phone.value.trim(),
+      email:     email.value.trim()
+    })
+  }).catch(function () {});
+
+  /* Advance to calendar after brief delay */
+  setTimeout(function () {
+    pfGoToCalendar();
+    btn.textContent = 'Next: Book Your Slot →';
+    btn.disabled = false;
+  }, 900);
+}
+
+/* ── INTERACTIVE BUTTON — pulse glow when user starts filling fields ── */
+(function () {
+  var btn    = document.getElementById('pf-btn');
+  var inputs = document.querySelectorAll('#pf-form .pf-input');
+  var active = false;
+
+  inputs.forEach(function (input) {
+    /* Clear field error on change */
+    input.addEventListener('input', function () {
+      input.classList.remove('pf-err');
+    });
+    input.addEventListener('focus', function () {
+      if (!active && btn && !btn.disabled) {
+        active = true;
+        btn.classList.add('pf-btn--active');
+      }
+    });
+    input.addEventListener('blur', function () {
+      var anyFocused = Array.from(inputs).some(function (i) {
+        return document.activeElement === i;
+      });
+      if (!anyFocused) {
+        active = false;
+        if (btn) btn.classList.remove('pf-btn--active');
+      }
+    });
+  });
+})();
+</script>
+
+<!-- ── FULL-BLEED FIX — corrects GHL desktop column constraint without touching mobile ── -->
+<script>
+(function () {
+  var selectors = '.pf-hero, .pf-benefits, .pf-proof, .pf-footer';
+
+  function fullBleed() {
+    document.querySelectorAll(selectors).forEach(function (el) {
+      /* Reset so we measure the natural layout */
+      el.style.width = '';
+      el.style.marginLeft = '';
+
+      var rect = el.getBoundingClientRect();
+      var vw   = window.innerWidth;
+
+      /* Only apply when GHL's column is constraining the section
+         — on mobile the column already fills the viewport so rect.left ≈ 0
+         and rect.width ≈ vw, so the condition is false and nothing changes */
+      if (rect.left > 2 || rect.width < vw - 4) {
+        el.style.marginLeft = (-rect.left) + 'px';
+        el.style.width      = vw + 'px';
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', fullBleed);
+  } else {
+    fullBleed();
+  }
+  window.addEventListener('resize', fullBleed);
+})();
+</script>
+
+</body>
+</html>

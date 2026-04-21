@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Barberia — Premium Barbershop</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+
+    body {
+      background: #0a0a0a;
+      color: #fff;
+      font-family: 'Inter', system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    :root {
+      --gold:    #c9a84c;
+      --gold-dk: #9a7a2e;
+      --black:   #0a0a0a;
+      --d2:      #1a1a1a;
+      --d3:      #222;
+      --muted:   #888;
+      --border:  rgba(201,168,76,0.18);
+      --head:    'Playfair Display', Georgia, serif;
+    }
+
+    /* ── MAIN WRAPPER — width:100%, GHL column handles sizing ── */
+    #barbariaPage {
+      width: 100%;
+    }
+
+    /* ── NAV ─────────────────────────────────────────────── */
+    #barbariaPage nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      width: 100%;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 48px;
+      transition: background 0.4s;
+    }
+    #barbariaPage nav.scrolled {
+      background: rgba(10,10,10,0.94);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+    #barbariaPage .logo {
+      font-family: var(--head);
+      font-size: 22px;
+      font-weight: 900;
+      color: var(--gold);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    #barbariaPage .nav-btn {
+      padding: 10px 26px;
+      border: 1.5px solid var(--gold);
+      border-radius: 100px;
+      background: transparent;
+      color: var(--gold);
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      white-space: nowrap;
+    }
+    #barbariaPage .nav-btn:hover { background: var(--gold); color: var(--black); }
+
+    /* ── HERO ────────────────────────────────────────────── */
+    #barbariaPage .hero {
+      position: relative;
+      width: 100%;
+      height: 100dvh;
+      min-height: 500px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: #000;
+    }
+
+    #barbariaPage .hero video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 15%;
+      z-index: 0;
+    }
+
+    #barbariaPage .hero-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.25) 0%,
+        rgba(0,0,0,0.50) 50%,
+        rgba(0,0,0,0.82) 100%
+      );
+    }
+
+    #barbariaPage .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 0 24px;
+      width: 100%;
+      max-width: 820px;
+    }
+
+    #barbariaPage .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 24px;
+    }
+    #barbariaPage .hero-eyebrow::before,
+    #barbariaPage .hero-eyebrow::after {
+      content: '';
+      display: block;
+      width: 32px; height: 1px;
+      background: var(--gold);
+    }
+
+    #barbariaPage .hero h1 {
+      font-family: var(--head);
+      font-size: 58px;
+      font-weight: 900;
+      line-height: 1.06;
+      letter-spacing: -0.02em;
+      color: #fff;
+      margin-bottom: 20px;
+      word-wrap: break-word;
+    }
+    #barbariaPage .hero h1 em { font-style: italic; color: var(--gold); }
+
+    #barbariaPage .hero-sub {
+      font-size: 18px;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.72;
+      max-width: 520px;
+      margin: 0 auto 40px;
+    }
+
+    #barbariaPage .btn-gold {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 38px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dk));
+      color: var(--black);
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border: none;
+      border-radius: 100px;
+      cursor: pointer;
+      box-shadow: 0 8px 28px rgba(201,168,76,0.42);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    #barbariaPage .btn-gold:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 42px rgba(201,168,76,0.58);
+    }
+
+    #barbariaPage .scroll-ind {
+      position: absolute;
+      bottom: 36px; left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    #barbariaPage .scroll-ind span {
+      font-size: 0.6rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+    }
+    #barbariaPage .scroll-line {
+      width: 1px; height: 48px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+      animation: sLine 2s ease-in-out infinite;
+    }
+    @keyframes sLine {
+      0%,100% { opacity:0.35; transform:scaleY(0.7); }
+      50%      { opacity:1;    transform:scaleY(1); }
+    }
+
+    /* ── STATS ───────────────────────────────────────────── */
+    #barbariaPage .stats {
+      width: 100%;
+      background: var(--d2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+    }
+    #barbariaPage .stat {
+      padding: 36px 16px;
+      text-align: center;
+      border-right: 1px solid var(--border);
+    }
+    #barbariaPage .stat:last-child { border-right: none; }
+    #barbariaPage .stat-n {
+      font-family: var(--head);
+      font-size: 34px;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    #barbariaPage .stat-l {
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    /* ── INNER CONTENT WRAPPER ───────────────────────────── */
+    #barbariaPage .inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 80px 48px;
+    }
+
+    #barbariaPage .sec-head { text-align: center; margin-bottom: 52px; }
+    #barbariaPage .sec-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--gold);
+      font-size: 0.66rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    #barbariaPage .sec-tag::before,
+    #barbariaPage .sec-tag::after { content:''; width:26px; height:1px; background:var(--gold); }
+    #barbariaPage .sec-h2 {
+      font-family: var(--head);
+      font-size: 46px;
+      font-weight: 900;
+      line-height: 1.16;
+      color: #fff;
+      word-wrap: break-word;
+    }
+    #barbariaPage .sec-h2 em { font-style: italic; color: var(--gold); }
+
+    /* ── SERVICES ────────────────────────────────────────── */
+    #barbariaPage .svc-bg { width: 100%; background: var(--black); }
+    #barbariaPage .svc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+    #barbariaPage .svc {
+      background: var(--d2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px 24px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.22s, border-color 0.22s;
+    }
+    #barbariaPage .svc::after {
+      content:'';
+      position:absolute; top:0; left:0; right:0; height:2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      opacity:0; transition: opacity 0.3s;
+    }
+    #barbariaPage .svc:hover { transform: translateY(-4px); border-color: rgba(201,168,76,0.5); }
+    #barbariaPage .svc:hover::after { opacity: 1; }
+    #barbariaPage .svc-icon { font-size: 1.8rem; display: block; margin-bottom: 14px; }
+    #barbariaPage .svc h3 {
+      font-family: var(--head);
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    #barbariaPage .svc p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 18px;
+    }
+    #barbariaPage .svc-price { font-size: 1.05rem; font-weight: 700; color: var(--gold); }
+
+    /* ── REVIEWS ─────────────────────────────────────────── */
+    #barbariaPage .rev-bg {
+      width: 100%;
+      background: var(--d2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    #barbariaPage .rev-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 22px;
+    }
+    #barbariaPage .rev {
+      background: var(--d3);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 26px 22px;
+    }
+    #barbariaPage .stars { color: var(--gold); letter-spacing: 2px; margin-bottom: 14px; font-size: 0.9rem; }
+    #barbariaPage .rev blockquote {
+      font-size: 14px;
+      color: rgba(255,255,255,0.8);
+      line-height: 1.76;
+      font-style: italic;
+      margin-bottom: 20px;
+    }
+    #barbariaPage .reviewer { display: flex; align-items: center; gap: 12px; }
+    #barbariaPage .avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold-dk), var(--gold));
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 0.78rem; color: var(--black); flex-shrink: 0;
+    }
+    #barbariaPage .rname { font-size: 0.86rem; font-weight: 700; color: #fff; }
+    #barbariaPage .rmeta { font-size: 0.74rem; color: var(--muted); margin-top: 2px; }
+
+    /* ── CTA BAND ────────────────────────────────────────── */
+    #barbariaPage .cta-bg {
+      width: 100%;
+      background: radial-gradient(ellipse at center, rgba(201,168,76,0.07) 0%, transparent 70%);
+      border-top: 1px solid var(--border);
+    }
+    #barbariaPage .cta-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    #barbariaPage .cta-inner h2 {
+      font-family: var(--head);
+      font-size: 48px;
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.2;
+      margin-bottom: 14px;
+      word-wrap: break-word;
+    }
+    #barbariaPage .cta-inner h2 em { font-style: italic; color: var(--gold); }
+    #barbariaPage .cta-inner p {
+      color: var(--muted);
+      font-size: 16px;
+      margin-bottom: 36px;
+    }
+
+    /* ── FOOTER ──────────────────────────────────────────── */
+    #barbariaPage footer {
+      width: 100%;
+      background: var(--d2);
+      border-top: 1px solid var(--border);
+      padding: 30px 24px;
+      text-align: center;
+    }
+    #barbariaPage .foot-logo {
+      font-family: var(--head);
+      font-size: 1.3rem; font-weight: 900;
+      color: var(--gold); letter-spacing: 0.1em;
+      text-transform: uppercase; margin-bottom: 10px;
+    }
+    #barbariaPage footer p { font-size: 0.76rem; color: var(--muted); }
+
+    /* ── MODAL ───────────────────────────────────────────── */
+    #barbariaModal {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.9);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      z-index: 999;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s;
+    }
+    @media (min-width: 600px) { #barbariaModal { align-items: center; padding: 24px; } }
+    #barbariaModal.open { opacity: 1; pointer-events: all; }
+
+    #barbariaModal .m-box {
+      background: var(--d2);
+      border: 1px solid var(--border);
+      border-radius: 20px 20px 0 0;
+      padding: 36px 20px 44px;
+      width: 100%;
+      max-width: 480px;
+      max-height: 92vh;
+      overflow-y: auto;
+      position: relative;
+      transform: translateY(60px);
+      transition: transform 0.32s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    @media (min-width: 600px) {
+      #barbariaModal .m-box { border-radius: 20px; transform: translateY(30px) scale(0.97); padding: 42px 34px 46px; }
+    }
+    #barbariaModal.open .m-box { transform: translateY(0) scale(1); }
+
+    #barbariaModal .m-handle { width:40px; height:3px; background:rgba(255,255,255,0.14); border-radius:100px; margin:0 auto 28px; }
+    @media (min-width:600px) { #barbariaModal .m-handle { display:none; } }
+    #barbariaModal .m-close {
+      position:absolute; top:18px; right:18px;
+      width:32px; height:32px; border-radius:50%;
+      background:var(--d3); border:1px solid var(--border);
+      color:var(--muted); font-size:0.88rem; cursor:pointer;
+      display:flex; align-items:center; justify-content:center;
+      transition:border-color 0.15s, color 0.15s;
+    }
+    #barbariaModal .m-close:hover { border-color:var(--gold); color:var(--gold); }
+    #barbariaModal .m-eye  { font-size:0.67rem; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold); margin-bottom:6px; }
+    #barbariaModal .m-h2   { font-family:var(--head); font-size:26px; font-weight:900; color:#fff; margin-bottom:6px; line-height:1.2; }
+    #barbariaModal .m-sub  { font-size:0.85rem; color:var(--muted); line-height:1.55; margin-bottom:26px; }
+
+    #barbariaModal .form  { display:flex; flex-direction:column; gap:14px; }
+    #barbariaModal .field { display:flex; flex-direction:column; gap:5px; }
+    #barbariaModal .field label { font-size:0.72rem; font-weight:700; color:rgba(255,255,255,0.6); letter-spacing:0.06em; text-transform:uppercase; }
+    #barbariaModal .field label .req { color:var(--gold); }
+    #barbariaModal .field input,
+    #barbariaModal .field select {
+      width:100%; padding:12px 14px;
+      background:var(--d3); border:1.5px solid rgba(255,255,255,0.1);
+      border-radius:8px; font-size:0.92rem; font-family:'Inter',sans-serif;
+      color:#fff; outline:none; appearance:none; -webkit-appearance:none;
+      transition:border-color 0.18s, box-shadow 0.18s;
+    }
+    #barbariaModal .field input::placeholder { color:rgba(255,255,255,0.22); }
+    #barbariaModal .field input:focus,
+    #barbariaModal .field select:focus { border-color:var(--gold); box-shadow:0 0 0 3px rgba(201,168,76,0.14); }
+    #barbariaModal .field input.err,
+    #barbariaModal .field select.err { border-color:#ef4444; }
+    #barbariaModal .sel { position:relative; }
+    #barbariaModal .sel::after { content:''; position:absolute; right:13px; top:50%; transform:translateY(-50%); border:5px solid transparent; border-top-color:var(--muted); pointer-events:none; }
+    #barbariaModal .sel select { padding-right:36px; cursor:pointer; }
+    #barbariaModal .field select option { background:var(--d3); }
+    #barbariaModal .row2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    #barbariaModal .sub-btn {
+      width:100%; padding:15px;
+      background:linear-gradient(135deg,var(--gold),var(--gold-dk));
+      color:var(--black); font-family:'Inter',sans-serif; font-size:0.9rem;
+      font-weight:700; letter-spacing:0.08em; text-transform:uppercase;
+      border:none; border-radius:100px; cursor:pointer;
+      box-shadow:0 6px 22px rgba(201,168,76,0.34);
+      transition:transform 0.15s, box-shadow 0.15s; margin-top:4px;
+    }
+    #barbariaModal .sub-btn:hover { transform:translateY(-2px); box-shadow:0 10px 30px rgba(201,168,76,0.5); }
+    #barbariaModal .sub-btn:disabled { opacity:0.5; cursor:not-allowed; transform:none; }
+    #barbariaModal .form-note { font-size:0.72rem; color:var(--muted); text-align:center; line-height:1.5; }
+    #barbariaModal .done { display:none; text-align:center; padding:18px 0 10px; }
+    #barbariaModal .done.show { display:block; }
+    #barbariaModal .done-icon { width:72px; height:72px; border-radius:50%; background:linear-gradient(135deg,var(--gold-dk),var(--gold)); display:flex; align-items:center; justify-content:center; margin:0 auto 20px; font-size:1.9rem; box-shadow:0 8px 28px rgba(201,168,76,0.4); }
+    #barbariaModal .done h3 { font-family:var(--head); font-size:1.5rem; font-weight:900; color:#fff; margin-bottom:10px; }
+    #barbariaModal .done p { font-size:0.9rem; color:var(--muted); line-height:1.65; }
+
+    /* ── TABLET ──────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      #barbariaPage nav        { padding: 16px 20px; }
+      #barbariaPage .inner     { padding: 56px 24px; }
+      #barbariaPage .hero h1   { font-size: 38px; }
+      #barbariaPage .hero-sub  { font-size: 16px; }
+      #barbariaPage .sec-h2    { font-size: 30px; }
+      #barbariaPage .cta-inner h2 { font-size: 30px; }
+      #barbariaPage .stat-n    { font-size: 26px; }
+      #barbariaPage .stats     { grid-template-columns: repeat(2,1fr); }
+      #barbariaPage .stat:nth-child(1) { border-right:1px solid var(--border); border-bottom:1px solid var(--border); }
+      #barbariaPage .stat:nth-child(2) { border-right:none; border-bottom:1px solid var(--border); }
+      #barbariaPage .stat:nth-child(3) { border-right:1px solid var(--border); border-bottom:none; }
+      #barbariaPage .stat:nth-child(4) { border-right:none; }
+      #barbariaPage .svc-grid  { grid-template-columns: 1fr; }
+      #barbariaPage .rev-grid  { grid-template-columns: 1fr; }
+      #barbariaModal .row2     { grid-template-columns: 1fr; }
+    }
+
+    /* ── MOBILE ──────────────────────────────────────────── */
+    @media (max-width: 480px) {
+      #barbariaPage nav        { padding: 14px 16px; }
+      #barbariaPage .logo      { font-size: 18px; }
+      #barbariaPage .nav-btn   { padding: 8px 16px; font-size: 11px; }
+      #barbariaPage .inner     { padding: 40px 16px; }
+      #barbariaPage .sec-head  { margin-bottom: 32px; }
+      #barbariaPage .hero-content { padding: 0 16px; }
+      #barbariaPage .hero h1   { font-size: 30px; line-height: 1.12; margin-bottom: 14px; }
+      #barbariaPage .hero-sub  { font-size: 15px; max-width: 100%; margin-bottom: 28px; }
+      #barbariaPage .btn-gold  { font-size: 13px; padding: 13px 22px; }
+      #barbariaPage .stat      { padding: 18px 10px; }
+      #barbariaPage .stat-n    { font-size: 22px; }
+      #barbariaPage .stat-l    { font-size: 10px; }
+      #barbariaPage .sec-h2    { font-size: 26px; line-height: 1.18; }
+      #barbariaPage .cta-inner h2 { font-size: 26px; line-height: 1.18; }
+      #barbariaPage .cta-inner p  { font-size: 14px; margin-bottom: 24px; }
+      #barbariaPage .svc       { padding: 20px 14px; }
+      #barbariaPage .svc h3    { font-size: 16px; }
+      #barbariaPage .svc p     { font-size: 13px; }
+      #barbariaPage .rev       { padding: 18px 14px; }
+      #barbariaPage .rev blockquote { font-size: 13px; }
+      #barbariaPage footer     { padding: 24px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="barbariaPage">
+
+  <!-- NAV -->
+  <nav id="barNav">
+    <div class="logo">Barberia</div>
+    <button class="nav-btn" onclick="openBarModal()">Book Now</button>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <video autoplay muted loop playsinline>
+      <source src="https://assets.cdn.filesafe.space/0HZzu2ObqxENhFG8qwcG/media/69d76f45d82c9d050437b709.mp4" type="video/mp4">
+    </video>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">Premium Barbershop</div>
+      <h1>Your Best Cut<br><em>Starts Here</em></h1>
+      <p class="hero-sub">Premium barbershop experience with precision cuts, clean fades, and a style that speaks for itself.</p>
+      <button class="btn-gold" onclick="openBarModal()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        Book Your Appointment
+      </button>
+    </div>
+    <div class="scroll-ind">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat"><div class="stat-n">500+</div><div class="stat-l">Happy Clients</div></div>
+    <div class="stat"><div class="stat-n">5★</div><div class="stat-l">Avg. Rating</div></div>
+    <div class="stat"><div class="stat-n">8 yrs</div><div class="stat-l">Experience</div></div>
+    <div class="stat"><div class="stat-n">100%</div><div class="stat-l">Satisfaction</div></div>
+  </div>
+
+  <!-- SERVICES -->
+  <div class="svc-bg">
+    <div class="inner">
+      <div class="sec-head">
+        <div class="sec-tag">What We Offer</div>
+        <h2 class="sec-h2">Premium Services,<br>Unmatched Craft</h2>
+      </div>
+      <div class="svc-grid">
+        <div class="svc"><span class="svc-icon">✂️</span><h3>Classic Haircut</h3><p>Precision cut tailored to your face shape and personal style. Includes wash and style.</p><div class="svc-price">From $35</div></div>
+        <div class="svc"><span class="svc-icon">💈</span><h3>Skin Fade</h3><p>Sharp, clean fade blended to perfection. The signature look of a premium barbershop.</p><div class="svc-price">From $45</div></div>
+        <div class="svc"><span class="svc-icon">🪒</span><h3>Beard Trim & Shape</h3><p>Expert beard sculpting with hot towel treatment and premium grooming products.</p><div class="svc-price">From $25</div></div>
+        <div class="svc"><span class="svc-icon">👑</span><h3>The Full Experience</h3><p>Haircut + beard + hot towel shave + scalp massage. The ultimate grooming session.</p><div class="svc-price">From $75</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REVIEWS -->
+  <div class="rev-bg">
+    <div class="inner">
+      <div class="sec-head">
+        <div class="sec-tag">Client Reviews</div>
+        <h2 class="sec-h2">They Come Back<br><em>Every Time</em></h2>
+      </div>
+      <div class="rev-grid">
+        <div class="rev"><div class="stars">★★★★★</div><blockquote>"Best fade I've ever had. The attention to detail is unreal — walked out feeling like a different person. This is my barbershop for life."</blockquote><div class="reviewer"><div class="avatar">MR</div><div><div class="rname">Marcus R.</div><div class="rmeta">Verified Client</div></div></div></div>
+        <div class="rev"><div class="stars">★★★★★</div><blockquote>"Booked online in 30 seconds. The full experience package is worth every cent — hot towel, beard shape, the works. Absolutely elite."</blockquote><div class="reviewer"><div class="avatar">JD</div><div><div class="rname">James D.</div><div class="rmeta">Verified Client</div></div></div></div>
+        <div class="rev"><div class="stars">★★★★★</div><blockquote>"The vibe, the cut, the service — everything is on point. I bring all my friends here now. Barberia is the real deal."</blockquote><div class="reviewer"><div class="avatar">AL</div><div><div class="rname">Andre L.</div><div class="rmeta">Verified Client</div></div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOTTOM CTA -->
+  <div class="cta-bg">
+    <div class="inner cta-inner">
+      <h2>Ready for Your<br><em>Best Look Yet?</em></h2>
+      <p>Book your seat in under 60 seconds. No waiting, no hassle.</p>
+      <button class="btn-gold" onclick="openBarModal()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        Book Your Appointment
+      </button>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="foot-logo">Barberia</div>
+    <p>© 2026 Barberia Premium Barbershop · All rights reserved</p>
+  </footer>
+
+</div><!-- /#barbariaPage -->
+
+<!-- MODAL (outside main wrapper, same as carwash pattern) -->
+<div id="barbariaModal">
+  <div class="m-box">
+    <div class="m-handle"></div>
+    <button class="m-close" onclick="closeBarModal()">✕</button>
+    <div id="barFState">
+      <div class="m-eye">Barberia</div>
+      <h2 class="m-h2">Book Your Appointment</h2>
+      <p class="m-sub">Fill in your details and we'll confirm your slot right away.</p>
+      <form class="form" novalidate onsubmit="barSubmit(event)">
+        <div class="row2">
+          <div class="field"><label>First Name <span class="req">*</span></label><input type="text" id="bFn" placeholder="John" autocomplete="given-name"></div>
+          <div class="field"><label>Last Name</label><input type="text" id="bLn" placeholder="Smith" autocomplete="family-name"></div>
+        </div>
+        <div class="field"><label>Phone <span class="req">*</span></label><input type="tel" id="bPh" placeholder="(555) 000-0000" inputmode="tel"></div>
+        <div class="field"><label>Email <span class="req">*</span></label><input type="email" id="bEm" placeholder="john@email.com" inputmode="email"></div>
+        <div class="field">
+          <label>Service <span class="req">*</span></label>
+          <div class="sel"><select id="bSv"><option value="" disabled selected>Choose a service…</option><option>Classic Haircut — $35</option><option>Skin Fade — $45</option><option>Beard Trim & Shape — $25</option><option>Haircut + Beard — $60</option><option>The Full Experience — $75</option></select></div>
+        </div>
+        <div class="field"><label>Notes (optional)</label><input type="text" id="bNt" placeholder="Any special requests…"></div>
+        <button type="submit" class="sub-btn" id="bSubBtn">Confirm My Booking →</button>
+        <p class="form-note">🔒 Your info is private. No spam, ever.</p>
+      </form>
+    </div>
+    <div class="done" id="barDState">
+      <div class="done-icon">✓</div>
+      <h3>You're Booked!</h3>
+      <p>We've received your request. You'll get a confirmation shortly — see you at the chair.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  window.addEventListener('scroll', function() {
+    document.getElementById('barNav').classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  var bModal = document.getElementById('barbariaModal');
+  function openBarModal() {
+    bModal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    setTimeout(function(){ document.getElementById('bFn').focus(); }, 300);
+  }
+  function closeBarModal() {
+    bModal.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  bModal.addEventListener('click', function(e){ if(e.target===bModal) closeBarModal(); });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeBarModal(); });
+
+  function barSubmit(e) {
+    e.preventDefault();
+    var fn=document.getElementById('bFn'), ph=document.getElementById('bPh'),
+        em=document.getElementById('bEm'), sv=document.getElementById('bSv'),
+        btn=document.getElementById('bSubBtn');
+    var ok=true;
+    [fn,ph,em,sv].forEach(function(el){ el.classList.remove('err'); });
+    if(!fn.value.trim())       { fn.classList.add('err'); ok=false; }
+    if(!ph.value.trim())       { ph.classList.add('err'); ok=false; }
+    if(!em.value.includes('@')){ em.classList.add('err'); ok=false; }
+    if(!sv.value)              { sv.classList.add('err'); ok=false; }
+    if(!ok) return;
+    btn.disabled=true; btn.textContent='Confirming…';
+
+    // ── Paste your GHL webhook URL below ──
+    // fetch('YOUR_GHL_WEBHOOK_URL', { method:'POST',
+    //   headers:{'Content-Type':'application/json'},
+    //   body:JSON.stringify({ firstName:fn.value, lastName:document.getElementById('bLn').value,
+    //     phone:ph.value, email:em.value, service:sv.value, notes:document.getElementById('bNt').value })
+    // });
+
+    setTimeout(function(){
+      document.getElementById('barFState').style.display='none';
+      document.getElementById('barDState').classList.add('show');
+    }, 800);
+  }
+</script>
+</body>
+</html>

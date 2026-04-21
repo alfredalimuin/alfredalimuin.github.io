@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DERF Cover Photo</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #111;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      font-family: 'Arial Black', 'Arial Bold', sans-serif;
+    }
+
+    .cover {
+      width: 1024px;
+      height: 576px;
+      background: #080808;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid #222;
+    }
+
+    /* Scanline overlay */
+    .scanlines {
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        to bottom,
+        transparent,
+        transparent 2px,
+        rgba(0,0,0,0.12) 2px,
+        rgba(0,0,0,0.12) 4px
+      );
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    /* Grid background */
+    .bg-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      z-index: 2;
+    }
+
+    /* Neon side accent bars */
+    .accent-left {
+      position: absolute;
+      left: 0; top: 0;
+      width: 4px; height: 100%;
+      background: linear-gradient(to bottom, transparent, #ffffff, #888888, transparent);
+      box-shadow: 0 0 12px rgba(255,255,255,0.6), 0 0 24px rgba(255,255,255,0.2);
+      z-index: 6;
+    }
+
+    .accent-right {
+      position: absolute;
+      right: 0; top: 0;
+      width: 4px; height: 100%;
+      background: linear-gradient(to bottom, transparent, #888888, #ffffff, transparent);
+      box-shadow: 0 0 12px rgba(255,255,255,0.6), 0 0 24px rgba(255,255,255,0.2);
+      z-index: 6;
+    }
+
+    /* Background image */
+    .bg-photo {
+      position: absolute;
+      inset: 0;
+      background-image: url('DERFCOVER.jpg');
+      background-size: cover;
+      background-position: center;
+      filter: grayscale(60%) brightness(0.45) contrast(1.2) saturate(0.4);
+      z-index: 1;
+    }
+
+    /* Dark gradient overlay - heavier on left so text stays readable */
+    .bg-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to right,
+        rgba(8,8,8,0.82) 0%,
+        rgba(8,8,8,0.45) 50%,
+        rgba(8,8,8,0.25) 100%
+      );
+      z-index: 2;
+    }
+
+    /* Main content */
+    .content {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 4px;
+      z-index: 5;
+      padding: 0 200px;
+    }
+
+    /* Brand name */
+    .brand {
+      font-size: 130px;
+      font-weight: 900;
+      letter-spacing: 20px;
+      text-transform: uppercase;
+      color: #ffffff;
+      text-shadow:
+        0 0 20px rgba(255,255,255,0.9),
+        0 0 40px rgba(255,255,255,0.4),
+        0 0 80px rgba(255,255,255,0.15);
+      line-height: 1;
+      position: relative;
+    }
+
+    .brand::before, .brand::after { content: none; }
+
+    /* Divider with diamond center */
+    .divider-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 400px;
+    }
+
+    .divider-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(255,255,255,0.6));
+    }
+
+    .divider-line.right {
+      background: linear-gradient(to left, transparent, rgba(255,255,255,0.6));
+    }
+
+    .diamond {
+      width: 8px;
+      height: 8px;
+      background: #ffffff;
+      transform: rotate(45deg);
+      box-shadow: 0 0 8px rgba(255,255,255,0.8);
+      flex-shrink: 0;
+    }
+
+    /* Social handles */
+    .socials {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .social-item {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      color: #bbbbbb;
+      font-size: 22px;
+      font-weight: bold;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .social-icon {
+      width: 40px;
+      height: 40px;
+      border: 2px solid rgba(255,255,255,0.7);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 900;
+      color: #ffffff;
+      background: rgba(255,255,255,0.05);
+      box-shadow: 0 0 16px rgba(255,255,255,0.2), inset 0 0 16px rgba(255,255,255,0.03);
+      flex-shrink: 0;
+    }
+
+    .social-separator {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.4), transparent);
+    }
+
+    /* Top label */
+    .top-label {
+      position: absolute;
+      top: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 9px;
+      letter-spacing: 6px;
+      color: rgba(255,255,255,0.2);
+      text-transform: uppercase;
+      white-space: nowrap;
+      z-index: 5;
+    }
+
+    /* Bottom label */
+    .bottom-label {
+      position: absolute;
+      bottom: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 9px;
+      letter-spacing: 6px;
+      color: rgba(255,255,255,0.15);
+      text-transform: uppercase;
+      white-space: nowrap;
+      z-index: 5;
+    }
+
+    /* Corner HUD brackets */
+    .corner {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-color: rgba(255,255,255,0.35);
+      border-style: solid;
+      z-index: 5;
+    }
+    .corner.tl { top: 10px; left: 14px; border-width: 2px 0 0 2px; }
+    .corner.tr { top: 10px; right: 14px; border-width: 2px 2px 0 0; }
+    .corner.bl { bottom: 10px; left: 14px; border-width: 0 0 2px 2px; }
+    .corner.br { bottom: 10px; right: 14px; border-width: 0 2px 2px 0; }
+
+    /* HUD dots */
+    .hud-dot {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.3);
+      box-shadow: 0 0 6px rgba(255,255,255,0.5);
+      z-index: 5;
+    }
+    .hud-dot.d1 { top: 10px; left: 44px; }
+    .hud-dot.d2 { top: 10px; right: 44px; }
+    .hud-dot.d3 { bottom: 10px; left: 44px; }
+    .hud-dot.d4 { bottom: 10px; right: 44px; }
+  </style>
+</head>
+<body>
+  <div class="cover">
+    <div class="bg-grid"></div>
+    <div class="scanlines"></div>
+    <div class="accent-left"></div>
+    <div class="accent-right"></div>
+
+    <div class="bg-photo"></div>
+    <div class="bg-overlay"></div>
+
+    <!-- Cartoon gamer scene (SVG) -->
+    <svg class="cartoon-scene" viewBox="0 0 380 312" xmlns="http://www.w3.org/2000/svg" style="display:none">
+      <defs>
+        <!-- Monitor screen glow -->
+        <radialGradient id="screenGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#ffffff" stop-opacity="0.25"/>
+          <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+        </radialGradient>
+        <!-- Floor gradient -->
+        <linearGradient id="floorGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#2a2a2a"/>
+          <stop offset="100%" stop-color="#111111"/>
+        </linearGradient>
+        <filter id="glow">
+          <feGaussianBlur stdDeviation="3" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+
+      <!-- Floor -->
+      <rect x="20" y="268" width="340" height="44" fill="url(#floorGrad)" rx="2"/>
+      <line x1="20" y1="268" x2="360" y2="268" stroke="#444" stroke-width="1.5"/>
+
+      <!-- ── DESK ── -->
+      <!-- Desk surface -->
+      <rect x="130" y="195" width="230" height="14" rx="4" fill="#2e2e2e" stroke="#555" stroke-width="1.5"/>
+      <!-- Desk left leg -->
+      <rect x="140" y="209" width="12" height="59" rx="3" fill="#252525" stroke="#444" stroke-width="1"/>
+      <!-- Desk right leg -->
+      <rect x="332" y="209" width="12" height="59" rx="3" fill="#252525" stroke="#444" stroke-width="1"/>
+      <!-- Desk cross brace -->
+      <rect x="148" y="245" width="196" height="7" rx="3" fill="#1e1e1e" stroke="#444" stroke-width="1"/>
+
+      <!-- ── MONITOR ── -->
+      <!-- Screen glow behind monitor -->
+      <ellipse cx="270" cy="155" rx="75" ry="55" fill="url(#screenGlow)"/>
+      <!-- Monitor housing -->
+      <rect x="200" y="105" width="140" height="90" rx="10" fill="#1a1a1a" stroke="#555" stroke-width="2"/>
+      <!-- Screen face -->
+      <rect x="208" y="112" width="124" height="74" rx="6" fill="#0d0d0d" stroke="#333" stroke-width="1"/>
+      <!-- Screen shine lines (cartoon feel) -->
+      <line x1="215" y1="118" x2="225" y2="130" stroke="#ffffff" stroke-width="1.5" stroke-opacity="0.12" stroke-linecap="round"/>
+      <line x1="220" y1="118" x2="226" y2="125" stroke="#ffffff" stroke-width="1" stroke-opacity="0.08" stroke-linecap="round"/>
+      <!-- Screen glow content -->
+      <rect x="212" y="116" width="116" height="66" rx="4" fill="#ffffff" fill-opacity="0.06"/>
+      <!-- Fake screen lines (game UI feel) -->
+      <rect x="218" y="125" width="60" height="4" rx="2" fill="#ffffff" fill-opacity="0.15"/>
+      <rect x="218" y="133" width="40" height="3" rx="2" fill="#ffffff" fill-opacity="0.1"/>
+      <rect x="218" y="141" width="50" height="3" rx="2" fill="#ffffff" fill-opacity="0.1"/>
+      <rect x="258" y="125" width="30" height="55" rx="3" fill="#ffffff" fill-opacity="0.05"/>
+      <!-- Monitor stand neck -->
+      <rect x="263" y="195" width="14" height="12" rx="2" fill="#252525" stroke="#444" stroke-width="1"/>
+      <!-- Monitor base -->
+      <rect x="245" y="204" width="50" height="8" rx="4" fill="#2a2a2a" stroke="#555" stroke-width="1.5"/>
+
+      <!-- ── KEYBOARD ── -->
+      <rect x="195" y="198" width="95" height="14" rx="4" fill="#222222" stroke="#555" stroke-width="1.5"/>
+      <!-- Key rows -->
+      <rect x="199" y="201" width="87" height="3" rx="1" fill="#333" fill-opacity="0.6"/>
+      <rect x="199" y="206" width="87" height="3" rx="1" fill="#333" fill-opacity="0.6"/>
+
+      <!-- ── GAMING CHAIR ── -->
+      <!-- Chair wheels -->
+      <circle cx="88"  cy="270" r="7" fill="#1a1a1a" stroke="#555" stroke-width="1.5"/>
+      <circle cx="118" cy="272" r="7" fill="#1a1a1a" stroke="#555" stroke-width="1.5"/>
+      <circle cx="63"  cy="272" r="7" fill="#1a1a1a" stroke="#555" stroke-width="1.5"/>
+      <!-- Chair base stem -->
+      <rect x="83" y="240" width="14" height="30" rx="3" fill="#252525" stroke="#444" stroke-width="1"/>
+      <!-- Chair seat -->
+      <ellipse cx="90" cy="237" rx="48" ry="14" fill="#2a2a2a" stroke="#555" stroke-width="2"/>
+      <!-- Chair back (tall, rounded top) -->
+      <rect x="55" y="120" width="70" height="120" rx="20" fill="#222222" stroke="#555" stroke-width="2"/>
+      <!-- Chair back cushion detail -->
+      <rect x="63" y="130" width="54" height="100" rx="15" fill="#1e1e1e" stroke="#444" stroke-width="1"/>
+      <!-- Chair headrest bump -->
+      <rect x="62" y="112" width="56" height="30" rx="16" fill="#252525" stroke="#555" stroke-width="2"/>
+      <!-- Left armrest -->
+      <rect x="42" y="188" width="22" height="10" rx="5" fill="#2a2a2a" stroke="#555" stroke-width="1.5"/>
+      <rect x="47" y="198" width="12" height="30" rx="4" fill="#222" stroke="#444" stroke-width="1"/>
+      <!-- Right armrest -->
+      <rect x="116" y="188" width="22" height="10" rx="5" fill="#2a2a2a" stroke="#555" stroke-width="1.5"/>
+      <rect x="121" y="198" width="12" height="30" rx="4" fill="#222" stroke="#444" stroke-width="1"/>
+
+      <!-- ── CHARACTER ── -->
+      <!-- Body / torso (broader, more adult proportions) -->
+      <rect x="62" y="165" width="56" height="60" rx="8" fill="#1a1a1a" stroke="#666" stroke-width="2"/>
+      <!-- Jacket lapels -->
+      <path d="M90,165 L78,185 L90,180 L102,185 L90,165" fill="#141414" stroke="#555" stroke-width="1"/>
+      <!-- Shoulder width lines -->
+      <line x1="62" y1="172" x2="50" y2="175" stroke="#555" stroke-width="3" stroke-linecap="round"/>
+      <line x1="118" y1="172" x2="130" y2="175" stroke="#555" stroke-width="3" stroke-linecap="round"/>
+      <!-- Left arm reaching to keyboard (thicker, more adult) -->
+      <path d="M64,175 Q38,192 48,207 Q85,212 130,207" stroke="#1a1a1a" stroke-width="20" stroke-linecap="round" fill="none"/>
+      <path d="M64,175 Q38,192 48,207 Q85,212 130,207" stroke="#555" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+      <!-- Right arm reaching to keyboard -->
+      <path d="M116,175 Q142,192 152,207 Q172,212 195,207" stroke="#1a1a1a" stroke-width="20" stroke-linecap="round" fill="none"/>
+      <path d="M116,175 Q142,192 152,207 Q172,212 195,207" stroke="#555" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+      <!-- Legs (longer, adult proportions) -->
+      <rect x="66" y="222" width="22" height="46" rx="6" fill="#151515" stroke="#555" stroke-width="1.5"/>
+      <rect x="92" y="222" width="22" height="46" rx="6" fill="#151515" stroke="#555" stroke-width="1.5"/>
+      <!-- Shoes (more angular) -->
+      <rect x="60" y="262" width="32" height="10" rx="4" fill="#111" stroke="#555" stroke-width="1.5"/>
+      <rect x="86" y="262" width="32" height="10" rx="4" fill="#111" stroke="#555" stroke-width="1.5"/>
+
+      <!-- ── HEAD (more proportional, less oversized) ── -->
+      <!-- Neck (wider, adult) -->
+      <rect x="84" y="150" width="22" height="18" rx="4" fill="#1e1e1e" stroke="#666" stroke-width="1.5"/>
+      <!-- Head (less round, more angular jaw = mature) -->
+      <path d="M62,128 Q62,100 90,98 Q118,100 118,128 Q118,148 108,154 Q90,158 72,154 Q62,148 62,128 Z" fill="#1e1e1e" stroke="#666" stroke-width="2"/>
+      <!-- Ear left -->
+      <ellipse cx="62" cy="128" rx="7" ry="10" fill="#1a1a1a" stroke="#555" stroke-width="1.5"/>
+      <!-- Ear right -->
+      <ellipse cx="118" cy="128" rx="7" ry="10" fill="#1a1a1a" stroke="#555" stroke-width="1.5"/>
+      <!-- Brow ridge (serious look) -->
+      <path d="M72,116 Q80,112 88,115" stroke="#555" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <path d="M92,115 Q100,112 108,116" stroke="#555" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <!-- Eyes (narrower, focused) -->
+      <ellipse cx="81"  cy="122" rx="7" ry="4" fill="#080808" stroke="#888" stroke-width="1.5"/>
+      <ellipse cx="100" cy="122" rx="7" ry="4" fill="#080808" stroke="#888" stroke-width="1.5"/>
+      <!-- Eye shine (small, subtle) -->
+      <circle cx="83" cy="121" r="1.5" fill="#ffffff" fill-opacity="0.5"/>
+      <circle cx="102" cy="121" r="1.5" fill="#ffffff" fill-opacity="0.5"/>
+      <!-- Nose (simple bridge line) -->
+      <path d="M90,125 Q87,132 89,136 Q91,137 93,136 Q95,132 90,125" stroke="#555" stroke-width="1" fill="none"/>
+      <!-- Mouth (neutral/slight smirk, mature) -->
+      <path d="M82,144 Q90,147 98,144" stroke="#777" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <!-- Stubble / beard shadow -->
+      <ellipse cx="90" cy="147" rx="18" ry="8" fill="#151515" fill-opacity="0.5"/>
+      <!-- Short clean hair (swept back, adult) -->
+      <path d="M62,120 Q63,96 90,93 Q117,96 118,120 Q110,105 90,104 Q70,105 62,120 Z" fill="#141414" stroke="#555" stroke-width="1.5"/>
+      <!-- Hair highlight -->
+      <path d="M70,104 Q82,98 95,101" stroke="#444" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+
+      <!-- ── HEADPHONES ── -->
+      <!-- Band arc -->
+      <path d="M60,128 Q62,86 90,83 Q118,86 120,128" stroke="#999" stroke-width="5" fill="none" stroke-linecap="round"/>
+      <!-- Left ear cup (angular, premium look) -->
+      <rect x="48" y="120" width="20" height="26" rx="6" fill="#2e2e2e" stroke="#999" stroke-width="2"/>
+      <rect x="52" y="124" width="12" height="18" rx="4" fill="#1a1a1a"/>
+      <!-- Right ear cup -->
+      <rect x="112" y="120" width="20" height="26" rx="6" fill="#2e2e2e" stroke="#999" stroke-width="2"/>
+      <rect x="116" y="124" width="12" height="18" rx="4" fill="#1a1a1a"/>
+
+      <!-- ── SUBTLE BACKGROUND DETAILS ── -->
+      <!-- Faint circuit lines -->
+      <path d="M155,50 L175,50 L175,65 L195,65" stroke="#ffffff" stroke-width="0.8" stroke-opacity="0.08" fill="none"/>
+      <circle cx="155" cy="50" r="2" fill="#ffffff" fill-opacity="0.08"/>
+      <path d="M340,80 L355,80 L355,95" stroke="#ffffff" stroke-width="0.8" stroke-opacity="0.08" fill="none"/>
+      <circle cx="355" cy="95" r="2" fill="#ffffff" fill-opacity="0.08"/>
+      <!-- Subtle lightning bolt -->
+      <path d="M358,55 L350,74 L357,72 L349,92" stroke="#ffffff" stroke-width="1.5" stroke-opacity="0.15" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+
+
+    <!-- HUD corners -->
+    <div class="corner tl"></div>
+    <div class="corner tr"></div>
+    <div class="corner bl"></div>
+    <div class="corner br"></div>
+    <div class="hud-dot d1"></div>
+    <div class="hud-dot d2"></div>
+    <div class="hud-dot d3"></div>
+    <div class="hud-dot d4"></div>
+
+    <div class="top-label">// Content Creator //</div>
+
+    <div class="content">
+      <div class="brand">DERF</div>
+      <div class="divider-wrap">
+        <div class="divider-line"></div>
+        <div class="diamond"></div>
+        <div class="divider-line right"></div>
+      </div>
+      <div class="socials">
+        <div class="social-item">
+          <div class="social-icon">f</div>
+          @DERFTV
+        </div>
+        <div class="social-separator"></div>
+        <div class="social-item">
+          <div class="social-icon">▶</div>
+          @DERFTV
+        </div>
+      </div>
+    </div>
+
+    <div class="bottom-label">Facebook &nbsp;⬡&nbsp; YouTube</div>
+  </div>
+</body>
+</html>

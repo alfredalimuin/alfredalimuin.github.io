@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>derf.claude — YouTube Profile Picture</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+      color-adjust: exact !important;
+    }
+
+    body {
+      background: #111;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      font-family: 'Inter', sans-serif;
+      gap: 32px;
+      padding: 40px;
+    }
+
+    .hint {
+      color: #555;
+      font-size: 13px;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── THE PROFILE PICTURE — 800×800 ── */
+    .pfp {
+      width: 800px;
+      height: 800px;
+      position: relative;
+      border-radius: 50%;
+      overflow: hidden;
+      flex-shrink: 0;
+
+      /* Deep dark base */
+      background: #050508;
+    }
+
+    /* Gradient glow layers */
+    .pfp::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 60% at 30% 30%, rgba(249, 115, 22, 0.18) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 75% 70%, rgba(234, 88, 12, 0.14) 0%, transparent 55%),
+        radial-gradient(ellipse 80% 80% at 50% 100%, rgba(0, 200, 180, 0.07) 0%, transparent 60%);
+      z-index: 0;
+    }
+
+    /* Subtle grid */
+    .pfp::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.028) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.028) 1px, transparent 1px);
+      background-size: 44px 44px;
+      z-index: 1;
+    }
+
+    .pfp-inner {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+    }
+
+    /* Top tag */
+    .tag {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 28px;
+    }
+    .tag-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #f97316;
+      box-shadow: 0 0 8px rgba(249,115,22,0.8);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%,100% { opacity: 1; transform: scale(1); }
+      50%      { opacity: 0.5; transform: scale(0.7); }
+    }
+    .tag-text {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #f97316;
+    }
+
+    /* Main name */
+    .name-wrap {
+      display: flex;
+      align-items: baseline;
+      gap: 0;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .name-derf {
+      font-size: 130px;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      color: #ffffff;
+      line-height: 1;
+    }
+    .name-dot {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 90px;
+      height: 130px;
+      flex-shrink: 0;
+    }
+    .name-dot svg {
+      width: 68px;
+      height: 68px;
+      filter: drop-shadow(0 0 18px rgba(249,115,22,0.7));
+    }
+    .name-claude {
+      font-size: 130px;
+      font-weight: 300;
+      letter-spacing: -0.04em;
+      color: rgba(255,255,255,0.45);
+      line-height: 1;
+    }
+
+    /* Divider */
+    .divider {
+      width: 280px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(249,115,22,0.5), rgba(234,88,12,0.5), transparent);
+      margin: 24px 0;
+    }
+
+    /* Sub line */
+    .sub {
+      font-size: 18px;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.28);
+    }
+
+    /* Corner accents */
+    .corner {
+      position: absolute;
+      width: 48px;
+      height: 48px;
+      z-index: 3;
+    }
+    .corner::before, .corner::after {
+      content: '';
+      position: absolute;
+      background: rgba(249,115,22,0.5);
+    }
+    .corner::before { width: 2px; height: 100%; }
+    .corner::after  { width: 100%; height: 2px; }
+    .corner.tl { top: 120px; left: 120px; }
+    .corner.tl::before { top: 0; left: 0; }
+    .corner.tl::after  { top: 0; left: 0; }
+    .corner.br { bottom: 120px; right: 120px; transform: rotate(180deg); }
+    .corner.br::before { top: 0; left: 0; }
+    .corner.br::after  { top: 0; left: 0; }
+
+    /* ── SQUARE VERSION (for channel art preview) ── */
+    .pfp.square {
+      border-radius: 16px;
+      width: 400px;
+      height: 400px;
+    }
+    .pfp.square .name-derf   { font-size: 65px; }
+    .pfp.square .name-dot    { width: 46px; height: 65px; }
+    .pfp.square .name-dot svg { width: 34px; height: 34px; }
+    .pfp.square .name-claude { font-size: 65px; }
+    .pfp.square .tag         { margin-bottom: 14px; }
+    .pfp.square .tag-text    { font-size: 10px; }
+    .pfp.square .divider     { width: 140px; margin: 12px 0; }
+    .pfp.square .sub         { font-size: 9px; }
+    .pfp.square .corner      { width: 24px; height: 24px; }
+    .pfp.square .corner.tl   { top: 60px; left: 60px; }
+    .pfp.square .corner.br   { bottom: 60px; right: 60px; }
+
+    .label {
+      color: #444;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <p class="hint">Screenshot at 800×800 for the circle version · 400×400 for the square preview</p>
+
+  <!-- CIRCLE (800×800 — upload this as your YouTube profile pic) -->
+  <div class="pfp">
+    <div class="pfp-inner">
+      <div class="tag">
+        <div class="tag-dot"></div>
+        <span class="tag-text">AI &amp; Automation</span>
+        <div class="tag-dot"></div>
+      </div>
+      <div class="name-wrap">
+        <span class="name-derf">derf</span>
+          <span class="name-dot">
+            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="44" y="10" width="12" height="44" rx="6" fill="#f97316"/>
+              <rect x="44" y="46" width="12" height="44" rx="6" fill="#f97316" opacity="0.45"/>
+              <rect x="10" y="44" width="44" height="12" rx="6" fill="#f97316" opacity="0.7"/>
+              <rect x="46" y="44" width="44" height="12" rx="6" fill="#f97316" opacity="0.3"/>
+              <rect x="21.7" y="17.3" width="12" height="44" rx="6" fill="#f97316" opacity="0.85" transform="rotate(45 27.7 39.3)"/>
+              <rect x="21.7" y="38.7" width="12" height="44" rx="6" fill="#f97316" opacity="0.35" transform="rotate(45 27.7 60.7)"/>
+              <rect x="66.3" y="17.3" width="12" height="44" rx="6" fill="#f97316" opacity="0.6" transform="rotate(-45 72.3 39.3)"/>
+              <rect x="66.3" y="38.7" width="12" height="44" rx="6" fill="#f97316" opacity="0.2" transform="rotate(-45 72.3 60.7)"/>
+            </svg>
+          </span>
+          <span class="name-claude">claude</span>
+      </div>
+      <div class="divider"></div>
+      <div class="sub">AI · GHL · Automations</div>
+    </div>
+    <div class="corner tl"></div>
+    <div class="corner br"></div>
+  </div>
+  <p class="label">Circle version — 800×800</p>
+
+  <!-- SQUARE PREVIEW -->
+  <div class="pfp square">
+    <div class="pfp-inner">
+      <div class="tag">
+        <div class="tag-dot"></div>
+        <span class="tag-text">AI &amp; Automation</span>
+        <div class="tag-dot"></div>
+      </div>
+      <div class="name-wrap">
+        <span class="name-derf">derf</span>
+          <span class="name-dot">
+            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="44" y="10" width="12" height="44" rx="6" fill="#f97316"/>
+              <rect x="44" y="46" width="12" height="44" rx="6" fill="#f97316" opacity="0.45"/>
+              <rect x="10" y="44" width="44" height="12" rx="6" fill="#f97316" opacity="0.7"/>
+              <rect x="46" y="44" width="44" height="12" rx="6" fill="#f97316" opacity="0.3"/>
+              <rect x="21.7" y="17.3" width="12" height="44" rx="6" fill="#f97316" opacity="0.85" transform="rotate(45 27.7 39.3)"/>
+              <rect x="21.7" y="38.7" width="12" height="44" rx="6" fill="#f97316" opacity="0.35" transform="rotate(45 27.7 60.7)"/>
+              <rect x="66.3" y="17.3" width="12" height="44" rx="6" fill="#f97316" opacity="0.6" transform="rotate(-45 72.3 39.3)"/>
+              <rect x="66.3" y="38.7" width="12" height="44" rx="6" fill="#f97316" opacity="0.2" transform="rotate(-45 72.3 60.7)"/>
+            </svg>
+          </span>
+          <span class="name-claude">claude</span>
+      </div>
+      <div class="divider"></div>
+      <div class="sub">AI · GHL · Automations</div>
+    </div>
+    <div class="corner tl"></div>
+    <div class="corner br"></div>
+  </div>
+  <p class="label">Square preview — 400×400</p>
+
+</body>
+</html>

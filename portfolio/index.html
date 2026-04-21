@@ -1,0 +1,2979 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alfred Alimuin — AI Automation Developer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #f5f8ff;
+      --bg2:       #ffffff;
+      --bg3:       #edf2fe;
+      --text:      #0f0f0f;
+      --muted:     #4a5878;
+      --accent:    #1a56c4;
+      --accent2:   #1546a8;
+      --border:    #c5d5f9;
+      --radius:    12px;
+      --grad:      linear-gradient(135deg, #1a56c4, #5b8ef7);
+      --nav-bg:    rgba(245,248,255,0.92);
+    }
+
+    [data-theme="dark"] {
+      --bg:        #000000;
+      --bg2:       #0a0a0a;
+      --bg3:       #141414;
+      --text:      #f0f0f0;
+      --muted:     #777777;
+      --accent:    #276CF5;
+      --accent2:   #1a56c4;
+      --border:    #0d1a3d;
+      --nav-bg:    rgba(0,0,0,0.92);
+    }
+
+    /* Badge text always light — badge bg is dark in both modes */
+    .photo-badge .badge-label { color: #b0bcd4 !important; }
+    .photo-badge .badge-value { color: #f0f0f0 !important; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* ── Aurora background ── */
+    #bg-aurora {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .aurora-blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(90px);
+      opacity: 0.9;
+    }
+
+    .aurora-blob-1 {
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(39,108,245,0.22) 0%, transparent 70%);
+      top: -20%; left: -15%;
+      animation: auroraA 16s ease-in-out infinite alternate;
+    }
+
+    .aurora-blob-2 {
+      width: 550px; height: 550px;
+      background: radial-gradient(circle, rgba(110,60,255,0.16) 0%, transparent 70%);
+      bottom: -15%; right: -10%;
+      animation: auroraB 20s ease-in-out infinite alternate;
+    }
+
+    .aurora-blob-3 {
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(56,189,248,0.1) 0%, transparent 70%);
+      top: 40%; left: 55%;
+      animation: auroraC 13s ease-in-out infinite alternate;
+    }
+
+    @keyframes auroraA {
+      0%   { transform: translate(0,0) scale(1); }
+      50%  { transform: translate(140px,90px) scale(1.25); }
+      100% { transform: translate(60px,200px) scale(0.9); }
+    }
+
+    @keyframes auroraB {
+      0%   { transform: translate(0,0) scale(1); }
+      50%  { transform: translate(-100px,-70px) scale(1.2); }
+      100% { transform: translate(-160px,60px) scale(1.35); }
+    }
+
+    @keyframes auroraC {
+      0%   { transform: translate(0,0) scale(1); }
+      50%  { transform: translate(-80px,60px) scale(1.15); }
+      100% { transform: translate(50px,-90px) scale(0.85); }
+    }
+
+    /* ── Noise/chrome texture ── */
+    #bg-noise {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      opacity: 0.045;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+    }
+
+    /* ── Nav ── */
+    body > *:not(#bg-canvas):not(#bg-aurora):not(#bg-noise) { position: relative; z-index: 3; }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: var(--nav-bg);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-weight: 700;
+      font-size: 1.1rem;
+      background: linear-gradient(135deg, #276CF5, #5b8ef7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.5px;
+    }
+
+    .theme-toggle { margin-left: auto; }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+
+    .theme-toggle {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      flex-shrink: 0;
+      color: var(--muted);
+    }
+
+    .theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+    .theme-toggle .icon-sun  { display: block; }
+    .theme-toggle .icon-moon { display: none; }
+    [data-theme="dark"] .theme-toggle .icon-sun  { display: none; }
+    [data-theme="dark"] .theme-toggle .icon-moon { display: block; }
+
+    /* ── Sections ── */
+    section {
+      padding: 4rem 3rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+      letter-spacing: -0.5px;
+    }
+
+    /* ── Hero ── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: 5rem;
+    }
+
+    .hero-inner {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 3rem;
+    }
+
+    .hero-text { flex: 1; }
+
+    .hero-photo-wrap {
+      position: relative;
+      flex-shrink: 0;
+      width: 300px;
+    }
+
+    /* Neon spinning border frame */
+    .photo-neon-frame {
+      position: relative;
+      border-radius: 22px;
+      padding: 2px;
+      box-shadow: 0 0 35px rgba(39,108,245,0.25), 0 20px 60px rgba(0,0,0,0.5);
+    }
+
+    /* clip only the spinner, not the badges */
+    .photo-neon-clip {
+      position: absolute;
+      inset: 0;
+      border-radius: 22px;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .photo-neon-spin {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 220%;
+      height: 220%;
+      transform: translate(-50%, -50%) rotate(0deg);
+      background: conic-gradient(
+        from 0deg,
+        transparent 0deg,
+        transparent 220deg,
+        #56cffc    265deg,
+        #276CF5    285deg,
+        #ffffff    300deg,
+        #276CF5    315deg,
+        #56cffc    330deg,
+        transparent 360deg
+      );
+      animation: neonSpin 3.5s linear infinite;
+    }
+
+    @keyframes neonSpin {
+      to { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    .hero-photo {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      height: 380px;
+      border-radius: 20px;
+      object-fit: cover;
+      object-position: top;
+      display: block;
+    }
+
+    /* Floating badge cards */
+    .photo-badge {
+      position: absolute;
+      z-index: 10;
+      background: rgba(10,10,20,0.75);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(39,108,245,0.25);
+      border-radius: 12px;
+      padding: 0.55rem 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      white-space: nowrap;
+      animation: badgeFloat 4s ease-in-out infinite;
+    }
+
+    .photo-badge-top {
+      top: 14%;
+      right: -18%;
+      animation-delay: 0s;
+    }
+
+    .photo-badge-bot {
+      bottom: 12%;
+      left: -14%;
+      animation-delay: 2s;
+    }
+
+    @keyframes badgeFloat {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(-6px); }
+    }
+
+    .badge-icon {
+      font-size: 1rem;
+      line-height: 1;
+    }
+
+    .badge-label {
+      font-size: 0.62rem;
+      color: var(--muted);
+      display: block;
+      line-height: 1.2;
+    }
+
+    .badge-value {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text);
+      display: block;
+      line-height: 1.3;
+    }
+
+    .badge-value .badge-accent { color: var(--accent); }
+
+    /* Sparkles */
+    .photo-sparkle {
+      position: absolute;
+      z-index: 10;
+      color: var(--accent);
+      font-size: 0.9rem;
+      animation: sparklePop 3s ease-in-out infinite;
+      opacity: 0.7;
+    }
+
+    .photo-sparkle-1 { top: 6%; left: 5%; animation-delay: 0s; }
+    .photo-sparkle-2 { bottom: 8%; right: 4%; animation-delay: 1.5s; }
+
+    @keyframes sparklePop {
+      0%,100% { opacity: 0.4; transform: scale(1) rotate(0deg); }
+      50%      { opacity: 1;   transform: scale(1.3) rotate(20deg); }
+    }
+
+    @media (max-width: 640px) {
+      .hero-inner { flex-direction: column-reverse; align-items: flex-start; }
+      .hero-photo-wrap { width: 200px; }
+      .hero-photo { height: 250px; }
+      .photo-badge-top { right: -10%; }
+      .photo-badge-bot { left: -8%; }
+    }
+
+    .hero-tag {
+      display: inline-block;
+      background: rgba(39, 108, 245, 0.08);
+      color: var(--accent);
+      border: 1px solid rgba(39, 108, 245, 0.35);
+      border-radius: 999px;
+      padding: 0.3rem 1rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-name {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 700;
+      letter-spacing: -1px;
+      line-height: 1.1;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-name span {
+      background: linear-gradient(135deg, #276CF5, #5b8ef7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-title {
+      font-size: 1.2rem;
+      color: var(--muted);
+      margin-bottom: 1.25rem;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      min-height: 1.8em;
+      display: flex;
+      align-items: center;
+      gap: 0;
+    }
+
+    .hero-title-text { }
+
+    .hero-cursor {
+      display: inline-block;
+      width: 2px;
+      height: 1.1em;
+      background: var(--accent);
+      margin-left: 3px;
+      vertical-align: middle;
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0; }
+    }
+
+    .hero-bio {
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 560px;
+      line-height: 1.9;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-bio .hl {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .hero-bio .hl-accent {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .hero-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .hero-pill {
+      background: rgba(39,108,245,0.08);
+      color: var(--accent);
+      border: 1px solid rgba(39,108,245,0.3);
+      border-radius: 999px;
+      padding: 0.3rem 0.85rem;
+      font-size: 0.78rem;
+      font-weight: 500;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: linear-gradient(135deg, #276CF5, #5b8ef7);
+      color: #ffffff;
+      font-weight: 600;
+      font-size: 0.9rem;
+      padding: 0.75rem 1.75rem;
+      border-radius: var(--radius);
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.2s;
+      box-shadow: 0 0 20px rgba(39, 108, 245, 0.4);
+    }
+
+    .hero-cta:hover { opacity: 0.85; transform: translateY(-1px); }
+
+    .hero-cta-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: transparent;
+      color: var(--text);
+      font-weight: 600;
+      font-size: 0.9rem;
+      padding: 0.75rem 1.75rem;
+      border-radius: var(--radius);
+      text-decoration: none;
+      border: 1px solid var(--border);
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .hero-cta-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ── About ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .about-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+
+    .about-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: 0 0 24px rgba(39,108,245,0.12);
+    }
+
+    .about-card-img {
+      height: 130px;
+      background: var(--bg3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3.2rem;
+    }
+
+    .about-card-body {
+      padding: 1rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .about-card-title {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+      line-height: 1.4;
+    }
+
+    .about-card { cursor: pointer; }
+
+    .about-card-desc {
+      color: var(--muted);
+      font-size: 0.82rem;
+      line-height: 1.75;
+      flex: 1;
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: max-height 0.4s ease, opacity 0.3s ease, margin-top 0.3s ease;
+      margin-top: 0;
+    }
+
+    .about-card.open .about-card-desc {
+      max-height: 300px;
+      opacity: 1;
+      margin-top: 0.5rem;
+    }
+
+    .about-card-hint {
+      font-size: 0.65rem;
+      color: var(--accent);
+      letter-spacing: 0.5px;
+      margin-top: 0.35rem;
+      display: block;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    .about-card.open .about-card-hint { opacity: 0; height: 0; margin: 0; overflow: hidden; }
+
+    .about-card-tag {
+      display: inline-block;
+      background: rgba(39,108,245,0.08);
+      color: var(--accent);
+      border: 1px solid rgba(39,108,245,0.25);
+      border-radius: 999px;
+      padding: 0.15rem 0.65rem;
+      font-size: 0.68rem;
+      font-weight: 600;
+      margin-bottom: 0.6rem;
+    }
+
+    /* ── Skills ── */
+    .skills-marquee {
+      overflow: hidden;
+      position: relative;
+      padding: 0.25rem 0;
+    }
+
+    .skills-marquee::before,
+    .skills-marquee::after {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0;
+      width: 100px;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .skills-marquee::before { left: 0;  background: linear-gradient(to right, var(--bg), transparent); }
+    .skills-marquee::after  { right: 0; background: linear-gradient(to left,  var(--bg), transparent); }
+
+    .marquee-row {
+      display: flex;
+      gap: 0.75rem;
+      width: max-content;
+      margin-bottom: 0.75rem;
+      animation: marqueeLeft 28s linear infinite;
+    }
+
+    .marquee-row.reverse { animation: marqueeRight 34s linear infinite; }
+    .marquee-row:hover,
+    .marquee-row.reverse:hover { animation-play-state: paused; }
+
+    @keyframes marqueeLeft  { 0% { transform: translateX(0); }    100% { transform: translateX(-50%); } }
+    @keyframes marqueeRight { 0% { transform: translateX(-50%); } 100% { transform: translateX(0); }    }
+
+    .skill-tag {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.5rem 1.25rem;
+      border-radius: 999px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      white-space: nowrap;
+      cursor: default;
+      transition: border-color 0.2s, color 0.2s, box-shadow 0.2s;
+    }
+
+    .skill-tag:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      box-shadow: 0 0 14px rgba(39,108,245,0.2);
+    }
+
+    /* ── Projects ── */
+    .proj-filters {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+
+    .proj-filter {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      border-radius: 999px;
+      padding: 0.4rem 1rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+
+    .filter-count {
+      background: rgba(255,255,255,0.08);
+      border-radius: 999px;
+      padding: 0.05rem 0.45rem;
+      font-size: 0.72rem;
+    }
+
+    .proj-filter.active, .proj-filter:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    .proj-filter.active .filter-count { background: rgba(255,255,255,0.25); }
+
+    .proj-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+
+    @media (max-width: 768px) { .proj-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 480px) { .proj-grid { grid-template-columns: 1fr; } }
+
+    .proj-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      cursor: pointer;
+      transition: border-color 0.2s, transform 0.2s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .proj-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .proj-card.hidden { display: none; }
+
+    .proj-card-img-wrap {
+      position: relative;
+      height: 155px;
+      overflow: hidden;
+      background: var(--bg3);
+    }
+
+    .proj-card-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+    }
+
+    .proj-card-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, rgba(39,108,245,0.08), rgba(39,108,245,0.03));
+      font-size: 2.75rem;
+    }
+
+    .proj-card-badge {
+      position: absolute;
+      top: 0.6rem;
+      right: 0.6rem;
+      background: rgba(0,0,0,0.72);
+      color: #fff;
+      font-size: 0.62rem;
+      font-weight: 700;
+      padding: 0.18rem 0.55rem;
+      border-radius: 999px;
+      letter-spacing: 0.06em;
+      backdrop-filter: blur(4px);
+    }
+
+    .proj-card-body {
+      padding: 1rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .proj-card-title {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.35rem;
+      line-height: 1.4;
+    }
+
+    .proj-card-desc {
+      font-size: 0.77rem;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 0.75rem;
+      flex: 1;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .proj-card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .proj-card-tag {
+      background: var(--bg3);
+      color: var(--muted);
+      font-size: 0.63rem;
+      font-weight: 600;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .proj-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--border);
+      padding-top: 0.6rem;
+    }
+
+    .proj-card-stat { font-size: 0.72rem; font-weight: 700; color: var(--accent); }
+    .proj-card-ext  { font-size: 0.85rem; color: var(--muted); }
+
+    /* ── Modal ── */
+    .modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.88);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
+      display: flex; align-items: center; justify-content: center;
+      padding: 1.5rem;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.25s;
+    }
+    .modal-overlay.active { opacity: 1; pointer-events: all; }
+
+    .modal-box {
+      background: #0f0f0f;
+      border: 1px solid rgba(39,108,245,0.25);
+      border-radius: 16px;
+      max-width: 580px; width: 100%;
+      max-height: 88vh; overflow-y: auto;
+      transform: scale(0.88);
+      transition: transform 0.25s;
+    }
+    .modal-overlay.active .modal-box { transform: scale(1); }
+
+    .modal-img-wrap { padding: 1rem; background: #0d0d0d; border-bottom: 1px solid var(--border); }
+    .modal-img { width: 100%; max-height: 260px; object-fit: contain; border-radius: 8px; opacity: 0.9; display: block; }
+    .modal-body { padding: 1.75rem; }
+    .modal-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; margin-bottom: 0.6rem; }
+    .modal-title { font-size: 1.05rem; font-weight: 700; line-height: 1.4; }
+    .modal-close { background: none; border: 1px solid var(--border); color: var(--muted); border-radius: 8px; width: 32px; height: 32px; cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: border-color 0.2s, color 0.2s; }
+    .modal-close:hover { border-color: var(--accent); color: var(--accent); }
+    .modal-badge { display: inline-block; background: rgba(39,108,245,0.08); color: var(--accent); border: 1px solid rgba(39,108,245,0.35); border-radius: 999px; padding: 0.2rem 0.75rem; font-size: 0.75rem; font-weight: 500; margin-bottom: 1rem; }
+    .modal-desc { color: var(--muted); font-size: 0.92rem; line-height: 1.75; margin-bottom: 1.25rem; }
+    .modal-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .modal-tag { background: var(--bg3); color: var(--muted); padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.75rem; }
+
+    @media (max-width: 700px) {
+      .tools-arena { gap: 2rem; padding-bottom: 260px; }
+      .bubble-system.expanded .project-bubble:nth-child(2) { transform: translate(calc(-50% - 115px), calc(-50% + 130px)) scale(1); }
+      .bubble-system.expanded .project-bubble:nth-child(3) { transform: translate(calc(-50% - 58px),  calc(-50% + 160px)) scale(1); }
+      .bubble-system.expanded .project-bubble:nth-child(4) { transform: translate(calc(-50% + 0px),   calc(-50% + 170px)) scale(1); }
+      .bubble-system.expanded .project-bubble:nth-child(5) { transform: translate(calc(-50% + 58px),  calc(-50% + 160px)) scale(1); }
+      .bubble-system.expanded .project-bubble:nth-child(6) { transform: translate(calc(-50% + 115px), calc(-50% + 130px)) scale(1); }
+      .bubble-system.single-project.expanded .project-bubble:nth-child(2) { transform: translate(-50%, calc(-50% + 170px)) scale(1); }
+    }
+
+    /* ── Contact ── */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .contact-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      text-decoration: none;
+      color: var(--text);
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .contact-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .contact-icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(39, 108, 245, 0.08);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .contact-label {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-bottom: 0.15rem;
+    }
+
+    .contact-value {
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      text-align: center;
+      padding: 2rem;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    /* ── Divider ── */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 0;
+    }
+
+    /* ── Demo ── */
+    .demo-meta {
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin-bottom: 1.75rem;
+      max-width: 680px;
+    }
+
+    .demo-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .demo-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem 1.5rem;
+      cursor: pointer;
+      text-align: center;
+      transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+    }
+
+    .demo-card:hover {
+      border-color: var(--accent);
+      box-shadow: 0 0 28px rgba(39,108,245,0.15);
+      transform: translateY(-4px);
+    }
+
+    .demo-card-icon { font-size: 2.5rem; display: block; margin-bottom: 0.75rem; }
+    .demo-card-name { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 0.5rem; }
+    .demo-card-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.6; margin-bottom: 1rem; }
+    .demo-card-cta  { font-size: 0.78rem; color: var(--accent); font-weight: 600; }
+
+    /* ── Services grid ── */
+    .services-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      margin-bottom: 2.5rem;
+    }
+
+    @media (max-width: 640px) { .services-grid { grid-template-columns: 1fr; } }
+
+    .service-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      transition: border-color 0.2s;
+    }
+
+    .service-card:hover { border-color: var(--accent); }
+    .service-icon { font-size: 1.6rem; display: block; margin-bottom: 0.6rem; }
+    .service-name { font-size: 0.95rem; font-weight: 700; color: var(--text); margin-bottom: 0.4rem; }
+    .service-desc { font-size: 0.83rem; color: var(--muted); line-height: 1.7; }
+
+    /* ── My Process ── */
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    @media (max-width: 1024px) { .process-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 640px)  { .process-grid { grid-template-columns: 1fr; } }
+
+    .process-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.4rem 1.2rem;
+      transition: border-color 0.2s, transform 0.2s;
+      position: relative;
+    }
+    .process-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+
+    .process-num {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      color: var(--accent);
+      margin-bottom: 0.8rem;
+    }
+    .process-icon {
+      font-size: 1.4rem;
+      display: block;
+      margin-bottom: 0.7rem;
+    }
+    .process-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+    .process-desc {
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* ── Scroll reveal ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── Featured Demo ── */
+    .featured-demo {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem 2rem;
+    }
+
+    @media (max-width: 640px) { .featured-demo { flex-direction: column; align-items: flex-start; } }
+
+    .featured-demo-left { flex: 1; }
+    .featured-demo-title { font-size: 1rem; font-weight: 700; color: var(--text); margin: 0.5rem 0 0.4rem; }
+    .featured-demo-desc { font-size: 0.83rem; color: var(--muted); line-height: 1.7; margin-bottom: 1rem; }
+    .featured-demo-links { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+
+    .featured-flow-btn {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--accent);
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 0.35rem 0.9rem;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: border-color 0.2s;
+      font-family: inherit;
+    }
+
+    .featured-flow-btn:hover { border-color: var(--accent); }
+
+    /* Flow modal */
+    .flow-modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.9);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
+      display: flex; align-items: center; justify-content: center;
+      padding: 1.5rem;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.25s;
+    }
+    .flow-modal-overlay.active { opacity: 1; pointer-events: all; }
+
+    .flow-modal-box {
+      background: #0f0f0f;
+      border: 1px solid rgba(39,108,245,0.25);
+      border-radius: 16px;
+      max-width: 800px; width: 100%;
+      max-height: 88vh; overflow-y: auto;
+      transform: scale(0.9);
+      transition: transform 0.25s;
+      padding: 2rem;
+    }
+    .flow-modal-overlay.active .flow-modal-box { transform: scale(1); }
+
+    .flow-modal-header {
+      display: flex; align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+    }
+    .flow-modal-title { font-size: 1.05rem; font-weight: 700; }
+    .flow-modal-close {
+      background: none; border: 1px solid var(--border);
+      color: var(--muted); border-radius: 8px;
+      width: 32px; height: 32px; cursor: pointer;
+      font-size: 1rem; display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .flow-modal-close:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* Flow node entry animation */
+    .flow-diagram > * {
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    .flow-diagram.revealed > * { opacity: 1; transform: translateY(0); }
+    .flow-diagram.revealed > *:nth-child(1)  { transition-delay: 0.05s; }
+    .flow-diagram.revealed > *:nth-child(2)  { transition-delay: 0.12s; }
+    .flow-diagram.revealed > *:nth-child(3)  { transition-delay: 0.19s; }
+    .flow-diagram.revealed > *:nth-child(4)  { transition-delay: 0.26s; }
+    .flow-diagram.revealed > *:nth-child(5)  { transition-delay: 0.33s; }
+    .flow-diagram.revealed > *:nth-child(6)  { transition-delay: 0.40s; }
+    .flow-diagram.revealed > *:nth-child(7)  { transition-delay: 0.47s; }
+    .flow-diagram.revealed > *:nth-child(8)  { transition-delay: 0.54s; }
+    .flow-diagram.revealed > *:nth-child(9)  { transition-delay: 0.61s; }
+    .flow-diagram.revealed > *:nth-child(10) { transition-delay: 0.68s; }
+    .flow-diagram.revealed > *:nth-child(11) { transition-delay: 0.75s; }
+    .flow-diagram.revealed > *:nth-child(12) { transition-delay: 0.82s; }
+    .flow-diagram.revealed > *:nth-child(13) { transition-delay: 0.89s; }
+    .flow-diagram.revealed > *:nth-child(14) { transition-delay: 0.96s; }
+
+    .flow-diagram {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem 1.5rem;
+      overflow-x: auto;
+    }
+
+    .flow-step {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.35rem;
+    }
+
+    .flow-node {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      border-radius: 8px;
+      padding: 0.35rem 0.8rem;
+      font-size: 0.775rem;
+      font-weight: 500;
+      white-space: nowrap;
+      border: 1px solid;
+    }
+
+    .fn-trigger  { border-color: #f59e0b; color: #fbbf24; background: rgba(245,158,11,0.08); }
+    .fn-webhook  { border-color: #276CF5; color: #93b8fb; background: rgba(39,108,245,0.1); }
+    .fn-code     { border-color: #818cf8; color: #a5b4fc; background: rgba(129,140,248,0.1); }
+    .fn-calendar { border-color: #5b8ef7; color: #bcd4fd; background: rgba(91,142,247,0.08); }
+    .fn-sheets   { border-color: #5b8ef7; color: #bcd4fd; background: rgba(91,142,247,0.08); }
+    .fn-gmail    { border-color: #f472b6; color: #fbcfe8; background: rgba(244,114,182,0.08); }
+    .fn-switch   { border-color: #fb923c; color: #fdba74; background: rgba(251,146,60,0.08); }
+    .fn-merge    { border-color: #06b6d4; color: #a5f3fc; background: rgba(6,182,212,0.08); }
+    .fn-set      { border-color: #64748b; color: #94a3b8; background: rgba(100,116,139,0.08); }
+    .fn-respond  { border-color: #276CF5; color: #93b8fb; background: rgba(39,108,245,0.1); }
+    .fn-if       { border-color: #fb923c; color: #fdba74; background: rgba(251,146,60,0.08); }
+
+    .flow-arrow {
+      color: #444444;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+
+    .flow-down {
+      text-align: center;
+      color: #444444;
+      font-size: 0.85rem;
+      line-height: 1;
+      margin: 0.15rem 0;
+    }
+
+    .flow-label {
+      font-size: 0.7rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      text-align: center;
+      margin: 0.9rem 0 0.4rem;
+    }
+
+    .flow-branch-row {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.35rem;
+    }
+
+    .flow-branch-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .flow-if-split {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      flex-wrap: wrap;
+      margin: 0.5rem 0;
+    }
+
+    .flow-if-path {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .flow-if-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 0.15rem 0.6rem;
+      border-radius: 999px;
+    }
+
+    .flow-if-label.yes { background: rgba(52,211,153,0.15); color: #6ee7b7; }
+    .flow-if-label.no  { background: rgba(244,114,182,0.15); color: #fbcfe8; }
+
+    .flow-stats {
+      display: flex;
+      gap: 2rem;
+      margin-top: 1.5rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+
+    .flow-stat-value {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .flow-stat-label {
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-top: 0.1rem;
+    }
+
+    .flow-badge-live {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #276CF5;
+      background: rgba(39,108,245,0.1);
+      border: 1px solid rgba(39,108,245,0.35);
+      border-radius: 999px;
+      padding: 0.25rem 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .flow-badge-live::before {
+      content: '';
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #276CF5;
+      animation: pulse-live 1.5s infinite;
+    }
+
+    @keyframes pulse-live {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.3; }
+    }
+
+    /* ── Live Call Demo ── */
+    .demo-call-wrap {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .demo-call-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .demo-call-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    .demo-call-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .demo-call-desc {
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.7;
+      margin-bottom: 1.1rem;
+    }
+
+    .demo-call-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+
+    .demo-call-features li {
+      color: var(--muted);
+      font-size: 0.84rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+
+    .demo-call-features li .feat-icon {
+      color: var(--accent);
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .demo-call-widget {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.85rem;
+      min-width: 130px;
+    }
+
+    /* Waveform bars */
+    .call-visualizer {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 5px;
+      height: 44px;
+    }
+
+    .call-bar {
+      width: 5px;
+      border-radius: 3px;
+      background: var(--accent);
+      height: 4px;
+      transition: height 0.08s ease;
+      opacity: 0.35;
+    }
+
+    .call-bar.speaking {
+      animation: bar-dance 0.7s ease-in-out infinite;
+      opacity: 1;
+    }
+
+    .call-bar:nth-child(1).speaking { animation-delay: 0.00s; }
+    .call-bar:nth-child(2).speaking { animation-delay: 0.10s; }
+    .call-bar:nth-child(3).speaking { animation-delay: 0.20s; }
+    .call-bar:nth-child(4).speaking { animation-delay: 0.10s; }
+    .call-bar:nth-child(5).speaking { animation-delay: 0.00s; }
+
+    @keyframes bar-dance {
+      0%, 100% { height: 5px; }
+      50%       { height: 36px; }
+    }
+
+    /* Call button */
+    .call-btn {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      border: 2px solid #276CF5;
+      background: rgba(39, 108, 245, 0.12);
+      color: #276CF5;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.25s;
+      font-family: inherit;
+      outline: none;
+      box-shadow: 0 0 20px rgba(39, 108, 245, 0.35);
+    }
+
+    .call-btn:hover {
+      background: rgba(39, 108, 245, 0.22);
+      box-shadow: 0 0 32px rgba(39, 108, 245, 0.55);
+      transform: scale(1.06);
+    }
+
+    .call-btn.state-connecting {
+      border-color: #f59e0b;
+      background: rgba(245, 158, 11, 0.1);
+      color: #fbbf24;
+      box-shadow: none;
+      animation: pulse-connecting 1.1s ease-in-out infinite;
+      cursor: default;
+    }
+
+    .call-btn.state-active {
+      border-color: #f472b6;
+      background: rgba(244, 114, 182, 0.12);
+      color: #f472b6;
+      box-shadow: 0 0 22px rgba(244, 114, 182, 0.4);
+    }
+
+    .call-btn.state-active:hover {
+      background: rgba(244, 114, 182, 0.22);
+      box-shadow: 0 0 32px rgba(244, 114, 182, 0.55);
+      transform: scale(1.06);
+    }
+
+    @keyframes pulse-connecting {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(245,158,11,0.45); }
+      50%       { box-shadow: 0 0 0 14px rgba(245,158,11,0); }
+    }
+
+    .call-status-text {
+      font-size: 0.78rem;
+      color: var(--muted);
+      text-align: center;
+      min-height: 1.1em;
+    }
+
+    .call-timer {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--accent);
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 0.5px;
+    }
+
+    .call-disclaimer {
+      font-size: 0.72rem;
+      color: var(--bg3);
+      text-align: center;
+      margin-top: 0.25rem;
+    }
+
+    @media (max-width: 640px) {
+      .demo-call-card {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .demo-call-features li {
+        justify-content: center;
+      }
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 640px) {
+      nav { padding: 1rem; }
+      .nav-links { gap: 1rem; }
+      .about-grid { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; }
+      section { padding: 4rem 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="bg-aurora">
+    <div class="aurora-blob aurora-blob-1"></div>
+    <div class="aurora-blob aurora-blob-2"></div>
+    <div class="aurora-blob aurora-blob-3"></div>
+  </div>
+  <div id="bg-noise"></div>
+  <canvas id="bg-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:2;pointer-events:none;"></canvas>
+
+  <!-- Nav -->
+  <nav>
+    <div class="nav-logo">alfred.builds</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#demo">Services</a></li>
+      <li><a href="#projects">Projects and Designs</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+      <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    </button>
+  </nav>
+
+  <!-- Hero -->
+  <section id="hero">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <div class="hero-tag">Available for Projects</div>
+        <h1 class="hero-name">Hi, I'm <span>Alfred</span></h1>
+        <p class="hero-title"><span class="hero-title-text" id="heroTitle"></span><span class="hero-cursor"></span></p>
+        <p class="hero-bio">
+          I help businesses grow by building <span class="hl-accent">GoHighLevel funnels</span>, <span class="hl-accent">CRM automations</span>, and
+          <span class="hl">intelligent workflow systems</span> using <span class="hl">n8n</span>, <span class="hl">Zapier</span>, and <span class="hl">AI</span> — turning manual processes
+          into <span class="hl-accent">hands-free, revenue-generating pipelines</span>.
+        </p>
+        <div class="hero-pills">
+          <span class="hero-pill">🚀 GHL Funnels</span>
+          <span class="hero-pill">⚙️ GHL Automations</span>
+          <span class="hero-pill">⚡ n8n Workflows</span>
+          <span class="hero-pill">🔗 Zapier</span>
+          <span class="hero-pill">🤖 AI Integration</span>
+          <span class="hero-pill">📊 CRM Setup</span>
+        </div>
+        <div class="hero-actions">
+          <a href="#contact" class="hero-cta">Get in touch →</a>
+          <a href="#projects" class="hero-cta-secondary">View Projects</a>
+        </div>
+      </div>
+      <div class="hero-photo-wrap">
+        <div class="photo-neon-frame">
+          <div class="photo-neon-clip">
+            <div class="photo-neon-spin"></div>
+          </div>
+          <img src="photo.jpg" alt="Alfred Alimuin" class="hero-photo" />
+        </div>
+
+        <!-- Top-right badge -->
+        <div class="photo-badge photo-badge-top">
+          <span class="badge-icon">⚡</span>
+          <div>
+            <span class="badge-label">Workflows Built</span>
+            <span class="badge-value"><span class="badge-accent">22+</span> Automations</span>
+          </div>
+        </div>
+
+        <!-- Bottom-left badge -->
+        <div class="photo-badge photo-badge-bot" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})" style="cursor:pointer">
+          <span class="badge-icon">🟢</span>
+          <div>
+            <span class="badge-label">Available</span>
+            <span class="badge-value">For Your Next Build</span>
+          </div>
+        </div>
+
+        <!-- Sparkles -->
+        <span class="photo-sparkle photo-sparkle-1">✦</span>
+        <span class="photo-sparkle photo-sparkle-2">✦</span>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- About -->
+  <section id="about">
+    <p class="section-label">Background</p>
+    <h2 class="section-title">About Me</h2>
+    <div class="about-grid">
+
+      <!-- Experience card -->
+      <div class="about-card" onclick="this.classList.toggle('open')">
+        <div class="about-card-img">💼</div>
+        <div class="about-card-body">
+          <span class="about-card-tag">Experience</span>
+          <div class="about-card-title">10+ Years in IT &amp; Automation</div>
+          <span class="about-card-hint">tap to reveal ↓</span>
+          <p class="about-card-desc">
+            Progressed from helpdesk to full IT administration — managing 3,000+ devices, Microsoft 365,
+            and network infrastructure across multi-site education groups (Inspired Education Group, Riffa Views,
+            King Fahd Causeway Authority). Since 2025, focused on AI automation: n8n, Zapier, and AI-powered
+            workflows that eliminated 30%+ of manual tasks and onboarded 500+ users.
+          </p>
+        </div>
+      </div>
+
+      <!-- Education card -->
+      <div class="about-card" onclick="this.classList.toggle('open')">
+        <div class="about-card-img">🎓</div>
+        <div class="about-card-body">
+          <span class="about-card-tag">Education</span>
+          <div class="about-card-title">BS Informatics + MBA Project Management</div>
+          <span class="about-card-hint">tap to reveal ↓</span>
+          <p class="about-card-desc">
+            BS in Informatics Engineering — AMA International University Bahrain, 2014.<br /><br />
+            MBA in Project Management — Singhania University, India, Completed 2025.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- My Process -->
+  <section id="process">
+    <p class="section-label">HOW IT WORKS</p>
+    <h2 class="section-title">My <span style="background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Process</span></h2>
+    <p style="color: var(--muted); font-size: 0.92rem; margin-top: -1.2rem; margin-bottom: 0.5rem;">A clear, repeatable process that takes you from chaos to automated clarity — without the guesswork.</p>
+
+    <div class="process-grid">
+      <div class="process-card reveal" style="transition-delay:0ms">
+        <div class="process-num">01</div>
+        <span class="process-icon">📞</span>
+        <div class="process-title">Discovery Call</div>
+        <p class="process-desc">We start with a free 30-minute strategy call to understand your business, current workflows, and automation goals.</p>
+      </div>
+      <div class="process-card reveal" style="transition-delay:80ms">
+        <div class="process-num">02</div>
+        <span class="process-icon">💡</span>
+        <div class="process-title">Strategy Design</div>
+        <p class="process-desc">I map out a custom automation blueprint tailored to your business needs, tools, and growth objectives.</p>
+      </div>
+      <div class="process-card reveal" style="transition-delay:160ms">
+        <div class="process-num">03</div>
+        <span class="process-icon">🔧</span>
+        <div class="process-title">Build &amp; Test</div>
+        <p class="process-desc">I build and rigorously test every automation, ensuring reliability and accuracy before anything goes live.</p>
+      </div>
+      <div class="process-card reveal" style="transition-delay:240ms">
+        <div class="process-num">04</div>
+        <span class="process-icon">🚀</span>
+        <div class="process-title">Launch &amp; Train</div>
+        <p class="process-desc">We launch the system together and I train you or your team so everyone knows how to use it confidently.</p>
+      </div>
+      <div class="process-card reveal" style="transition-delay:320ms">
+        <div class="process-num">05</div>
+        <span class="process-icon">🤝</span>
+        <div class="process-title">Ongoing Support</div>
+        <p class="process-desc">I stay available for tweaks, updates, and scaling as your business grows and evolves.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- What I Build -->
+  <section id="demo">
+    <p class="section-label">Services</p>
+    <h2 class="section-title">What I Build</h2>
+
+    <div class="services-grid">
+      <div class="service-card">
+        <span class="service-icon">🚀</span>
+        <h3 class="service-name">GHL Funnels &amp; Design</h3>
+        <p class="service-desc">High-converting landing pages, opt-in forms, and thank-you pages built inside GoHighLevel — designed to capture leads and drive bookings.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">⚙️</span>
+        <h3 class="service-name">GHL Automations &amp; CRM</h3>
+        <p class="service-desc">Full CRM setup, pipeline management, lead follow-up sequences, appointment workflows, and stage automations — all inside GHL.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">⚡</span>
+        <h3 class="service-name">Workflow Automation</h3>
+        <p class="service-desc">Multi-step automations in n8n and Zapier that connect your tools, eliminate repetitive tasks, and run 24/7 without intervention.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">🤖</span>
+        <h3 class="service-name">AI Integration</h3>
+        <p class="service-desc">VAPI voice agents, AI chatbots, and LLM-powered workflows integrated into your business stack for intelligent, real-time automation.</p>
+      </div>
+    </div>
+
+    <!-- Featured Demo -->
+    <div class="featured-demo">
+      <div class="featured-demo-left">
+        <div class="flow-badge-live">Live on n8n</div>
+        <p class="featured-demo-title">AI Voice Booking Assistant — VAPI + n8n</p>
+        <p class="featured-demo-desc">A 31-node automation connecting a VAPI AI phone agent to Google Calendar, Sheets, and Gmail — book or cancel appointments entirely by voice.</p>
+        <div class="featured-demo-links">
+          <button class="featured-flow-btn" onclick="openFlowModal('flow-modal-booking')">Booking Flow →</button>
+          <button class="featured-flow-btn" onclick="openFlowModal('flow-modal-cancel')">Cancellation Flow →</button>
+        </div>
+      </div>
+      <div class="demo-call-widget">
+        <div class="call-visualizer">
+          <div class="call-bar" id="bar1"></div>
+          <div class="call-bar" id="bar2"></div>
+          <div class="call-bar" id="bar3"></div>
+          <div class="call-bar" id="bar4"></div>
+          <div class="call-bar" id="bar5"></div>
+        </div>
+        <button class="call-btn" id="call-btn" onclick="toggleVapiCall()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.99 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.92 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </button>
+        <div class="call-status-text" id="call-status">Click to start call</div>
+        <div class="call-timer" id="call-timer" style="display:none">00:00</div>
+        <div class="call-disclaimer">Microphone required</div>
+      </div>
+    </div>
+
+    <!-- ── Booking Flow Modal ── -->
+    <div class="flow-modal-overlay" id="flow-modal-booking">
+      <div class="flow-modal-box">
+        <div class="flow-modal-header">
+          <span class="flow-modal-title">📅 Booking Flow</span>
+          <button class="flow-modal-close" onclick="closeFlowModal('flow-modal-booking')">✕</button>
+        </div>
+        <div class="flow-badge-live">Live on n8n</div>
+        <div id="flow-booking" class="flow-diagram">
+
+      <div class="flow-label">Trigger</div>
+      <div class="flow-step">
+        <span class="flow-node fn-trigger">🎙 VAPI Voice Call</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-node fn-webhook">⚡ Webhook: Book Appointment</span>
+      </div>
+
+      <div class="flow-down">↓</div>
+
+      <div class="flow-label">Data Processing</div>
+      <div class="flow-step">
+        <span class="flow-node fn-code">⟨/⟩ Extract Booking Data</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-node fn-calendar">📅 Create Calendar Event</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-node fn-set">⚙ Build VAPI Response</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-node fn-respond">↩ Respond to VAPI</span>
+      </div>
+
+      <div class="flow-down">↓</div>
+
+      <div class="flow-label">Route by Appointment Type</div>
+      <div class="flow-step">
+        <span class="flow-node fn-switch">⇌ Route by Appointment Type</span>
+      </div>
+
+      <div class="flow-down">↓</div>
+
+      <div class="flow-branch-row">
+        <div class="flow-branch-group">
+          <span class="flow-node fn-sheets">🗄 Save Aesthetic Surgery</span>
+        </div>
+        <div class="flow-branch-group">
+          <span class="flow-node fn-sheets">🗄 Save Dental Surgery</span>
+        </div>
+        <div class="flow-branch-group">
+          <span class="flow-node fn-sheets">🗄 Save Dental Checkup</span>
+        </div>
+      </div>
+
+      <div class="flow-down">↓</div>
+
+      <div class="flow-label">Finalize</div>
+      <div class="flow-step">
+        <span class="flow-node fn-merge">⊕ Merge Branches</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-node fn-gmail">✉ Send Confirmation Email</span>
+      </div>
+
+      <div class="flow-stats">
+        <div>
+          <div class="flow-stat-value">3</div>
+          <div class="flow-stat-label">Appointment types routed</div>
+        </div>
+        <div>
+          <div class="flow-stat-value">3</div>
+          <div class="flow-stat-label">Google Sheets tabs logged</div>
+        </div>
+        <div>
+          <div class="flow-stat-value">100%</div>
+          <div class="flow-stat-label">Voice-to-confirmation automated</div>
+        </div>
+      </div>
+        </div><!-- end flow-diagram -->
+      </div><!-- end flow-modal-box -->
+    </div><!-- end flow-modal-overlay booking -->
+
+    <!-- ── Cancellation Flow Modal ── -->
+    <div class="flow-modal-overlay" id="flow-modal-cancel">
+      <div class="flow-modal-box">
+        <div class="flow-modal-header">
+          <span class="flow-modal-title">✕ Cancellation Flow</span>
+          <button class="flow-modal-close" onclick="closeFlowModal('flow-modal-cancel')">✕</button>
+        </div>
+        <div class="flow-badge-live">Live on n8n</div>
+        <div id="flow-cancel" class="flow-diagram">
+
+      <div class="flow-label">Trigger</div>
+      <div class="flow-step">
+        <span class="flow-node fn-trigger">🎙 VAPI Voice Call</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-node fn-webhook">⚡ Webhook: Cancel Appointment</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-node fn-code">⟨/⟩ Extract Cancel Data</span>
+      </div>
+
+      <div class="flow-down">↓</div>
+
+      <div class="flow-label">Parallel Sheet Search</div>
+      <div class="flow-branch-row">
+        <div class="flow-branch-group">
+          <span class="flow-node fn-sheets">🗄 Read Aesthetic Sheet</span>
+          <div class="flow-down">↓</div>
+          <span class="flow-node fn-set">⚙ Tag Aesthetic Rows</span>
+        </div>
+        <div class="flow-branch-group">
+          <span class="flow-node fn-sheets">🗄 Read Dental Surgery Sheet</span>
+          <div class="flow-down">↓</div>
+          <span class="flow-node fn-set">⚙ Tag Dental Surgery Rows</span>
+        </div>
+        <div class="flow-branch-group">
+          <span class="flow-node fn-sheets">🗄 Read Dental Checkup Sheet</span>
+          <div class="flow-down">↓</div>
+          <span class="flow-node fn-set">⚙ Tag Dental Checkup Rows</span>
+        </div>
+      </div>
+
+      <div class="flow-down">↓</div>
+
+      <div class="flow-label">Match &amp; Decide</div>
+      <div class="flow-step">
+        <span class="flow-node fn-merge">⊕ Merge All Sheet Rows</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-node fn-code">⟨/⟩ Find Matching Appointment</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-node fn-if">? Appointment Found?</span>
+      </div>
+
+      <div class="flow-down">↓</div>
+
+      <div class="flow-if-split">
+        <div class="flow-if-path">
+          <span class="flow-if-label yes">✓ Yes</span>
+          <span class="flow-node fn-calendar">📅 Delete Calendar Event</span>
+          <div class="flow-down">↓</div>
+          <span class="flow-node fn-sheets">🗄 Update Row in Google Sheets</span>
+          <div class="flow-down">↓</div>
+          <span class="flow-node fn-set">⚙ Build Cancel Response</span>
+          <div class="flow-down">↓</div>
+          <span class="flow-node fn-respond">↩ Respond to VAPI</span>
+          <div class="flow-down">↓</div>
+          <span class="flow-node fn-gmail">✉ Send Cancellation Email</span>
+        </div>
+        <div class="flow-if-path">
+          <span class="flow-if-label no">✕ Not Found</span>
+          <span class="flow-node fn-set">⚙ Build Not Found Response</span>
+          <div class="flow-down">↓</div>
+          <span class="flow-node fn-respond">↩ Respond to VAPI</span>
+        </div>
+      </div>
+
+      <div class="flow-stats">
+        <div>
+          <div class="flow-stat-value">3</div>
+          <div class="flow-stat-label">Sheets searched in parallel</div>
+        </div>
+        <div>
+          <div class="flow-stat-value">2</div>
+          <div class="flow-stat-label">Outcome paths (found / not found)</div>
+        </div>
+        <div>
+          <div class="flow-stat-value">0</div>
+          <div class="flow-stat-label">Manual steps required</div>
+        </div>
+      </div>
+        </div><!-- end flow-diagram -->
+      </div><!-- end flow-modal-box -->
+    </div><!-- end flow-modal-overlay cancel -->
+
+  </section>
+
+  <script>
+    /* ── Flow modals ── */
+    function openFlowModal(id) {
+      var overlay = document.getElementById(id);
+      overlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      setTimeout(function() {
+        overlay.querySelector('.flow-diagram').classList.add('revealed');
+      }, 150);
+    }
+    function closeFlowModal(id) {
+      var overlay = document.getElementById(id);
+      overlay.classList.remove('active');
+      overlay.querySelector('.flow-diagram').classList.remove('revealed');
+      document.body.style.overflow = '';
+    }
+    document.querySelectorAll('.flow-modal-overlay').forEach(function(o) {
+      o.addEventListener('click', function(e) {
+        if (e.target === o) {
+          o.querySelector('.flow-diagram').classList.remove('revealed');
+          o.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+      });
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.flow-modal-overlay.active').forEach(function(o) {
+          o.querySelector('.flow-diagram').classList.remove('revealed');
+          o.classList.remove('active');
+        });
+        document.body.style.overflow = '';
+      }
+    });
+
+    /* ── VAPI Live Demo ── */
+    var _vapi       = null;
+    var _callState  = 'idle';
+    var _callSecs   = 0;
+    var _callClock  = null;
+
+    var VAPI_PUBLIC_KEY  = 'e32694fc-ea16-41e3-9b15-99d206e804d7';
+    var VAPI_ASSISTANT   = 'e710f898-76fb-40b8-8833-ec13719e5274';
+
+    function loadVapiSDK(cb) {
+      if (_vapi) { cb(); return; }
+      var s = document.createElement('script');
+      s.src = 'https://cdn.jsdelivr.net/gh/VapiAI/html-script-tag@latest/dist/assets/index.js';
+      s.defer = true;
+      s.onload = function () {
+        // vapiSDK.run() initialises the Vapi client and returns the instance.
+        // We push the floating button far off-screen and hide it via CSS.
+        _vapi = window.vapiSDK.run({
+          apiKey: VAPI_PUBLIC_KEY,
+          assistant: VAPI_ASSISTANT,
+          config: { position: 'bottom-right', offset: '-500px' }
+        });
+        // Inject CSS to hide VAPI's own floating button overlay
+        var hide = document.createElement('style');
+        hide.textContent = '[class*="vapi-btn"],[id*="vapi-support"],[class*="vapiButton"]{display:none!important;visibility:hidden!important;pointer-events:none!important}';
+        document.head.appendChild(hide);
+        _bindEvents();
+        cb();
+      };
+      s.onerror = function () {
+        setCallUI('idle');
+        var el = document.getElementById('call-status');
+        if (el) el.textContent = 'Could not load VAPI — check your connection';
+      };
+      document.head.appendChild(s);
+    }
+
+    function _bindEvents() {
+      if (!_vapi || _vapi._portfolioBound) return;
+      _vapi._portfolioBound = true;
+      _vapi.on('call-start',    onCallStart);
+      _vapi.on('call-end',      onCallEnd);
+      _vapi.on('speech-start',  onSpeechStart);
+      _vapi.on('speech-end',    onSpeechEnd);
+      _vapi.on('volume-level',  onVolume);
+      _vapi.on('error',         onCallError);
+    }
+
+    function toggleVapiCall() {
+      if (_callState === 'connecting') return;
+      if (_callState === 'active') { _vapi && _vapi.stop(); return; }
+      setCallUI('connecting');
+      loadVapiSDK(function () {
+        _vapi.start(VAPI_ASSISTANT).catch(function (e) {
+          setCallUI('idle');
+          setStatus('Mic access denied — please allow microphone', 'idle');
+        });
+      });
+    }
+
+    function onCallStart() {
+      setCallUI('active');
+      _callSecs = 0;
+      _callClock = setInterval(function () {
+        _callSecs++;
+        var m = String(Math.floor(_callSecs / 60)).padStart(2, '0');
+        var s = String(_callSecs % 60).padStart(2, '0');
+        var el = document.getElementById('call-timer');
+        if (el) el.textContent = m + ':' + s;
+      }, 1000);
+    }
+
+    function onCallEnd() {
+      clearInterval(_callClock);
+      setCallUI('idle');
+      setBars(false);
+    }
+
+    function onSpeechStart() {
+      setBars(true);
+      setStatus('Assistant speaking…', 'active');
+    }
+
+    function onSpeechEnd() {
+      setBars(false);
+      setStatus('Listening…', 'active');
+    }
+
+    function onVolume(level) {
+      var ids = ['bar1','bar2','bar3','bar4','bar5'];
+      ids.forEach(function (id, i) {
+        var el = document.getElementById(id);
+        if (!el) return;
+        var h = Math.max(4, Math.round(level * 38 * (0.4 + Math.sin(i + Date.now() / 200) * 0.3 + Math.random() * 0.3)));
+        el.style.height = h + 'px';
+      });
+    }
+
+    function onCallError(err) {
+      clearInterval(_callClock);
+      setCallUI('idle');
+      setBars(false);
+      setStatus((err && err.message) ? 'Error: ' + err.message : 'Call failed — please try again', 'idle');
+    }
+
+    function setCallUI(state) {
+      _callState = state;
+      var btn    = document.getElementById('call-btn');
+      var timer  = document.getElementById('call-timer');
+      if (!btn) return;
+
+      btn.className = 'call-btn' + (state !== 'idle' ? ' state-' + state : '');
+
+      var icons = {
+        idle: '<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.99 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.92 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>',
+        connecting: '<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/></svg>',
+        active: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>'
+      };
+      btn.innerHTML = icons[state] || icons.idle;
+
+      var statusMap = { idle: 'Click to start call', connecting: 'Connecting…', active: 'Listening…' };
+      setStatus(statusMap[state] || '', state);
+
+      if (timer) timer.style.display = (state === 'active') ? 'block' : 'none';
+      if (state !== 'active') { if (timer) timer.textContent = '00:00'; }
+    }
+
+    function setStatus(msg, state) {
+      var el = document.getElementById('call-status');
+      if (el) el.textContent = msg;
+    }
+
+    function setBars(on) {
+      ['bar1','bar2','bar3','bar4','bar5'].forEach(function (id) {
+        var el = document.getElementById(id);
+        if (!el) return;
+        if (on) { el.classList.add('speaking'); }
+        else    { el.classList.remove('speaking'); el.style.height = '4px'; }
+      });
+    }
+  </script>
+
+  <hr class="divider" />
+
+  <!-- Projects -->
+  <section id="projects">
+    <p class="section-label">What I've built</p>
+    <h2 class="section-title">Projects and Designs</h2>
+    <!-- Filter tabs -->
+    <div class="proj-filters">
+      <button class="proj-filter" data-filter="n8n">n8n <span class="filter-count">5</span></button>
+      <button class="proj-filter" data-filter="ghl-funnels">GHL Funnels <span class="filter-count">10</span></button>
+      <button class="proj-filter" data-filter="ghl-auto">GHL Automations <span class="filter-count">5</span></button>
+      <button class="proj-filter" data-filter="zapier">Zapier <span class="filter-count">2</span></button>
+    </div>
+
+    <!-- Project cards -->
+    <div class="proj-grid">
+
+      <!-- n8n cards -->
+      <div class="proj-card hidden" data-category="n8n" onclick="openModal('modal-dental')">
+        <div class="proj-card-img-wrap">
+          <img src="images/workflow-dental-booking.png" alt="VAPI Dental Clinic Voice Booking" onerror="this.parentElement.innerHTML='<div class=\'proj-card-placeholder\'>📅</div>'" />
+          <span class="proj-card-badge">N8N</span>
+        </div>
+        <div class="proj-card-body">
+          <div class="proj-card-title">VAPI Dental Clinic Voice Booking</div>
+          <div class="proj-card-desc">A voice-to-automation pipeline where patients book dental appointments through a VAPI AI phone agent connected to Google Calendar, Sheets, and Gmail.</div>
+          <div class="proj-card-tags">
+            <span class="proj-card-tag">n8n</span>
+            <span class="proj-card-tag">VAPI</span>
+            <span class="proj-card-tag">Google Calendar</span>
+            <span class="proj-card-tag">+2</span>
+          </div>
+          <div class="proj-card-footer">
+            <span class="proj-card-stat">Real-time</span>
+            <span class="proj-card-ext">↗</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-card hidden" data-category="n8n" onclick="openModal('modal-cancel')">
+        <div class="proj-card-img-wrap">
+          <img src="images/workflow-cancel.png" alt="Voice-Triggered Appointment Cancellation" onerror="this.parentElement.innerHTML='<div class=\'proj-card-placeholder\'>✕</div>'" />
+          <span class="proj-card-badge">N8N</span>
+        </div>
+        <div class="proj-card-body">
+          <div class="proj-card-title">Voice-Triggered Appointment Cancellation</div>
+          <div class="proj-card-desc">Patients cancel via VAPI voice call — n8n searches all sheet tabs in parallel, deletes the calendar event, and sends a confirmation email automatically.</div>
+          <div class="proj-card-tags">
+            <span class="proj-card-tag">n8n</span>
+            <span class="proj-card-tag">VAPI</span>
+            <span class="proj-card-tag">Google Sheets</span>
+            <span class="proj-card-tag">+2</span>
+          </div>
+          <div class="proj-card-footer">
+            <span class="proj-card-stat">0 Manual Steps</span>
+            <span class="proj-card-ext">↗</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-card hidden" data-category="n8n" onclick="openModal('modal-fitness')">
+        <div class="proj-card-img-wrap">
+          <img src="images/workflow-fitness.png" alt="AI Fitness Coach" onerror="this.parentElement.innerHTML='<div class=\'proj-card-placeholder\'>🏃</div>'" />
+          <span class="proj-card-badge">N8N</span>
+        </div>
+        <div class="proj-card-body">
+          <div class="proj-card-title">AI Fitness Coach: Strava Analyzer &amp; Planner</div>
+          <div class="proj-card-desc">Triggered on every new Strava activity — reads training goals, calculates performance metrics, and sends a personalized coaching email via Groq AI.</div>
+          <div class="proj-card-tags">
+            <span class="proj-card-tag">n8n</span>
+            <span class="proj-card-tag">Strava</span>
+            <span class="proj-card-tag">Groq AI</span>
+            <span class="proj-card-tag">+2</span>
+          </div>
+          <div class="proj-card-footer">
+            <span class="proj-card-stat">Auto-triggered</span>
+            <span class="proj-card-ext">↗</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-card hidden" data-category="n8n" onclick="openModal('modal-jotform')">
+        <div class="proj-card-img-wrap">
+          <img src="images/workflow-jotform.png" alt="JotForm Lead Capture" onerror="this.parentElement.innerHTML='<div class=\'proj-card-placeholder\'>📋</div>'" />
+          <span class="proj-card-badge">N8N</span>
+        </div>
+        <div class="proj-card-body">
+          <div class="proj-card-title">JotForm Lead Capture → AI Summary → Gmail</div>
+          <div class="proj-card-desc">Captures JotForm submissions via webhook, classifies and routes leads to the correct Sheets tab, then generates an AI summary and emails the sales team.</div>
+          <div class="proj-card-tags">
+            <span class="proj-card-tag">n8n</span>
+            <span class="proj-card-tag">JotForm</span>
+            <span class="proj-card-tag">Groq AI</span>
+            <span class="proj-card-tag">+2</span>
+          </div>
+          <div class="proj-card-footer">
+            <span class="proj-card-stat">Webhook</span>
+            <span class="proj-card-ext">↗</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-card hidden" data-category="n8n" onclick="openModal('modal-property')">
+        <div class="proj-card-img-wrap">
+          <img src="images/workflow-property.png" alt="Property Manager AI Agent" onerror="this.parentElement.innerHTML='<div class=\'proj-card-placeholder\'>🏠</div>'" />
+          <span class="proj-card-badge">N8N</span>
+        </div>
+        <div class="proj-card-body">
+          <div class="proj-card-title">Property Manager AI Agent</div>
+          <div class="proj-card-desc">WhatsApp-based AI assistant powered by LangChain and Groq. Handles tenant requests, routes to the right team, logs to Sheets, and sends confirmations.</div>
+          <div class="proj-card-tags">
+            <span class="proj-card-tag">n8n</span>
+            <span class="proj-card-tag">WhatsApp</span>
+            <span class="proj-card-tag">Groq AI</span>
+            <span class="proj-card-tag">+3</span>
+          </div>
+          <div class="proj-card-footer">
+            <span class="proj-card-stat">AI Agent</span>
+            <span class="proj-card-ext">↗</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- GHL Funnels cards -->
+      <div class="proj-card hidden" data-category="ghl-funnels" onclick="window.open('https://alfredalimuin.github.io/html/funnel.html','_blank')">
+        <div class="proj-card-img-wrap">
+          <img src="images/funnel-alphaclean.png" alt="AlphaClean Pro Funnel" onerror="this.parentElement.innerHTML='<div class=\'proj-card-placeholder\'>🧹</div>'" />
+          <span class="proj-card-badge">GHL</span>
+        </div>
+        <div class="proj-card-body">
+          <div class="proj-card-title">AlphaClean Pro — Free Cleaning Estimate</div>
+          <div class="proj-card-desc">Lead capture funnel for a cleaning business. Visitors fill out a quick form to get a free estimate, feeding directly into the GHL CRM pipeline.</div>
+          <div class="proj-card-tags">
+            <span class="proj-card-tag">GHL</span>
+            <span class="proj-card-tag">Funnel</span>
+            <span class="proj-card-tag">Lead Capture</span>
+          </div>
+          <div class="proj-card-footer">
+            <span class="proj-card-stat">Live</span>
+            <span class="proj-card-ext">↗</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-card hidden" data-category="ghl-funnels" onclick="window.open('https://alfredalimuin.github.io/html/drlamya-dental.html','_blank')">
+        <div class="proj-card-img-wrap">
+          <img src="images/funnel-drlamya.png" alt="Dr Lamya Dental Clinic Funnel" onerror="this.parentElement.innerHTML='<div class=\'proj-card-placeholder\'>🦷</div>'" />
+          <span class="proj-card-badge">GHL</span>
+        </div>
+        <div class="proj-card-body">
+          <div class="proj-card-title">Dr. Lamya Dental Clinic</div>
+          <div class="proj-card-desc">Professional dental clinic funnel designed to capture appointment bookings and patient inquiries with a clean, trustworthy layout.</div>
+          <div class="proj-card-tags">
+            <span class="proj-card-tag">GHL</span>
+            <span class="proj-card-tag">Funnel</span>
+            <span class="proj-card-tag">Dental</span>
+          </div>
+          <div class="proj-card-footer">
+            <span class="proj-card-stat">Live</span>
+            <span class="proj-card-ext">↗</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-card hidden" data-category="ghl-funnels" onclick="window.open('https://alfredalimuin.github.io/html/primekey-booking.html','_blank')">
+        <div class="proj-card-img-wrap">
+          <img src="images/funnel-primekey-booking.png" alt="PrimeKey Booking Funnel" onerror="this.parentElement.innerHTML='<div class=\'proj-card-placeholder\'>🔑</div>'" />
+          <span class="proj-card-badge">GHL</span>
+        </div>
+        <div class="proj-card-body">
+          <div class="proj-card-title">PrimeKey Booking</div>
+          <div class="proj-card-desc">Booking funnel for PrimeKey services — streamlined appointment scheduling with an integrated calendar and confirmation flow.</div>
+          <div class="proj-card-tags">
+            <span class="proj-card-tag">GHL</span>
+            <span class="proj-card-tag">Funnel</span>
+            <span class="proj-card-tag">Booking</span>
+          </div>
+          <div class="proj-card-footer">
+            <span class="proj-card-stat">Live</span>
+            <span class="proj-card-ext">↗</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-card hidden" data-category="ghl-funnels" onclick="window.open('https://alfredalimuin.github.io/html/primekey-realty.html','_blank')">
+        <div class="proj-card-img-wrap">
+          <img src="images/funnel-primekey-realty.png" alt="PrimeKey Realty Funnel" onerror="this.parentElement.innerHTML='<div class=\'proj-card-placeholder\'>🏘️</div>'" />
+          <span class="proj-card-badge">GHL</span>
+        </div>
+        <div class="proj-card-body">
+          <div class="proj-card-title">PrimeKey Realty</div>
+          <div class="proj-card-desc">Real estate landing funnel designed to capture property inquiries and connect potential buyers or renters with the PrimeKey team.</div>
+          <div class="proj-card-tags">
+            <span class="proj-card-tag">GHL</span>
+            <span class="proj-card-tag">Funnel</span>
+            <span class="proj-card-tag">Realty</span>
+          </div>
+          <div class="proj-card-footer">
+            <span class="proj-card-stat">Live</span>
+            <span class="proj-card-ext">↗</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-card hidden" data-category="ghl-funnels" onclick="window.open('https://alfredalimuin.github.io/html/index_petland.html','_blank')">
+        <div class="proj-card-img-wrap">
+          <img src="images/funnel-petland.png" alt="PetLand Estrada Funnel" onerror="this.parentElement.innerHTML='<div class=\'proj-card-placeholder\'>🐾</div>'" />
+          <span class="proj-card-badge">GHL</span>
+        </div>
+        <div class="proj-card-body">
+          <div class="proj-card-title">PetLand Bahrain — Pet Grooming &amp; Shop</div>
+          <div class="proj-card-desc">Premium pet grooming and shop landing page for PetLand Bahrain — designed to showcase services and drive bookings.</div>
+          <div class="proj-card-tags">
+            <span class="proj-card-tag">GHL</span>
+            <span class="proj-card-tag">Funnel</span>
+            <span class="proj-card-tag">Pet Services</span>
+          </div>
+          <div class="proj-card-footer">
+            <span class="proj-card-stat">Live</span>
+            <span class="proj-card-ext">↗</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-card hidden" data-category="ghl-funnels" onclick="window.open('https://alfredalimuin.github.io/html/hero-carwash-embedded.html','_blank')">
+        <div class="proj-card-img-wrap">
+          <img src="images/funnel-carwash.png" alt="Hero Carwash Funnel" onerror="this.parentElement.innerHTML='<div class=\'proj-card-placeholder\'>🚗</div>'" />
+          <span class="proj-card-badge">GHL</span>
+        </div>
+        <div class="proj-card-body">
+          <div class="proj-card-title">Hero Carwash</div>
+          <div class="proj-card-desc">Carwash service funnel built to drive bookings and generate leads — with a bold hero section and a simple CTA form.</div>
+          <div class="proj-card-tags">
+            <span class="proj-card-tag">GHL</span>
+            <span class="proj-card-tag">Funnel</span>
+            <span class="proj-card-tag">Service</span>
+          </div>
+          <div class="proj-card-footer">
+            <span class="proj-card-stat">Live</span>
+            <span class="proj-card-ext">↗</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-card hidden" data-category="ghl-funnels" onclick="window.open('https://alfredalimuin.github.io/html/barberia-landing.html','_blank')">
+        <div class="proj-card-img-wrap">
+          <img src="images/funnel-barberia.png" alt="Barberia Landing Funnel" onerror="this.parentElement.innerHTML='<div class=\'proj-card-placeholder\'>💈</div>'" />
+          <span class="proj-card-badge">GHL</span>
+        </div>
+        <div class="proj-card-body">
+          <div class="proj-card-title">Barberia — Premium Barbershop</div>
+          <div class="proj-card-desc">Full-screen video hero landing page for a premium barbershop. Features a booking modal, services section, testimonials, and black & gold branding — built for GHL custom code.</div>
+          <div class="proj-card-tags">
+            <span class="proj-card-tag">GHL</span>
+            <span class="proj-card-tag">Funnel</span>
+            <span class="proj-card-tag">Video Hero</span>
+            <span class="proj-card-tag">Barbershop</span>
+          </div>
+          <div class="proj-card-footer">
+            <span class="proj-card-stat">Live</span>
+            <span class="proj-card-ext">↗</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-card hidden" data-category="ghl-funnels" onclick="window.open('https://alfredalimuin.github.io/html/home-movers-funnel.html','_blank')">
+        <div class="proj-card-img-wrap">
+          <img src="images/funnel-home-movers.png" alt="Home Movers Funnel" onerror="this.parentElement.innerHTML='<div class=\'proj-card-placeholder\'>📦</div>'" />
+          <span class="proj-card-badge">GHL</span>
+        </div>
+        <div class="proj-card-body">
+          <div class="proj-card-title">Home Movers — Move Smarter. Settle Faster.</div>
+          <div class="proj-card-desc">Video-hero lead capture funnel for a moving service. Warm beige palette with a modal opt-in form — built for GHL custom code blocks.</div>
+          <div class="proj-card-tags">
+            <span class="proj-card-tag">GHL</span>
+            <span class="proj-card-tag">Funnel</span>
+            <span class="proj-card-tag">Moving Services</span>
+          </div>
+          <div class="proj-card-footer">
+            <span class="proj-card-stat">Live</span>
+            <span class="proj-card-ext">↗</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-card hidden" data-category="ghl-funnels" onclick="window.open('https://alfredalimuin.github.io/html/ja-architecture.html','_blank')">
+        <div class="proj-card-img-wrap">
+          <img src="images/funnel-ja-architecture.png" alt="J&A Architecture Funnel" onerror="this.parentElement.innerHTML='<div class=\'proj-card-placeholder\'>🏛️</div>'" />
+          <span class="proj-card-badge">GHL</span>
+        </div>
+        <div class="proj-card-body">
+          <div class="proj-card-title">J&amp;A Architecture — Spaces Designed to Inspire</div>
+          <div class="proj-card-desc">Luxury landing page for an architecture and design firm. Dark charcoal and gold palette with Playfair Display typography — built for GHL custom code.</div>
+          <div class="proj-card-tags">
+            <span class="proj-card-tag">GHL</span>
+            <span class="proj-card-tag">Funnel</span>
+            <span class="proj-card-tag">Architecture</span>
+          </div>
+          <div class="proj-card-footer">
+            <span class="proj-card-stat">Live</span>
+            <span class="proj-card-ext">↗</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-card hidden" data-category="ghl-funnels" onclick="window.open('https://alfredalimuin.github.io/html/recruitment-apply.html','_blank')">
+        <div class="proj-card-img-wrap">
+          <img src="images/funnel-manpowerai.png" alt="ManPowerAI Recruitment Funnel" onerror="this.parentElement.innerHTML='<div class=\'proj-card-placeholder\'>🤖</div>'" />
+          <span class="proj-card-badge">GHL</span>
+        </div>
+        <div class="proj-card-body">
+          <div class="proj-card-title">ManPowerAI — AI-Powered Career Matching</div>
+          <div class="proj-card-desc">Recruitment landing page for an AI-powered job matching platform. Blue and purple tech palette with animated hero, job listings, and an application form.</div>
+          <div class="proj-card-tags">
+            <span class="proj-card-tag">GHL</span>
+            <span class="proj-card-tag">Funnel</span>
+            <span class="proj-card-tag">Recruitment</span>
+            <span class="proj-card-tag">AI</span>
+          </div>
+          <div class="proj-card-footer">
+            <span class="proj-card-stat">Live</span>
+            <span class="proj-card-ext">↗</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- GHL Automations cards -->
+      <div class="proj-card hidden" data-category="ghl-auto" onclick="openModal('modal-ghl-newlead')">
+        <div class="proj-card-img-wrap">
+          <img src="images/ghl-new-lead-followup.png" alt="New Lead Follow-Up" onerror="this.parentElement.innerHTML='<div class=\'proj-card-placeholder\'>📬</div>'" />
+          <span class="proj-card-badge">GHL</span>
+        </div>
+        <div class="proj-card-body">
+          <div class="proj-card-title">New Lead Follow-Up</div>
+          <div class="proj-card-desc">Automated follow-up sequence triggered the moment a new lead enters the AlphaClean Pro pipeline — ensuring no lead goes cold.</div>
+          <div class="proj-card-tags">
+            <span class="proj-card-tag">GHL</span>
+            <span class="proj-card-tag">Automation</span>
+            <span class="proj-card-tag">Lead Follow-Up</span>
+          </div>
+          <div class="proj-card-footer">
+            <span class="proj-card-stat">AlphaClean Pro</span>
+            <span class="proj-card-ext">↗</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-card hidden" data-category="ghl-auto" onclick="openModal('modal-ghl-apptset')">
+        <div class="proj-card-img-wrap">
+          <img src="images/ghl-appointment-set.png" alt="Appointment Set Stage Move" onerror="this.parentElement.innerHTML='<div class=\'proj-card-placeholder\'>📆</div>'" />
+          <span class="proj-card-badge">GHL</span>
+        </div>
+        <div class="proj-card-body">
+          <div class="proj-card-title">Appointment Set — Stage Move</div>
+          <div class="proj-card-desc">Fires a booking confirmation and automatically moves the contact to the correct pipeline stage the moment an appointment is set.</div>
+          <div class="proj-card-tags">
+            <span class="proj-card-tag">GHL</span>
+            <span class="proj-card-tag">Automation</span>
+            <span class="proj-card-tag">Pipeline</span>
+          </div>
+          <div class="proj-card-footer">
+            <span class="proj-card-stat">AlphaClean Pro</span>
+            <span class="proj-card-ext">↗</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-card hidden" data-category="ghl-auto" onclick="openModal('modal-ghl-reminder')">
+        <div class="proj-card-img-wrap">
+          <img src="images/ghl-appointment-reminder.png" alt="Appointment Reminder Email" onerror="this.parentElement.innerHTML='<div class=\'proj-card-placeholder\'>🔔</div>'" />
+          <span class="proj-card-badge">GHL</span>
+        </div>
+        <div class="proj-card-body">
+          <div class="proj-card-title">Appointment Reminder — Email</div>
+          <div class="proj-card-desc">Scheduled email reminder sent to clients before their upcoming appointment — reducing no-shows and keeping clients engaged.</div>
+          <div class="proj-card-tags">
+            <span class="proj-card-tag">GHL</span>
+            <span class="proj-card-tag">Automation</span>
+            <span class="proj-card-tag">Email</span>
+          </div>
+          <div class="proj-card-footer">
+            <span class="proj-card-stat">AlphaClean Pro</span>
+            <span class="proj-card-ext">↗</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-card hidden" data-category="ghl-auto" onclick="openModal('modal-ghl-jobcomplete')">
+        <div class="proj-card-img-wrap">
+          <img src="images/ghl-job-complete.png" alt="Job Complete" onerror="this.parentElement.innerHTML='<div class=\'proj-card-placeholder\'>✅</div>'" />
+          <span class="proj-card-badge">GHL</span>
+        </div>
+        <div class="proj-card-body">
+          <div class="proj-card-title">Job Complete</div>
+          <div class="proj-card-desc">Triggered when a job is marked complete — sends a wrap-up message, requests a review, and updates the pipeline stage automatically.</div>
+          <div class="proj-card-tags">
+            <span class="proj-card-tag">GHL</span>
+            <span class="proj-card-tag">Automation</span>
+            <span class="proj-card-tag">Review Request</span>
+          </div>
+          <div class="proj-card-footer">
+            <span class="proj-card-stat">AlphaClean Pro</span>
+            <span class="proj-card-ext">↗</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Zapier cards -->
+      <div class="proj-card hidden" data-category="zapier" onclick="openModal('modal-zapier-crm')">
+        <div class="proj-card-img-wrap">
+          <img src="images/zapier-crm-followup.png" alt="AI-Powered CRM Follow-Up System" onerror="this.parentElement.innerHTML='<div class=\'proj-card-placeholder\'>🔗</div>'" />
+          <span class="proj-card-badge">ZAPIER</span>
+        </div>
+        <div class="proj-card-body">
+          <div class="proj-card-title">AI-Powered CRM Follow-Up System</div>
+          <div class="proj-card-desc">Automated CRM follow-up pipeline powered by AI — triggers personalised outreach sequences based on lead behaviour and status changes.</div>
+          <div class="proj-card-tags">
+            <span class="proj-card-tag">Zapier</span>
+            <span class="proj-card-tag">CRM</span>
+            <span class="proj-card-tag">AI</span>
+          </div>
+          <div class="proj-card-footer">
+            <span class="proj-card-stat">Automated</span>
+            <span class="proj-card-ext">↗</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-card hidden" data-category="zapier" onclick="openModal('modal-zapier-enrichment')">
+        <div class="proj-card-img-wrap">
+          <img src="images/zapier-data-enrichment.png" alt="Data Lead and Enrichment" onerror="this.parentElement.innerHTML='<div class=\'proj-card-placeholder\'>📊</div>'" />
+          <span class="proj-card-badge">ZAPIER</span>
+        </div>
+        <div class="proj-card-body">
+          <div class="proj-card-title">Data Lead and Enrichment</div>
+          <div class="proj-card-desc">Captures incoming leads and automatically enriches their data — pulling additional contact info and qualifying fields before routing to the CRM.</div>
+          <div class="proj-card-tags">
+            <span class="proj-card-tag">Zapier</span>
+            <span class="proj-card-tag">Lead Enrichment</span>
+            <span class="proj-card-tag">Data</span>
+          </div>
+          <div class="proj-card-footer">
+            <span class="proj-card-stat">Real-time</span>
+            <span class="proj-card-ext">↗</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-card hidden" data-category="ghl-auto" onclick="openModal('modal-zapier-primekey')">
+        <div class="proj-card-img-wrap">
+          <img src="images/zapier-primekey-followup.png" alt="PrimeKey New Lead Follow-Up" onerror="this.parentElement.innerHTML='<div class=\'proj-card-placeholder\'>🔑</div>'" />
+          <span class="proj-card-badge">GHL</span>
+        </div>
+        <div class="proj-card-body">
+          <div class="proj-card-title">PrimeKey — New Lead Follow-Up</div>
+          <div class="proj-card-desc">Automated lead follow-up workflow for PrimeKey — instantly responds to new enquiries with a personalised sequence to nurture and convert prospects.</div>
+          <div class="proj-card-tags">
+            <span class="proj-card-tag">GHL</span>
+            <span class="proj-card-tag">Lead Follow-Up</span>
+            <span class="proj-card-tag">PrimeKey</span>
+          </div>
+          <div class="proj-card-footer">
+            <span class="proj-card-stat">PrimeKey</span>
+            <span class="proj-card-ext">↗</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Modal: Dental -->
+    <div class="modal-overlay" id="modal-dental">
+      <div class="modal-box">
+        <div class="modal-img-wrap"><img src="images/workflow-dental-booking.png" class="modal-img" alt="VAPI Dental Clinic Voice Booking" onerror="this.parentElement.style.display='none'" /></div>
+        <div class="modal-body">
+          <div class="modal-header"><span class="modal-title">VAPI Dental Clinic Voice Booking</span><button class="modal-close" onclick="closeModal('modal-dental')">✕</button></div>
+          <span class="modal-badge">n8n</span>
+          <p class="modal-desc">A voice-to-automation pipeline where patients book dental appointments through a VAPI AI phone agent. The call data flows into n8n, which creates a Google Calendar event, logs the booking to the correct Google Sheets tab by appointment type, and sends an HTML confirmation email — all in real time.</p>
+          <div class="modal-tags"><span class="modal-tag">n8n</span><span class="modal-tag">VAPI</span><span class="modal-tag">Google Calendar</span><span class="modal-tag">Google Sheets</span><span class="modal-tag">Gmail</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal: Cancellation -->
+    <div class="modal-overlay" id="modal-cancel">
+      <div class="modal-box">
+        <div class="modal-img-wrap"><img src="images/workflow-cancel.png" class="modal-img" alt="Voice-Triggered Appointment Cancellation" onerror="this.parentElement.style.display='none'" /></div>
+        <div class="modal-body">
+          <div class="modal-header"><span class="modal-title">Voice-Triggered Appointment Cancellation</span><button class="modal-close" onclick="closeModal('modal-cancel')">✕</button></div>
+          <span class="modal-badge">n8n</span>
+          <p class="modal-desc">An automated cancellation flow extending the dental booking system. When a patient requests cancellation via VAPI, n8n searches all appointment sheet tabs in parallel, deletes the Google Calendar event, marks the record as Cancelled with a timestamp, and sends a cancellation confirmation email to the patient.</p>
+          <div class="modal-tags"><span class="modal-tag">n8n</span><span class="modal-tag">VAPI</span><span class="modal-tag">Google Sheets</span><span class="modal-tag">Google Calendar</span><span class="modal-tag">Gmail</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal: Fitness -->
+    <div class="modal-overlay" id="modal-fitness">
+      <div class="modal-box">
+        <div class="modal-img-wrap"><img src="images/workflow-fitness.png" class="modal-img" alt="AI Fitness Coach" onerror="this.parentElement.style.display='none'" /></div>
+        <div class="modal-body">
+          <div class="modal-header"><span class="modal-title">The AI Fitness Coach: Strava Data Analyzer &amp; Planner</span><button class="modal-close" onclick="closeModal('modal-fitness')">✕</button></div>
+          <span class="modal-badge">n8n</span>
+          <p class="modal-desc">Triggered the moment a new activity is logged on Strava, the workflow reads the athlete's training goals from Google Sheets, merges them with the incoming activity data, calculates key performance metrics, and sends the results to Groq AI for analysis. A personalized coaching email with feedback and next-session recommendations is delivered automatically via Gmail.</p>
+          <div class="modal-tags"><span class="modal-tag">n8n</span><span class="modal-tag">Strava</span><span class="modal-tag">Groq AI</span><span class="modal-tag">Google Sheets</span><span class="modal-tag">Gmail</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal: JotForm -->
+    <div class="modal-overlay" id="modal-jotform">
+      <div class="modal-box">
+        <div class="modal-img-wrap"><img src="images/workflow-jotform.png" class="modal-img" alt="JotForm Lead Capture" onerror="this.parentElement.style.display='none'" /></div>
+        <div class="modal-body">
+          <div class="modal-header"><span class="modal-title">JotForm Lead Capture → Sheets + AI Summary → Gmail</span><button class="modal-close" onclick="closeModal('modal-jotform')">✕</button></div>
+          <span class="modal-badge">n8n</span>
+          <p class="modal-desc">Captures every JotForm submission via webhook, extracts and classifies lead fields, then routes the record into either the Corporate or Individual Google Sheets tab. Each branch independently calls Groq AI to generate a tailored lead summary, which is included in a formatted follow-up email sent automatically to the sales team via Gmail.</p>
+          <div class="modal-tags"><span class="modal-tag">n8n</span><span class="modal-tag">JotForm</span><span class="modal-tag">Groq AI</span><span class="modal-tag">Google Sheets</span><span class="modal-tag">Gmail</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal: GHL New Lead Follow-Up -->
+    <div class="modal-overlay" id="modal-ghl-newlead">
+      <div class="modal-box">
+        <div class="modal-img-wrap"><img src="images/ghl-new-lead-followup.png" class="modal-img" alt="New Lead Follow-Up" onerror="this.parentElement.style.display='none'" /></div>
+        <div class="modal-body">
+          <div class="modal-header"><span class="modal-title">New Lead Follow-Up (AlphaClean Pro)</span><button class="modal-close" onclick="closeModal('modal-ghl-newlead')">✕</button></div>
+          <span class="modal-badge">GHL</span>
+          <p class="modal-desc">An automated follow-up sequence triggered the moment a new lead enters the AlphaClean Pro pipeline. The workflow immediately reaches out to the prospect, ensuring no lead goes cold and every inquiry gets a timely, professional response.</p>
+          <div class="modal-tags"><span class="modal-tag">GHL</span><span class="modal-tag">Automation</span><span class="modal-tag">Lead Follow-Up</span><span class="modal-tag">AlphaClean Pro</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal: GHL Appointment Set -->
+    <div class="modal-overlay" id="modal-ghl-apptset">
+      <div class="modal-box">
+        <div class="modal-img-wrap"><img src="images/ghl-appointment-set.png" class="modal-img" alt="Appointment Set — Stage Move" onerror="this.parentElement.style.display='none'" /></div>
+        <div class="modal-body">
+          <div class="modal-header"><span class="modal-title">Appointment Set — Stage Move (AlphaClean Pro)</span><button class="modal-close" onclick="closeModal('modal-ghl-apptset')">✕</button></div>
+          <span class="modal-badge">GHL</span>
+          <p class="modal-desc">Once a client books an appointment, this automation fires a confirmation and automatically moves the contact to the correct pipeline stage. It keeps the CRM up to date in real time without any manual intervention.</p>
+          <div class="modal-tags"><span class="modal-tag">GHL</span><span class="modal-tag">Automation</span><span class="modal-tag">Pipeline</span><span class="modal-tag">AlphaClean Pro</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal: GHL Appointment Reminder -->
+    <div class="modal-overlay" id="modal-ghl-reminder">
+      <div class="modal-box">
+        <div class="modal-img-wrap"><img src="images/ghl-appointment-reminder.png" class="modal-img" alt="Appointment Reminder - Email" onerror="this.parentElement.style.display='none'" /></div>
+        <div class="modal-body">
+          <div class="modal-header"><span class="modal-title">Appointment Reminder - Email (AlphaClean Pro)</span><button class="modal-close" onclick="closeModal('modal-ghl-reminder')">✕</button></div>
+          <span class="modal-badge">GHL</span>
+          <p class="modal-desc">A scheduled email reminder sent to clients ahead of their upcoming appointment. Reduces no-shows by keeping clients informed and engaged before their scheduled cleaning service.</p>
+          <div class="modal-tags"><span class="modal-tag">GHL</span><span class="modal-tag">Automation</span><span class="modal-tag">Email</span><span class="modal-tag">AlphaClean Pro</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal: GHL Job Complete -->
+    <div class="modal-overlay" id="modal-ghl-jobcomplete">
+      <div class="modal-box">
+        <div class="modal-img-wrap"><img src="images/ghl-job-complete.png" class="modal-img" alt="Job Complete" onerror="this.parentElement.style.display='none'" /></div>
+        <div class="modal-body">
+          <div class="modal-header"><span class="modal-title">Job Complete (AlphaClean Pro)</span><button class="modal-close" onclick="closeModal('modal-ghl-jobcomplete')">✕</button></div>
+          <span class="modal-badge">GHL</span>
+          <p class="modal-desc">Triggered when a job is marked as complete, this automation sends a wrap-up message to the client, requests a review, and updates the pipeline stage — closing the loop on the customer journey automatically.</p>
+          <div class="modal-tags"><span class="modal-tag">GHL</span><span class="modal-tag">Automation</span><span class="modal-tag">Review Request</span><span class="modal-tag">AlphaClean Pro</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal: Zapier CRM Follow-Up -->
+    <div class="modal-overlay" id="modal-zapier-crm">
+      <div class="modal-box">
+        <div class="modal-img-wrap"><img src="images/zapier-crm-followup.png" class="modal-img" alt="AI-Powered CRM Follow-Up System" onerror="this.parentElement.style.display='none'" /></div>
+        <div class="modal-body">
+          <div class="modal-header"><span class="modal-title">AI-Powered CRM Follow-Up System</span><button class="modal-close" onclick="closeModal('modal-zapier-crm')">✕</button></div>
+          <span class="modal-badge">Zapier</span>
+          <p class="modal-desc">Automated CRM follow-up pipeline powered by AI — triggers personalised outreach sequences based on lead behaviour and status changes, ensuring no lead goes cold.</p>
+          <div class="modal-tags"><span class="modal-tag">Zapier</span><span class="modal-tag">CRM</span><span class="modal-tag">AI</span><span class="modal-tag">Automation</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal: Zapier Data Enrichment -->
+    <div class="modal-overlay" id="modal-zapier-enrichment">
+      <div class="modal-box">
+        <div class="modal-img-wrap"><img src="images/zapier-data-enrichment.png" class="modal-img" alt="Data Lead and Enrichment" onerror="this.parentElement.style.display='none'" /></div>
+        <div class="modal-body">
+          <div class="modal-header"><span class="modal-title">Data Lead and Enrichment</span><button class="modal-close" onclick="closeModal('modal-zapier-enrichment')">✕</button></div>
+          <span class="modal-badge">Zapier</span>
+          <p class="modal-desc">Captures incoming leads and automatically enriches their data — pulling additional contact info and qualifying fields before routing them to the correct CRM pipeline.</p>
+          <div class="modal-tags"><span class="modal-tag">Zapier</span><span class="modal-tag">Lead Enrichment</span><span class="modal-tag">Data</span><span class="modal-tag">CRM</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal: Zapier PrimeKey Follow-Up -->
+    <div class="modal-overlay" id="modal-zapier-primekey">
+      <div class="modal-box">
+        <div class="modal-img-wrap"><img src="images/zapier-primekey-followup.png" class="modal-img" alt="PrimeKey New Lead Follow-Up" onerror="this.parentElement.style.display='none'" /></div>
+        <div class="modal-body">
+          <div class="modal-header"><span class="modal-title">PrimeKey — New Lead Follow-Up</span><button class="modal-close" onclick="closeModal('modal-zapier-primekey')">✕</button></div>
+          <span class="modal-badge">GHL</span>
+          <p class="modal-desc">Automated lead follow-up workflow for PrimeKey — instantly responds to new enquiries with a personalised sequence to nurture and convert prospects into clients.</p>
+          <div class="modal-tags"><span class="modal-tag">GHL</span><span class="modal-tag">Lead Follow-Up</span><span class="modal-tag">PrimeKey</span><span class="modal-tag">Automation</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal: Property -->
+    <div class="modal-overlay" id="modal-property">
+      <div class="modal-box">
+        <div class="modal-img-wrap"><img src="images/workflow-property.png" class="modal-img" alt="Property Manager AI Agent" onerror="this.parentElement.style.display='none'" /></div>
+        <div class="modal-body">
+          <div class="modal-header"><span class="modal-title">Property Manager AI Agent</span><button class="modal-close" onclick="closeModal('modal-property')">✕</button></div>
+          <span class="modal-badge">n8n</span>
+          <p class="modal-desc">A WhatsApp-based AI property management assistant powered by a LangChain agent with Groq and conversation memory. Tenants send requests via WhatsApp; the agent holds a back-and-forth conversation until the request is fully understood, then routes it to the correct team — Maintenance, Billing, Complaints, or General Inquiries — via email, logs every case to Google Sheets, and sends the tenant a WhatsApp confirmation automatically.</p>
+          <div class="modal-tags"><span class="modal-tag">n8n</span><span class="modal-tag">WhatsApp</span><span class="modal-tag">Twilio</span><span class="modal-tag">AI Agent</span><span class="modal-tag">Groq AI</span><span class="modal-tag">Google Sheets</span><span class="modal-tag">Gmail</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- Skills -->
+  <section id="skills">
+    <p class="section-label">What I work with</p>
+    <h2 class="section-title">Skills</h2>
+    <div class="skills-marquee">
+
+      <!-- Row 1 — scrolls left (duplicated for seamless loop) -->
+      <div class="marquee-row">
+        <span class="skill-tag">Python</span>
+        <span class="skill-tag">n8n</span>
+        <span class="skill-tag">AI Tools &amp; LLMs</span>
+        <span class="skill-tag">Zapier</span>
+        <span class="skill-tag">Go High Level</span>
+        <span class="skill-tag">Visual Studio Code</span>
+        <span class="skill-tag">Project Management</span>
+        <span class="skill-tag">API Integration</span>
+        <span class="skill-tag">Workflow Automation</span>
+        <span class="skill-tag">Google Administration</span>
+        <!-- duplicate -->
+        <span class="skill-tag">Python</span>
+        <span class="skill-tag">n8n</span>
+        <span class="skill-tag">AI Tools &amp; LLMs</span>
+        <span class="skill-tag">Zapier</span>
+        <span class="skill-tag">Go High Level</span>
+        <span class="skill-tag">Visual Studio Code</span>
+        <span class="skill-tag">Project Management</span>
+        <span class="skill-tag">API Integration</span>
+        <span class="skill-tag">Workflow Automation</span>
+        <span class="skill-tag">Google Administration</span>
+      </div>
+
+      <!-- Row 2 — scrolls right (duplicated for seamless loop) -->
+      <div class="marquee-row reverse">
+        <span class="skill-tag">Microsoft Azure</span>
+        <span class="skill-tag">Microsoft Applications</span>
+        <span class="skill-tag">Microsoft 365</span>
+        <span class="skill-tag">Active Directory</span>
+        <span class="skill-tag">Microsoft Servers</span>
+        <span class="skill-tag">Google Applications</span>
+        <span class="skill-tag">Cisco Networks</span>
+        <span class="skill-tag">Antivirus</span>
+        <span class="skill-tag">System Administration</span>
+        <span class="skill-tag">Helpdesk</span>
+        <!-- duplicate -->
+        <span class="skill-tag">Microsoft Azure</span>
+        <span class="skill-tag">Microsoft Applications</span>
+        <span class="skill-tag">Microsoft 365</span>
+        <span class="skill-tag">Active Directory</span>
+        <span class="skill-tag">Microsoft Servers</span>
+        <span class="skill-tag">Google Applications</span>
+        <span class="skill-tag">Cisco Networks</span>
+        <span class="skill-tag">Antivirus</span>
+        <span class="skill-tag">System Administration</span>
+        <span class="skill-tag">Helpdesk</span>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- Contact -->
+  <section id="contact">
+    <p class="section-label">Let's connect</p>
+    <h2 class="section-title">Contact</h2>
+    <div class="contact-grid">
+      <a class="contact-card" href="mailto:alfredalimuiin@gmail.com">
+        <div class="contact-icon">✉</div>
+        <div>
+          <div class="contact-label">Email</div>
+          <div class="contact-value">alfredalimuiin@gmail.com</div>
+        </div>
+      </a>
+      <a class="contact-card" href="tel:+97339311076">
+        <div class="contact-icon">📞</div>
+        <div>
+          <div class="contact-label">Phone</div>
+          <div class="contact-value">+973 39311076</div>
+        </div>
+      </a>
+      <div class="contact-card">
+        <div class="contact-icon">🎮</div>
+        <div>
+          <div class="contact-label">Discord</div>
+          <div class="contact-value">derftv — derf#8693</div>
+        </div>
+      </div>
+      <a class="contact-card" href="https://instagram.com/alfredalimuin" target="_blank" rel="noopener noreferrer">
+        <div class="contact-icon">📸</div>
+        <div>
+          <div class="contact-label">Instagram</div>
+          <div class="contact-value">@alfredalimuin</div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2026 Alfred Alimuin. Built with HTML & CSS.</p>
+  </footer>
+
+  <script>
+    /* ── Particle Background ── */
+    (function () {
+      var canvas = document.getElementById('bg-canvas');
+      var ctx    = canvas.getContext('2d');
+      var W, H, particles = [];
+      var COUNT = 75, DIST = 140;
+      /* chromatic palette: blue, indigo, cyan */
+      var COLORS = ['39,108,245', '110,60,255', '56,189,248', '99,102,241'];
+
+      function resize() {
+        W = canvas.width  = window.innerWidth;
+        H = canvas.height = window.innerHeight;
+      }
+
+      function mkParticle() {
+        var angle = Math.random() * Math.PI * 2;
+        var speed = 0.2 + Math.random() * 0.35;
+        return {
+          x:   Math.random() * W,
+          y:   Math.random() * H,
+          vx:  Math.cos(angle) * speed,
+          vy:  Math.sin(angle) * speed,
+          r:   Math.random() * 1.8 + 0.5,
+          o:   Math.random() * 0.5 + 0.15,
+          c:   COLORS[Math.floor(Math.random() * COLORS.length)],
+          /* slow hue drift */
+          t:   Math.random() * 1000,
+          ts:  0.003 + Math.random() * 0.004
+        };
+      }
+
+      function init() {
+        resize();
+        particles = [];
+        for (var i = 0; i < COUNT; i++) particles.push(mkParticle());
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, W, H);
+
+        for (var i = 0; i < particles.length; i++) {
+          var p = particles[i];
+          p.x += p.vx;
+          p.y += p.vy;
+          p.t += p.ts;
+          /* bounce */
+          if (p.x < 0)  { p.x = 0;  p.vx *= -1; }
+          if (p.x > W)  { p.x = W;  p.vx *= -1; }
+          if (p.y < 0)  { p.y = 0;  p.vy *= -1; }
+          if (p.y > H)  { p.y = H;  p.vy *= -1; }
+          /* shimmer opacity */
+          var shimmer = p.o + Math.sin(p.t) * 0.12;
+
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(' + p.c + ',' + shimmer + ')';
+          ctx.fill();
+
+          for (var j = i + 1; j < particles.length; j++) {
+            var q  = particles[j];
+            var dx = p.x - q.x, dy = p.y - q.y;
+            var d  = Math.sqrt(dx * dx + dy * dy);
+            if (d < DIST) {
+              var alpha = (1 - d / DIST) * 0.18;
+              ctx.beginPath();
+              ctx.moveTo(p.x, p.y);
+              ctx.lineTo(q.x, q.y);
+              ctx.strokeStyle = 'rgba(' + p.c + ',' + alpha + ')';
+              ctx.lineWidth   = 0.6;
+              ctx.stroke();
+            }
+          }
+        }
+        requestAnimationFrame(draw);
+      }
+
+      window.addEventListener('resize', init);
+      init();
+      draw();
+    })();
+
+    /* ── Typewriter ── */
+    (function() {
+      var phrases = [
+        'Automation Developer & GHL Specialist',
+        'GHL Funnel Builder',
+        'CRM & Pipeline Architect',
+        'n8n & Zapier Workflow Expert',
+        'AI Integration Specialist'
+      ];
+      var el = document.getElementById('heroTitle');
+      if (!el) return;
+      var pi = 0, ci = 0, deleting = false, pause = 0;
+
+      function tick() {
+        var phrase = phrases[pi];
+        if (pause > 0) { pause--; setTimeout(tick, 80); return; }
+
+        if (!deleting) {
+          el.textContent = phrase.slice(0, ++ci);
+          if (ci === phrase.length) { deleting = true; pause = 22; }
+          setTimeout(tick, 65);
+        } else {
+          el.textContent = phrase.slice(0, --ci);
+          if (ci === 0) { deleting = false; pi = (pi + 1) % phrases.length; pause = 6; }
+          setTimeout(tick, 35);
+        }
+      }
+      tick();
+    })();
+
+    /* ── Theme Toggle ── */
+    function toggleTheme() {
+      var html = document.documentElement;
+      var isDark = html.getAttribute('data-theme') === 'dark';
+      html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+      localStorage.setItem('theme', isDark ? 'light' : 'dark');
+    }
+    (function() {
+      var saved = localStorage.getItem('theme');
+      if (saved === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+    })();
+
+    /* ── Project Filters (toggle) ── */
+    document.querySelectorAll('.proj-filter').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var filter = this.dataset.filter;
+        var isActive = this.classList.contains('active');
+
+        /* deactivate all + hide all cards */
+        document.querySelectorAll('.proj-filter').forEach(function(b) { b.classList.remove('active'); });
+        document.querySelectorAll('.proj-card').forEach(function(c) { c.classList.add('hidden'); });
+
+        /* if it wasn't active, activate it and show its cards */
+        if (!isActive) {
+          this.classList.add('active');
+          document.querySelectorAll('.proj-card[data-category="' + filter + '"]').forEach(function(c) {
+            c.classList.remove('hidden');
+          });
+        }
+      });
+    });
+
+    /* ── Modals ── */
+    function openModal(id) {
+      document.getElementById(id).classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    document.querySelectorAll('.modal-overlay').forEach(function(o) {
+      o.addEventListener('click', function(e) {
+        if (e.target === o) { o.classList.remove('active'); document.body.style.overflow = ''; }
+      });
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.modal-overlay.active').forEach(function(m) { m.classList.remove('active'); });
+        document.body.style.overflow = '';
+      }
+    });
+  </script>
+
+  <script>
+    /* ── Cursor flashlight ── */
+    (function() {
+      var spotlight = document.createElement('div');
+      spotlight.id = 'cursor-spotlight';
+      spotlight.style.cssText = [
+        'position:fixed',
+        'inset:0',
+        'z-index:9999',
+        'pointer-events:none',
+        'transition:opacity 0.4s ease',
+        'opacity:0',
+        'background:radial-gradient(circle 220px at -999px -999px, rgba(39,108,245,0.13) 0%, transparent 70%)'
+      ].join(';');
+      document.body.appendChild(spotlight);
+
+      document.addEventListener('mousemove', function(e) {
+        spotlight.style.opacity = '1';
+        spotlight.style.background =
+          'radial-gradient(circle 220px at ' + e.clientX + 'px ' + e.clientY + 'px, rgba(39,108,245,0.13) 0%, transparent 70%)';
+      });
+
+      document.addEventListener('mouseleave', function() {
+        spotlight.style.opacity = '0';
+      });
+    })();
+
+    /* ── Scroll reveal observer ── */
+    var revealObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.reveal').forEach(function(el) {
+      revealObserver.observe(el);
+    });
+  </script>
+
+</body>
+</html>

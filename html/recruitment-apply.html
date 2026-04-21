@@ -810,27 +810,6 @@
     .field input[type="file"] { padding: 10px 12px; cursor: pointer; font-size: 0.9rem; color: var(--muted); }
     .file-hint { font-size: 0.75rem; color: var(--muted); margin-top: 3px; }
 
-    .field textarea {
-      width: 100%;
-      padding: 13px 14px;
-      border: 1.5px solid var(--border);
-      border-radius: var(--r-sm);
-      font-size: 0.97rem;
-      font-family: var(--font);
-      color: var(--text);
-      background: var(--white);
-      outline: none;
-      resize: vertical;
-      min-height: 110px;
-      line-height: 1.6;
-      transition: border-color 0.18s, box-shadow 0.18s;
-    }
-
-    .field textarea::placeholder { color: #c4c9d4; }
-    .field textarea:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(26,115,232,0.11); }
-    .field textarea.err { border-color: #ef4444; }
-    .char-count { font-size: 0.74rem; color: var(--muted); text-align: right; margin-top: 3px; }
-
     .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 
     .btn-submit {
@@ -1150,13 +1129,6 @@
           </div>
 
           <div class="field">
-            <label for="cover_letter">Position &amp; Cover Letter <span class="req">*</span></label>
-            <textarea id="cover_letter" name="cover_letter" maxlength="600"
-              placeholder="e.g. I'm applying for the Sales Manager role. I have 6 years in B2B sales and I believe my experience in lead generation and CRM management makes me a strong fit for this position..."></textarea>
-            <span class="char-count"><span id="charCount">0</span> / 600</span>
-          </div>
-
-          <div class="field">
             <label for="cv">CV / Resume <span class="req">*</span></label>
             <input type="file" id="cv" name="cv" accept=".pdf,.doc,.docx" />
             <span class="file-hint">PDF, DOC or DOCX · Max 10 MB</span>
@@ -1177,15 +1149,6 @@
 
 
   <script>
-    /* ── Cover Letter Char Count ── */
-    const coverLetter = document.getElementById('cover_letter');
-    const charCount   = document.getElementById('charCount');
-    coverLetter.addEventListener('input', () => {
-      const len = coverLetter.value.length;
-      charCount.textContent = len;
-      charCount.style.color = len > 550 ? '#ef4444' : 'var(--muted)';
-    });
-
     /* ── Webhook URL ── */
     const WEBHOOK_URL = 'https://n8n.srv1512353.hstgr.cloud/webhook/recruitment-apply';
 
@@ -1291,7 +1254,6 @@
         years_experience: document.getElementById('years_experience'),
         email:            document.getElementById('email'),
         phone:            document.getElementById('phone'),
-        cover_letter:     document.getElementById('cover_letter'),
         cv:               document.getElementById('cv'),
       };
 
@@ -1303,7 +1265,6 @@
       if (!f.years_experience.value)             { f.years_experience.classList.add('err'); ok = false; }
       if (!f.email.value.includes('@'))          { f.email.classList.add('err');            ok = false; }
       if (!f.phone.value.trim())                 { f.phone.classList.add('err');            ok = false; }
-      if (!f.cover_letter.value.trim())          { f.cover_letter.classList.add('err');      ok = false; }
       if (!f.cv.files || !f.cv.files[0])        { f.cv.classList.add('err');               ok = false; }
       if (!ok) return;
 

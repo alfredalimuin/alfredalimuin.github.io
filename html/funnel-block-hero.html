@@ -1,0 +1,131 @@
+<!-- ===== BLOCK 1: HERO — Paste into Custom Code (Row 1, Full Width) ===== -->
+<style>
+  :root {
+    --brand-primary: #1a73e8;
+    --brand-dark:    #0d47a1;
+    --brand-accent:  #00c853;
+    --white:         #ffffff;
+    --font-main:     'Segoe UI', system-ui, -apple-system, sans-serif;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, #1a73e8 0%, #0d47a1 60%, #1565c0 100%);
+    color: var(--white);
+    padding: 64px 24px 80px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    font-family: var(--font-main);
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60px;
+    right: -60px;
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+    pointer-events: none;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -80px;
+    left: -40px;
+    width: 240px;
+    height: 240px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.04);
+    pointer-events: none;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    color: var(--white);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 100px;
+    margin-bottom: 20px;
+  }
+
+  .hero h1 {
+    font-size: clamp(1.9rem, 5vw, 3rem);
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 16px;
+    letter-spacing: -0.02em;
+  }
+
+  .hero h1 span {
+    color: #a5d6a7;
+  }
+
+  .hero p {
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    opacity: 0.88;
+    max-width: 540px;
+    margin: 0 auto 28px;
+  }
+
+  .trust-row {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 8px;
+  }
+
+  .trust-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.88rem;
+    opacity: 0.9;
+    font-weight: 500;
+  }
+
+  .trust-item::before {
+    content: '✓';
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    background: var(--brand-accent);
+    border-radius: 50%;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--white);
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 480px) {
+    .hero {
+      padding: 48px 20px 64px;
+    }
+    .trust-row {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+</style>
+
+<section class="hero">
+  <div class="hero-badge">Limited Slots Available This Week</div>
+  <h1>Get Your <span>Free Home Cleaning</span><br>Estimate Today</h1>
+  <p>Professional, vetted cleaners. Satisfaction guaranteed or we'll re-clean for free.</p>
+  <div class="trust-row">
+    <div class="trust-item">5-Star Rated</div>
+    <div class="trust-item">Fully Insured</div>
+    <div class="trust-item">Same-Day Response</div>
+    <div class="trust-item">No Hidden Fees</div>
+  </div>
+</section>

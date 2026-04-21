@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <title>DERF Socials</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Fredoka+One&display=swap" rel="stylesheet"/>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: transparent;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .socials-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      align-items: flex-start;
+    }
+
+    .social-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    /* Facebook icon */
+    .icon-fb {
+      width: 56px;
+      height: 56px;
+      background: #1877F2;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      font-weight: 900;
+      color: #ffffff;
+      font-family: Georgia, serif;
+      box-shadow: 0 4px 15px rgba(24,119,242,0.5);
+      flex-shrink: 0;
+    }
+
+    /* YouTube icon */
+    .icon-yt {
+      width: 56px;
+      height: 56px;
+      background: #FF0000;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      color: #ffffff;
+      box-shadow: 0 4px 15px rgba(255,0,0,0.5);
+      flex-shrink: 0;
+    }
+
+    .handle {
+      font-family: 'Fredoka One', cursive;
+      font-size: 32px;
+      color: #ffffff;
+      letter-spacing: 2px;
+      text-shadow:
+        2px 2px 0px rgba(0,0,0,0.8),
+        0 0 20px rgba(255,255,255,0.3);
+    }
+
+    .platform-label {
+      font-family: 'Fredoka One', cursive;
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-left: 4px;
+    }
+
+    .text-group {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+  </style>
+</head>
+<body>
+  <div class="socials-wrap">
+
+    <!-- Facebook -->
+    <div class="social-item">
+      <div class="icon-fb">f</div>
+      <div class="text-group">
+        <div class="platform-label">Facebook</div>
+        <div class="handle">@DERFTV</div>
+      </div>
+    </div>
+
+    <!-- YouTube -->
+    <div class="social-item">
+      <div class="icon-yt">▶</div>
+      <div class="text-group">
+        <div class="platform-label">YouTube</div>
+        <div class="handle">@DERFTV</div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

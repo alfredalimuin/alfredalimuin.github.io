@@ -1,0 +1,253 @@
+<!-- ===== BLOCK 2: INFO — Paste into Custom Code (Row 2, Left Column) ===== -->
+<style>
+  :root {
+    --brand-primary: #1a73e8;
+    --brand-dark:    #0d47a1;
+    --text-dark:     #1a1a2e;
+    --text-muted:    #5f6368;
+    --bg-light:      #f8f9ff;
+    --white:         #ffffff;
+    --border:        #dadce0;
+    --shadow-sm:     0 2px 8px rgba(0,0,0,0.08);
+    --radius-sm:     8px;
+    --radius-md:     16px;
+    --font-main:     'Segoe UI', system-ui, -apple-system, sans-serif;
+  }
+
+  .info-section {
+    font-family: var(--font-main);
+    padding: 40px 24px 40px;
+    color: var(--text-dark);
+  }
+
+  .section-label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--brand-primary);
+    margin-bottom: 10px;
+  }
+
+  .info-section h2 {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 16px;
+    letter-spacing: -0.02em;
+    color: var(--text-dark);
+  }
+
+  .info-section > p {
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-bottom: 32px;
+    line-height: 1.7;
+  }
+
+  /* Stats */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 36px;
+  }
+
+  .stat-box {
+    background: var(--white);
+    border-radius: var(--radius-sm);
+    padding: 18px 14px;
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border);
+  }
+
+  .stat-number {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--brand-primary);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .stat-label {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  /* Feature List */
+  .feature-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 36px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .feature-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .feature-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+    background: rgba(26,115,232,0.08);
+  }
+
+  .feature-text strong {
+    display: block;
+    font-size: 0.97rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 2px;
+  }
+
+  .feature-text span {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+  }
+
+  /* Testimonial */
+  .testimonial-card {
+    background: var(--white);
+    border-radius: var(--radius-md);
+    padding: 24px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border);
+  }
+
+  .testimonial-stars {
+    color: #f9a825;
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+  }
+
+  .testimonial-text {
+    font-size: 0.95rem;
+    color: var(--text-dark);
+    font-style: italic;
+    line-height: 1.65;
+    margin-bottom: 14px;
+  }
+
+  .testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .author-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--brand-primary), #7c4dff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    font-size: 0.9rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .author-info strong {
+    display: block;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--text-dark);
+  }
+
+  .author-info span {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+
+  @media (max-width: 480px) {
+    .stats-row {
+      grid-template-columns: 1fr 1fr;
+    }
+    .stat-box:last-child {
+      grid-column: 1 / -1;
+    }
+  }
+</style>
+
+<div class="info-section">
+
+  <div class="section-label">Why AlphaClean Pro</div>
+  <h2>A Spotless Home Without the Hassle</h2>
+  <p>We make booking a professional cleaner simple. Fill out the form and we'll reach out within minutes to confirm your free estimate.</p>
+
+  <!-- Stats -->
+  <div class="stats-row">
+    <div class="stat-box">
+      <div class="stat-number">500+</div>
+      <div class="stat-label">Happy Clients</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-number">4.9★</div>
+      <div class="stat-label">Avg. Rating</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-number">3 min</div>
+      <div class="stat-label">Avg. Response</div>
+    </div>
+  </div>
+
+  <!-- Feature List -->
+  <ul class="feature-list">
+    <li>
+      <div class="feature-icon">🏠</div>
+      <div class="feature-text">
+        <strong>Residential & Deep Cleaning</strong>
+        <span>Standard, deep, move-in/out, and recurring options available.</span>
+      </div>
+    </li>
+    <li>
+      <div class="feature-icon">🔒</div>
+      <div class="feature-text">
+        <strong>Fully Vetted & Insured Team</strong>
+        <span>Every cleaner passes a background check and is covered by our insurance.</span>
+      </div>
+    </li>
+    <li>
+      <div class="feature-icon">💬</div>
+      <div class="feature-text">
+        <strong>Instant Confirmation</strong>
+        <span>You'll receive an SMS confirmation within minutes of submitting.</span>
+      </div>
+    </li>
+    <li>
+      <div class="feature-icon">💯</div>
+      <div class="feature-text">
+        <strong>Satisfaction Guarantee</strong>
+        <span>Not happy? We'll come back and re-clean at no extra charge.</span>
+      </div>
+    </li>
+  </ul>
+
+  <!-- Testimonial -->
+  <div class="testimonial-card">
+    <div class="testimonial-stars">★★★★★</div>
+    <p class="testimonial-text">"Booked online, got a call back in 2 minutes. The team showed up on time and my house has never looked better. Will 100% be using them again!"</p>
+    <div class="testimonial-author">
+      <div class="author-avatar">SR</div>
+      <div class="author-info">
+        <strong>Sarah R.</strong>
+        <span>Verified Customer · San Diego, CA</span>
+      </div>
+    </div>
+  </div>
+
+</div>

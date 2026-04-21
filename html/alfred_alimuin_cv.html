@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alfred Alimuin — CV</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f0f2f5;
+      color: #1a1a2e;
+      font-size: 13.5px;
+      line-height: 1.55;
+    }
+
+    /* ── PAGE WRAPPER ── */
+    .page {
+      max-width: 960px;
+      margin: 32px auto;
+      background: #0A3361;
+      box-shadow: 0 4px 32px rgba(0,0,0,0.13);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: linear-gradient(135deg, #051e3a 0%, #0A3361 60%, #0e4a8a 100%);
+      padding: 36px 44px 32px;
+      display: flex;
+      align-items: center;
+      gap: 36px;
+    }
+
+    .avatar {
+      width: 108px;
+      height: 108px;
+      border-radius: 50%;
+      background: #c8d4f0;
+      border: 4px solid rgba(255,255,255,0.25);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 38px;
+      color: #1a3a8f;
+      font-weight: 700;
+      overflow: hidden;
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+
+    .header-text h1 {
+      font-size: 34px;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: 0.5px;
+    }
+
+    .header-text .subtitle {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: #7ea8e8;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      margin-top: 6px;
+      line-height: 1.6;
+    }
+
+    .header-contacts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 24px;
+      margin-top: 16px;
+    }
+
+    .header-contacts a,
+    .header-contacts span {
+      color: #c8d8f5;
+      font-size: 12.5px;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .header-contacts a:hover { color: #fff; }
+
+    .contact-icon {
+      font-size: 13px;
+      opacity: 0.8;
+    }
+
+    /* ── TWO-COLUMN BODY ── */
+    .body {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+    }
+
+    /* ── LEFT SIDEBAR ── */
+    .sidebar {
+      background: #f7f9fc;
+      padding: 32px 24px;
+      border-right: 1px solid #e5eaf3;
+    }
+
+    .sidebar-section {
+      margin-bottom: 28px;
+    }
+
+    .sidebar-section:last-child { margin-bottom: 0; }
+
+    .section-label {
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: #0A3361;
+      border-bottom: 2px solid #0A3361;
+      padding-bottom: 5px;
+      margin-bottom: 14px;
+    }
+
+    .skill-group-title {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #1a1a2e;
+      margin: 10px 0 7px;
+    }
+
+    .skill-group-title:first-child { margin-top: 0; }
+
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      background: #0A3361;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 500;
+      padding: 4px 10px;
+      border-radius: 4px;
+    }
+
+    .badge.soft {
+      background: transparent;
+      color: #1a1a2e;
+      border: 1px solid #c0c8dc;
+    }
+
+    .badge.lang-main {
+      background: #0A3361;
+      color: #fff;
+    }
+
+    .badge.interest {
+      background: transparent;
+      color: #1a1a2e;
+      border: 1px solid #c0c8dc;
+    }
+
+    /* Education in sidebar */
+    .edu-item {
+      margin-bottom: 14px;
+    }
+
+    .edu-item:last-child { margin-bottom: 0; }
+
+    .edu-degree {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #1a1a2e;
+    }
+
+    .edu-school {
+      font-size: 11.5px;
+      color: #555;
+      margin-top: 1px;
+    }
+
+    .edu-year {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #0A3361;
+      margin-top: 2px;
+    }
+
+    /* ── RIGHT MAIN ── */
+    .main {
+      padding: 32px 36px;
+      background: #ffffff;
+    }
+
+    .main-section {
+      margin-bottom: 30px;
+    }
+
+    .main-section:last-child { margin-bottom: 0; }
+
+    .main-section-label {
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: #0A3361;
+      border-bottom: 2px solid #0A3361;
+      padding-bottom: 5px;
+      margin-bottom: 16px;
+    }
+
+    /* Profile */
+    .profile-text {
+      font-size: 13px;
+      color: #2d2d3a;
+      line-height: 1.7;
+    }
+
+    /* Work Experience */
+    .job {
+      display: grid;
+      grid-template-columns: 14px 1fr;
+      gap: 0 14px;
+      margin-bottom: 22px;
+      position: relative;
+    }
+
+    .job:last-child { margin-bottom: 0; }
+
+    .job-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #0A3361;
+      margin-top: 4px;
+      flex-shrink: 0;
+    }
+
+    /* vertical line connecting dots */
+    .job:not(:last-child) .job-dot::after {
+      content: '';
+      display: block;
+      width: 2px;
+      background: #d0d8ee;
+      height: calc(100% + 22px);
+      margin-left: 5px;
+      margin-top: 2px;
+    }
+
+    .job-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .job-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #1a1a2e;
+    }
+
+    .job-date {
+      font-size: 11px;
+      font-weight: 600;
+      color: #0A3361;
+      background: #e0eaf6;
+      border: 1px solid #b0c4de;
+      border-radius: 4px;
+      padding: 3px 9px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .job-company {
+      font-size: 12px;
+      color: #0A3361;
+      margin-top: 2px;
+    }
+
+    .job-desc {
+      font-size: 12px;
+      color: #444;
+      margin-top: 4px;
+      line-height: 1.55;
+    }
+
+    .job-bullets {
+      list-style: none;
+      margin-top: 7px;
+    }
+
+    .job-bullets li {
+      font-size: 12.5px;
+      color: #333;
+      padding: 3px 0;
+      padding-left: 14px;
+      position: relative;
+      line-height: 1.5;
+    }
+
+    .job-bullets li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: #0A3361;
+      font-size: 10px;
+      top: 5px;
+    }
+
+    /* Certifications */
+    .cert-list {
+      list-style: none;
+    }
+
+    .cert-list li {
+      font-size: 12.5px;
+      color: #333;
+      padding: 7px 0;
+      border-bottom: 1px solid #eaeef6;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      line-height: 1.45;
+    }
+
+    .cert-list li:last-child { border-bottom: none; }
+
+    .cert-check {
+      color: #0A3361;
+      font-size: 13px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .references {
+      text-align: right;
+      font-size: 12px;
+      color: #888;
+      margin-top: 18px;
+      font-style: italic;
+    }
+
+    @page {
+      size: A4;
+      margin: 0;
+    }
+
+    @media print {
+      html, body {
+        width: 210mm;
+        height: 297mm;
+        margin: 0;
+        padding: 0;
+        background: #fff;
+      }
+      .page {
+        width: 210mm;
+        margin: 0;
+        box-shadow: none;
+        border-radius: 0;
+      }
+      header {
+        background: linear-gradient(135deg, #051e3a 0%, #0A3361 60%, #0e4a8a 100%) !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .badge {
+        background: #0A3361 !important;
+        color: #fff !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .sidebar {
+        background: #f7f9fc !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+        width: 280px !important;
+        min-width: 280px !important;
+      }
+      .body {
+        display: grid !important;
+        grid-template-columns: 280px 1fr !important;
+        width: 100% !important;
+      }
+      .page {
+        background: #0A3361 !important;
+      }
+      .job { page-break-inside: avoid; break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <header>
+    <div class="avatar"><img src="../images/alfred_alimuin_photo.jpg" alt="Alfred Alimuin" /></div>
+    <div class="header-text">
+      <h1>Alfred Alimuin</h1>
+      <div class="subtitle">MBA Project Management &nbsp;|&nbsp; IT Professional &amp; AI Automation Specialist</div>
+      <div class="header-contacts">
+        <a href="mailto:alfredalimuin@gmail.com">
+          <span class="contact-icon">✉</span> alfredalimuin@gmail.com
+        </a>
+        <a href="tel:+97339311076">
+          <span class="contact-icon">✆</span> +973 3931 1076
+        </a>
+        <span>
+          <span class="contact-icon">⊙</span> Bahrain · License Holder
+        </span>
+        <a href="https://alfredalimuin.github.io/portfolio/" target="_blank">
+          <span class="contact-icon">⊡</span> Portfolio
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- BODY -->
+  <div class="body">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+      <!-- Technical Skills -->
+      <div class="sidebar-section">
+        <div class="section-label">Technical Skills</div>
+
+        <div class="skill-group-title">AI &amp; Automation</div>
+        <div class="badges">
+          <span class="badge">Apps Script</span>
+          <span class="badge">Zapier</span>
+          <span class="badge">AI Workflows</span>
+          <span class="badge">n8n</span>
+          <span class="badge">Claude Code</span>
+          <span class="badge">GoHighLevel</span>
+        </div>
+
+        <div class="skill-group-title">Systems &amp; Infrastructure</div>
+        <div class="badges">
+          <span class="badge">Active Directory</span>
+          <span class="badge">Microsoft 365</span>
+          <span class="badge">G-Suite Admin</span>
+          <span class="badge">PABX / CME</span>
+          <span class="badge">Cisco CCNA</span>
+        </div>
+
+        <div class="skill-group-title">Platforms &amp; OS</div>
+        <div class="badges">
+          <span class="badge">Windows</span>
+          <span class="badge">macOS / iOS</span>
+          <span class="badge">Android</span>
+          <span class="badge">Google Suite</span>
+          <span class="badge">Linux</span>
+        </div>
+
+        <div class="skill-group-title">Programming</div>
+        <div class="badges">
+          <span class="badge">HTML</span>
+          <span class="badge">Java</span>
+          <span class="badge">C / C++</span>
+          <span class="badge">Visual Basic</span>
+          <span class="badge">Oracle DB</span>
+        </div>
+
+        <div class="skill-group-title">Soft Skills</div>
+        <div class="badges">
+          <span class="badge soft">Project Management</span>
+          <span class="badge soft">Customer Service</span>
+          <span class="badge soft">Team Leadership</span>
+          <span class="badge soft">Training &amp; Adoption</span>
+        </div>
+      </div>
+
+      <!-- Education -->
+      <div class="sidebar-section">
+        <div class="section-label">Education</div>
+
+        <div class="edu-item">
+          <div class="edu-degree">MBA — Project Management</div>
+          <div class="edu-school">Singhania University, India</div>
+          <div class="edu-year">2022 – 2025</div>
+        </div>
+
+        <div class="edu-item">
+          <div class="edu-degree">BS Informatics Engineering</div>
+          <div class="edu-school">AMA International University Bahrain</div>
+          <div class="edu-year">2009 – 2014</div>
+        </div>
+
+        <div class="edu-item">
+          <div class="edu-degree">Secondary Education</div>
+          <div class="edu-school">Philippine School Bahrain</div>
+          <div class="edu-year">2006 – 2009</div>
+        </div>
+
+        <div class="edu-item">
+          <div class="edu-degree">IELTS</div>
+          <div class="edu-school">Theory &amp; Examination Completed</div>
+        </div>
+      </div>
+
+      <!-- Languages -->
+      <div class="sidebar-section">
+        <div class="section-label">Languages</div>
+        <div class="badges">
+          <span class="badge lang-main">English — Proficient</span>
+          <span class="badge soft">Filipino</span>
+        </div>
+      </div>
+
+      <!-- Interests -->
+      <div class="sidebar-section">
+        <div class="section-label">Interests</div>
+        <div class="badges">
+          <span class="badge interest">Working Out</span>
+          <span class="badge interest">Sports</span>
+          <span class="badge interest">Running</span>
+          <span class="badge interest">Cooking</span>
+          <span class="badge interest">Video Games</span>
+        </div>
+      </div>
+
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+
+      <!-- Profile -->
+      <div class="main-section">
+        <div class="main-section-label">Profile</div>
+        <p class="profile-text">
+          A highly motivated and versatile IT professional with over 10 years of hands-on experience spanning
+          education, infrastructure, and AI-driven automation. Holds a Bachelor of Science in Informatics Engineering
+          (2014) and an MBA in Project Management (2025). Currently specialising in intelligent workflow design and
+          AI automation, having previously served in senior IT coordinator roles at international schools in Bahrain.
+          Recognised for the ability to analyse complex technical challenges, lead cross-functional projects, and
+          deliver measurable operational improvements — all within agreed timelines and to the highest standard.
+        </p>
+      </div>
+
+      <!-- Work Experience -->
+      <div class="main-section">
+        <div class="main-section-label">Work Experience</div>
+
+        <!-- Job 1 -->
+        <div class="job">
+          <div class="job-dot"></div>
+          <div>
+            <div class="job-header">
+              <div class="job-title">AI Automation Specialist &amp; Engineer</div>
+              <div class="job-date">Jan 2025 – Present</div>
+            </div>
+            <div class="job-company">Self-Directed / Independent Practice</div>
+            <ul class="job-bullets">
+              <li>Built and managed GoHighLevel automations, funnels, pipelines, and CRM workflows for clients.</li>
+              <li>Built automation systems using Apps Script, Zapier &amp; AI that eliminated 30%+ of repetitive manual work.</li>
+              <li>Designed Slack onboarding flows and cross-platform workflows adopted by 500+ internal users.</li>
+              <li>Integrated AI knowledge tools, improving information retrieval efficiency by 40%.</li>
+              <li>Developed workflow accelerators that reduced investigation task time by 20%.</li>
+              <li>Produced clear, automation-focused training materials to scale adoption among non-technical teams.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Job 2 -->
+        <div class="job">
+          <div class="job-dot"></div>
+          <div>
+            <div class="job-header">
+              <div class="job-title">Career Break — MBA Final Year</div>
+              <div class="job-date">Apr 2024 – Apr 2025</div>
+            </div>
+            <div class="job-company">Singhania University, India · Full-Time Study</div>
+            <ul class="job-bullets">
+              <li>Made a deliberate decision to step back from full-time employment to focus on completing the final year of an MBA in Project Management.</li>
+              <li>Successfully graduated in April 2025, applying project management frameworks and strategic thinking gained throughout the programme.</li>
+              <li>Used this period to deepen expertise in AI-driven workflow automation, self-directing independent automation projects in parallel with academic studies.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Job 3 -->
+        <div class="job">
+          <div class="job-dot"></div>
+          <div>
+            <div class="job-header">
+              <div class="job-title">IT Assistant System Administrator &amp; Coordinator</div>
+              <div class="job-date">Jan 2018 – Apr 2024</div>
+            </div>
+            <div class="job-company">Inspired Education Group — British School of Bahrain</div>
+            <ul class="job-bullets">
+              <li>Managed multiple school IT projects spanning classroom tech, administrative systems, and operations.</li>
+              <li>Administered user accounts, group policies, and print/antivirus servers for 3,000+ devices.</li>
+              <li>Led classroom and office renovations; installed and configured Cisco APs, AV systems, biometrics, and computers.</li>
+              <li>Installed and configured telephone infrastructure (PABX &amp; Call Manager Express).</li>
+              <li>Oversaw school helpdesk for both IT and Operations departments.</li>
+              <li>Delivered G-Suite and Microsoft 365 administration; maintained domain mail systems.</li>
+              <li>Drove IT innovations: wireless boards, attendance automation, and system workflows.</li>
+              <li>Produced weekly and monthly operational reports for senior leadership.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Job 4 -->
+        <div class="job">
+          <div class="job-dot"></div>
+          <div>
+            <div class="job-header">
+              <div class="job-title">IT Support Specialist</div>
+              <div class="job-date">Sep 2021 – Mar 2024</div>
+            </div>
+            <div class="job-company">Inspired Education Group — KingsInterHigh UK &amp; Middle East (Online School)</div>
+            <ul class="job-bullets">
+              <li>Delivered high-level remote support to staff, students, and parents across multiple time zones.</li>
+              <li>Managed O365 user accounts and onboarding for all staff and students.</li>
+              <li>Assisted live online classes and provided full IT support across the virtual learning environment.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Job 5 -->
+        <div class="job">
+          <div class="job-dot"></div>
+          <div>
+            <div class="job-header">
+              <div class="job-title">IT Support — Helpdesk</div>
+              <div class="job-date">Dec 2016 – Jan 2018</div>
+            </div>
+            <div class="job-company">Riffa Views International School</div>
+            <ul class="job-bullets">
+              <li>Supported 500+ users and 700+ IT devices across campus (laptops, desktops, AV, network).</li>
+              <li>Configured PABX extensions, Cisco APs, and classroom devices; installed MAP Testing software.</li>
+              <li>Managed print server, antivirus server, and Microsoft 365 administration.</li>
+              <li>Maintained IT asset inventory and produced regular documentation reports.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Job 6 -->
+        <div class="job">
+          <div class="job-dot"></div>
+          <div>
+            <div class="job-header">
+              <div class="job-title">IT Specialist</div>
+              <div class="job-date">Dec 2014 – Dec 2016</div>
+            </div>
+            <div class="job-company">King Fahd Causeway Authority (Bahrain Tollgate) — Siddiqui Infratech</div>
+            <ul class="job-bullets">
+              <li>Installed, maintained, and troubleshot hardware/software systems running the Bahrain tollgate.</li>
+              <li>Completed specialised training on tollgate hardware (sensors, barriers, traffic lights, CCTV).</li>
+              <li>Produced detailed status and maintenance reports for operations management.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Job 7 -->
+        <div class="job">
+          <div class="job-dot"></div>
+          <div>
+            <div class="job-header">
+              <div class="job-title">IT Assistant (Internship)</div>
+              <div class="job-date">Jan 2013 – Mar 2013</div>
+            </div>
+            <div class="job-company">Midal Cables Ltd, Bahrain</div>
+            <ul class="job-bullets">
+              <li>Installed hardware/software systems and resolved internal computer issues.</li>
+              <li>Participated in IT management meetings and maintained hardware assets.</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Certifications -->
+      <div class="main-section">
+        <div class="main-section-label">Certifications &amp; Achievements</div>
+        <ul class="cert-list">
+          <li><span class="cert-check">✓</span> Cisco CCNA Online Assessments — Levels 1, 2, 3 &amp; 4 (2009–2014)</li>
+          <li><span class="cert-check">✓</span> EduCare Safeguarding — Child Protection for International Schools</li>
+          <li><span class="cert-check">✓</span> EduCare — Fire &amp; Safety for International Schools</li>
+          <li><span class="cert-check">✓</span> EduCare — First Aid Essentials for International Schools</li>
+          <li><span class="cert-check">✓</span> EduCare — Health &amp; Safety for International Schools</li>
+          <li><span class="cert-check">✓</span> EduCare — Safeguarding Young People for International Schools</li>
+          <li><span class="cert-check">✓</span> EduCare — Equality &amp; Diversity</li>
+          <li><span class="cert-check">✓</span> EduCare — Mental Wellbeing in Children and Young People (2020–2021)</li>
+          <li><span class="cert-check">✓</span> Customer Excellence In-House Training (2024)</li>
+        </ul>
+        <p class="references">References available upon request.</p>
+      </div>
+
+    </main>
+  </div><!-- end .body -->
+</div><!-- end .page -->
+</body>
+</html>
