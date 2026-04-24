@@ -826,6 +826,11 @@
     .modal-desc { color: var(--muted); font-size: 0.92rem; line-height: 1.75; margin-bottom: 1.25rem; }
     .modal-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
     .modal-tag { background: var(--bg3); color: var(--muted); padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.75rem; }
+    .modal-sub-list { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1.25rem; }
+    .modal-sub-item { background: var(--bg3); border: 1px solid var(--border); border-radius: 10px; padding: 1rem 1.1rem; }
+    .modal-sub-title { font-size: 0.9rem; font-weight: 700; color: var(--fg); margin-bottom: 0.35rem; }
+    .modal-sub-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.65; margin: 0; }
+    .modal-sub-img { width: 100%; max-height: 180px; object-fit: contain; border-radius: 6px; margin-bottom: 0.6rem; background: #0d0d0d; display: block; }
 
     @media (max-width: 700px) {
       .tools-arena { gap: 2rem; padding-bottom: 260px; }
@@ -2045,7 +2050,7 @@
     <h2 class="section-title">Projects and Designs</h2>
     <!-- Filter tabs -->
     <div class="proj-filters">
-      <button class="proj-filter" data-filter="n8n">n8n <span class="filter-count">6</span></button>
+      <button class="proj-filter" data-filter="n8n">n8n <span class="filter-count">7</span></button>
       <button class="proj-filter" data-filter="ghl-funnels">GHL Funnels <span class="filter-count">10</span></button>
       <button class="proj-filter" data-filter="ghl-auto">GHL Automations <span class="filter-count">5</span></button>
       <button class="proj-filter" data-filter="zapier">Zapier <span class="filter-count">2</span></button>
@@ -2176,6 +2181,27 @@
           </div>
           <div class="proj-card-footer">
             <span class="proj-card-stat">AI Screener</span>
+            <span class="proj-card-ext">↗</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-card hidden" data-category="n8n" onclick="openModal('modal-aa-admissions')">
+        <div class="proj-card-img-wrap">
+          <img src="images/workflow-aa-admissions.png" alt="AA International School Admissions Suite" onerror="this.parentElement.innerHTML='<div class=\'proj-card-placeholder\'>🎓</div>'" />
+          <span class="proj-card-badge">N8N</span>
+        </div>
+        <div class="proj-card-body">
+          <div class="proj-card-title">AA International School — Admissions Suite</div>
+          <div class="proj-card-desc">End-to-end admissions automation: tour booking, booking cancellation, and assessment pass notification — fully automated from inquiry to enrolment.</div>
+          <div class="proj-card-tags">
+            <span class="proj-card-tag">n8n</span>
+            <span class="proj-card-tag">GHL</span>
+            <span class="proj-card-tag">Email</span>
+            <span class="proj-card-tag">3 Workflows</span>
+          </div>
+          <div class="proj-card-footer">
+            <span class="proj-card-stat">Published</span>
             <span class="proj-card-ext">↗</span>
           </div>
         </div>
@@ -2680,6 +2706,36 @@
           <span class="modal-badge">n8n</span>
           <p class="modal-desc">End-to-end AI recruitment pipeline built for the ManPowerAI platform. When a candidate submits their application and CV via the funnel form, n8n captures the multipart data, extracts all text from the PDF/DOC file, and passes it to Groq llama-3.3-70b which scores the candidate 1–10 and outputs strengths, concerns, and a recommendation. The recruiter is instantly notified via Gmail and Slack, a GHL contact is created with the AI summary added as a note, and the candidate receives an automated confirmation email — zero manual steps required.</p>
           <div class="modal-tags"><span class="modal-tag">n8n</span><span class="modal-tag">Groq AI</span><span class="modal-tag">GoHighLevel</span><span class="modal-tag">Gmail</span><span class="modal-tag">Slack</span><span class="modal-tag">PDF Extract</span><span class="modal-tag">Webhook</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal: AA International School Admissions Suite -->
+    <div class="modal-overlay" id="modal-aa-admissions">
+      <div class="modal-box">
+        <div class="modal-img-wrap"><img src="images/workflow-aa-admissions.png" class="modal-img" alt="AA International School Admissions Suite" onerror="this.parentElement.style.display='none'" /></div>
+        <div class="modal-body">
+          <div class="modal-header"><span class="modal-title">AA International School — Admissions Automation Suite</span><button class="modal-close" onclick="closeModal('modal-aa-admissions')">✕</button></div>
+          <span class="modal-badge">n8n &amp; GHL</span>
+          <p class="modal-desc">A complete admissions operations system for AA International School, covering every touchpoint from tour inquiry to assessment result — fully automated with zero manual handoffs.</p>
+          <div class="modal-sub-list">
+            <div class="modal-sub-item">
+              <img src="images/School tour.png" class="modal-sub-img" alt="Tour Booking Automation" onerror="this.style.display='none'" />
+              <div class="modal-sub-title">1 — Tour Booking Automation</div>
+              <p class="modal-sub-desc">Prospective families book a school tour online. The workflow captures the submission, creates a calendar event, logs the booking to a tracking sheet, and sends a confirmation email to the parent — all in real time.</p>
+            </div>
+            <div class="modal-sub-item">
+              <img src="images/Cancel tour.png" class="modal-sub-img" alt="Cancel Booking" onerror="this.style.display='none'" />
+              <div class="modal-sub-title">2 — Cancel Booking</div>
+              <p class="modal-sub-desc">When a family cancels their tour, the automation removes the calendar event, updates the booking record with a cancellation timestamp, and sends a polite cancellation confirmation email to the parent automatically.</p>
+            </div>
+            <div class="modal-sub-item">
+              <img src="images/fail assesment.png" class="modal-sub-img" alt="Assessment Pass Notification" onerror="this.style.display='none'" />
+              <div class="modal-sub-title">3 — Assessment Pass Notification</div>
+              <p class="modal-sub-desc">Once a student passes the admissions assessment, the workflow triggers an instant notification to the family with next-step instructions, and notifies the admissions team to begin the enrolment process.</p>
+            </div>
+          </div>
+          <div class="modal-tags"><span class="modal-tag">n8n</span><span class="modal-tag">GHL</span><span class="modal-tag">Google Calendar</span><span class="modal-tag">Google Sheets</span><span class="modal-tag">Gmail</span><span class="modal-tag">Webhook</span></div>
         </div>
       </div>
     </div>
