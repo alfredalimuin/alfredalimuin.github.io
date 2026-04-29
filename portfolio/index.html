@@ -114,7 +114,7 @@
     }
 
     /* ── Nav ── */
-    body > *:not(#bg-canvas):not(#bg-aurora):not(#bg-noise) { position: relative; z-index: 3; }
+    body > *:not(#bg-canvas):not(#bg-aurora):not(#bg-noise):not(#aa-chat-btn):not(#aa-chat-window) { position: relative; z-index: 3; }
 
     nav {
       position: fixed;
@@ -3063,6 +3063,464 @@
     document.querySelectorAll('.reveal').forEach(function(el) {
       revealObserver.observe(el);
     });
+  </script>
+
+  <!-- ── AI CHATBOT WIDGET ── -->
+  <style>
+    /* Launcher button */
+    #aa-chat-btn {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background: var(--grad);
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 6px 28px rgba(26,86,196,0.45);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    #aa-chat-btn:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 10px 36px rgba(26,86,196,0.55);
+    }
+    #aa-chat-btn svg { transition: transform 0.25s ease; }
+    #aa-chat-btn.open svg.icon-chat { display: none; }
+    #aa-chat-btn.open svg.icon-close { display: block !important; }
+
+    /* Notification dot */
+    #aa-chat-btn::after {
+      content: '';
+      position: absolute;
+      top: 4px; right: 4px;
+      width: 12px; height: 12px;
+      background: #22c55e;
+      border-radius: 50%;
+      border: 2px solid white;
+      animation: aaPulse 2s ease-in-out infinite;
+    }
+    #aa-chat-btn.open::after { display: none; }
+    @keyframes aaPulse {
+      0%,100% { box-shadow: 0 0 0 0 rgba(34,197,94,0.5); }
+      50%      { box-shadow: 0 0 0 6px rgba(34,197,94,0); }
+    }
+
+    /* Chat window */
+    #aa-chat-window {
+      position: fixed;
+      bottom: 100px;
+      right: 28px;
+      width: 370px;
+      max-height: 560px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.18);
+      display: flex;
+      flex-direction: column;
+      z-index: 9998;
+      overflow: hidden;
+      transform: translateY(20px) scale(0.96);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 0.28s ease, opacity 0.28s ease;
+    }
+    #aa-chat-window.open {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+      pointer-events: all;
+    }
+    @media (max-width: 480px) {
+      #aa-chat-window {
+        width: calc(100vw - 24px);
+        right: 12px;
+        bottom: 90px;
+        max-height: 72vh;
+      }
+    }
+
+    /* Header */
+    #aa-chat-header {
+      background: var(--grad);
+      padding: 16px 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+    #aa-chat-avatar {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+      overflow: hidden;
+      border: 2px solid rgba(255,255,255,0.4);
+    }
+    #aa-chat-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    #aa-chat-header-text { flex: 1; }
+    #aa-chat-header-text strong { display: block; color: #fff; font-size: 14px; font-weight: 600; }
+    #aa-chat-header-text span { color: rgba(255,255,255,0.8); font-size: 12px; }
+    #aa-online-dot {
+      width: 8px; height: 8px;
+      background: #22c55e; border-radius: 50%;
+      display: inline-block; margin-right: 5px;
+    }
+
+    /* Messages area */
+    #aa-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      scroll-behavior: smooth;
+    }
+    #aa-messages::-webkit-scrollbar { width: 4px; }
+    #aa-messages::-webkit-scrollbar-track { background: transparent; }
+    #aa-messages::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+    /* Bubbles */
+    .aa-msg {
+      display: flex;
+      gap: 8px;
+      align-items: flex-end;
+      animation: aaMsgIn 0.2s ease;
+    }
+    @keyframes aaMsgIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .aa-msg.user { flex-direction: row-reverse; }
+    .aa-bubble {
+      max-width: 82%;
+      padding: 10px 14px;
+      border-radius: 16px;
+      font-size: 13.5px;
+      line-height: 1.55;
+      color: var(--text);
+    }
+    .aa-msg.bot .aa-bubble {
+      background: var(--bg3);
+      border-bottom-left-radius: 4px;
+    }
+    .aa-msg.user .aa-bubble {
+      background: var(--grad);
+      color: #fff;
+      border-bottom-right-radius: 4px;
+    }
+    .aa-mini-avatar {
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      background: var(--grad);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+    .aa-mini-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* Typing indicator */
+    #aa-typing {
+      display: none;
+      align-items: flex-end;
+      gap: 8px;
+    }
+    #aa-typing.visible { display: flex; }
+    .aa-dots {
+      background: var(--bg3);
+      border-radius: 16px;
+      border-bottom-left-radius: 4px;
+      padding: 12px 16px;
+      display: flex; gap: 5px; align-items: center;
+    }
+    .aa-dots span {
+      width: 7px; height: 7px;
+      background: var(--muted);
+      border-radius: 50%;
+      animation: aaDot 1.2s ease-in-out infinite;
+    }
+    .aa-dots span:nth-child(2) { animation-delay: 0.2s; }
+    .aa-dots span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes aaDot {
+      0%,60%,100% { transform: translateY(0); opacity: 0.4; }
+      30%          { transform: translateY(-5px); opacity: 1; }
+    }
+
+    /* Quick replies */
+    #aa-quick-replies {
+      padding: 6px 14px 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      flex-shrink: 0;
+    }
+    .aa-chip {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 500;
+      padding: 6px 13px;
+      border-radius: 100px;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.15s;
+      font-family: inherit;
+    }
+    .aa-chip:hover {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    /* Input bar */
+    #aa-input-bar {
+      padding: 10px 12px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-shrink: 0;
+      background: var(--bg2);
+    }
+    #aa-input {
+      flex: 1;
+      border: 1.5px solid var(--border);
+      border-radius: 100px;
+      padding: 9px 16px;
+      font-size: 13.5px;
+      font-family: inherit;
+      background: var(--bg);
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    #aa-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(26,86,196,0.12);
+    }
+    #aa-send {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      background: var(--grad);
+      border: none;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    #aa-send:hover { transform: scale(1.08); box-shadow: 0 4px 14px rgba(26,86,196,0.35); }
+    #aa-send svg { color: #fff; }
+  </style>
+
+  <!-- Launcher button -->
+  <button id="aa-chat-btn" aria-label="Chat with Alfred's AI">
+    <svg class="icon-chat" width="24" height="24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+    </svg>
+    <svg class="icon-close" width="22" height="22" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24" style="display:none;">
+      <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+    </svg>
+  </button>
+
+  <!-- Chat window -->
+  <div id="aa-chat-window" role="dialog" aria-label="Chat with Alfred">
+    <div id="aa-chat-header">
+      <div id="aa-chat-avatar">
+        <img src="images/alfred_alimuin_photo.jpg" alt="Alfred" onerror="this.parentNode.innerHTML='🤖'">
+      </div>
+      <div id="aa-chat-header-text">
+        <strong>Alfred's AI Assistant</strong>
+        <span><span id="aa-online-dot"></span>Ask me anything about Alfred</span>
+      </div>
+    </div>
+
+    <div id="aa-messages">
+      <div class="aa-msg bot">
+        <div class="aa-mini-avatar">
+          <img src="images/alfred_alimuin_photo.jpg" alt="A" onerror="this.parentNode.innerHTML='🤖'">
+        </div>
+        <div class="aa-bubble">👋 Hi! I'm Alfred's AI assistant. I can answer questions about his skills, experience, projects, and how to get in touch. What would you like to know?</div>
+      </div>
+    </div>
+
+    <div id="aa-typing">
+      <div class="aa-mini-avatar" style="margin-left:8px;">
+        <img src="images/alfred_alimuin_photo.jpg" alt="A" onerror="this.parentNode.innerHTML='🤖'">
+      </div>
+      <div class="aa-dots"><span></span><span></span><span></span></div>
+    </div>
+
+    <div id="aa-quick-replies">
+      <button class="aa-chip" onclick="aaSend('What are your skills?')">🛠 Skills</button>
+      <button class="aa-chip" onclick="aaSend('Tell me about your experience')">💼 Experience</button>
+      <button class="aa-chip" onclick="aaSend('How can I hire you?')">📩 Hire Alfred</button>
+      <button class="aa-chip" onclick="aaSend('What projects have you built?')">🚀 Projects</button>
+    </div>
+
+    <div id="aa-input-bar">
+      <input id="aa-input" type="text" placeholder="Ask me anything…" autocomplete="off" />
+      <button id="aa-send" aria-label="Send">
+        <svg width="18" height="18" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+          <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <script>
+  (function() {
+    var btn    = document.getElementById('aa-chat-btn');
+    var win    = document.getElementById('aa-chat-window');
+    var msgs   = document.getElementById('aa-messages');
+    var input  = document.getElementById('aa-input');
+    var typing = document.getElementById('aa-typing');
+
+    // Toggle open/close
+    btn.addEventListener('click', function() {
+      var isOpen = win.classList.toggle('open');
+      btn.classList.toggle('open', isOpen);
+    });
+
+    // Knowledge base about Alfred
+    var kb = [
+      {
+        keys: ['hi','hello','hey','howdy','good morning','good afternoon','sup','hiya'],
+        reply: "Hey there! 👋 Great to meet you. I'm here to tell you all about Alfred — his skills, experience, and projects. What would you like to know?"
+      },
+      {
+        keys: ['skill','tool','tech','stack','use','work with','speciali','expert'],
+        reply: "Alfred specialises in:\n\n🤖 <b>AI & Automation</b> — n8n, Zapier, Apps Script, GoHighLevel, AI Workflows\n💻 <b>Systems & IT</b> — Active Directory, Microsoft 365, G-Suite Admin, Cisco CCNA, PABX\n🖥 <b>Platforms</b> — Windows, macOS, Linux, Android\n👨‍💻 <b>Programming</b> — HTML, Java, C/C++, Visual Basic, Oracle DB\n\nHe's currently focused on intelligent workflow design and AI automation."
+      },
+      {
+        keys: ['experience','work','career','job','history','role','position','employ'],
+        reply: "Alfred has 10+ years of IT experience:\n\n🔹 <b>AI Automation Specialist</b> (Jan 2025–Present) — GoHighLevel, n8n, Zapier automations for clients\n🔹 <b>IT Asst. Sysadmin & Coordinator</b> (2018–2024) — British School of Bahrain, 3,000+ devices\n🔹 <b>IT Support Specialist</b> (2021–2024) — KingsInterHigh UK Online School\n🔹 <b>IT Support – Helpdesk</b> (2016–2018) — Riffa Views International School\n🔹 <b>IT Specialist</b> (2014–2016) — King Fahd Causeway Authority\n\nWant details on any specific role?"
+      },
+      {
+        keys: ['education','degree','study','school','university','mba','bachelor','qualif'],
+        reply: "Alfred's educational background:\n\n🎓 <b>MBA — Project Management</b>\nSinghania University, India · Graduated April 2025\n\n🎓 <b>BS Informatics Engineering</b>\nAMA International University Bahrain · 2009–2014\n\n📜 Also holds multiple EduCare certifications (Child Protection, Health & Safety, First Aid) and Cisco CCNA Assessments Levels 1–4."
+      },
+      {
+        keys: ['project','portfolio','built','build','sample','work','demo','automat'],
+        reply: "Some of Alfred's recent projects:\n\n🚀 <b>AA International School Admissions Suite</b> — Full n8n automation for lead capture, CV screening, and onboarding\n📋 <b>Recruitment Lead Capture & CV Screener</b> — n8n + AI-powered workflow\n📅 <b>Tour Booking Landing Page</b> — GHL funnel with booking confirmation\n🤖 <b>AI Workflow Automations</b> — Apps Script, Zapier & AI eliminating 30%+ of manual tasks\n\nCheck the Projects section above for the full list with screenshots!"
+      },
+      {
+        keys: ['hire','available','freelance','work together','collaborat','partner','looking','need','opportunity'],
+        reply: "Alfred is available for freelance and contract work! 🎯\n\nHe specialises in:\n✅ AI workflow automation (n8n, Zapier, GHL)\n✅ IT infrastructure consulting\n✅ Systems administration & project management\n\n📧 <b>alfredalimuin@gmail.com</b>\n📞 <b>+973 3931 1076</b>\n\nOr scroll up and hit the <b>Contact</b> section — there's a form there too!"
+      },
+      {
+        keys: ['contact','email','phone','reach','message','get in touch','call'],
+        reply: "You can reach Alfred directly:\n\n📧 alfredalimuin@gmail.com\n📞 +973 3931 1076\n📍 Bahrain · Driving License Holder\n\nOr use the Contact form at the bottom of this page. He typically responds within 24 hours! 🙂"
+      },
+      {
+        keys: ['location','where','based','bahrain','country','live','from'],
+        reply: "Alfred is based in <b>Bahrain 🇧🇭</b> and holds a valid driving license. He works with clients locally and internationally — most of his automation work is fully remote."
+      },
+      {
+        keys: ['n8n','workflow','automation','zapier','apps script','make','integromat'],
+        reply: "Automation is Alfred's main focus! He builds with:\n\n⚙️ <b>n8n</b> — self-hosted workflow automation\n⚡ <b>Zapier</b> — cross-platform integrations\n📜 <b>Google Apps Script</b> — Google Workspace automation\n🤖 <b>AI Workflows</b> — Claude, OpenAI, AI agents\n\nHis automations have eliminated 30%+ of repetitive manual work for clients and scaled onboarding to 500+ users."
+      },
+      {
+        keys: ['ghl','gohighlevel','crm','funnel','pipeline','highlevel'],
+        reply: "Alfred is experienced with <b>GoHighLevel (GHL)</b>:\n\n✅ Funnels & landing pages\n✅ Automation workflows & pipelines\n✅ CRM setup & contact management\n✅ Calendar & appointment systems\n✅ Custom HTML blocks & integrations\n\nHe builds and manages GHL systems for clients as part of his AI automation practice."
+      },
+      {
+        keys: ['mba','project management','manager','management'],
+        reply: "Alfred completed his <b>MBA in Project Management</b> at Singhania University in April 2025. He applied project management frameworks throughout his IT career — leading infrastructure renovations, managing 3,000+ device environments, and overseeing cross-functional school IT projects."
+      },
+      {
+        keys: ['language','speak','english','filipino','tagalog'],
+        reply: "Alfred speaks:\n\n🇬🇧 <b>English</b> — Proficient (IELTS completed)\n🇵🇭 <b>Filipino / Tagalog</b> — Native\n\nAll his professional work and client communication is in English."
+      },
+      {
+        keys: ['certif','cisco','ccna','educare','achieve'],
+        reply: "Alfred's certifications include:\n\n🏆 Cisco CCNA Levels 1–4\n🛡 EduCare Safeguarding & Child Protection\n🔥 EduCare Fire & Safety\n🏥 EduCare First Aid Essentials\n✅ Customer Excellence In-House Training (2024)\n\nAll earned during his 6-year tenure at the British School of Bahrain."
+      },
+      {
+        keys: ['rate','price','cost','charge','fee','pricing','budget'],
+        reply: "For pricing and rates, it's best to discuss the scope of your project directly with Alfred. Every project is different!\n\n📧 Drop him a message at <b>alfredalimuin@gmail.com</b> or use the Contact form — he'll get back to you quickly. 🙂"
+      },
+      {
+        keys: ['thank','thanks','great','awesome','cool','nice','perfect','helpful'],
+        reply: "Happy to help! 😊 Feel free to ask anything else, or reach out to Alfred directly — he'd love to connect. You can also scroll through the portfolio above to see his work!"
+      },
+      {
+        keys: ['bye','goodbye','see you','later','ciao','take care'],
+        reply: "Thanks for stopping by! 👋 If you ever want to work with Alfred or have questions, don't hesitate to reach out. Have a great day! 🚀"
+      }
+    ];
+
+    function getReply(text) {
+      var t = text.toLowerCase();
+      for (var i = 0; i < kb.length; i++) {
+        for (var j = 0; j < kb[i].keys.length; j++) {
+          if (t.indexOf(kb[i].keys[j]) !== -1) {
+            return kb[i].reply;
+          }
+        }
+      }
+      return "That's a great question! 🤔 I'm not sure about that specific detail, but you can reach Alfred directly at <b>alfredalimuin@gmail.com</b> — he'll be happy to help. Or try asking about his <b>skills</b>, <b>experience</b>, or <b>projects</b>!";
+    }
+
+    function addMsg(text, who) {
+      var row = document.createElement('div');
+      row.className = 'aa-msg ' + who;
+      if (who === 'bot') {
+        var av = document.createElement('div');
+        av.className = 'aa-mini-avatar';
+        av.innerHTML = '<img src="images/alfred_alimuin_photo.jpg" alt="A" onerror="this.parentNode.innerHTML=\'🤖\'">';
+        row.appendChild(av);
+      }
+      var bubble = document.createElement('div');
+      bubble.className = 'aa-bubble';
+      bubble.innerHTML = text.replace(/\n/g, '<br>');
+      row.appendChild(bubble);
+      msgs.appendChild(row);
+      msgs.scrollTop = msgs.scrollHeight;
+    }
+
+    function showTyping() {
+      typing.classList.add('visible');
+      msgs.appendChild(typing);
+      msgs.scrollTop = msgs.scrollHeight;
+    }
+
+    function hideTyping() {
+      typing.classList.remove('visible');
+    }
+
+    window.aaSend = function(text) {
+      var t = (text || input.value).trim();
+      if (!t) return;
+      input.value = '';
+      addMsg(t, 'user');
+      showTyping();
+      // Simulate thinking delay
+      var delay = 600 + Math.random() * 600;
+      setTimeout(function() {
+        hideTyping();
+        addMsg(getReply(t), 'bot');
+      }, delay);
+    };
+
+    // Send on button click
+    document.getElementById('aa-send').addEventListener('click', function() {
+      aaSend();
+    });
+
+    // Send on Enter
+    input.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') aaSend();
+    });
+  })();
   </script>
 
 </body>
