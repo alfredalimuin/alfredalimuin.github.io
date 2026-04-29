@@ -1473,5 +1473,371 @@
 })();
 </script>
 
+<!-- ── AI CHATBOT WIDGET ── -->
+<style>
+  #ja-chat-btn {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #C9A84C, #9C7A2E);
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 6px 28px rgba(201,168,76,0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  #ja-chat-btn:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 10px 36px rgba(201,168,76,0.6);
+  }
+  #ja-chat-btn.open svg.icon-chat  { display: none; }
+  #ja-chat-btn.open svg.icon-close { display: block !important; }
+  #ja-chat-btn::after {
+    content: '';
+    position: absolute;
+    top: 4px; right: 4px;
+    width: 12px; height: 12px;
+    background: #22c55e;
+    border-radius: 50%;
+    border: 2px solid #0E0D0A;
+    animation: jaPulse 2s ease-in-out infinite;
+  }
+  #ja-chat-btn.open::after { display: none; }
+  @keyframes jaPulse {
+    0%,100% { box-shadow: 0 0 0 0 rgba(34,197,94,0.5); }
+    50%      { box-shadow: 0 0 0 6px rgba(34,197,94,0); }
+  }
+
+  #ja-chat-window {
+    position: fixed;
+    bottom: 100px;
+    right: 28px;
+    width: 370px;
+    max-height: 560px;
+    background: #1E1A14;
+    border: 1px solid rgba(201,168,76,0.25);
+    border-radius: 20px;
+    box-shadow: 0 24px 64px rgba(0,0,0,0.6);
+    display: flex;
+    flex-direction: column;
+    z-index: 9998;
+    overflow: hidden;
+    transform: translateY(20px) scale(0.96);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.28s ease, opacity 0.28s ease;
+  }
+  #ja-chat-window.open {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+    pointer-events: all;
+  }
+  @media (max-width: 480px) {
+    #ja-chat-window { width: calc(100vw - 24px); right: 12px; bottom: 90px; max-height: 72vh; }
+  }
+
+  #ja-chat-header {
+    background: linear-gradient(135deg, #2A2418, #1E1A14);
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+    padding: 16px 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+  }
+  #ja-chat-avatar {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #C9A84C, #9C7A2E);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+    border: 1.5px solid rgba(201,168,76,0.4);
+    color: #0E0D0A;
+    font-weight: 700;
+    font-family: 'Playfair Display', Georgia, serif;
+  }
+  #ja-chat-header-text { flex: 1; }
+  #ja-chat-header-text strong { display: block; color: #F5F0E8; font-size: 14px; font-weight: 600; }
+  #ja-chat-header-text span { color: rgba(245,240,232,0.55); font-size: 12px; }
+  #ja-online-dot { width: 7px; height: 7px; background: #22c55e; border-radius: 50%; display: inline-block; margin-right: 5px; }
+
+  #ja-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    scroll-behavior: smooth;
+  }
+  #ja-messages::-webkit-scrollbar { width: 3px; }
+  #ja-messages::-webkit-scrollbar-track { background: transparent; }
+  #ja-messages::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.3); border-radius: 3px; }
+
+  .ja-msg { display: flex; gap: 8px; align-items: flex-end; animation: jaMsgIn 0.2s ease; }
+  @keyframes jaMsgIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .ja-msg.user { flex-direction: row-reverse; }
+  .ja-bubble {
+    max-width: 82%;
+    padding: 10px 14px;
+    border-radius: 16px;
+    font-size: 13.5px;
+    line-height: 1.55;
+  }
+  .ja-msg.bot  .ja-bubble { background: #2A2418; color: #F5F0E8; border-bottom-left-radius: 4px; }
+  .ja-msg.user .ja-bubble { background: linear-gradient(135deg, #C9A84C, #9C7A2E); color: #0E0D0A; font-weight: 500; border-bottom-right-radius: 4px; }
+  .ja-mini-avatar {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #C9A84C, #9C7A2E);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700;
+    color: #0E0D0A;
+    flex-shrink: 0;
+    font-family: 'Playfair Display', Georgia, serif;
+  }
+
+  #ja-typing { display: none; align-items: flex-end; gap: 8px; }
+  #ja-typing.visible { display: flex; }
+  .ja-dots { background: #2A2418; border-radius: 16px; border-bottom-left-radius: 4px; padding: 12px 16px; display: flex; gap: 5px; align-items: center; }
+  .ja-dots span { width: 6px; height: 6px; background: #C9A84C; border-radius: 50%; animation: jaDot 1.2s ease-in-out infinite; }
+  .ja-dots span:nth-child(2) { animation-delay: 0.2s; }
+  .ja-dots span:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes jaDot {
+    0%,60%,100% { transform: translateY(0); opacity: 0.35; }
+    30%          { transform: translateY(-5px); opacity: 1; }
+  }
+
+  #ja-quick-replies { padding: 6px 14px 10px; display: flex; flex-wrap: wrap; gap: 7px; flex-shrink: 0; }
+  .ja-chip {
+    background: transparent;
+    border: 1px solid rgba(201,168,76,0.35);
+    color: #C9A84C;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 6px 13px;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.15s;
+    font-family: inherit;
+  }
+  .ja-chip:hover { background: rgba(201,168,76,0.15); transform: translateY(-1px); border-color: #C9A84C; }
+
+  #ja-input-bar {
+    padding: 10px 12px;
+    border-top: 1px solid rgba(201,168,76,0.15);
+    display: flex; gap: 8px; align-items: center;
+    flex-shrink: 0;
+    background: #1E1A14;
+  }
+  #ja-input {
+    flex: 1;
+    border: 1.5px solid rgba(201,168,76,0.25);
+    border-radius: 100px;
+    padding: 9px 16px;
+    font-size: 13.5px;
+    font-family: inherit;
+    background: #2A2418;
+    color: #F5F0E8;
+    outline: none;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  #ja-input::placeholder { color: rgba(245,240,232,0.35); }
+  #ja-input:focus { border-color: #C9A84C; box-shadow: 0 0 0 3px rgba(201,168,76,0.12); }
+  #ja-send {
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #C9A84C, #9C7A2E);
+    border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  #ja-send:hover { transform: scale(1.08); box-shadow: 0 4px 14px rgba(201,168,76,0.4); }
+</style>
+
+<!-- Launcher button -->
+<button id="ja-chat-btn" aria-label="Chat with J&A Architecture">
+  <svg class="icon-chat" width="24" height="24" fill="none" stroke="#0E0D0A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+  </svg>
+  <svg class="icon-close" width="22" height="22" fill="none" stroke="#0E0D0A" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24" style="display:none;">
+    <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+  </svg>
+</button>
+
+<!-- Chat window -->
+<div id="ja-chat-window" role="dialog" aria-label="Chat with J&A Architecture">
+  <div id="ja-chat-header">
+    <div id="ja-chat-avatar">J&amp;A</div>
+    <div id="ja-chat-header-text">
+      <strong>J&amp;A Design Assistant</strong>
+      <span><span id="ja-online-dot"></span>Ask us anything</span>
+    </div>
+  </div>
+
+  <div id="ja-messages">
+    <div class="ja-msg bot">
+      <div class="ja-mini-avatar">J&amp;A</div>
+      <div class="ja-bubble">Welcome to J&amp;A Architecture &amp; Design. ✦<br><br>I'm here to answer your questions about our services, process, and how to book a consultation. How can I help?</div>
+    </div>
+  </div>
+
+  <div id="ja-typing">
+    <div class="ja-mini-avatar" style="margin-left:8px;">J&amp;A</div>
+    <div class="ja-dots"><span></span><span></span><span></span></div>
+  </div>
+
+  <div id="ja-quick-replies">
+    <button class="ja-chip" onclick="jaSend('What services do you offer?')">✦ Services</button>
+    <button class="ja-chip" onclick="jaSend('How does the process work?')">📋 Process</button>
+    <button class="ja-chip" onclick="jaSend('How do I book a consultation?')">📅 Book Now</button>
+    <button class="ja-chip" onclick="jaSend('Tell me about the firm')">🏛 About</button>
+  </div>
+
+  <div id="ja-input-bar">
+    <input id="ja-input" type="text" placeholder="Ask a question…" autocomplete="off" />
+    <button id="ja-send" aria-label="Send">
+      <svg width="18" height="18" fill="none" stroke="#0E0D0A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<script>
+(function() {
+  var btn    = document.getElementById('ja-chat-btn');
+  var win    = document.getElementById('ja-chat-window');
+  var msgs   = document.getElementById('ja-messages');
+  var input  = document.getElementById('ja-input');
+  var typing = document.getElementById('ja-typing');
+
+  btn.addEventListener('click', function() {
+    var isOpen = win.classList.toggle('open');
+    btn.classList.toggle('open', isOpen);
+  });
+
+  var kb = [
+    {
+      keys: ['hi','hello','hey','good morning','good afternoon','howdy'],
+      reply: "Welcome! ✦ Thank you for your interest in J&A Architecture &amp; Design.\n\nWe specialise in creating spaces that inspire — from custom residences to landmark commercial projects. How can I help you today?"
+    },
+    {
+      keys: ['service','offer','do','speciali','provide','work on'],
+      reply: "J&amp;A Architecture &amp; Design offers three core services:\n\n🏛️ <b>Residential Architecture</b>\nCustom homes designed around your lifestyle — structural integrity with aesthetic excellence.\n\n🏢 <b>Commercial Design</b>\nWorkplaces, retail spaces &amp; hospitality venues that elevate brand identity and human experience.\n\n✦ <b>Interior &amp; Renovation</b>\nThoughtful transformations of existing spaces — balancing original character with contemporary comfort.\n\nWould you like to know more about any specific service?"
+    },
+    {
+      keys: ['process','how does','how it work','step','stage','start','begin'],
+      reply: "Our design process is a close collaboration from start to finish:\n\n<b>1. Consultation</b> — We listen to your vision, needs, and goals (complimentary session).\n\n<b>2. Concept &amp; Design</b> — Our team develops bespoke concepts tailored to your brief.\n\n<b>3. Refinement</b> — We refine every detail until the design perfectly reflects your vision.\n\n<b>4. Delivery</b> — From drawings to final walk-through, we guide you every step of the way.\n\nReady to begin? Click <b>Book Consultation</b> above or ask me how to get started!"
+    },
+    {
+      keys: ['book','consult','appointment','schedule','meeting','talk','call','contact','get in touch','reach'],
+      reply: "Booking a consultation is simple and completely free. ✦\n\nJust click the <b>\"Book Consultation\"</b> button at the top of the page and fill in your name, email, phone, and project type.\n\nOur team will confirm your appointment within <b>24 hours</b>. No commitment required."
+    },
+    {
+      keys: ['about','firm','company','who','history','founded','team','j&a','j&amp;a'],
+      reply: "J&amp;A Architecture &amp; Design was founded on the belief that great architecture enriches lives.\n\nFor over <b>20 years</b>, we've been crafting spaces that are as functional as they are beautiful — guiding clients from the first sketch to the final walk-through.\n\n📊 <b>By the numbers:</b>\n• 100+ Projects Completed\n• 20+ Years of Practice\n• 14 Design Awards\n• 98% Client Satisfaction"
+    },
+    {
+      keys: ['residen','home','house','villa','private','custom home'],
+      reply: "Our <b>Residential Architecture</b> service is one of our most sought-after offerings. ✦\n\nWe design custom homes that reflect your unique lifestyle — blending structural integrity with aesthetic excellence and enduring character. Every detail, from materials to natural light, is considered.\n\nWhether it's a contemporary villa or a timeless family residence, we bring your vision to life. Book a free consultation to discuss your dream home."
+    },
+    {
+      keys: ['commercial','office','retail','hospitality','restaurant','hotel','workspace','brand'],
+      reply: "Our <b>Commercial Design</b> expertise covers:\n\n• Corporate workplaces &amp; offices\n• Retail &amp; showroom environments\n• Hospitality venues (hotels, restaurants, lounges)\n\nWe design spaces that elevate your brand identity and create meaningful human experiences — on time, without compromise.\n\nLet's discuss your commercial project — book a free consultation to get started."
+    },
+    {
+      keys: ['interior','renovati','transform','refurb','remodel','exist','update','refresh'],
+      reply: "Our <b>Interior &amp; Renovation</b> service breathes new life into existing spaces.\n\nWe balance the original character of a space with contemporary comfort and refined detail — creating transformations that feel both fresh and timeless.\n\nFrom a single room to a full property renovation, our team approaches every project with the same care and craftsmanship. Book a free consultation to talk through your renovation vision."
+    },
+    {
+      keys: ['award','recognition','achiev','accolad','prize','honour'],
+      reply: "J&amp;A Architecture &amp; Design has earned <b>14 Design Awards</b> over our 20+ year history — a reflection of our commitment to excellence in every project we undertake.\n\nOur award-winning work spans residential, commercial, and interior design projects across the region."
+    },
+    {
+      keys: ['project','portfolio','example','work','sample','previous','past','built','completed'],
+      reply: "With <b>100+ projects delivered</b>, our portfolio spans:\n\n🏠 Luxury private residences &amp; custom homes\n🏢 Corporate offices &amp; commercial spaces\n🍽 Hospitality &amp; restaurant environments\n✦ Interior renovations &amp; transformations\n\nWe'd love to share relevant examples during your consultation. Book a free session and we'll walk you through work similar to your vision."
+    },
+    {
+      keys: ['cost','price','rate','fee','charge','budget','afford','expensive','cheap','how much'],
+      reply: "Every project is unique, so our pricing is tailored to the scope, scale, and complexity of your vision.\n\nThe best way to get an accurate picture is to book a <b>complimentary consultation</b> — completely free with no commitment. We'll discuss your project, understand your budget, and provide a transparent proposal.\n\nClick <b>\"Book Consultation\"</b> at the top of the page to get started."
+    },
+    {
+      keys: ['time','long','duration','timeline','deadline','how long','when'],
+      reply: "Project timelines vary depending on scope:\n\n• <b>Consultation &amp; Concept</b> — 2–4 weeks\n• <b>Full Residential Design</b> — typically 4–8 months\n• <b>Commercial Projects</b> — varies by scale\n• <b>Renovation &amp; Interior</b> — 6–12 weeks\n\nWe're committed to delivering on time without compromise. Discuss your timeline in a free consultation."
+    },
+    {
+      keys: ['location','where','based','region','country','serve','area'],
+      reply: "J&amp;A Architecture &amp; Design serves clients across the region. Our team collaborates closely with every client, whether local or international.\n\nFor specific location details or to discuss a project in your area, book a free consultation and we'll be happy to talk through how we can work together."
+    },
+    {
+      keys: ['testimon','review','client','said','feedback','experience','story'],
+      reply: "Our clients speak for us:\n\n⭐⭐⭐⭐⭐ <em>\"J&amp;A transformed our vision into something far beyond what we imagined. Every detail was considered.\"</em>\n\n⭐⭐⭐⭐⭐ <em>\"Our new office is not just a building — it's become a statement of who we are as a brand. Delivered on time without compromise.\"</em>\n\nWith <b>98% client satisfaction</b> across 100+ projects, we're proud of the spaces and relationships we've built."
+    },
+    {
+      keys: ['thank','thanks','great','awesome','helpful','perfect','wonderful','appreciate'],
+      reply: "Thank you — it's our pleasure! ✦\n\nIf you're ready to take the next step, click <b>\"Book Consultation\"</b> at the top of the page. Our team looks forward to bringing your vision to life."
+    },
+    {
+      keys: ['bye','goodbye','see you','later','take care'],
+      reply: "Thank you for your interest in J&amp;A Architecture &amp; Design. ✦\n\nWhenever you're ready to begin, we're here. We look forward to creating something extraordinary together."
+    }
+  ];
+
+  function getReply(text) {
+    var t = text.toLowerCase();
+    for (var i = 0; i < kb.length; i++) {
+      for (var j = 0; j < kb[i].keys.length; j++) {
+        if (t.indexOf(kb[i].keys[j]) !== -1) return kb[i].reply;
+      }
+    }
+    return "That's a thoughtful question. ✦ For the most accurate answer, I'd recommend booking a <b>complimentary consultation</b> — our team will be happy to address every detail personally.\n\nClick <b>\"Book Consultation\"</b> at the top of the page, or try asking about our <b>services</b>, <b>process</b>, or <b>pricing</b>.";
+  }
+
+  function addMsg(text, who) {
+    var row = document.createElement('div');
+    row.className = 'ja-msg ' + who;
+    if (who === 'bot') {
+      var av = document.createElement('div');
+      av.className = 'ja-mini-avatar';
+      av.textContent = 'J&A';
+      row.appendChild(av);
+    }
+    var bubble = document.createElement('div');
+    bubble.className = 'ja-bubble';
+    bubble.innerHTML = text.replace(/\n/g, '<br>');
+    row.appendChild(bubble);
+    msgs.appendChild(row);
+    msgs.scrollTop = msgs.scrollHeight;
+  }
+
+  function showTyping() { typing.classList.add('visible'); msgs.appendChild(typing); msgs.scrollTop = msgs.scrollHeight; }
+  function hideTyping() { typing.classList.remove('visible'); }
+
+  window.jaSend = function(text) {
+    var t = (text || input.value).trim();
+    if (!t) return;
+    input.value = '';
+    addMsg(t, 'user');
+    showTyping();
+    setTimeout(function() { hideTyping(); addMsg(getReply(t), 'bot'); }, 600 + Math.random() * 600);
+  };
+
+  document.getElementById('ja-send').addEventListener('click', function() { jaSend(); });
+  input.addEventListener('keydown', function(e) { if (e.key === 'Enter') jaSend(); });
+})();
+</script>
+
 </body>
 </html>
