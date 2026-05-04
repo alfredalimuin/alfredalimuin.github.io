@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Alfred Alimuin — AI Automation Developer</title>
+  <title>Alfred Alimuin | AI Automation Developer</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -34,7 +34,7 @@
       --nav-bg:    rgba(0,0,0,0.92);
     }
 
-    /* Badge text always light — badge bg is dark in both modes */
+    /* Badge text always light,badge bg is dark in both modes */
     .photo-badge .badge-label { color: #b0bcd4 !important; }
     .photo-badge .badge-value { color: #f0f0f0 !important; }
 
@@ -1570,7 +1570,7 @@
           <div class="about-card-title">10+ Years in IT &amp; Automation</div>
           <span class="about-card-hint">tap to reveal ↓</span>
           <p class="about-card-desc">
-            Progressed from helpdesk to full IT administration — managing 3,000+ devices, Microsoft 365,
+            Progressed from helpdesk to full IT administration,managing 3,000+ devices, Microsoft 365,
             and network infrastructure across multi-site education groups (Inspired Education Group, Riffa Views,
             King Fahd Causeway Authority). Since 2025, focused on AI automation: n8n, Zapier, and AI-powered
             workflows that eliminated 30%+ of manual tasks and onboarded 500+ users.
@@ -1586,8 +1586,8 @@
           <div class="about-card-title">BS Informatics + MBA Project Management</div>
           <span class="about-card-hint">tap to reveal ↓</span>
           <p class="about-card-desc">
-            BS in Informatics Engineering — AMA International University Bahrain, 2014.<br /><br />
-            MBA in Project Management — Singhania University, India, Completed 2025.
+            BS in Informatics Engineering,AMA International University Bahrain, 2014.<br /><br />
+            MBA in Project Management,Singhania University, India, Completed 2025.
           </p>
         </div>
       </div>
@@ -1601,7 +1601,7 @@
   <section id="process">
     <p class="section-label">HOW IT WORKS</p>
     <h2 class="section-title">My <span style="background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Process</span></h2>
-    <p style="color: var(--muted); font-size: 0.92rem; margin-top: -1.2rem; margin-bottom: 0.5rem;">A clear, repeatable process that takes you from chaos to automated clarity — without the guesswork.</p>
+    <p style="color: var(--muted); font-size: 0.92rem; margin-top: -1.2rem; margin-bottom: 0.5rem;">A clear, repeatable process that takes you from chaos to automated clarity,without the guesswork.</p>
 
     <div class="process-grid">
       <div class="process-card reveal" style="transition-delay:0ms">
@@ -1648,12 +1648,12 @@
       <div class="service-card">
         <span class="service-icon">🚀</span>
         <h3 class="service-name">GHL Funnels &amp; Design</h3>
-        <p class="service-desc">High-converting landing pages, opt-in forms, and thank-you pages built inside GoHighLevel — designed to capture leads and drive bookings.</p>
+        <p class="service-desc">High-converting landing pages, opt-in forms, and thank-you pages built inside GoHighLevel,designed to capture leads and drive bookings.</p>
       </div>
       <div class="service-card">
         <span class="service-icon">⚙️</span>
         <h3 class="service-name">GHL Automations &amp; CRM</h3>
-        <p class="service-desc">Full CRM setup, pipeline management, lead follow-up sequences, appointment workflows, and stage automations — all inside GHL.</p>
+        <p class="service-desc">Full CRM setup, pipeline management, lead follow-up sequences, appointment workflows, and stage automations,all inside GHL.</p>
       </div>
       <div class="service-card">
         <span class="service-icon">⚡</span>
@@ -1671,8 +1671,8 @@
     <div class="featured-demo">
       <div class="featured-demo-left">
         <div class="flow-badge-live">Live on n8n</div>
-        <p class="featured-demo-title">AI Voice Booking Assistant — VAPI + n8n</p>
-        <p class="featured-demo-desc">A 31-node automation connecting a VAPI AI phone agent to Google Calendar, Sheets, and Gmail — book or cancel appointments entirely by voice.</p>
+        <p class="featured-demo-title">AI Voice Booking Assistant,VAPI + n8n</p>
+        <p class="featured-demo-desc">A 31-node automation connecting a VAPI AI phone agent to Google Calendar, Sheets, and Gmail,book or cancel appointments entirely by voice.</p>
         <div class="featured-demo-links">
           <button class="featured-flow-btn" onclick="openFlowModal('flow-modal-booking')">Booking Flow →</button>
           <button class="featured-flow-btn" onclick="openFlowModal('flow-modal-cancel')">Cancellation Flow →</button>
@@ -1934,7 +1934,7 @@
       s.onerror = function () {
         setCallUI('idle');
         var el = document.getElementById('call-status');
-        if (el) el.textContent = 'Could not load VAPI — check your connection';
+        if (el) el.textContent = 'Could not load VAPI,check your connection';
       };
       document.head.appendChild(s);
     }
@@ -1957,7 +1957,7 @@
       loadVapiSDK(function () {
         _vapi.start(VAPI_ASSISTANT).catch(function (e) {
           setCallUI('idle');
-          setStatus('Mic access denied — please allow microphone', 'idle');
+          setStatus('Mic access denied,please allow microphone', 'idle');
         });
       });
     }
@@ -2004,7 +2004,7 @@
       clearInterval(_callClock);
       setCallUI('idle');
       setBars(false);
-      setStatus((err && err.message) ? 'Error: ' + err.message : 'Call failed — please try again', 'idle');
+      setStatus((err && err.message) ? 'Error: ' + err.message : 'Call failed,please try again', 'idle');
     }
 
     function setCallUI(state) {
@@ -2091,7 +2091,7 @@
         </div>
         <div class="proj-card-body">
           <div class="proj-card-title">Voice-Triggered Appointment Cancellation</div>
-          <div class="proj-card-desc">Patients cancel via VAPI voice call — n8n searches all sheet tabs in parallel, deletes the calendar event, and sends a confirmation email automatically.</div>
+          <div class="proj-card-desc">Patients cancel via VAPI voice call,n8n searches all sheet tabs in parallel, deletes the calendar event, and sends a confirmation email automatically.</div>
           <div class="proj-card-tags">
             <span class="proj-card-tag">n8n</span>
             <span class="proj-card-tag">VAPI</span>
@@ -2112,7 +2112,7 @@
         </div>
         <div class="proj-card-body">
           <div class="proj-card-title">AI Fitness Coach: Strava Analyzer &amp; Planner</div>
-          <div class="proj-card-desc">Triggered on every new Strava activity — reads training goals, calculates performance metrics, and sends a personalized coaching email via Groq AI.</div>
+          <div class="proj-card-desc">Triggered on every new Strava activity,reads training goals, calculates performance metrics, and sends a personalized coaching email via Groq AI.</div>
           <div class="proj-card-tags">
             <span class="proj-card-tag">n8n</span>
             <span class="proj-card-tag">Strava</span>
@@ -2175,7 +2175,7 @@
         </div>
         <div class="proj-card-body">
           <div class="proj-card-title">Recruitment Lead Capture &amp; CV Screener</div>
-          <div class="proj-card-desc">Candidates apply via the ManPowerAI funnel — n8n captures the form, extracts CV text, scores the candidate with Groq AI, notifies the recruiter, creates a GHL contact, and sends a confirmation email automatically.</div>
+          <div class="proj-card-desc">Candidates apply via the ManPowerAI funnel,n8n captures the form, extracts CV text, scores the candidate with Groq AI, notifies the recruiter, creates a GHL contact, and sends a confirmation email automatically.</div>
           <div class="proj-card-tags">
             <span class="proj-card-tag">n8n</span>
             <span class="proj-card-tag">Groq AI</span>
@@ -2195,8 +2195,8 @@
           <span class="proj-card-badge">N8N</span>
         </div>
         <div class="proj-card-body">
-          <div class="proj-card-title">AA International School — Admissions Suite</div>
-          <div class="proj-card-desc">End-to-end admissions automation: tour booking, booking cancellation, and assessment pass notification — fully automated from inquiry to enrolment.</div>
+          <div class="proj-card-title">AA International School,Admissions Suite</div>
+          <div class="proj-card-desc">End-to-end admissions automation: tour booking, booking cancellation, and assessment pass notification,fully automated from inquiry to enrolment.</div>
           <div class="proj-card-tags">
             <span class="proj-card-tag">n8n</span>
             <span class="proj-card-tag">GHL</span>
@@ -2217,7 +2217,7 @@
           <span class="proj-card-badge">GHL</span>
         </div>
         <div class="proj-card-body">
-          <div class="proj-card-title">AlphaClean Pro — Free Cleaning Estimate</div>
+          <div class="proj-card-title">AlphaClean Pro,Free Cleaning Estimate</div>
           <div class="proj-card-desc">Lead capture funnel for a cleaning business. Visitors fill out a quick form to get a free estimate, feeding directly into the GHL CRM pipeline.</div>
           <div class="proj-card-tags">
             <span class="proj-card-tag">GHL</span>
@@ -2258,7 +2258,7 @@
         </div>
         <div class="proj-card-body">
           <div class="proj-card-title">PrimeKey Booking</div>
-          <div class="proj-card-desc">Booking funnel for PrimeKey services — streamlined appointment scheduling with an integrated calendar and confirmation flow.</div>
+          <div class="proj-card-desc">Booking funnel for PrimeKey services,streamlined appointment scheduling with an integrated calendar and confirmation flow.</div>
           <div class="proj-card-tags">
             <span class="proj-card-tag">GHL</span>
             <span class="proj-card-tag">Funnel</span>
@@ -2297,8 +2297,8 @@
           <span class="proj-card-badge">GHL</span>
         </div>
         <div class="proj-card-body">
-          <div class="proj-card-title">PetLand Bahrain — Pet Grooming &amp; Shop</div>
-          <div class="proj-card-desc">Premium pet grooming and shop landing page for PetLand Bahrain — designed to showcase services and drive bookings.</div>
+          <div class="proj-card-title">PetLand Bahrain,Pet Grooming &amp; Shop</div>
+          <div class="proj-card-desc">Premium pet grooming and shop landing page for PetLand Bahrain,designed to showcase services and drive bookings.</div>
           <div class="proj-card-tags">
             <span class="proj-card-tag">GHL</span>
             <span class="proj-card-tag">Funnel</span>
@@ -2318,7 +2318,7 @@
         </div>
         <div class="proj-card-body">
           <div class="proj-card-title">Hero Carwash</div>
-          <div class="proj-card-desc">Carwash service funnel built to drive bookings and generate leads — with a bold hero section and a simple CTA form.</div>
+          <div class="proj-card-desc">Carwash service funnel built to drive bookings and generate leads,with a bold hero section and a simple CTA form.</div>
           <div class="proj-card-tags">
             <span class="proj-card-tag">GHL</span>
             <span class="proj-card-tag">Funnel</span>
@@ -2337,8 +2337,8 @@
           <span class="proj-card-badge">GHL</span>
         </div>
         <div class="proj-card-body">
-          <div class="proj-card-title">Barberia — Premium Barbershop</div>
-          <div class="proj-card-desc">Full-screen video hero landing page for a premium barbershop. Features a booking modal, services section, testimonials, and black & gold branding — built for GHL custom code.</div>
+          <div class="proj-card-title">Barberia,Premium Barbershop</div>
+          <div class="proj-card-desc">Full-screen video hero landing page for a premium barbershop. Features a booking modal, services section, testimonials, and black & gold branding,built for GHL custom code.</div>
           <div class="proj-card-tags">
             <span class="proj-card-tag">GHL</span>
             <span class="proj-card-tag">Funnel</span>
@@ -2358,8 +2358,8 @@
           <span class="proj-card-badge">GHL</span>
         </div>
         <div class="proj-card-body">
-          <div class="proj-card-title">Home Movers — Move Smarter. Settle Faster.</div>
-          <div class="proj-card-desc">Video-hero lead capture funnel for a moving service. Warm beige palette with a modal opt-in form — built for GHL custom code blocks.</div>
+          <div class="proj-card-title">Home Movers,Move Smarter. Settle Faster.</div>
+          <div class="proj-card-desc">Video-hero lead capture funnel for a moving service. Warm beige palette with a modal opt-in form,built for GHL custom code blocks.</div>
           <div class="proj-card-tags">
             <span class="proj-card-tag">GHL</span>
             <span class="proj-card-tag">Funnel</span>
@@ -2378,8 +2378,8 @@
           <span class="proj-card-badge">GHL</span>
         </div>
         <div class="proj-card-body">
-          <div class="proj-card-title">J&amp;A Architecture — Spaces Designed to Inspire</div>
-          <div class="proj-card-desc">Luxury landing page for an architecture and design firm. Dark charcoal and gold palette with Playfair Display typography — built for GHL custom code.</div>
+          <div class="proj-card-title">J&amp;A Architecture,Spaces Designed to Inspire</div>
+          <div class="proj-card-desc">Luxury landing page for an architecture and design firm. Dark charcoal and gold palette with Playfair Display typography,built for GHL custom code.</div>
           <div class="proj-card-tags">
             <span class="proj-card-tag">GHL</span>
             <span class="proj-card-tag">Funnel</span>
@@ -2398,7 +2398,7 @@
           <span class="proj-card-badge">GHL</span>
         </div>
         <div class="proj-card-body">
-          <div class="proj-card-title">ManPowerAI — AI-Powered Career Matching</div>
+          <div class="proj-card-title">ManPowerAI,AI-Powered Career Matching</div>
           <div class="proj-card-desc">Recruitment landing page for an AI-powered job matching platform. Blue and purple tech palette with animated hero, job listings, and an application form.</div>
           <div class="proj-card-tags">
             <span class="proj-card-tag">GHL</span>
@@ -2421,7 +2421,7 @@
         </div>
         <div class="proj-card-body">
           <div class="proj-card-title">New Lead Follow-Up</div>
-          <div class="proj-card-desc">Automated follow-up sequence triggered the moment a new lead enters the AlphaClean Pro pipeline — ensuring no lead goes cold.</div>
+          <div class="proj-card-desc">Automated follow-up sequence triggered the moment a new lead enters the AlphaClean Pro pipeline,ensuring no lead goes cold.</div>
           <div class="proj-card-tags">
             <span class="proj-card-tag">GHL</span>
             <span class="proj-card-tag">Automation</span>
@@ -2440,7 +2440,7 @@
           <span class="proj-card-badge">GHL</span>
         </div>
         <div class="proj-card-body">
-          <div class="proj-card-title">Appointment Set — Stage Move</div>
+          <div class="proj-card-title">Appointment Set,Stage Move</div>
           <div class="proj-card-desc">Fires a booking confirmation and automatically moves the contact to the correct pipeline stage the moment an appointment is set.</div>
           <div class="proj-card-tags">
             <span class="proj-card-tag">GHL</span>
@@ -2460,8 +2460,8 @@
           <span class="proj-card-badge">GHL</span>
         </div>
         <div class="proj-card-body">
-          <div class="proj-card-title">Appointment Reminder — Email</div>
-          <div class="proj-card-desc">Scheduled email reminder sent to clients before their upcoming appointment — reducing no-shows and keeping clients engaged.</div>
+          <div class="proj-card-title">Appointment Reminder,Email</div>
+          <div class="proj-card-desc">Scheduled email reminder sent to clients before their upcoming appointment,reducing no-shows and keeping clients engaged.</div>
           <div class="proj-card-tags">
             <span class="proj-card-tag">GHL</span>
             <span class="proj-card-tag">Automation</span>
@@ -2481,7 +2481,7 @@
         </div>
         <div class="proj-card-body">
           <div class="proj-card-title">Job Complete</div>
-          <div class="proj-card-desc">Triggered when a job is marked complete — sends a wrap-up message, requests a review, and updates the pipeline stage automatically.</div>
+          <div class="proj-card-desc">Triggered when a job is marked complete,sends a wrap-up message, requests a review, and updates the pipeline stage automatically.</div>
           <div class="proj-card-tags">
             <span class="proj-card-tag">GHL</span>
             <span class="proj-card-tag">Automation</span>
@@ -2502,7 +2502,7 @@
         </div>
         <div class="proj-card-body">
           <div class="proj-card-title">AI-Powered CRM Follow-Up System</div>
-          <div class="proj-card-desc">Automated CRM follow-up pipeline powered by AI — triggers personalised outreach sequences based on lead behaviour and status changes.</div>
+          <div class="proj-card-desc">Automated CRM follow-up pipeline powered by AI,triggers personalised outreach sequences based on lead behaviour and status changes.</div>
           <div class="proj-card-tags">
             <span class="proj-card-tag">Zapier</span>
             <span class="proj-card-tag">CRM</span>
@@ -2522,7 +2522,7 @@
         </div>
         <div class="proj-card-body">
           <div class="proj-card-title">Data Lead and Enrichment</div>
-          <div class="proj-card-desc">Captures incoming leads and automatically enriches their data — pulling additional contact info and qualifying fields before routing to the CRM.</div>
+          <div class="proj-card-desc">Captures incoming leads and automatically enriches their data,pulling additional contact info and qualifying fields before routing to the CRM.</div>
           <div class="proj-card-tags">
             <span class="proj-card-tag">Zapier</span>
             <span class="proj-card-tag">Lead Enrichment</span>
@@ -2541,8 +2541,8 @@
           <span class="proj-card-badge">GHL</span>
         </div>
         <div class="proj-card-body">
-          <div class="proj-card-title">PrimeKey — New Lead Follow-Up</div>
-          <div class="proj-card-desc">Automated lead follow-up workflow for PrimeKey — instantly responds to new enquiries with a personalised sequence to nurture and convert prospects.</div>
+          <div class="proj-card-title">PrimeKey,New Lead Follow-Up</div>
+          <div class="proj-card-desc">Automated lead follow-up workflow for PrimeKey,instantly responds to new enquiries with a personalised sequence to nurture and convert prospects.</div>
           <div class="proj-card-tags">
             <span class="proj-card-tag">GHL</span>
             <span class="proj-card-tag">Lead Follow-Up</span>
@@ -2563,7 +2563,7 @@
         </div>
         <div class="proj-card-body">
           <div class="proj-card-title">Project Management Dashboard</div>
-          <div class="proj-card-desc">A full-stack SaaS project management dashboard built with Next.js and Supabase — featuring real-time task tracking, team collaboration, and a clean modern UI deployed on Vercel.</div>
+          <div class="proj-card-desc">A full-stack SaaS project management dashboard built with Next.js and Supabase,featuring real-time task tracking, team collaboration, and a clean modern UI deployed on Vercel.</div>
           <div class="proj-card-tags">
             <span class="proj-card-tag">Next.js</span>
             <span class="proj-card-tag">Supabase</span>
@@ -2585,7 +2585,7 @@
         <div class="modal-body">
           <div class="modal-header"><span class="modal-title">Project Management Dashboard</span><button class="modal-close" onclick="closeModal('modal-saas-dashboard')">✕</button></div>
           <span class="modal-badge">SaaS</span>
-          <p class="modal-desc">A full-stack SaaS project management dashboard built with Next.js and Supabase. Features real-time task tracking, user authentication, team collaboration tools, and a clean modern UI — fully deployed and hosted on Vercel.</p>
+          <p class="modal-desc">A full-stack SaaS project management dashboard built with Next.js and Supabase. Features real-time task tracking, user authentication, team collaboration tools, and a clean modern UI,fully deployed and hosted on Vercel.</p>
           <div class="modal-tags"><span class="modal-tag">Next.js</span><span class="modal-tag">Supabase</span><span class="modal-tag">Vercel</span><span class="modal-tag">SaaS</span></div>
         </div>
       </div>
@@ -2598,7 +2598,7 @@
         <div class="modal-body">
           <div class="modal-header"><span class="modal-title">VAPI Dental Clinic Voice Booking</span><button class="modal-close" onclick="closeModal('modal-dental')">✕</button></div>
           <span class="modal-badge">n8n</span>
-          <p class="modal-desc">A voice-to-automation pipeline where patients book dental appointments through a VAPI AI phone agent. The call data flows into n8n, which creates a Google Calendar event, logs the booking to the correct Google Sheets tab by appointment type, and sends an HTML confirmation email — all in real time.</p>
+          <p class="modal-desc">A voice-to-automation pipeline where patients book dental appointments through a VAPI AI phone agent. The call data flows into n8n, which creates a Google Calendar event, logs the booking to the correct Google Sheets tab by appointment type, and sends an HTML confirmation email,all in real time.</p>
           <div class="modal-tags"><span class="modal-tag">n8n</span><span class="modal-tag">VAPI</span><span class="modal-tag">Google Calendar</span><span class="modal-tag">Google Sheets</span><span class="modal-tag">Gmail</span></div>
         </div>
       </div>
@@ -2659,9 +2659,9 @@
     <!-- Modal: GHL Appointment Set -->
     <div class="modal-overlay" id="modal-ghl-apptset">
       <div class="modal-box">
-        <div class="modal-img-wrap"><img src="images/ghl-appointment-set.png" class="modal-img" alt="Appointment Set — Stage Move" onerror="this.parentElement.style.display='none'" /></div>
+        <div class="modal-img-wrap"><img src="images/ghl-appointment-set.png" class="modal-img" alt="Appointment Set,Stage Move" onerror="this.parentElement.style.display='none'" /></div>
         <div class="modal-body">
-          <div class="modal-header"><span class="modal-title">Appointment Set — Stage Move (AlphaClean Pro)</span><button class="modal-close" onclick="closeModal('modal-ghl-apptset')">✕</button></div>
+          <div class="modal-header"><span class="modal-title">Appointment Set,Stage Move (AlphaClean Pro)</span><button class="modal-close" onclick="closeModal('modal-ghl-apptset')">✕</button></div>
           <span class="modal-badge">GHL</span>
           <p class="modal-desc">Once a client books an appointment, this automation fires a confirmation and automatically moves the contact to the correct pipeline stage. It keeps the CRM up to date in real time without any manual intervention.</p>
           <div class="modal-tags"><span class="modal-tag">GHL</span><span class="modal-tag">Automation</span><span class="modal-tag">Pipeline</span><span class="modal-tag">AlphaClean Pro</span></div>
@@ -2689,7 +2689,7 @@
         <div class="modal-body">
           <div class="modal-header"><span class="modal-title">Job Complete (AlphaClean Pro)</span><button class="modal-close" onclick="closeModal('modal-ghl-jobcomplete')">✕</button></div>
           <span class="modal-badge">GHL</span>
-          <p class="modal-desc">Triggered when a job is marked as complete, this automation sends a wrap-up message to the client, requests a review, and updates the pipeline stage — closing the loop on the customer journey automatically.</p>
+          <p class="modal-desc">Triggered when a job is marked as complete, this automation sends a wrap-up message to the client, requests a review, and updates the pipeline stage,closing the loop on the customer journey automatically.</p>
           <div class="modal-tags"><span class="modal-tag">GHL</span><span class="modal-tag">Automation</span><span class="modal-tag">Review Request</span><span class="modal-tag">AlphaClean Pro</span></div>
         </div>
       </div>
@@ -2702,7 +2702,7 @@
         <div class="modal-body">
           <div class="modal-header"><span class="modal-title">AI-Powered CRM Follow-Up System</span><button class="modal-close" onclick="closeModal('modal-zapier-crm')">✕</button></div>
           <span class="modal-badge">Zapier</span>
-          <p class="modal-desc">Automated CRM follow-up pipeline powered by AI — triggers personalised outreach sequences based on lead behaviour and status changes, ensuring no lead goes cold.</p>
+          <p class="modal-desc">Automated CRM follow-up pipeline powered by AI,triggers personalised outreach sequences based on lead behaviour and status changes, ensuring no lead goes cold.</p>
           <div class="modal-tags"><span class="modal-tag">Zapier</span><span class="modal-tag">CRM</span><span class="modal-tag">AI</span><span class="modal-tag">Automation</span></div>
         </div>
       </div>
@@ -2715,7 +2715,7 @@
         <div class="modal-body">
           <div class="modal-header"><span class="modal-title">Data Lead and Enrichment</span><button class="modal-close" onclick="closeModal('modal-zapier-enrichment')">✕</button></div>
           <span class="modal-badge">Zapier</span>
-          <p class="modal-desc">Captures incoming leads and automatically enriches their data — pulling additional contact info and qualifying fields before routing them to the correct CRM pipeline.</p>
+          <p class="modal-desc">Captures incoming leads and automatically enriches their data,pulling additional contact info and qualifying fields before routing them to the correct CRM pipeline.</p>
           <div class="modal-tags"><span class="modal-tag">Zapier</span><span class="modal-tag">Lead Enrichment</span><span class="modal-tag">Data</span><span class="modal-tag">CRM</span></div>
         </div>
       </div>
@@ -2726,9 +2726,9 @@
       <div class="modal-box">
         <div class="modal-img-wrap"><img src="images/zapier-primekey-followup.png" class="modal-img" alt="PrimeKey New Lead Follow-Up" onerror="this.parentElement.style.display='none'" /></div>
         <div class="modal-body">
-          <div class="modal-header"><span class="modal-title">PrimeKey — New Lead Follow-Up</span><button class="modal-close" onclick="closeModal('modal-zapier-primekey')">✕</button></div>
+          <div class="modal-header"><span class="modal-title">PrimeKey,New Lead Follow-Up</span><button class="modal-close" onclick="closeModal('modal-zapier-primekey')">✕</button></div>
           <span class="modal-badge">GHL</span>
-          <p class="modal-desc">Automated lead follow-up workflow for PrimeKey — instantly responds to new enquiries with a personalised sequence to nurture and convert prospects into clients.</p>
+          <p class="modal-desc">Automated lead follow-up workflow for PrimeKey,instantly responds to new enquiries with a personalised sequence to nurture and convert prospects into clients.</p>
           <div class="modal-tags"><span class="modal-tag">GHL</span><span class="modal-tag">Lead Follow-Up</span><span class="modal-tag">PrimeKey</span><span class="modal-tag">Automation</span></div>
         </div>
       </div>
@@ -2741,7 +2741,7 @@
         <div class="modal-body">
           <div class="modal-header"><span class="modal-title">Recruitment Lead Capture &amp; CV Screener</span><button class="modal-close" onclick="closeModal('modal-recruitment')">✕</button></div>
           <span class="modal-badge">n8n</span>
-          <p class="modal-desc">End-to-end AI recruitment pipeline built for the ManPowerAI platform. When a candidate submits their application and CV via the funnel form, n8n captures the multipart data, extracts all text from the PDF/DOC file, and passes it to Groq llama-3.3-70b which scores the candidate 1–10 and outputs strengths, concerns, and a recommendation. The recruiter is instantly notified via Gmail and Slack, a GHL contact is created with the AI summary added as a note, and the candidate receives an automated confirmation email — zero manual steps required.</p>
+          <p class="modal-desc">End-to-end AI recruitment pipeline built for the ManPowerAI platform. When a candidate submits their application and CV via the funnel form, n8n captures the multipart data, extracts all text from the PDF/DOC file, and passes it to Groq llama-3.3-70b which scores the candidate 1–10 and outputs strengths, concerns, and a recommendation. The recruiter is instantly notified via Gmail and Slack, a GHL contact is created with the AI summary added as a note, and the candidate receives an automated confirmation email,zero manual steps required.</p>
           <div class="modal-tags"><span class="modal-tag">n8n</span><span class="modal-tag">Groq AI</span><span class="modal-tag">GoHighLevel</span><span class="modal-tag">Gmail</span><span class="modal-tag">Slack</span><span class="modal-tag">PDF Extract</span><span class="modal-tag">Webhook</span></div>
         </div>
       </div>
@@ -2752,23 +2752,23 @@
       <div class="modal-box">
         <div class="modal-img-wrap"><img src="images/workflow-aa-admissions.png" class="modal-img" alt="AA International School Admissions Suite" onerror="this.parentElement.style.display='none'" /></div>
         <div class="modal-body">
-          <div class="modal-header"><span class="modal-title">AA International School — Admissions Automation Suite</span><button class="modal-close" onclick="closeModal('modal-aa-admissions')">✕</button></div>
+          <div class="modal-header"><span class="modal-title">AA International School,Admissions Automation Suite</span><button class="modal-close" onclick="closeModal('modal-aa-admissions')">✕</button></div>
           <span class="modal-badge">n8n &amp; GHL</span>
-          <p class="modal-desc">A complete admissions operations system for AA International School, covering every touchpoint from tour inquiry to assessment result — fully automated with zero manual handoffs.</p>
+          <p class="modal-desc">A complete admissions operations system for AA International School, covering every touchpoint from tour inquiry to assessment result,fully automated with zero manual handoffs.</p>
           <div class="modal-sub-list">
             <div class="modal-sub-item">
               <img src="images/School tour.png" class="modal-sub-img" alt="Tour Booking Automation" onerror="this.style.display='none'" />
-              <div class="modal-sub-title">1 — Tour Booking Automation</div>
-              <p class="modal-sub-desc">Prospective families book a school tour online. The workflow captures the submission, creates a calendar event, logs the booking to a tracking sheet, and sends a confirmation email to the parent — all in real time.</p>
+              <div class="modal-sub-title">1,Tour Booking Automation</div>
+              <p class="modal-sub-desc">Prospective families book a school tour online. The workflow captures the submission, creates a calendar event, logs the booking to a tracking sheet, and sends a confirmation email to the parent,all in real time.</p>
             </div>
             <div class="modal-sub-item">
               <img src="images/Cancel tour.png" class="modal-sub-img" alt="Cancel Booking" onerror="this.style.display='none'" />
-              <div class="modal-sub-title">2 — Cancel Booking</div>
+              <div class="modal-sub-title">2,Cancel Booking</div>
               <p class="modal-sub-desc">When a family cancels their tour, the automation removes the calendar event, updates the booking record with a cancellation timestamp, and sends a polite cancellation confirmation email to the parent automatically.</p>
             </div>
             <div class="modal-sub-item">
               <img src="images/fail assesment.png" class="modal-sub-img" alt="Assessment Pass Notification" onerror="this.style.display='none'" />
-              <div class="modal-sub-title">3 — Assessment Pass Notification</div>
+              <div class="modal-sub-title">3,Assessment Pass Notification</div>
               <p class="modal-sub-desc">Once a student passes the admissions assessment, the workflow triggers an instant notification to the family with next-step instructions, and notifies the admissions team to begin the enrolment process.</p>
             </div>
           </div>
@@ -2784,7 +2784,7 @@
         <div class="modal-body">
           <div class="modal-header"><span class="modal-title">Property Manager AI Agent</span><button class="modal-close" onclick="closeModal('modal-property')">✕</button></div>
           <span class="modal-badge">n8n</span>
-          <p class="modal-desc">A WhatsApp-based AI property management assistant powered by a LangChain agent with Groq and conversation memory. Tenants send requests via WhatsApp; the agent holds a back-and-forth conversation until the request is fully understood, then routes it to the correct team — Maintenance, Billing, Complaints, or General Inquiries — via email, logs every case to Google Sheets, and sends the tenant a WhatsApp confirmation automatically.</p>
+          <p class="modal-desc">A WhatsApp-based AI property management assistant powered by a LangChain agent with Groq and conversation memory. Tenants send requests via WhatsApp; the agent holds a back-and-forth conversation until the request is fully understood, then routes it to the correct team,Maintenance, Billing, Complaints, or General Inquiries,via email, logs every case to Google Sheets, and sends the tenant a WhatsApp confirmation automatically.</p>
           <div class="modal-tags"><span class="modal-tag">n8n</span><span class="modal-tag">WhatsApp</span><span class="modal-tag">Twilio</span><span class="modal-tag">AI Agent</span><span class="modal-tag">Groq AI</span><span class="modal-tag">Google Sheets</span><span class="modal-tag">Gmail</span></div>
         </div>
       </div>
@@ -2799,7 +2799,7 @@
     <h2 class="section-title">Skills</h2>
     <div class="skills-marquee">
 
-      <!-- Row 1 — scrolls left (duplicated for seamless loop) -->
+      <!-- Row 1,scrolls left (duplicated for seamless loop) -->
       <div class="marquee-row">
         <span class="skill-tag">Python</span>
         <span class="skill-tag">n8n</span>
@@ -2832,7 +2832,7 @@
         <span class="skill-tag">Vercel</span>
       </div>
 
-      <!-- Row 2 — scrolls right (duplicated for seamless loop) -->
+      <!-- Row 2,scrolls right (duplicated for seamless loop) -->
       <div class="marquee-row reverse">
         <span class="skill-tag">Microsoft Azure</span>
         <span class="skill-tag">Microsoft Applications</span>
@@ -2884,7 +2884,7 @@
         <div class="contact-icon">🎮</div>
         <div>
           <div class="contact-label">Discord</div>
-          <div class="contact-value">derftv — derf#8693</div>
+          <div class="contact-value">derftv | derf#8693</div>
         </div>
       </div>
       <a class="contact-card" href="https://instagram.com/alfredalimuin" target="_blank" rel="noopener noreferrer">
@@ -3439,27 +3439,27 @@
     var kb = [
       {
         keys: ['hi','hello','hey','howdy','good morning','good afternoon','sup','hiya'],
-        reply: "Hey there! 👋 Great to meet you. I'm here to tell you all about Alfred — his skills, experience, and projects. What would you like to know?"
+        reply: "Hey there! 👋 Great to meet you. I'm here to tell you all about Alfred,his skills, experience, and projects. What would you like to know?"
       },
       {
         keys: ['skill','tool','tech','stack','use','work with','speciali','expert'],
-        reply: "Alfred specialises in:\n\n🤖 <b>AI & Automation</b> — n8n, Zapier, Apps Script, GoHighLevel, AI Workflows\n💻 <b>Systems & IT</b> — Active Directory, Microsoft 365, G-Suite Admin, Cisco CCNA, PABX\n🖥 <b>Platforms</b> — Windows, macOS, Linux, Android\n👨‍💻 <b>Programming</b> — HTML, Java, C/C++, Visual Basic, Oracle DB\n\nHe's currently focused on intelligent workflow design and AI automation."
+        reply: "Alfred specialises in:\n\n🤖 <b>AI & Automation</b>,n8n, Zapier, Apps Script, GoHighLevel, AI Workflows\n💻 <b>Systems & IT</b>,Active Directory, Microsoft 365, G-Suite Admin, Cisco CCNA, PABX\n🖥 <b>Platforms</b>,Windows, macOS, Linux, Android\n👨‍💻 <b>Programming</b>,HTML, Java, C/C++, Visual Basic, Oracle DB\n\nHe's currently focused on intelligent workflow design and AI automation."
       },
       {
         keys: ['experience','work','career','job','history','role','position','employ'],
-        reply: "Alfred has 10+ years of IT experience:\n\n🔹 <b>AI Automation Specialist</b> (Jan 2025–Present) — GoHighLevel, n8n, Zapier automations for clients\n🔹 <b>IT Asst. Sysadmin & Coordinator</b> (2018–2024) — British School of Bahrain, 3,000+ devices\n🔹 <b>IT Support Specialist</b> (2021–2024) — KingsInterHigh UK Online School\n🔹 <b>IT Support – Helpdesk</b> (2016–2018) — Riffa Views International School\n🔹 <b>IT Specialist</b> (2014–2016) — King Fahd Causeway Authority\n\nWant details on any specific role?"
+        reply: "Alfred has 10+ years of IT experience:\n\n🔹 <b>AI Automation Specialist</b> (Jan 2025–Present),GoHighLevel, n8n, Zapier automations for clients\n🔹 <b>IT Asst. Sysadmin & Coordinator</b> (2018–2024),British School of Bahrain, 3,000+ devices\n🔹 <b>IT Support Specialist</b> (2021–2024),KingsInterHigh UK Online School\n🔹 <b>IT Support – Helpdesk</b> (2016–2018),Riffa Views International School\n🔹 <b>IT Specialist</b> (2014–2016),King Fahd Causeway Authority\n\nWant details on any specific role?"
       },
       {
         keys: ['education','degree','study','school','university','mba','bachelor','qualif'],
-        reply: "Alfred's educational background:\n\n🎓 <b>MBA — Project Management</b>\nSinghania University, India · Graduated April 2025\n\n🎓 <b>BS Informatics Engineering</b>\nAMA International University Bahrain · 2009–2014\n\n📜 Also holds multiple EduCare certifications (Child Protection, Health & Safety, First Aid) and Cisco CCNA Assessments Levels 1–4."
+        reply: "Alfred's educational background:\n\n🎓 <b>MBA,Project Management</b>\nSinghania University, India · Graduated April 2025\n\n🎓 <b>BS Informatics Engineering</b>\nAMA International University Bahrain · 2009–2014\n\n📜 Also holds multiple EduCare certifications (Child Protection, Health & Safety, First Aid) and Cisco CCNA Assessments Levels 1–4."
       },
       {
         keys: ['project','portfolio','built','build','sample','work','demo','automat'],
-        reply: "Some of Alfred's recent projects:\n\n🚀 <b>AA International School Admissions Suite</b> — Full n8n automation for lead capture, CV screening, and onboarding\n📋 <b>Recruitment Lead Capture & CV Screener</b> — n8n + AI-powered workflow\n📅 <b>Tour Booking Landing Page</b> — GHL funnel with booking confirmation\n🤖 <b>AI Workflow Automations</b> — Apps Script, Zapier & AI eliminating 30%+ of manual tasks\n\nCheck the Projects section above for the full list with screenshots!"
+        reply: "Some of Alfred's recent projects:\n\n🚀 <b>AA International School Admissions Suite</b>,Full n8n automation for lead capture, CV screening, and onboarding\n📋 <b>Recruitment Lead Capture & CV Screener</b>,n8n + AI-powered workflow\n📅 <b>Tour Booking Landing Page</b>,GHL funnel with booking confirmation\n🤖 <b>AI Workflow Automations</b>,Apps Script, Zapier & AI eliminating 30%+ of manual tasks\n\nCheck the Projects section above for the full list with screenshots!"
       },
       {
         keys: ['hire','available','freelance','work together','collaborat','partner','looking','need','opportunity'],
-        reply: "Alfred is available for freelance and contract work! 🎯\n\nHe specialises in:\n✅ AI workflow automation (n8n, Zapier, GHL)\n✅ IT infrastructure consulting\n✅ Systems administration & project management\n\n📧 <b>alfredalimuin@gmail.com</b>\n📞 <b>+973 3931 1076</b>\n\nOr scroll up and hit the <b>Contact</b> section — there's a form there too!"
+        reply: "Alfred is available for freelance and contract work! 🎯\n\nHe specialises in:\n✅ AI workflow automation (n8n, Zapier, GHL)\n✅ IT infrastructure consulting\n✅ Systems administration & project management\n\n📧 <b>alfredalimuin@gmail.com</b>\n📞 <b>+973 3931 1076</b>\n\nOr scroll up and hit the <b>Contact</b> section,there's a form there too!"
       },
       {
         keys: ['contact','email','phone','reach','message','get in touch','call'],
@@ -3467,11 +3467,11 @@
       },
       {
         keys: ['location','where','based','bahrain','country','live','from'],
-        reply: "Alfred is based in <b>Bahrain 🇧🇭</b> and holds a valid driving license. He works with clients locally and internationally — most of his automation work is fully remote."
+        reply: "Alfred is based in <b>Bahrain 🇧🇭</b> and holds a valid driving license. He works with clients locally and internationally,most of his automation work is fully remote."
       },
       {
         keys: ['n8n','workflow','automation','zapier','apps script','make','integromat'],
-        reply: "Automation is Alfred's main focus! He builds with:\n\n⚙️ <b>n8n</b> — self-hosted workflow automation\n⚡ <b>Zapier</b> — cross-platform integrations\n📜 <b>Google Apps Script</b> — Google Workspace automation\n🤖 <b>AI Workflows</b> — Claude, OpenAI, AI agents\n\nHis automations have eliminated 30%+ of repetitive manual work for clients and scaled onboarding to 500+ users."
+        reply: "Automation is Alfred's main focus! He builds with:\n\n⚙️ <b>n8n</b>,self-hosted workflow automation\n⚡ <b>Zapier</b>,cross-platform integrations\n📜 <b>Google Apps Script</b>,Google Workspace automation\n🤖 <b>AI Workflows</b>,Claude, OpenAI, AI agents\n\nHis automations have eliminated 30%+ of repetitive manual work for clients and scaled onboarding to 500+ users."
       },
       {
         keys: ['ghl','gohighlevel','crm','funnel','pipeline','highlevel'],
@@ -3479,11 +3479,11 @@
       },
       {
         keys: ['mba','project management','manager','management'],
-        reply: "Alfred completed his <b>MBA in Project Management</b> at Singhania University in April 2025. He applied project management frameworks throughout his IT career — leading infrastructure renovations, managing 3,000+ device environments, and overseeing cross-functional school IT projects."
+        reply: "Alfred completed his <b>MBA in Project Management</b> at Singhania University in April 2025. He applied project management frameworks throughout his IT career,leading infrastructure renovations, managing 3,000+ device environments, and overseeing cross-functional school IT projects."
       },
       {
         keys: ['language','speak','english','filipino','tagalog'],
-        reply: "Alfred speaks:\n\n🇬🇧 <b>English</b> — Proficient (IELTS completed)\n🇵🇭 <b>Filipino / Tagalog</b> — Native\n\nAll his professional work and client communication is in English."
+        reply: "Alfred speaks:\n\n🇬🇧 <b>English</b>,Proficient (IELTS completed)\n🇵🇭 <b>Filipino / Tagalog</b>,Native\n\nAll his professional work and client communication is in English."
       },
       {
         keys: ['certif','cisco','ccna','educare','achieve'],
@@ -3491,11 +3491,11 @@
       },
       {
         keys: ['rate','price','cost','charge','fee','pricing','budget'],
-        reply: "For pricing and rates, it's best to discuss the scope of your project directly with Alfred. Every project is different!\n\n📧 Drop him a message at <b>alfredalimuin@gmail.com</b> or use the Contact form — he'll get back to you quickly. 🙂"
+        reply: "For pricing and rates, it's best to discuss the scope of your project directly with Alfred. Every project is different!\n\n📧 Drop him a message at <b>alfredalimuin@gmail.com</b> or use the Contact form,he'll get back to you quickly. 🙂"
       },
       {
         keys: ['thank','thanks','great','awesome','cool','nice','perfect','helpful'],
-        reply: "Happy to help! 😊 Feel free to ask anything else, or reach out to Alfred directly — he'd love to connect. You can also scroll through the portfolio above to see his work!"
+        reply: "Happy to help! 😊 Feel free to ask anything else, or reach out to Alfred directly,he'd love to connect. You can also scroll through the portfolio above to see his work!"
       },
       {
         keys: ['bye','goodbye','see you','later','ciao','take care'],
@@ -3512,7 +3512,7 @@
           }
         }
       }
-      return "That's a great question! 🤔 I'm not sure about that specific detail, but you can reach Alfred directly at <b>alfredalimuin@gmail.com</b> — he'll be happy to help. Or try asking about his <b>skills</b>, <b>experience</b>, or <b>projects</b>!";
+      return "That's a great question! 🤔 I'm not sure about that specific detail, but you can reach Alfred directly at <b>alfredalimuin@gmail.com</b>,he'll be happy to help. Or try asking about his <b>skills</b>, <b>experience</b>, or <b>projects</b>!";
     }
 
     function addMsg(text, who) {
