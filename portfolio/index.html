@@ -1513,6 +1513,7 @@
           <span class="hero-pill">🔗 Zapier</span>
           <span class="hero-pill">🤖 AI Integration</span>
           <span class="hero-pill">📊 CRM Setup</span>
+          <span class="hero-pill">🖥️ SaaS Building</span>
         </div>
         <div class="hero-actions">
           <a href="#contact" class="hero-cta">Get in touch →</a>
@@ -2054,6 +2055,7 @@
       <button class="proj-filter" data-filter="ghl-funnels">GHL Funnels <span class="filter-count">10</span></button>
       <button class="proj-filter" data-filter="ghl-auto">GHL Automations <span class="filter-count">5</span></button>
       <button class="proj-filter" data-filter="zapier">Zapier <span class="filter-count">2</span></button>
+      <button class="proj-filter" data-filter="saas">SaaS Applications <span class="filter-count">1</span></button>
     </div>
 
     <!-- Project cards -->
@@ -2552,6 +2554,40 @@
         </div>
       </div>
 
+      <!-- SaaS Application cards -->
+      <div class="proj-card hidden" data-category="saas" onclick="openModal('modal-saas-dashboard')">
+        <div class="proj-card-img-wrap">
+          <img src="images/saas-dashboard-main.jpg" alt="Project Management Dashboard" onerror="this.parentElement.innerHTML='<div class=\'proj-card-placeholder\'>🖥️</div>'" />
+          <span class="proj-card-badge">SAAS</span>
+        </div>
+        <div class="proj-card-body">
+          <div class="proj-card-title">Project Management Dashboard</div>
+          <div class="proj-card-desc">A full-stack SaaS project management dashboard built with Next.js and Supabase — featuring real-time task tracking, team collaboration, and a clean modern UI deployed on Vercel.</div>
+          <div class="proj-card-tags">
+            <span class="proj-card-tag">Next.js</span>
+            <span class="proj-card-tag">Supabase</span>
+            <span class="proj-card-tag">Vercel</span>
+          </div>
+          <div class="proj-card-footer">
+            <span class="proj-card-stat">Full-Stack</span>
+            <span class="proj-card-ext">↗</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Modal: SaaS Dashboard -->
+    <div class="modal-overlay" id="modal-saas-dashboard">
+      <div class="modal-box">
+        <div class="modal-img-wrap"><img src="images/saas-dashboard-main.jpg" class="modal-img" alt="Project Management Dashboard" onerror="this.parentElement.style.display='none'" /></div>
+        <div class="modal-body">
+          <div class="modal-header"><span class="modal-title">Project Management Dashboard</span><button class="modal-close" onclick="closeModal('modal-saas-dashboard')">✕</button></div>
+          <span class="modal-badge">SaaS</span>
+          <p class="modal-desc">A full-stack SaaS project management dashboard built with Next.js and Supabase. Features real-time task tracking, user authentication, team collaboration tools, and a clean modern UI — fully deployed and hosted on Vercel.</p>
+          <div class="modal-tags"><span class="modal-tag">Next.js</span><span class="modal-tag">Supabase</span><span class="modal-tag">Vercel</span><span class="modal-tag">SaaS</span></div>
+        </div>
+      </div>
     </div>
 
     <!-- Modal: Dental -->
@@ -2774,6 +2810,10 @@
         <span class="skill-tag">API Integration</span>
         <span class="skill-tag">Workflow Automation</span>
         <span class="skill-tag">Google Administration</span>
+        <span class="skill-tag">SaaS Building</span>
+        <span class="skill-tag">Next.js</span>
+        <span class="skill-tag">Supabase</span>
+        <span class="skill-tag">Vercel</span>
         <!-- duplicate -->
         <span class="skill-tag">Python</span>
         <span class="skill-tag">n8n</span>
@@ -2785,6 +2825,10 @@
         <span class="skill-tag">API Integration</span>
         <span class="skill-tag">Workflow Automation</span>
         <span class="skill-tag">Google Administration</span>
+        <span class="skill-tag">SaaS Building</span>
+        <span class="skill-tag">Next.js</span>
+        <span class="skill-tag">Supabase</span>
+        <span class="skill-tag">Vercel</span>
       </div>
 
       <!-- Row 2 — scrolls right (duplicated for seamless loop) -->
