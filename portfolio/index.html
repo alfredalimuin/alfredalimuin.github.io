@@ -2055,7 +2055,7 @@
       <button class="proj-filter" data-filter="n8n">n8n <span class="filter-count">21</span></button>
       <button class="proj-filter" data-filter="ghl-funnels">GHL Funnels <span class="filter-count">10</span></button>
       <button class="proj-filter" data-filter="ghl-auto">GHL Automations <span class="filter-count">5</span></button>
-      <button class="proj-filter" data-filter="zapier">Zapier <span class="filter-count">2</span></button>
+      <button class="proj-filter" data-filter="zapier">Zapier <span class="filter-count">7</span></button>
       <button class="proj-filter" data-filter="saas">SaaS Applications <span class="filter-count">1</span></button>
     </div>
 
@@ -2738,6 +2738,72 @@
         </div>
       </div>
 
+      <!-- GGWM Zapier Migration cards -->
+      <div class="proj-card hidden" data-category="zapier" onclick="openModal('modal-zapier-wf-01')">
+        <div class="proj-card-img-wrap">
+          <img src="images/zapier-wf-01-ggwm-live-series-webinar.png" alt="GGWM Live Series Webinar" onerror="this.parentElement.innerHTML='<div class=\'proj-card-placeholder\'>🎙️</div>'" />
+          <span class="proj-card-badge">ZAPIER</span>
+        </div>
+        <div class="proj-card-body">
+          <div class="proj-card-title">2026 GGWM NOW FREE LIVE SERIES Webinar to Zoom and Sheet</div>
+          <div class="proj-card-desc">Catches webhook registrations, creates a Zoom webinar registrant, logs the record to Google Sheets with formatted dates, and adds the contact to LeadConnector.</div>
+          <div class="proj-card-tags"><span class="proj-card-tag">Zapier</span><span class="proj-card-tag">Zoom</span><span class="proj-card-tag">Google Sheets</span><span class="proj-card-tag">LeadConnector</span></div>
+          <div class="proj-card-footer"><span class="proj-card-stat">6 Steps</span><span class="proj-card-ext">↗</span></div>
+        </div>
+      </div>
+
+      <div class="proj-card hidden" data-category="zapier" onclick="openModal('modal-zapier-wf-02')">
+        <div class="proj-card-img-wrap">
+          <img src="images/zapier-wf-02-purchased-ggwm-annual.png" alt="Purchased GGWM Club Annual" onerror="this.parentElement.innerHTML='<div class=\'proj-card-placeholder\'>💰</div>'" />
+          <span class="proj-card-badge">ZAPIER</span>
+        </div>
+        <div class="proj-card-body">
+          <div class="proj-card-title">Purchased: GGWM Club Annual/Monthly to GHL and Spreadsheet</div>
+          <div class="proj-card-desc">Triggers on Thinkific new orders, logs the purchase to Google Sheets, updates the contact in LeadConnector/GHL, and sends a Facebook Conversions purchase event.</div>
+          <div class="proj-card-tags"><span class="proj-card-tag">Zapier</span><span class="proj-card-tag">Thinkific</span><span class="proj-card-tag">GHL</span><span class="proj-card-tag">Facebook</span></div>
+          <div class="proj-card-footer"><span class="proj-card-stat">4 Steps</span><span class="proj-card-ext">↗</span></div>
+        </div>
+      </div>
+
+      <div class="proj-card hidden" data-category="zapier" onclick="openModal('modal-zapier-wf-03')">
+        <div class="proj-card-img-wrap">
+          <img src="images/zapier-wf-03-thinkific-purchasers-facebook.png" alt="Thinkific Purchasers to Facebook API" onerror="this.parentElement.innerHTML='<div class=\'proj-card-placeholder\'>📘</div>'" />
+          <span class="proj-card-badge">ZAPIER</span>
+        </div>
+        <div class="proj-card-body">
+          <div class="proj-card-title">Thinkific GGWM Purchasers to Facebook API (Trial mode)</div>
+          <div class="proj-card-desc">On each new Thinkific order, runs a JavaScript code step to build the payload, then fires a custom webhook to the Facebook Conversions API for retargeting.</div>
+          <div class="proj-card-tags"><span class="proj-card-tag">Zapier</span><span class="proj-card-tag">Thinkific</span><span class="proj-card-tag">Facebook API</span><span class="proj-card-tag">Code by Zapier</span></div>
+          <div class="proj-card-footer"><span class="proj-card-stat">Trial Mode</span><span class="proj-card-ext">↗</span></div>
+        </div>
+      </div>
+
+      <div class="proj-card hidden" data-category="zapier" onclick="openModal('modal-zapier-wf-04')">
+        <div class="proj-card-img-wrap">
+          <img src="images/zapier-wf-04-ggwm-club-bundles.png" alt="GGWM Club Community Bundles" onerror="this.parentElement.innerHTML='<div class=\'proj-card-placeholder\'>📦</div>'" />
+          <span class="proj-card-badge">ZAPIER</span>
+        </div>
+        <div class="proj-card-body">
+          <div class="proj-card-title">Thinkific: GGWM Club Community Bundles to GHL</div>
+          <div class="proj-card-desc">Multi-path Zap that routes GGWM Club community bundle purchases from Thinkific into the correct GHL pipeline branches based on membership type.</div>
+          <div class="proj-card-tags"><span class="proj-card-tag">Zapier</span><span class="proj-card-tag">Thinkific</span><span class="proj-card-tag">GHL</span><span class="proj-card-tag">Multi-path</span></div>
+          <div class="proj-card-footer"><span class="proj-card-stat">Multi-path</span><span class="proj-card-ext">↗</span></div>
+        </div>
+      </div>
+
+      <div class="proj-card hidden" data-category="zapier" onclick="openModal('modal-zapier-wf-05')">
+        <div class="proj-card-img-wrap">
+          <img src="images/zapier-wf-05-thinkific-ghl-cancellation.png" alt="GGWM Membership Cancellation" onerror="this.parentElement.innerHTML='<div class=\'proj-card-placeholder\'>❌</div>'" />
+          <span class="proj-card-badge">ZAPIER</span>
+        </div>
+        <div class="proj-card-body">
+          <div class="proj-card-title">Thinkific to GHL: GGWM Membership Cancellation</div>
+          <div class="proj-card-desc">Detects Thinkific subscription cancellations, formats the date, splits into GGWML/GGWMP paths, sends outbound emails, updates LeadConnector, and logs to Zapier Tables.</div>
+          <div class="proj-card-tags"><span class="proj-card-tag">Zapier</span><span class="proj-card-tag">Thinkific</span><span class="proj-card-tag">LeadConnector</span><span class="proj-card-tag">Paths</span></div>
+          <div class="proj-card-footer"><span class="proj-card-stat">15 Steps</span><span class="proj-card-ext">↗</span></div>
+        </div>
+      </div>
+
       <!-- SaaS Application cards -->
       <div class="proj-card hidden" data-category="saas" onclick="openModal('modal-saas-dashboard')">
         <div class="proj-card-img-wrap">
@@ -2872,6 +2938,47 @@
       <span class="modal-badge">n8n</span>
       <p class="modal-desc">Detects GGWM membership cancellations from Thinkific, routes by membership type, sends cancellation alerts via Gmail, updates GoHighLevel, and queues records in Mighty Networks — fully automated with error handling.</p>
       <div class="modal-tags"><span class="modal-tag">n8n</span><span class="modal-tag">Thinkific</span><span class="modal-tag">GHL</span><span class="modal-tag">Mighty Networks</span><span class="modal-tag">Gmail</span></div></div>
+    </div></div>
+
+    <!-- GGWM Zapier Migration Modals -->
+    <div class="modal-overlay" id="modal-zapier-wf-01"><div class="modal-box">
+      <div class="modal-img-wrap"><img src="images/zapier-wf-01-ggwm-live-series-webinar.png" class="modal-img" alt="GGWM Live Series Webinar" onerror="this.parentElement.style.display='none'" /></div>
+      <div class="modal-body"><div class="modal-header"><span class="modal-title">2026 GGWM NOW FREE LIVE SERIES Webinar to Zoom and Sheet</span><button class="modal-close" onclick="closeModal('modal-zapier-wf-01')">✕</button></div>
+      <span class="modal-badge">Zapier</span>
+      <p class="modal-desc">Catches webhook registrations, creates a Zoom webinar registrant, logs the record to Google Sheets with formatted dates via Formatter by Zapier, and adds or updates the contact in LeadConnector — 6 steps end to end.</p>
+      <div class="modal-tags"><span class="modal-tag">Zapier</span><span class="modal-tag">Zoom</span><span class="modal-tag">Google Sheets</span><span class="modal-tag">LeadConnector</span><span class="modal-tag">GGWM</span></div></div>
+    </div></div>
+
+    <div class="modal-overlay" id="modal-zapier-wf-02"><div class="modal-box">
+      <div class="modal-img-wrap"><img src="images/zapier-wf-02-purchased-ggwm-annual.png" class="modal-img" alt="Purchased GGWM Club Annual" onerror="this.parentElement.style.display='none'" /></div>
+      <div class="modal-body"><div class="modal-header"><span class="modal-title">Purchased: GGWM Club Annual/Monthly to GHL and Spreadsheet</span><button class="modal-close" onclick="closeModal('modal-zapier-wf-02')">✕</button></div>
+      <span class="modal-badge">Zapier</span>
+      <p class="modal-desc">Triggers on a new Thinkific order, creates a spreadsheet row in Google Sheets, adds or updates the contact in LeadConnector/GHL, and fires a purchase event to the Facebook Conversions API.</p>
+      <div class="modal-tags"><span class="modal-tag">Zapier</span><span class="modal-tag">Thinkific</span><span class="modal-tag">GHL</span><span class="modal-tag">Google Sheets</span><span class="modal-tag">Facebook API</span></div></div>
+    </div></div>
+
+    <div class="modal-overlay" id="modal-zapier-wf-03"><div class="modal-box">
+      <div class="modal-img-wrap"><img src="images/zapier-wf-03-thinkific-purchasers-facebook.png" class="modal-img" alt="Thinkific to Facebook API" onerror="this.parentElement.style.display='none'" /></div>
+      <div class="modal-body"><div class="modal-header"><span class="modal-title">Thinkific GGWM Purchasers to Facebook API (Trial mode)</span><button class="modal-close" onclick="closeModal('modal-zapier-wf-03')">✕</button></div>
+      <span class="modal-badge">Zapier</span>
+      <p class="modal-desc">On each new Thinkific order, runs a JavaScript code step via Code by Zapier to build the API payload, then fires a custom webhook request to the Facebook Conversions API for audience retargeting (running in trial mode).</p>
+      <div class="modal-tags"><span class="modal-tag">Zapier</span><span class="modal-tag">Thinkific</span><span class="modal-tag">Facebook API</span><span class="modal-tag">Code by Zapier</span><span class="modal-tag">GGWM</span></div></div>
+    </div></div>
+
+    <div class="modal-overlay" id="modal-zapier-wf-04"><div class="modal-box">
+      <div class="modal-img-wrap"><img src="images/zapier-wf-04-ggwm-club-bundles.png" class="modal-img" alt="GGWM Club Community Bundles" onerror="this.parentElement.style.display='none'" /></div>
+      <div class="modal-body"><div class="modal-header"><span class="modal-title">Thinkific: GGWM Club Community Bundles to GHL</span><button class="modal-close" onclick="closeModal('modal-zapier-wf-04')">✕</button></div>
+      <span class="modal-badge">Zapier</span>
+      <p class="modal-desc">A multi-path Zap that routes GGWM Club community bundle purchases from Thinkific into the correct GoHighLevel pipeline branches, adding or updating contacts based on membership type.</p>
+      <div class="modal-tags"><span class="modal-tag">Zapier</span><span class="modal-tag">Thinkific</span><span class="modal-tag">GHL</span><span class="modal-tag">Multi-path</span><span class="modal-tag">GGWM</span></div></div>
+    </div></div>
+
+    <div class="modal-overlay" id="modal-zapier-wf-05"><div class="modal-box">
+      <div class="modal-img-wrap"><img src="images/zapier-wf-05-thinkific-ghl-cancellation.png" class="modal-img" alt="GGWM Membership Cancellation" onerror="this.parentElement.style.display='none'" /></div>
+      <div class="modal-body"><div class="modal-header"><span class="modal-title">Thinkific to GHL: GGWM Membership Cancellation</span><button class="modal-close" onclick="closeModal('modal-zapier-wf-05')">✕</button></div>
+      <span class="modal-badge">Zapier</span>
+      <p class="modal-desc">Detects Thinkific subscription cancellations, formats the date, and splits into GGWML and GGWMP paths. Each branch evaluates conditions, sends an outbound email, updates the LeadConnector contact, and logs the record to Zapier Tables — 15 steps with full branching logic.</p>
+      <div class="modal-tags"><span class="modal-tag">Zapier</span><span class="modal-tag">Thinkific</span><span class="modal-tag">LeadConnector</span><span class="modal-tag">Email by Zapier</span><span class="modal-tag">Zapier Tables</span></div></div>
     </div></div>
 
     <!-- Modal: SaaS Dashboard -->
