@@ -1,0 +1,442 @@
+<!-- HERO + LEAD CAPTURE — Test Funnel | Paste into GHL Custom Code Block -->
+<div id="pf-wrap">
+
+<style>
+/* ── FOUNDATION ── */
+html, body { width: 100%; max-width: 100%; overflow-x: hidden; margin: 0; padding: 0; }
+html { -webkit-text-size-adjust: 100%; }
+
+#pf-wrap *, #pf-wrap *::before, #pf-wrap *::after { box-sizing: border-box; }
+
+#pf-wrap {
+  width: 100%;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --bg:        #F9F8F6;
+  --surface:   #FFFFFF;
+  --text:      #111827;
+  --muted:     #6B7280;
+  --border:    #E5E7EB;
+  --accent:    #1B3A5C;
+  --accent-hl: #C9A84C;
+  --error:     #EF4444;
+  --shadow-md: 0 4px 24px rgba(0,0,0,0.07);
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 20px;
+  background: var(--bg);
+  color: var(--text);
+}
+
+#pf-wrap img { max-width: 100%; height: auto; display: block; }
+
+/* ── HERO ── */
+#pf-wrap .pf-hero {
+  width: 100%;
+  position: relative;
+  min-height: 480px;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(160deg, #f0f7ff 0%, #ffffff 60%);
+}
+#pf-wrap .pf-hero::before {
+  content: '';
+  position: absolute;
+  top: -100px; left: 50%; transform: translateX(-50%);
+  width: 700px; height: 700px;
+  background: radial-gradient(circle, rgba(27,58,92,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+#pf-wrap .pf-hero .pf-inner {
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: 80px 48px;
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  text-align: center;
+}
+#pf-wrap .pf-hero h1 {
+  font-size: 52px;
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--text);
+  margin: 0 0 20px;
+}
+#pf-wrap .pf-hero .pf-sub {
+  font-size: 20px;
+  color: var(--muted);
+  line-height: 1.6;
+  margin: 0 auto 32px;
+  max-width: 600px;
+}
+#pf-wrap .pf-trust {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 8px;
+}
+#pf-wrap .pf-pill {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+}
+@media (max-width: 768px) {
+  #pf-wrap .pf-hero { min-height: 360px; }
+  #pf-wrap .pf-hero .pf-inner { padding: 60px 24px; }
+  #pf-wrap .pf-hero h1 { font-size: 36px; }
+  #pf-wrap .pf-hero .pf-sub { font-size: 17px; }
+}
+@media (max-width: 480px) {
+  #pf-wrap .pf-hero { min-height: 300px; }
+  #pf-wrap .pf-hero .pf-inner { padding: 48px 16px; }
+  #pf-wrap .pf-hero h1 { font-size: 28px; }
+  #pf-wrap .pf-hero .pf-sub { font-size: 15px; }
+}
+
+/* ── MAIN SECTION (2-col grid) ── */
+#pf-wrap .pf-main-section {
+  width: 100%;
+  background: var(--bg);
+  padding: 80px 0;
+  container-type: inline-size;
+  container-name: pf-main;
+}
+#pf-wrap .pf-main-section .pf-inner {
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: 0 48px;
+  display: grid;
+  grid-template-columns: 1fr minmax(0, 420px);
+  gap: 56px;
+  align-items: start;
+}
+#pf-wrap .pf-info,
+#pf-wrap .pf-form-card { min-width: 0; }
+
+#pf-wrap .pf-info h2 {
+  font-size: 38px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--text);
+  margin: 0 0 16px;
+}
+#pf-wrap .pf-info p {
+  font-size: 17px;
+  color: var(--muted);
+  line-height: 1.7;
+  margin: 0 0 24px;
+}
+#pf-wrap .pf-bullets {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+#pf-wrap .pf-bullets li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 16px;
+  color: var(--text);
+  margin-bottom: 14px;
+  line-height: 1.5;
+}
+#pf-wrap .pf-bullets li::before {
+  content: '✓';
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 16px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* Form card */
+#pf-wrap .pf-form-card {
+  background: var(--surface);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-md);
+  padding: 40px 36px;
+  position: static;
+}
+#pf-wrap .pf-form-card h3 {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0 0 6px;
+}
+#pf-wrap .pf-form-card .pf-form-sub {
+  font-size: 14px;
+  color: var(--muted);
+  margin: 0 0 24px;
+}
+#pf-wrap .pf-field { margin-bottom: 16px; }
+#pf-wrap .pf-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+#pf-wrap .pf-req { color: var(--error); margin-left: 2px; }
+#pf-wrap .pf-input {
+  width: 100%;
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: 14px 16px;
+  font-size: 16px;
+  font-family: inherit;
+  color: var(--text);
+  background: var(--surface);
+  transition: border-color 0.15s, box-shadow 0.15s;
+  outline: none;
+}
+#pf-wrap .pf-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(27,58,92,0.12);
+}
+#pf-wrap .pf-input.pf-err { border-color: var(--error); }
+#pf-wrap .pf-disclaimer {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: center;
+  margin-top: 12px;
+}
+
+/* @container collapse — form stacks above copy on mobile */
+@container pf-main (max-width: 700px) {
+  #pf-wrap .pf-main-section .pf-inner {
+    grid-template-columns: 1fr;
+    padding: 0 24px;
+    gap: 32px;
+  }
+  #pf-wrap .pf-form-card { order: -1; width: 100%; }
+  #pf-wrap .pf-info h2 { font-size: 28px; }
+}
+@container pf-main (max-width: 480px) {
+  #pf-wrap .pf-main-section .pf-inner { padding: 0 16px; }
+  #pf-wrap .pf-form-card { padding: 28px 20px; }
+  #pf-wrap .pf-info h2 { font-size: 24px; }
+}
+@media (max-width: 768px) {
+  #pf-wrap .pf-main-section { padding: 56px 0; }
+}
+@media (max-width: 480px) {
+  #pf-wrap .pf-main-section { padding: 40px 0; }
+}
+
+/* ── INTERACTIVE BUTTON ── */
+#pf-wrap .pf-btn {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--r-sm);
+  padding: 16px 36px;
+  font-size: 17px;
+  font-weight: 700;
+  cursor: pointer;
+  width: 100%;
+  font-family: inherit;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+#pf-wrap .pf-btn::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 60%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
+  transition: left 0.4s ease;
+  pointer-events: none;
+}
+#pf-wrap .pf-btn:hover::after,
+#pf-wrap .pf-btn.pf-btn--active::after { left: 140%; }
+#pf-wrap .pf-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(27,58,92,0.35);
+}
+#pf-wrap .pf-btn:active {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(27,58,92,0.2);
+}
+#pf-wrap .pf-btn.pf-btn--active {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(27,58,92,0.3);
+  animation: pfBtnPulse 2s ease-in-out infinite;
+}
+@keyframes pfBtnPulse {
+  0%, 100% { box-shadow: 0 6px 24px rgba(27,58,92,0.3); }
+  50%       { box-shadow: 0 6px 32px rgba(27,58,92,0.5), 0 0 0 5px rgba(27,58,92,0.1); }
+}
+#pf-wrap .pf-btn:disabled {
+  opacity: 0.75;
+  cursor: not-allowed;
+  transform: none;
+  animation: none;
+}
+
+/* ── FOOTER ── */
+#pf-wrap .pf-footer {
+  width: 100%;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  padding: 32px 0;
+}
+#pf-wrap .pf-footer .pf-inner {
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: 0 48px;
+  text-align: center;
+}
+#pf-wrap .pf-footer p {
+  font-size: 13px;
+  color: var(--muted);
+  margin: 0;
+}
+@media (max-width: 768px) {
+  #pf-wrap .pf-footer .pf-inner { padding: 0 24px; }
+}
+@media (max-width: 480px) {
+  #pf-wrap .pf-footer .pf-inner { padding: 0 16px; }
+}
+</style>
+
+<!-- ── HERO ── -->
+<section class="pf-hero">
+  <div class="pf-inner">
+    <h1>Test Funnel — Your Headline Goes Here</h1>
+    <p class="pf-sub">This is a placeholder subheadline. Replace with your value proposition in 1–2 sentences.</p>
+    <div class="pf-trust">
+      <span class="pf-pill">✓ Trust Signal One</span>
+      <span class="pf-pill">✓ Trust Signal Two</span>
+      <span class="pf-pill">✓ Trust Signal Three</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── MAIN SECTION ── -->
+<section class="pf-main-section">
+  <div class="pf-inner">
+
+    <!-- Left: copy -->
+    <div class="pf-info">
+      <h2>Why This Works</h2>
+      <p>This is the supporting copy area. Replace with your product or service benefits. Keep it short and scannable.</p>
+      <ul class="pf-bullets">
+        <li>First benefit — what the user gets</li>
+        <li>Second benefit — what problem it solves</li>
+        <li>Third benefit — what makes it different</li>
+        <li>Fourth benefit — why act now</li>
+      </ul>
+    </div>
+
+    <!-- Right: form card -->
+    <div class="pf-form-card">
+      <h3>Get Started Free</h3>
+      <p class="pf-form-sub">Fill in your details and we'll reach out within 24 hours.</p>
+
+      <div id="pf-form-wrap">
+        <form id="pf-form" novalidate onsubmit="pfSubmit(event)">
+
+          <div class="pf-field">
+            <label class="pf-label" for="pf-first">First Name <span class="pf-req" aria-hidden="true">*</span></label>
+            <input type="text" id="pf-first" class="pf-input" placeholder="John" autocomplete="given-name">
+          </div>
+
+          <div class="pf-field">
+            <label class="pf-label" for="pf-last">Last Name <span class="pf-req" aria-hidden="true">*</span></label>
+            <input type="text" id="pf-last" class="pf-input" placeholder="Doe" autocomplete="family-name">
+          </div>
+
+          <div class="pf-field">
+            <label class="pf-label" for="pf-phone">Phone <span class="pf-req" aria-hidden="true">*</span></label>
+            <input type="tel" id="pf-phone" class="pf-input" placeholder="+1 (555) 000-0000" inputmode="tel" autocomplete="tel">
+          </div>
+
+          <div class="pf-field">
+            <label class="pf-label" for="pf-email">Email <span class="pf-req" aria-hidden="true">*</span></label>
+            <input type="email" id="pf-email" class="pf-input" placeholder="john@email.com" inputmode="email" autocomplete="email">
+          </div>
+
+          <button type="submit" class="pf-btn" id="pf-btn">Get Started →</button>
+        </form>
+
+        <div id="pf-success" style="display:none; text-align:center; padding:32px 0;">
+          <div style="width:64px;height:64px;background:linear-gradient(135deg,#10B981,#059669);border-radius:50%;color:#fff;font-size:28px;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;">✓</div>
+          <div style="font-size:22px;font-weight:700;color:#111827;margin:0 0 8px;">You're all set!</div>
+          <p style="font-size:15px;color:#6B7280;margin:0;">We'll be in touch within 24 hours.</p>
+        </div>
+      </div>
+
+      <p class="pf-disclaimer">🔒 Your info is 100% private. No spam, ever.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer class="pf-footer">
+  <div class="pf-inner">
+    <p>© 2026 Test Funnel · <a href="#" style="color:#6B7280;">Privacy Policy</a> · <a href="#" style="color:#6B7280;">Terms</a></p>
+  </div>
+</footer>
+
+</div><!-- end #pf-wrap -->
+
+<script>
+function pfSubmit(e) {
+  e.preventDefault();
+
+  var WEBHOOK  = 'YOUR_WEBHOOK_URL_HERE';
+  var REDIRECT = 'YOUR_THANK_YOU_URL_HERE';
+
+  var firstName = document.getElementById('pf-first').value.trim();
+  var lastName  = document.getElementById('pf-last').value.trim();
+  var phone     = document.getElementById('pf-phone').value.trim();
+  var email     = document.getElementById('pf-email').value.trim();
+
+  var valid = true;
+  [['pf-first', firstName], ['pf-last', lastName], ['pf-phone', phone], ['pf-email', email]].forEach(function(pair) {
+    var el = document.getElementById(pair[0]);
+    if (!pair[1]) { el.classList.add('pf-err'); valid = false; }
+    else { el.classList.remove('pf-err'); }
+  });
+  if (!valid) return;
+
+  var btn = document.getElementById('pf-btn');
+  btn.textContent = 'Sending…';
+  btn.disabled = true;
+  btn.classList.remove('pf-btn--active');
+
+  fetch(WEBHOOK, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ firstName: firstName, lastName: lastName, phone: phone, email: email })
+  }).catch(function(){});
+
+  document.getElementById('pf-form').style.display = 'none';
+  document.getElementById('pf-success').style.display = 'block';
+  setTimeout(function(){ window.top.location.href = REDIRECT; }, 1800);
+}
+
+(function() {
+  var btn    = document.getElementById('pf-btn');
+  var inputs = document.querySelectorAll('#pf-form .pf-input');
+  var active = false;
+
+  inputs.forEach(function(input) {
+    input.addEventListener('focus', function() {
+      this.classList.remove('pf-err');
+      if (!active) { active = true; btn.classList.add('pf-btn--active'); }
+    });
+    input.addEventListener('blur', function() {
+      var anyFocused = Array.from(inputs).some(function(i) { return document.activeElement === i; });
+      if (!anyFocused) { active = false; btn.classList.remove('pf-btn--active'); }
+    });
+  });
+})();
+</script>
