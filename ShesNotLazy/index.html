@@ -139,6 +139,48 @@ body{
   color:var(--text);
 }
 
+/* ─── INTRO CARDS ─── */
+.intro-section{
+  padding:80px 40px 60px;
+  max-width:1200px;
+  margin:0 auto;
+}
+.intro-header{
+  text-align:center;
+  margin-bottom:48px;
+}
+.intro-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+.intro-card{
+  border-radius:16px;
+  overflow:hidden;
+  border:1px solid var(--border);
+  box-shadow:0 4px 24px rgba(26,12,4,0.08);
+  opacity:0;
+  transform:translateY(24px);
+  transition:opacity 0.55s ease, transform 0.55s ease, box-shadow 0.3s ease;
+}
+.intro-card.visible{
+  opacity:1;
+  transform:translateY(0);
+}
+.intro-card:hover{
+  box-shadow:0 10px 36px rgba(140,14,14,0.15);
+  transform:translateY(-4px);
+}
+.intro-card img{
+  width:100%;
+  height:auto;
+  display:block;
+}
+@media(max-width:768px){
+  .intro-section{ padding:60px 16px 40px; }
+  .intro-grid{ grid-template-columns:1fr; gap:16px; }
+}
+
 /* ─── ACCORDION ─── */
 .accordion-section{
   padding:100px 24px 120px;
@@ -535,6 +577,27 @@ body{
 <!-- ═══════════════════════════════════
      LASH STYLES — ACCORDION
 ═══════════════════════════════════ -->
+<!-- ═══════════════════════════════════
+     LASH INTRO CARDS
+═══════════════════════════════════ -->
+<div class="intro-section">
+  <div class="intro-header">
+    <span class="section-label">The Lashes</span>
+    <h2 class="section-title">Meet the Collection</h2>
+  </div>
+  <div class="intro-grid">
+    <div class="intro-card">
+      <img src="./Description/first.jpeg" alt="Pre-Glued Cluster Lashes — All Styles" loading="lazy">
+    </div>
+    <div class="intro-card">
+      <img src="./Description/second.jpeg" alt="For the queens who love volume" loading="lazy">
+    </div>
+    <div class="intro-card">
+      <img src="./Description/third.jpeg" alt="For the queens who love a natural finish" loading="lazy">
+    </div>
+  </div>
+</div>
+
 <section class="accordion-section">
   <div class="accordion-header">
     <span class="section-label">The Collection</span>
@@ -775,6 +838,17 @@ function closeLightboxBg(e) {
   if (e.target === document.getElementById('lightbox')) closeLightbox();
 }
 document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeLightbox(); });
+
+/* ── INTRO CARDS REVEAL ── */
+(function(){
+  var cards = document.querySelectorAll('.intro-card');
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){ entry.target.classList.add('visible'); obs.unobserve(entry.target); }
+    });
+  }, { threshold: 0.08 });
+  cards.forEach(function(c, i){ c.style.transitionDelay = (i * 120) + 'ms'; obs.observe(c); });
+})();
 
 /* ── REVIEWS SCROLL REVEAL ── */
 (function(){
