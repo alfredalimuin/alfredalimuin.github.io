@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ShesNotLazy — Premium Lashes</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Oswald:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ─── VARIABLES ─── */
+:root {
+  --warm-white: #E7E3DD;
+  --maroon: #8C0E0E;
+  --maroon-dim: rgba(140,14,14,0.18);
+  --bg: #0d0a09;
+  --surface: #130f0e;
+  --text: #E7E3DD;
+  --muted: rgba(231,227,221,0.5);
+  --border: rgba(231,227,221,0.1);
+}
+
+/* ─── RESET ─── */
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Montserrat',sans-serif;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+
+/* ─── HERO ─── */
+.hero{
+  position:relative;
+  min-height:100dvh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:40px 24px;
+  overflow:hidden;
+}
+.hero-video{
+  position:absolute;
+  top:50%;left:50%;
+  /* scale(1.45) zooms past the letterbox bars baked into the video */
+  transform:translate(-50%,-50%) scale(1.45);
+  min-width:100%;min-height:100%;
+  width:100vw;height:100vh;
+  object-fit:cover;
+  object-position:center center;
+  opacity:0.5;
+}
+/* gradient fallback behind video */
+.hero-gradient{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse at 65% 35%, rgba(140,14,14,0.25) 0%, transparent 65%),
+    radial-gradient(ellipse at 25% 75%, rgba(140,14,14,0.12) 0%, transparent 60%);
+}
+.hero-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(
+    to bottom,
+    rgba(13,10,9,0.35) 0%,
+    rgba(13,10,9,0.5)  50%,
+    rgba(13,10,9,0.88) 100%
+  );
+}
+.hero-content{
+  position:relative;
+  z-index:2;
+}
+/* ─── BRAND LOGO ─── */
+.hero-logo{
+  display:inline-flex;
+  flex-direction:column;
+  align-items:center;
+  margin-bottom:36px;
+  gap:0;
+}
+.logo-snl{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(64px,10vw,110px);
+  font-weight:600;
+  line-height:0.9;
+  display:flex;
+  align-items:flex-end;
+  letter-spacing:-0.07em;
+}
+.logo-s{
+  color:#8C0E0E;
+  position:relative;
+  z-index:3;
+}
+.logo-n{
+  color:var(--warm-white);
+  position:relative;
+  z-index:2;
+  margin-left:-0.13em;
+}
+.logo-l{
+  color:transparent;
+  -webkit-text-stroke:1.5px var(--warm-white);
+  position:relative;
+  z-index:1;
+  margin-left:-0.09em;
+}
+.logo-rule{
+  width:100%;
+  height:1px;
+  background:linear-gradient(to right,transparent,rgba(231,227,221,0.4),transparent);
+  margin:10px 0 8px;
+}
+.logo-wordmark{
+  font-family:'Montserrat',sans-serif;
+  font-size:clamp(8px,1.1vw,11px);
+  font-weight:400;
+  letter-spacing:0.42em;
+  text-transform:uppercase;
+  color:rgba(231,227,221,0.65);
+  white-space:nowrap;
+}
+.hero h1{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(50px,10vw,108px);
+  font-weight:600;
+  line-height:1.02;
+  letter-spacing:-0.01em;
+  color:var(--warm-white);
+  margin-bottom:22px;
+}
+.hero h1 em{font-style:italic;color:var(--maroon);}
+.hero-sub{
+  font-family:'Montserrat',sans-serif;
+  font-size:clamp(12px,1.8vw,15px);
+  font-weight:300;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  color:var(--muted);
+  line-height:1.8;
+  max-width:44ch;
+  margin:0 auto;
+}
+.hero-scroll{
+  margin-top:60px;
+  display:flex;flex-direction:column;
+  align-items:center;gap:10px;
+  color:var(--muted);
+  font-size:10px;
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  animation:pulse 2.5s ease-in-out infinite;
+}
+.scroll-line{
+  width:1px;height:44px;
+  background:linear-gradient(to bottom, var(--maroon), transparent);
+}
+@keyframes pulse{0%,100%{opacity:0.3;}50%{opacity:0.85;}}
+
+/* ─── SECTION TYPOGRAPHY ─── */
+.section-label{
+  font-family:'Montserrat',sans-serif;
+  font-size:10px;font-weight:500;
+  letter-spacing:0.3em;
+  text-transform:uppercase;
+  color:var(--maroon);
+  display:block;
+  margin-bottom:14px;
+}
+.section-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(34px,5vw,58px);
+  font-weight:500;
+  letter-spacing:-0.01em;
+  line-height:1.1;
+  color:var(--warm-white);
+}
+
+/* ─── ACCORDION ─── */
+.accordion-section{
+  padding:100px 24px 120px;
+  max-width:1280px;
+  margin:0 auto;
+}
+.accordion-header{
+  text-align:center;
+  margin-bottom:56px;
+}
+
+.accordion{
+  display:flex;
+  gap:8px;
+  height:78vh;
+  min-height:440px;
+  max-height:660px;
+}
+
+.accordion-panel{
+  flex:1;
+  border-radius:14px;
+  overflow:hidden;
+  position:relative;
+  cursor:pointer;
+  transition:flex 0.65s cubic-bezier(0.16,1,0.3,1);
+  border:1px solid var(--border);
+}
+.accordion-panel:hover,
+.accordion-panel.active{flex:5;}
+
+.panel-bg{
+  position:absolute;inset:0;
+  background-size:cover;
+  background-position:center top;
+  transition:transform 0.65s cubic-bezier(0.16,1,0.3,1);
+}
+.accordion-panel:hover .panel-bg,
+.accordion-panel.active .panel-bg{transform:scale(1.04);}
+
+.panel-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(
+    to top,
+    rgba(13,10,9,0.97) 0%,
+    rgba(13,10,9,0.55) 35%,
+    rgba(13,10,9,0.12) 65%,
+    transparent 100%
+  );
+}
+
+/* collapsed vertical label */
+.panel-label{
+  position:absolute;
+  left:50%;bottom:32px;
+  transform:translateX(-50%) rotate(-90deg);
+  font-family:'Oswald',sans-serif;
+  font-size:11px;font-weight:500;
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+  white-space:nowrap;
+  color:var(--warm-white);
+  z-index:2;
+  transition:opacity 0.25s;
+}
+.accordion-panel:hover .panel-label,
+.accordion-panel.active .panel-label{opacity:0;}
+
+/* expanded content */
+.panel-content{
+  position:absolute;
+  bottom:0;left:0;right:0;
+  padding:28px 22px;
+  z-index:2;
+}
+.panel-num{
+  font-size:10px;
+  letter-spacing:0.22em;
+  text-transform:uppercase;
+  color:var(--maroon);
+  font-family:'Montserrat',sans-serif;
+  font-weight:500;
+  margin-bottom:7px;
+  opacity:0;transform:translateY(8px);
+  transition:all 0.38s cubic-bezier(0.16,1,0.3,1) 0.04s;
+}
+.panel-name{
+  font-family:'Oswald',sans-serif;
+  font-size:clamp(18px,2.2vw,26px);
+  font-weight:600;
+  letter-spacing:0.03em;
+  text-transform:uppercase;
+  color:var(--warm-white);
+  margin-bottom:5px;
+  opacity:0;transform:translateY(10px);
+  transition:all 0.38s cubic-bezier(0.16,1,0.3,1) 0.09s;
+}
+.panel-tagline{
+  font-family:'Cormorant Garamond',serif;
+  font-size:13px;
+  font-style:italic;
+  color:var(--maroon);
+  margin-bottom:7px;
+  opacity:0;transform:translateY(10px);
+  transition:all 0.38s cubic-bezier(0.16,1,0.3,1) 0.14s;
+}
+.panel-desc{
+  font-size:11.5px;
+  color:var(--muted);
+  line-height:1.65;
+  max-width:27ch;
+  margin-bottom:9px;
+  opacity:0;transform:translateY(10px);
+  transition:all 0.38s cubic-bezier(0.16,1,0.3,1) 0.18s;
+}
+.panel-lengths{
+  font-size:10px;
+  letter-spacing:0.16em;
+  text-transform:uppercase;
+  color:rgba(231,227,221,0.38);
+  margin-bottom:16px;
+  opacity:0;transform:translateY(10px);
+  transition:all 0.38s cubic-bezier(0.16,1,0.3,1) 0.21s;
+}
+.panel-play{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background:var(--maroon);
+  color:var(--warm-white);
+  border:none;
+  padding:9px 20px;
+  border-radius:40px;
+  font-family:'Montserrat',sans-serif;
+  font-size:10px;
+  font-weight:600;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  cursor:pointer;
+  opacity:0;transform:translateY(10px);
+  transition:all 0.38s cubic-bezier(0.16,1,0.3,1) 0.24s, background 0.2s;
+}
+.panel-play:hover{background:#a51212;}
+.panel-play svg{width:11px;height:11px;flex-shrink:0;}
+
+.accordion-panel:hover .panel-num,
+.accordion-panel:hover .panel-name,
+.accordion-panel:hover .panel-tagline,
+.accordion-panel:hover .panel-desc,
+.accordion-panel:hover .panel-lengths,
+.accordion-panel:hover .panel-play,
+.accordion-panel.active .panel-num,
+.accordion-panel.active .panel-name,
+.accordion-panel.active .panel-tagline,
+.accordion-panel.active .panel-desc,
+.accordion-panel.active .panel-lengths,
+.accordion-panel.active .panel-play{
+  opacity:1;transform:translateY(0);
+}
+
+/* ─── LIGHTBOX ─── */
+.lightbox{
+  position:fixed;inset:0;
+  background:rgba(0,0,0,0.93);
+  z-index:1000;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+  opacity:0;pointer-events:none;
+  transition:opacity 0.28s;
+}
+.lightbox.open{opacity:1;pointer-events:all;}
+.lightbox-title{
+  font-family:'Oswald',sans-serif;
+  font-size:13px;
+  letter-spacing:0.25em;
+  text-transform:uppercase;
+  color:var(--maroon);
+  margin-bottom:20px;
+}
+.lightbox video{
+  max-width:min(940px,100%);
+  max-height:74vh;
+  border-radius:10px;
+  background:#000;
+}
+.lightbox-close{
+  position:absolute;top:22px;right:26px;
+  width:42px;height:42px;
+  background:none;
+  border:1px solid var(--border);
+  color:var(--warm-white);
+  border-radius:50%;
+  cursor:pointer;
+  font-size:17px;
+  display:flex;align-items:center;justify-content:center;
+  transition:border-color 0.2s,background 0.2s;
+}
+.lightbox-close:hover{background:rgba(231,227,221,0.08);border-color:var(--maroon);}
+
+/* ─── REVIEWS GRID ─── */
+.reviews-section{
+  padding:100px 0 120px;
+}
+.reviews-header{
+  text-align:center;
+  padding:0 24px;
+  margin-bottom:56px;
+}
+.reviews-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:16px;
+  padding:0 40px;
+  max-width:1100px;
+  margin:0 auto;
+}
+.review-tile{
+  border-radius:16px;
+  overflow:hidden;
+  border:1px solid var(--border);
+  background:var(--surface);
+  opacity:0;
+  transform:translateY(28px);
+  transition:opacity 0.55s ease, transform 0.55s ease, box-shadow 0.3s ease;
+  cursor:zoom-in;
+}
+.review-tile.visible{
+  opacity:1;
+  transform:translateY(0);
+}
+.review-tile:hover{
+  box-shadow:0 8px 36px rgba(140,14,14,0.22);
+  transform:translateY(-5px);
+}
+.review-tile img{
+  width:100%;height:auto;
+  display:block;
+}
+@media(max-width:768px){
+  .reviews-grid{
+    grid-template-columns:repeat(2,1fr);
+    padding:0 16px;
+    gap:12px;
+  }
+}
+@media(max-width:420px){
+  .reviews-grid{
+    grid-template-columns:1fr;
+  }
+}
+
+/* ─── DIVIDER ─── */
+.divider{
+  width:48px;height:1px;
+  background:var(--maroon);
+  margin:0 auto 24px;
+  opacity:0.6;
+}
+
+/* ─── FOOTER ─── */
+.footer{
+  border-top:1px solid var(--border);
+  padding:64px 24px 48px;
+  text-align:center;
+}
+.footer-logo{
+  font-family:'Oswald',sans-serif;
+  font-size:30px;font-weight:600;
+  letter-spacing:0.07em;
+  text-transform:uppercase;
+  color:var(--warm-white);
+  margin-bottom:8px;
+}
+.footer-tagline{
+  font-family:'Cormorant Garamond',serif;
+  font-size:17px;font-style:italic;
+  color:var(--muted);
+  margin-bottom:36px;
+}
+.social-links{
+  display:flex;
+  align-items:center;justify-content:center;
+  gap:16px;
+  margin-bottom:44px;
+}
+.social-link{
+  display:flex;align-items:center;justify-content:center;
+  width:46px;height:46px;
+  border-radius:50%;
+  border:1px solid var(--border);
+  color:var(--warm-white);
+  text-decoration:none;
+  transition:border-color 0.22s,background 0.22s;
+}
+.social-link:hover{border-color:var(--maroon);background:var(--maroon-dim);}
+.social-link svg{width:18px;height:18px;}
+.footer-copy{
+  font-size:11px;
+  color:rgba(231,227,221,0.25);
+  letter-spacing:0.07em;
+}
+
+/* ─── MOBILE ─── */
+@media(max-width:768px){
+  .accordion{
+    flex-direction:column;
+    height:auto;min-height:auto;max-height:none;
+  }
+  .accordion-panel{
+    height:66px;
+    flex:none !important;
+    transition:height 0.55s cubic-bezier(0.16,1,0.3,1);
+  }
+  .accordion-panel:hover,
+  .accordion-panel.active{
+    height:330px;
+    flex:none !important;
+  }
+  .panel-label{
+    writing-mode:horizontal-tb;
+    transform:translate(-50%,-50%);
+    top:50%;bottom:auto;
+    font-size:12px;
+  }
+  .panel-desc{max-width:38ch;}
+  .review-card{width:160px;height:212px;}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════
+     HERO
+═══════════════════════════════════ -->
+<section class="hero">
+
+  <!-- Download the video from Google Drive, rename it background.mp4, place it in this folder -->
+  <video class="hero-video" autoplay muted loop playsinline>
+    <source src="./background.mp4" type="video/mp4">
+  </video>
+
+  <div class="hero-gradient"></div>
+  <div class="hero-overlay"></div>
+
+  <div class="hero-content">
+    <div class="hero-logo">
+      <div class="logo-snl">
+        <span class="logo-s">S</span>
+        <span class="logo-n">N</span>
+        <span class="logo-l">L</span>
+      </div>
+      <div class="logo-rule"></div>
+      <div class="logo-wordmark">She's&thinsp;Not&thinsp;Lazy</div>
+    </div>
+    <h1>Lashes That<br>Do The <em>Talking</em></h1>
+    <p class="hero-sub">Handpicked styles for every queen<br>from effortless to iconic</p>
+    <div class="hero-scroll">
+      <span>Explore Styles</span>
+      <div class="scroll-line"></div>
+    </div>
+  </div>
+
+</section>
+
+
+<!-- ═══════════════════════════════════
+     LASH STYLES — ACCORDION
+═══════════════════════════════════ -->
+<section class="accordion-section">
+  <div class="accordion-header">
+    <span class="section-label">The Collection</span>
+    <h2 class="section-title">Find Your Look</h2>
+  </div>
+
+  <div class="accordion">
+
+    <!-- 01 THE CHARMER -->
+    <div class="accordion-panel" onclick="handlePanel(event,this)">
+      <div class="panel-bg" style="background-image:url('./THE CHARMER/STYLE THE go-getter - 5.png');"></div>
+      <div class="panel-overlay"></div>
+      <div class="panel-label">The Charmer</div>
+      <div class="panel-content">
+        <div class="panel-num">01</div>
+        <div class="panel-name">The Charmer</div>
+        <div class="panel-tagline">For the queens who love a natural finish</div>
+        <div class="panel-desc">Perfect for casual days, cute hangouts, and moments when you want a soft but unforgettable look.</div>
+        <div class="panel-lengths">Available: 8-10-12MM &nbsp;/&nbsp; 10-12-14MM</div>
+        <button class="panel-play" onclick="openLightbox(event,'The Charmer','./THE CHARMER/copy_E3302C0D-91E1-4FBD-BCD1-58CBE324E2B6.mov')">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Watch
+        </button>
+      </div>
+    </div>
+
+    <!-- 02 THE CHILL GIRL -->
+    <div class="accordion-panel" onclick="handlePanel(event,this)">
+      <div class="panel-bg" style="background-image:url('./THE CHILL GIRL/STYLE THE go-getter - 6.png');"></div>
+      <div class="panel-overlay"></div>
+      <div class="panel-label">The Chill Girl</div>
+      <div class="panel-content">
+        <div class="panel-num">02</div>
+        <div class="panel-name">The Chill Girl</div>
+        <div class="panel-tagline">For the queens who love a natural finish</div>
+        <div class="panel-desc">Perfect for those who want to look effortlessly gorgeous without overdoing it.</div>
+        <div class="panel-lengths">Available: 8-10-12MM &nbsp;/&nbsp; 10-12-14MM</div>
+        <button class="panel-play" onclick="openLightbox(event,'The Chill Girl','./THE CHILL GIRL/copy_E129B998-319F-4FCD-BF23-22B4DB1B7246.mov')">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Watch
+        </button>
+      </div>
+    </div>
+
+    <!-- 03 THE DIVA -->
+    <div class="accordion-panel" onclick="handlePanel(event,this)">
+      <div class="panel-bg" style="background-image:url('./THE DIVA/STYLE THE go-getter - 3.png');"></div>
+      <div class="panel-overlay"></div>
+      <div class="panel-label">The Diva</div>
+      <div class="panel-content">
+        <div class="panel-num">03</div>
+        <div class="panel-name">The Diva</div>
+        <div class="panel-tagline">For the queens who love volume</div>
+        <div class="panel-desc">Perfect for parties, special events, or any time you want to turn heads and shine.</div>
+        <div class="panel-lengths">Available: 10-10-12MM &nbsp;/&nbsp; 10-12-14MM</div>
+        <!-- No video yet for The Diva -->
+      </div>
+    </div>
+
+    <!-- 04 THE GLOW-UP -->
+    <div class="accordion-panel" onclick="handlePanel(event,this)">
+      <div class="panel-bg" style="background-image:url('./THE GLOW-UP/STYLE THE go-getter - 2.png');"></div>
+      <div class="panel-overlay"></div>
+      <div class="panel-label">The Glow-Up</div>
+      <div class="panel-content">
+        <div class="panel-num">04</div>
+        <div class="panel-name">The Glow-Up</div>
+        <div class="panel-tagline">For the queens who love volume</div>
+        <div class="panel-desc">Perfect for date nights, girls' nights, dinners, parties, brunch dates or anytime you want to steal the spotlight.</div>
+        <div class="panel-lengths">Available: 8-10-12MM &nbsp;/&nbsp; 10-12-14MM</div>
+        <button class="panel-play" onclick="openLightbox(event,'The Glow-Up','./THE GLOW-UP/copy_94E240BF-8A70-4769-98DC-07A437DDF40B.mov')">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Watch
+        </button>
+      </div>
+    </div>
+
+    <!-- 05 THE GO-GETTER -->
+    <div class="accordion-panel" onclick="handlePanel(event,this)">
+      <div class="panel-bg" style="background-image:url('./THE GO-GETTER/STYLE THE go-getter - 4.png');"></div>
+      <div class="panel-overlay"></div>
+      <div class="panel-label">The Go-Getter</div>
+      <div class="panel-content">
+        <div class="panel-num">05</div>
+        <div class="panel-name">The Go-Getter</div>
+        <div class="panel-tagline">For the queens who love a natural finish</div>
+        <div class="panel-desc">Perfect for adding just the right touch of glam, giving your eyes a subtle lift and effortless elegance every day.</div>
+        <div class="panel-lengths">Available: 8-10-12MM &nbsp;/&nbsp; 10-12-14MM</div>
+        <button class="panel-play" onclick="openLightbox(event,'The Go-Getter','./THE GO-GETTER/copy_1FE55004-BD78-447F-92C1-38803671C8BF.mov')">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Watch
+        </button>
+      </div>
+    </div>
+
+    <!-- 06 THE MAIN CHARACTER -->
+    <div class="accordion-panel" onclick="handlePanel(event,this)">
+      <div class="panel-bg" style="background-image:url('./THE MAIN CHARACTER/STYLE THE go-getter - 1.png');"></div>
+      <div class="panel-overlay"></div>
+      <div class="panel-label">The Main Character</div>
+      <div class="panel-content">
+        <div class="panel-num">06</div>
+        <div class="panel-name">The Main Character</div>
+        <div class="panel-tagline">For the queens who love volume</div>
+        <div class="panel-desc">Perfect for events, fancy dinners, travel, or anytime you want your eyes to steal the show.</div>
+        <div class="panel-lengths">Available: 10-12-14MM</div>
+        <button class="panel-play" onclick="openLightbox(event,'The Main Character','./THE MAIN CHARACTER/copy_0F6E6B7D-8A84-40E0-A590-880C6C776751.mov')">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Watch
+        </button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════
+     VIDEO LIGHTBOX
+═══════════════════════════════════ -->
+<!-- NOTE: .mov files work in Safari. For Chrome/Firefox, convert videos to .mp4 -->
+<div class="lightbox" id="lightbox" onclick="closeLightboxBg(event)">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+  <div class="lightbox-title" id="lightboxTitle"></div>
+  <video id="lightboxVideo" controls playsinline></video>
+</div>
+
+
+<!-- ═══════════════════════════════════
+     REVIEWS
+═══════════════════════════════════ -->
+<section class="reviews-section">
+  <div class="reviews-header">
+    <span class="section-label">Real Queens, Real Results</span>
+    <div class="divider"></div>
+    <h2 class="section-title">What Queens Are Saying</h2>
+  </div>
+
+  <div class="reviews-grid">
+    <div class="review-tile"><img src="./REVIEWS/IMG_4101.jpg" alt="Customer review" loading="lazy"></div>
+    <div class="review-tile"><img src="./REVIEWS/IMG_1811.jpg" alt="Customer review" loading="lazy"></div>
+    <div class="review-tile"><img src="./REVIEWS/27758B27-8611-4D6B-BD60-F17A119CF056_L0_001-21_03_2026, 10_36_10.jpg" alt="Customer review" loading="lazy"></div>
+    <div class="review-tile"><img src="./REVIEWS/IMG_0695.jpg" alt="Customer review" loading="lazy"></div>
+    <div class="review-tile"><img src="./REVIEWS/56805C04-CB2C-4191-B425-B07C3C2BEBF8_L0_001-18_03_2026, 18_23_58.jpg" alt="Customer review" loading="lazy"></div>
+    <div class="review-tile"><img src="./REVIEWS/IMG_2327.jpg" alt="Customer review" loading="lazy"></div>
+    <div class="review-tile"><img src="./REVIEWS/IMG_6962.jpeg" alt="Customer review" loading="lazy"></div>
+    <div class="review-tile"><img src="./REVIEWS/AF16E9ED-B886-49A9-905A-6333C7DA0809_L0_001-22_03_2026, 22_55_56.jpg" alt="Customer review" loading="lazy"></div>
+    <div class="review-tile"><img src="./REVIEWS/IMG_2303.jpg" alt="Customer review" loading="lazy"></div>
+    <div class="review-tile"><img src="./REVIEWS/232AEBA7-D239-4096-B8B2-CEDA8740F436_L0_001-26_03_2026, 10_32_17.jpg" alt="Customer review" loading="lazy"></div>
+    <div class="review-tile"><img src="./REVIEWS/IMG_8820.jpg" alt="Customer review" loading="lazy"></div>
+    <div class="review-tile"><img src="./REVIEWS/IMG_2564.jpg" alt="Customer review" loading="lazy"></div>
+    <div class="review-tile"><img src="./REVIEWS/D2D0AAF6-D945-4C31-A061-457F186E7DA3_L0_001-27_03_2026, 21_14_59.jpg" alt="Customer review" loading="lazy"></div>
+    <div class="review-tile"><img src="./REVIEWS/IMG_9712.jpg" alt="Customer review" loading="lazy"></div>
+    <div class="review-tile"><img src="./REVIEWS/IMG_5466.PNG" alt="Customer review" loading="lazy"></div>
+    <div class="review-tile"><img src="./REVIEWS/IMG_8822.jpg" alt="Customer review" loading="lazy"></div>
+    <div class="review-tile"><img src="./REVIEWS/IMG_2331.jpg" alt="Customer review" loading="lazy"></div>
+    <div class="review-tile"><img src="./REVIEWS/IMG_4277.jpg" alt="Customer review" loading="lazy"></div>
+    <div class="review-tile"><img src="./REVIEWS/IMG_0661.jpg" alt="Customer review" loading="lazy"></div>
+    <div class="review-tile"><img src="./REVIEWS/IMG_9708.jpg" alt="Customer review" loading="lazy"></div>
+    <div class="review-tile" style="display:none"><img src="./REVIEWS/IMG_5457.PNG" alt="Customer review" loading="lazy"></div>
+    <div class="review-tile" style="display:none"><img src="./REVIEWS/232AEBA7-D239-4096-B8B2-CEDA8740F436_L0_001-26_03_2026, 10_32_17 (1).jpg" alt="Customer review" loading="lazy"></div>
+  </div>
+
+</section>
+
+
+<!-- ═══════════════════════════════════
+     FOOTER
+═══════════════════════════════════ -->
+<footer class="footer">
+  <div class="footer-logo">ShesNotLazy</div>
+  <div class="footer-tagline">Because looking good is effortless.</div>
+
+  <div class="social-links">
+    <!-- Instagram -->
+    <a class="social-link" href="https://www.instagram.com/shesnotlazy?igsh=MXNxaXRwN2oxbHhycw%3D%3D&utm_source=qr" target="_blank" rel="noopener" aria-label="Instagram">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="2" width="20" height="20" rx="5"/>
+        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+      </svg>
+    </a>
+    <!-- Facebook -->
+    <a class="social-link" href="https://www.facebook.com/share/18JKUo8K7P/?mibextid=wwXIfr" target="_blank" rel="noopener" aria-label="Facebook">
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+      </svg>
+    </a>
+    <!-- TikTok -->
+    <a class="social-link" href="https://www.tiktok.com/@shesnotlazy?_r=1&_t=ZS-96dCklTVNPp" target="_blank" rel="noopener" aria-label="TikTok">
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z"/>
+      </svg>
+    </a>
+    <!-- WhatsApp -->
+    <a class="social-link" href="https://wa.me/97334416604" target="_blank" rel="noopener" aria-label="WhatsApp">
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+        <path d="M12.004 2C6.477 2 2 6.478 2 12.004c0 1.76.459 3.466 1.333 4.976L2 22l5.185-1.31A9.948 9.948 0 0 0 12.004 22C17.53 22 22 17.522 22 11.996 22 6.478 17.53 2 12.004 2zm0 18.214a8.217 8.217 0 0 1-4.192-1.148l-.3-.179-3.08.778.808-3.009-.198-.31A8.187 8.187 0 0 1 3.786 12c0-4.532 3.686-8.218 8.218-8.218 4.535 0 8.221 3.686 8.221 8.218 0 4.534-3.686 8.214-8.221 8.214z"/>
+      </svg>
+    </a>
+  </div>
+
+  <div class="footer-copy">© 2025 ShesNotLazy. All rights reserved.</div>
+</footer>
+
+
+<!-- ═══════════════════════════════════
+     SCRIPTS
+═══════════════════════════════════ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+/* ── ACCORDION ── */
+function handlePanel(e, panel) {
+  if (e.target.closest('.panel-play')) return;
+  var all = panel.parentElement.querySelectorAll('.accordion-panel');
+  var wasActive = panel.classList.contains('active');
+  all.forEach(function(p){ p.classList.remove('active'); });
+  if (!wasActive) panel.classList.add('active');
+}
+
+/* ── LIGHTBOX ── */
+function openLightbox(e, name, src) {
+  e.stopPropagation();
+  document.getElementById('lightboxTitle').textContent = name;
+  var vid = document.getElementById('lightboxVideo');
+  vid.src = src;
+  vid.load();
+  vid.play().catch(function(){});
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  var vid = document.getElementById('lightboxVideo');
+  vid.pause(); vid.src = '';
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function closeLightboxBg(e) {
+  if (e.target === document.getElementById('lightbox')) closeLightbox();
+}
+document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeLightbox(); });
+
+/* ── REVIEWS SCROLL REVEAL ── */
+(function(){
+  var tiles = document.querySelectorAll('.review-tile');
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        entry.target.classList.add('visible');
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+
+  tiles.forEach(function(tile, i){
+    tile.style.transitionDelay = (i % 3 * 90) + 'ms';
+    obs.observe(tile);
+  });
+})();
+</script>
+
+</body>
+</html>
