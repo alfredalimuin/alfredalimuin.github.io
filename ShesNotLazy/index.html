@@ -74,53 +74,14 @@ body{
 }
 /* ─── BRAND LOGO ─── */
 .hero-logo{
-  display:inline-flex;
-  flex-direction:column;
-  align-items:center;
   margin-bottom:36px;
-  gap:0;
 }
-.logo-snl{
-  font-family:'Cormorant Garamond',serif;
-  font-size:clamp(64px,10vw,110px);
-  font-weight:600;
-  line-height:0.9;
-  display:flex;
-  align-items:flex-end;
-  letter-spacing:-0.07em;
-}
-.logo-s{
-  color:#8C0E0E;
-  position:relative;
-  z-index:3;
-}
-.logo-n{
-  color:var(--warm-white);
-  position:relative;
-  z-index:2;
-  margin-left:-0.13em;
-}
-.logo-l{
-  color:transparent;
-  -webkit-text-stroke:1.5px var(--warm-white);
-  position:relative;
-  z-index:1;
-  margin-left:-0.09em;
-}
-.logo-rule{
-  width:100%;
-  height:1px;
-  background:linear-gradient(to right,transparent,rgba(231,227,221,0.4),transparent);
-  margin:10px 0 8px;
-}
-.logo-wordmark{
-  font-family:'Montserrat',sans-serif;
-  font-size:clamp(8px,1.1vw,11px);
-  font-weight:400;
-  letter-spacing:0.42em;
-  text-transform:uppercase;
-  color:rgba(231,227,221,0.65);
-  white-space:nowrap;
+.brand-logo-img{
+  width:clamp(160px,22vw,300px);
+  height:auto;
+  display:block;
+  margin:0 auto;
+  filter:drop-shadow(0 2px 12px rgba(0,0,0,0.6)) brightness(1.15);
 }
 .hero h1{
   font-family:'Cormorant Garamond',serif;
@@ -527,13 +488,7 @@ body{
 
   <div class="hero-content">
     <div class="hero-logo">
-      <div class="logo-snl">
-        <span class="logo-s">S</span>
-        <span class="logo-n">N</span>
-        <span class="logo-l">L</span>
-      </div>
-      <div class="logo-rule"></div>
-      <div class="logo-wordmark">She's&thinsp;Not&thinsp;Lazy</div>
+      <img src="./Asset 24 dark.png" alt="She's Not Lazy" class="brand-logo-img">
     </div>
     <h1>Lashes That<br>Do The <em>Talking</em></h1>
     <p class="hero-sub">Handpicked styles for every queen<br>from effortless to iconic</p>
