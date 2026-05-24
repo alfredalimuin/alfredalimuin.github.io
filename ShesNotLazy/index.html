@@ -444,6 +444,34 @@ body{
   letter-spacing:0.07em;
 }
 
+/* ─── INQUIRY BUTTON ─── */
+.inquiry-btn{
+  position:fixed;
+  top:20px;
+  right:24px;
+  z-index:999;
+  background:rgba(140,14,14,0.92);
+  color:#E7E3DD;
+  font-family:'Montserrat',sans-serif;
+  font-size:12px;
+  font-weight:600;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  text-decoration:none;
+  padding:10px 20px;
+  border-radius:100px;
+  backdrop-filter:blur(8px);
+  border:1px solid rgba(231,227,221,0.15);
+  transition:background 0.2s, transform 0.2s, box-shadow 0.2s;
+  box-shadow:0 4px 20px rgba(0,0,0,0.35);
+  white-space:nowrap;
+}
+.inquiry-btn:hover{
+  background:#8C0E0E;
+  transform:translateY(-2px);
+  box-shadow:0 8px 28px rgba(140,14,14,0.45);
+}
+
 /* ─── MOBILE ─── */
 @media(max-width:768px){
   .accordion{
@@ -472,6 +500,8 @@ body{
 </style>
 </head>
 <body>
+
+<a href="#contact" class="inquiry-btn">For Inquiries</a>
 
 <!-- ═══════════════════════════════════
      HERO
@@ -668,7 +698,7 @@ body{
 <!-- ═══════════════════════════════════
      FOOTER
 ═══════════════════════════════════ -->
-<footer class="footer">
+<footer class="footer" id="contact">
   <div class="footer-logo">ShesNotLazy</div>
   <div class="footer-tagline">Because looking good is effortless.</div>
 
