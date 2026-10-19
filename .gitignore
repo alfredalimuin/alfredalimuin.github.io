@@ -7,3 +7,5 @@
 
 # Misc
 *.pyc
+# Claude MCP config - holds local keys, never publish
+.mcp.json
